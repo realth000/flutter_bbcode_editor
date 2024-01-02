@@ -1,9 +1,37 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app_state_manager.dart';
 import 'formatting_toolbar.dart' show ToggleButtonsState;
 import 'replacements.dart';
+
+typedef InlineSpanBuilder = InlineSpan Function(String, TextStyle);
+
+@immutable
+class SpanGenerator {
+  const SpanGenerator({
+    required this.style,
+    this.buildRecognizer,
+  });
+
+  TextSpan buildText(String text) {
+    TextStyle s = style;
+    if (buildRecognizer != null) {
+      s = s.copyWith(color: Colors.blue);
+    }
+
+    return TextSpan(
+      text: text,
+      style: s,
+      // recognizer: buildRecognizer?.call(text),
+    );
+  }
+
+  final GestureRecognizer Function(String)? buildRecognizer;
+  final TextStyle style;
+}
+
 
 class BBCodeEditorState {
   const BBCodeEditorState({
@@ -144,10 +172,33 @@ class BBCodeScopeWidgetState extends State<BBCodeScopeWidget> {
   }
 
   void updateToggleButtonsStateOnButtonPressed(int index) {
-    Map<int, TextStyle> attributeMap = const <int, TextStyle>{
-      0: TextStyle(fontWeight: FontWeight.bold),
-      1: TextStyle(fontStyle: FontStyle.italic),
-      2: TextStyle(decoration: TextDecoration.underline),
+    // Index is synced with ToggleButtonState in formatting_toolbar.dart.
+    final attributeMap = <int, SpanGenerator>{
+      // Bold
+      ToggleButtonsState.bold.index: SpanGenerator(
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      // Italic
+      ToggleButtonsState.italic.index: const SpanGenerator(
+        style: TextStyle(fontStyle: FontStyle.italic),
+      ),
+      // Underline.
+      ToggleButtonsState.underline.index: const SpanGenerator(
+        style: TextStyle(decoration: TextDecoration.underline),
+      ),
+      // Url
+      ToggleButtonsState.url.index: SpanGenerator(
+        buildRecognizer: (text) => TapGestureRecognizer()
+          ..onTap = () async {
+            print('>>> tap url text: $text');
+          },
+        style: const TextStyle(
+          decoration: TextDecoration.underline,
+          decorationStyle: TextDecorationStyle.dashed,
+        ),
+      ),
     };
 
     final BBCodeEditController controller = _data.replacementsController;
@@ -175,16 +226,18 @@ class BBCodeScopeWidgetState extends State<BBCodeScopeWidget> {
       controller.applyReplacement(
         TextEditingInlineSpanReplacement(
           replacementRange,
-          (string, range) => TextSpan(text: string, style: attributeMap[index]),
+          (string, range) => attributeMap[index]!.buildText(string),
           true,
         ),
       );
       _data = _data.copyWith(replacementsController: controller);
       setState(() {});
     } else {
-      controller.disableExpand(attributeMap[index]!);
+      controller.disableExpand(attributeMap[index]!.style);
       controller.removeReplacementsAtRange(
-          replacementRange, attributeMap[index]);
+        replacementRange,
+        attributeMap[index]!.style,
+      );
       _data = _data.copyWith(replacementsController: controller);
       setState(() {});
     }

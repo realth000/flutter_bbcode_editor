@@ -8,6 +8,7 @@ enum ToggleButtonsState {
   bold,
   italic,
   underline,
+  url,
 }
 
 class BBCodeToolbar extends StatelessWidget {
@@ -31,6 +32,8 @@ class BBCodeToolbar extends StatelessWidget {
                   .contains(ToggleButtonsState.italic),
               manager.bbcodeState.toggleButtonsState
                   .contains(ToggleButtonsState.underline),
+              manager.bbcodeState.toggleButtonsState
+                  .contains(ToggleButtonsState.url),
             ],
             onPressed: (index) => BBCodeScopeWidget.of(context)
                 .updateToggleButtonsStateOnButtonPressed(index),
@@ -38,6 +41,7 @@ class BBCodeToolbar extends StatelessWidget {
               Icon(Icons.format_bold),
               Icon(Icons.format_italic),
               Icon(Icons.format_underline),
+              Icon(Icons.link),
             ],
           ),
         ],
