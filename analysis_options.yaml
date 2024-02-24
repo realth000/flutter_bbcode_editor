@@ -1,1 +1,5 @@
-include: package:analysis_defaults/flutter.yaml
+include: package:very_good_analysis/analysis_options.yaml
+
+linter:
+  rules:
+    flutter_style_todos: false

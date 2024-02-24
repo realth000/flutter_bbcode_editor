@@ -1,5 +1,14 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:universal_html/html.dart' as uh;
 
 void main() {
   runApp(const MyApp());
@@ -10,16 +19,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BBCodeScopeWidget(
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Simplistic Editor',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          useMaterial3: true,
-        ),
-        home: const MyHomePage(title: 'Simplistic Editor'),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Simplistic Editor',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        useMaterial3: true,
       ),
+      home: const MyHomePage(title: 'Simplistic Editor'),
     );
   }
 }
@@ -34,81 +41,181 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late BBCodeEditController _replacementTextEditingController;
-  final FocusNode _focusNode = FocusNode();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  late WidgetBuilder _widgetBuilder;
+  late EditorState _editorState;
+  late Future<String> _jsonString;
 
   @override
   void initState() {
     super.initState();
-    _replacementTextEditingController = BBCodeEditController();
+
+    _jsonString = PlatformExtension.isDesktopOrWeb
+        ? rootBundle.loadString('assets/example.json')
+        : rootBundle.loadString('assets/mobile_example.json');
+
+    _widgetBuilder = (context) => Editor(
+          jsonString: _jsonString,
+          onEditorStateChange: (editorState) {
+            _editorState = editorState;
+          },
+        );
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _replacementTextEditingController =
-        BBCodeStateManager.of(context).bbcodeState.replacementsController;
-  }
+  void reassemble() {
+    super.reassemble();
 
-  static Route<Object?> _aboutDialogBuilder(
-      BuildContext context, Object? arguments) {
-    const String aboutContent =
-        'TextEditingDeltas are a new feature in the latest Flutter stable release that give the user'
-        ' finer grain control over the changes that occur during text input. There are four types of'
-        ' deltas: Insertion, Deletion, Replacement, and NonTextUpdate. To gain access to these TextEditingDeltas'
-        ' you must implement DeltaTextInputClient, and set enableDeltaModel to true in the TextInputConfiguration.'
-        ' Before Flutter only provided the TextInputClient, which does not provide a delta between the current'
-        ' and previous text editing states. DeltaTextInputClient does provide these deltas, allowing the user to build'
-        ' more powerful rich text editing applications such as this small example. This feature is supported on all platforms.';
-    return DialogRoute<void>(
-      context: context,
-      builder: (context) => const AlertDialog(
-        title: Center(child: Text('About')),
-        content: Text(aboutContent),
-      ),
-    );
+    _widgetBuilder = (context) => Editor(
+          jsonString: _jsonString,
+          onEditorStateChange: (editorState) {
+            _editorState = editorState;
+            _jsonString = Future.value(
+              jsonEncode(_editorState.document.toJson()),
+            );
+          },
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      extendBodyBehindAppBar: PlatformExtension.isDesktopOrWeb,
       appBar: AppBar(
-        title: Text(widget.title),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).restorablePush(_aboutDialogBuilder);
-            },
-            icon: const Icon(Icons.info_outline),
-          ),
-        ],
+        backgroundColor: const Color.fromARGB(255, 134, 46, 247),
+        foregroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
+        title: const Text('AppFlowy Editor'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: Column(
-            children: [
-              const BBCodeToolbar(),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 35.0),
-                  child: BBCodeTextField(
-                    controller: _replacementTextEditingController,
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                      color: Colors.black,
-                    ),
-                    focusNode: _focusNode,
-                  ),
-                ),
-              ),
-              const Expanded(
-                child: BBCodeEditingDeltaHistoryView(),
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: SafeArea(child: _widgetBuilder(context)),
     );
+  }
+
+  Future<void> _loadEditor(
+    BuildContext context,
+    Future<String> jsonString, {
+    TextDirection textDirection = TextDirection.ltr,
+  }) async {
+    final completer = Completer<void>();
+    _jsonString = jsonString;
+    setState(
+      () {
+        _widgetBuilder = (context) => Editor(
+              jsonString: _jsonString,
+              onEditorStateChange: (editorState) {
+                _editorState = editorState;
+              },
+              // textDirection: textDirection,
+            );
+      },
+    );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      completer.complete();
+    });
+    return completer.future;
+  }
+
+  void _exportFile(
+    EditorState editorState,
+    ExportFileType fileType,
+  ) async {
+    var result = '';
+
+    switch (fileType) {
+      case ExportFileType.documentJson:
+        result = jsonEncode(editorState.document.toJson());
+        break;
+      case ExportFileType.markdown:
+        result = documentToMarkdown(editorState.document);
+        break;
+      case ExportFileType.html:
+      case ExportFileType.delta:
+        throw UnimplementedError();
+    }
+
+    if (kIsWeb) {
+      final blob = uh.Blob([result], 'text/plain', 'native');
+      uh.AnchorElement(
+        href: uh.Url.createObjectUrlFromBlob(blob).toString(),
+      )
+        ..setAttribute('download', 'document.${fileType.extension}')
+        ..click();
+    } else if (PlatformExtension.isMobile) {
+      final appStorageDirectory = await getApplicationDocumentsDirectory();
+
+      final path = File(
+        '${appStorageDirectory.path}/${DateTime.now()}.${fileType.extension}',
+      );
+      await path.writeAsString(result);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'This document is saved to the ${appStorageDirectory.path}',
+            ),
+          ),
+        );
+      }
+    } else {
+      // for desktop
+      final path = await FilePicker.platform.saveFile(
+        fileName: 'document.${fileType.extension}',
+      );
+      if (path != null) {
+        await File(path).writeAsString(result);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('This document is saved to the $path'),
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  void _importFile(ExportFileType fileType) async {
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      allowedExtensions: [fileType.extension],
+      type: FileType.custom,
+    );
+    var plainText = '';
+    if (!kIsWeb) {
+      final path = result?.files.single.path;
+      if (path == null) {
+        return;
+      }
+      plainText = await File(path).readAsString();
+    } else {
+      final bytes = result?.files.first.bytes;
+      if (bytes == null) {
+        return;
+      }
+      plainText = const Utf8Decoder().convert(bytes);
+    }
+
+    var jsonString = '';
+    switch (fileType) {
+      case ExportFileType.documentJson:
+        jsonString = plainText;
+        break;
+      case ExportFileType.markdown:
+        jsonString = jsonEncode(markdownToDocument(plainText).toJson());
+        break;
+      case ExportFileType.delta:
+        final delta = Delta.fromJson(jsonDecode(plainText));
+        final document = quillDeltaEncoder.convert(delta);
+        jsonString = jsonEncode(document.toJson());
+        break;
+      case ExportFileType.html:
+        throw UnimplementedError();
+    }
+
+    if (mounted) {
+      _loadEditor(context, Future<String>.value(jsonString));
+    }
   }
 }
