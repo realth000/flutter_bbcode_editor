@@ -1,19 +1,19 @@
-enum ExportFileType {
+enum BBCodeFileType {
   documentJson,
   markdown,
   html,
   delta,
 }
 
-extension GetExtension on ExportFileType {
+extension GetExtension on BBCodeFileType {
   String get extension {
     switch (this) {
-      case ExportFileType.documentJson:
-      case ExportFileType.delta:
+      case BBCodeFileType.documentJson:
+      case BBCodeFileType.delta:
         return 'json';
-      case ExportFileType.markdown:
+      case BBCodeFileType.markdown:
         return 'md';
-      case ExportFileType.html:
+      case BBCodeFileType.html:
         return 'html';
     }
   }

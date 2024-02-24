@@ -1,3 +1,2 @@
-export 'src/editor.dart' show Editor;
-export 'src/file_type.dart' show ExportFileType, GetExtension;
-export 'src/reexport.dart';
+export 'src/editor.dart' show BBCodeEditor, BBCodeEditorController;
+export 'src/file_type.dart' show BBCodeFileType;

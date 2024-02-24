@@ -1,31 +1,26 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bbcode_editor/src/basic_editor.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
 
 /// Editor used on desktop platforms.
 ///
 /// Have floating context menu, handle text click events and more.
-class DesktopEditor extends StatefulWidget {
+final class DesktopEditor extends BasicEditor {
   /// Constructor.
   const DesktopEditor({
-    required this.editorState,
-    required this.themeData,
+    required super.editorState,
+    required super.themeData,
+    super.controller,
     super.key,
   });
 
-  /// The state of editor.
-  final EditorState editorState;
-
-  /// Theme of editor.
-  ///
-  /// Required because we can not access context during init state.
-  final ThemeData themeData;
-
   @override
-  State<DesktopEditor> createState() => _DesktopEditorState();
+  State<BasicEditor> createState() => _DesktopEditorState();
 }
 
-final class _DesktopEditorState extends State<DesktopEditor> {
+final class _DesktopEditorState extends BasicEditorState {
   late final EditorScrollController editorScrollController;
   late EditorStyle editorStyle;
   late Map<String, BlockComponentBuilder> blockComponentBuilders;
@@ -116,6 +111,11 @@ final class _DesktopEditorState extends State<DesktopEditor> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   void reassemble() {
     super.reassemble();
 
@@ -155,14 +155,6 @@ final class _DesktopEditorState extends State<DesktopEditor> {
           blockComponentBuilders: blockComponentBuilders,
           commandShortcutEvents: commandShortcuts,
           editorStyle: editorStyle,
-          //header: Padding(
-          //  padding: const EdgeInsets.only(bottom: 10),
-          //  child: Image.asset(
-          //    'assets/images/header.png',
-          //    fit: BoxFit.fitWidth,
-          //    height: 150,
-          //  ),
-          //),
           footer: const SizedBox(
             height: 100,
           ),

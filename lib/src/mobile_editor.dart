@@ -1,31 +1,25 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bbcode_editor/src/basic_editor.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
 
 /// Editor used on mobile platforms.
 ///
 /// Have toolbar.
-final class MobileEditor extends StatefulWidget {
+final class MobileEditor extends BasicEditor {
   /// Constructor.
   const MobileEditor({
-    required this.editorState,
-    required this.themeData,
+    required super.editorState,
+    required super.themeData,
+    required super.controller,
     super.key,
   });
 
-  /// The state of editor.
-  final EditorState editorState;
-
-  /// Theme of editor.
-  ///
-  /// Required because we can not access context during init state.
-  final ThemeData themeData;
-
   @override
-  State<MobileEditor> createState() => _MobileEditorState();
+  State<BasicEditor> createState() => _MobileEditorState();
 }
 
-final class _MobileEditorState extends State<MobileEditor> {
+final class _MobileEditorState extends BasicEditorState {
   late final EditorScrollController editorScrollController;
   late EditorStyle editorStyle;
   late Map<String, BlockComponentBuilder> blockComponentBuilders;
@@ -40,15 +34,6 @@ final class _MobileEditorState extends State<MobileEditor> {
       cursorColor: primaryColor,
       dragHandleColor: primaryColor,
       selectionColor: secondaryColor,
-      // textStyleConfiguration: TextStyleConfiguration(
-      //      text: GoogleFonts.poppins(
-      //        fontSize: 14,
-      //        color: Colors.black,
-      //      ),
-      //      code: GoogleFonts.sourceCodePro(
-      //        backgroundColor: Colors.grey.shade200,
-      //      ),
-      //     ),
       padding: const EdgeInsets.symmetric(horizontal: 24),
       magnifierSize: const Size(144, 96),
       mobileDragHandleBallSize: const Size(12, 12),
@@ -82,7 +67,6 @@ final class _MobileEditorState extends State<MobileEditor> {
     editorScrollController = EditorScrollController(
       editorState: widget.editorState,
     );
-
     editorStyle = _buildMobileEditorStyle();
     blockComponentBuilders = _buildBlockComponentBuilders();
   }
@@ -90,7 +74,6 @@ final class _MobileEditorState extends State<MobileEditor> {
   @override
   void reassemble() {
     super.reassemble();
-
     editorStyle = _buildMobileEditorStyle();
     blockComponentBuilders = _buildBlockComponentBuilders();
   }
@@ -111,51 +94,39 @@ final class _MobileEditorState extends State<MobileEditor> {
         dividerMobileToolbarItem,
       ],
       editorState: widget.editorState,
-      child: Column(
-        children: [
-          Expanded(
-            child: MobileFloatingToolbar(
-              editorState: widget.editorState,
-              editorScrollController: editorScrollController,
-              toolbarBuilder: (context, anchor, closeToolbar) {
-                return AdaptiveTextSelectionToolbar.editable(
-                  clipboardStatus: ClipboardStatus.pasteable,
-                  onCopy: () {
-                    copyCommand.execute(widget.editorState);
-                    closeToolbar();
-                  },
-                  onCut: () => cutCommand.execute(widget.editorState),
-                  onPaste: () => pasteCommand.execute(widget.editorState),
-                  onSelectAll: () =>
-                      selectAllCommand.execute(widget.editorState),
-                  onLiveTextInput: null,
-                  onLookUp: null,
-                  onSearchWeb: null,
-                  onShare: null,
-                  anchors: TextSelectionToolbarAnchors(
-                    primaryAnchor: anchor,
-                  ),
-                );
+      child: Expanded(
+        child: MobileFloatingToolbar(
+          editorState: widget.editorState,
+          editorScrollController: editorScrollController,
+          toolbarBuilder: (context, anchor, closeToolbar) {
+            return AdaptiveTextSelectionToolbar.editable(
+              clipboardStatus: ClipboardStatus.pasteable,
+              onCopy: () {
+                copyCommand.execute(widget.editorState);
+                closeToolbar();
               },
-              child: AppFlowyEditor(
-                editorStyle: editorStyle,
-                editorState: widget.editorState,
-                editorScrollController: editorScrollController,
-                blockComponentBuilders: blockComponentBuilders,
-                showMagnifier: true,
-                // header: Padding(
-                //   padding: const EdgeInsets.only(bottom: 10),
-                //   child: Image.asset(
-                //     'assets/images/header.png',
-                //   ),
-                // ),
-                footer: const SizedBox(
-                  height: 100,
-                ),
+              onCut: () => cutCommand.execute(widget.editorState),
+              onPaste: () => pasteCommand.execute(widget.editorState),
+              onSelectAll: () => selectAllCommand.execute(widget.editorState),
+              onLiveTextInput: null,
+              onLookUp: null,
+              onSearchWeb: null,
+              onShare: null,
+              anchors: TextSelectionToolbarAnchors(
+                primaryAnchor: anchor,
               ),
+            );
+          },
+          child: AppFlowyEditor(
+            editorStyle: editorStyle,
+            editorState: widget.editorState,
+            editorScrollController: editorScrollController,
+            blockComponentBuilders: blockComponentBuilders,
+            footer: const SizedBox(
+              height: 100,
             ),
           ),
-        ],
+        ),
       ),
     );
   }
