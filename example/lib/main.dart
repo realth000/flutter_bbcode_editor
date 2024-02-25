@@ -9,18 +9,36 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+var themeMode = ValueNotifier(ThemeMode.light);
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'BBCode Editor demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: themeMode,
+      builder: (context, themeMode, child) => MaterialApp(
+        themeMode: themeMode,
+        title: 'BBCode Editor demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        darkTheme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.deepPurple,
+            brightness: Brightness.dark,
+          ),
+          useMaterial3: true,
+        ),
+        home: const MyHomePage(title: 'BBCode Editor Demo'),
       ),
-      home: const MyHomePage(title: 'BBCode Editor Demo'),
     );
   }
 }
@@ -56,6 +74,23 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Column(
           children: [
+            Row(
+              children: [
+                Text('Dark Mode'),
+                Switch(
+                  value: themeMode.value == ThemeMode.dark,
+                  onChanged: (v) {
+                    setState(() {
+                      if (v == true) {
+                        themeMode.value = ThemeMode.dark;
+                      } else {
+                        themeMode.value = ThemeMode.light;
+                      }
+                    });
+                  },
+                )
+              ],
+            ),
             Row(
               children: [
                 TextButton.icon(

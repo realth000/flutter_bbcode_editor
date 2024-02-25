@@ -44,12 +44,15 @@ class BBCodeEditor extends StatefulWidget {
   State<BBCodeEditor> createState() => _BBCodeEditorState();
 }
 
-final class _BBCodeEditorState extends State<BBCodeEditor> {
+final class _BBCodeEditorState extends State<BBCodeEditor>
+    with WidgetsBindingObserver {
   EditorState? editorState;
   bool initialized = false;
 
   Future<void> _traverse(
-      Node node, FutureOr<void> Function(Node node) work) async {
+    Node node,
+    FutureOr<void> Function(Node node) work,
+  ) async {
     await work(node);
     for (final ch in node.children) {
       await _traverse(ch, work);
@@ -232,12 +235,14 @@ final class _BBCodeEditorState extends State<BBCodeEditor> {
             return DesktopEditor(
               editorState: editorState!,
               themeData: Theme.of(context),
+              brightness: MediaQuery.of(context).platformBrightness,
               controller: widget.controller,
             );
           } else if (PlatformExtension.isMobile) {
             return MobileEditor(
               editorState: editorState!,
               themeData: Theme.of(context),
+              brightness: MediaQuery.of(context).platformBrightness,
               controller: widget.controller,
             );
           }

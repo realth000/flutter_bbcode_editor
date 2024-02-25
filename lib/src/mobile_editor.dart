@@ -2,6 +2,7 @@ import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/basic_editor.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
+import 'package:flutter_bbcode_editor/src/utils.dart';
 
 /// Editor used on mobile platforms.
 ///
@@ -11,6 +12,7 @@ final class MobileEditor extends BasicEditor {
   const MobileEditor({
     required super.editorState,
     required super.themeData,
+    required super.brightness,
     required super.controller,
     super.key,
   });
@@ -28,15 +30,25 @@ final class _MobileEditorState extends BasicEditorState {
   /// Build the editor appearance including cursor style, colorscheme and more.
   EditorStyle _buildMobileEditorStyle() {
     final primaryColor = widget.themeData.colorScheme.primary;
-    final secondaryColor = widget.themeData.colorScheme.secondary;
+    final selectionColor = switch (widget.brightness) {
+      Brightness.light =>
+        widget.themeData.colorScheme.primaryContainer.brighten(),
+      Brightness.dark => widget.themeData.colorScheme.primaryContainer.darken(),
+    };
 
     return EditorStyle.mobile(
-      cursorColor: primaryColor,
+      cursorWidth: 2.1,
+      cursorColor: widget.themeData.colorScheme.primary,
       dragHandleColor: primaryColor,
-      selectionColor: secondaryColor,
+      selectionColor: selectionColor,
       padding: const EdgeInsets.symmetric(horizontal: 24),
       magnifierSize: const Size(144, 96),
       mobileDragHandleBallSize: const Size(12, 12),
+      textStyleConfiguration: TextStyleConfiguration(
+        text: TextStyle(
+          color: widget.themeData.textTheme.bodyLarge?.color ?? Colors.white,
+        ),
+      ),
     );
   }
 
@@ -69,6 +81,12 @@ final class _MobileEditorState extends BasicEditorState {
     );
     editorStyle = _buildMobileEditorStyle();
     blockComponentBuilders = _buildBlockComponentBuilders();
+  }
+
+  @override
+  void dispose() {
+    editorScrollController.dispose();
+    super.dispose();
   }
 
   @override
