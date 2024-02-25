@@ -312,7 +312,7 @@
             "data": {
               "colPosition": 0,
               "rowPosition": 0,
-              "height": 43.0,
+              "height": 41.0,
               "width": 80.0
             }
           },
@@ -333,7 +333,7 @@
             "data": {
               "colPosition": 0,
               "rowPosition": 1,
-              "height": 43.0,
+              "height": 41.0,
               "width": 80.0
             }
           },
@@ -354,7 +354,7 @@
             "data": {
               "colPosition": 1,
               "rowPosition": 0,
-              "height": 43.0,
+              "height": 41.0,
               "width": 80.0
             }
           },
@@ -375,7 +375,7 @@
             "data": {
               "colPosition": 1,
               "rowPosition": 1,
-              "height": 43.0,
+              "height": 41.0,
               "width": 80.0
             }
           },
@@ -396,7 +396,7 @@
             "data": {
               "colPosition": 2,
               "rowPosition": 0,
-              "height": 43.0,
+              "height": 41.0,
               "width": 80.0
             }
           },
@@ -417,7 +417,7 @@
             "data": {
               "colPosition": 2,
               "rowPosition": 1,
-              "height": 43.0,
+              "height": 41.0,
               "width": 80.0
             }
           }
@@ -428,7 +428,7 @@
           "colDefaultWidth": 80.0,
           "rowDefaultHeight": 40.0,
           "colMinimumWidth": 40.0,
-          "colsHeight": 92.0
+          "colsHeight": 88.0
         }
       },
       {

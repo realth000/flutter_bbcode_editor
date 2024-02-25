@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/desktop_editor.dart';
 import 'package:flutter_bbcode_editor/src/file_type.dart';
 import 'package:flutter_bbcode_editor/src/mobile_editor.dart';
+import 'package:flutter_bbcode_editor/src/node.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:universal_html/html.dart' as uh;
 
@@ -51,11 +52,17 @@ final class _BBCodeEditorState extends State<BBCodeEditor>
 
   Future<void> _traverse(
     Node node,
-    FutureOr<void> Function(Node node) work,
+    List<String> contentStack,
+    int contentLevel,
+    FutureOr<void> Function(
+      Node node,
+      List<String> contentStack,
+      int contentLevel,
+    ) work,
   ) async {
-    await work(node);
+    await work(node, contentStack, contentLevel);
     for (final ch in node.children) {
-      await _traverse(ch, work);
+      await _traverse(ch, contentStack, contentLevel, work);
     }
   }
 
@@ -64,20 +71,32 @@ final class _BBCodeEditorState extends State<BBCodeEditor>
       return null;
     }
 
-    await _traverse(editorState!.document.root, (node) {
-      final deltaContent = node.delta?.map((op) {
-        final d = switch (op.runtimeType) {
-          TextInsert => 'insert',
-          TextDelete => 'delete',
-          TextRetain => 'retain',
-          _ => 'unknown',
-        };
+    final contentStack = <String>[];
+    final contentLevel = 0;
 
-        return '$d, attr=${op.attributes}';
-      }).join(', ');
+    await _traverse(editorState!.document.root, contentStack, contentLevel, (
+      node,
+      contentStack,
+      contentLevel,
+    ) {
+      // Note that because we only traverse the existing text content, only
+      // `TextInsert` is expected to exist.
+      final deltaContent = node.delta
+          ?.map((op) {
+            if (op is TextInsert) {
+              return 'text="${op.text}", attr=${op.attributes}';
+            }
+            return null;
+          })
+          .whereType<String>()
+          .join(', ');
+
       print('level=${node.level}, '
           'type=${node.type}, '
-          'delta=$deltaContent, ');
+          '$deltaContent, ');
+
+      node.toBBCode();
+      if (node.level <= contentLevel) {}
     });
 
     return null;
