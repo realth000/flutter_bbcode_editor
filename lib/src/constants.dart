@@ -1,5 +1,12 @@
 import 'dart:ui';
 
+const docTagPage = 'page';
+const docTagHeading = 'heading';
+const docTagParagraph = 'paragraph';
+const docTagOrderedList = 'numbered_list';
+const docTagUnorderedList = 'bulleted_list';
+const docTagImage = 'image';
+
 /// Default font size for body text.
 const defaultFontSize = 14.0;
 

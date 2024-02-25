@@ -74,6 +74,8 @@ final class _BBCodeEditorState extends State<BBCodeEditor>
     final contentStack = <String>[];
     final contentLevel = 0;
 
+    final bbcodeState = BBCodeState();
+
     await _traverse(editorState!.document.root, contentStack, contentLevel, (
       node,
       contentStack,
@@ -84,7 +86,7 @@ final class _BBCodeEditorState extends State<BBCodeEditor>
       final deltaContent = node.delta
           ?.map((op) {
             if (op is TextInsert) {
-              return 'text="${op.text}", attr=${op.attributes}';
+              return 'delta_text="${op.text}", delta_attr=${op.attributes}';
             }
             return null;
           })
@@ -92,12 +94,13 @@ final class _BBCodeEditorState extends State<BBCodeEditor>
           .join(', ');
 
       print('level=${node.level}, '
-          'type=${node.type}, '
+          'type=${node.type}, attr=${node.attributes}'
           '$deltaContent, ');
 
-      node.toBBCode();
-      if (node.level <= contentLevel) {}
+      contentStack.add(node.toBBCode(bbcodeState));
     });
+
+    print('>>> result: ${contentStack.join('\n')}');
 
     return null;
   }
