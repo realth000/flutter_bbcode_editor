@@ -109,37 +109,35 @@ final class _MobileEditorState extends BasicEditorState {
         dividerMobileToolbarItem,
       ],
       editorState: widget.editorState,
-      child: Expanded(
-        child: MobileFloatingToolbar(
+      child: MobileFloatingToolbar(
+        editorState: widget.editorState,
+        editorScrollController: editorScrollController,
+        toolbarBuilder: (context, anchor, closeToolbar) {
+          return AdaptiveTextSelectionToolbar.editable(
+            clipboardStatus: ClipboardStatus.pasteable,
+            onCopy: () {
+              copyCommand.execute(widget.editorState);
+              closeToolbar();
+            },
+            onCut: () => cutCommand.execute(widget.editorState),
+            onPaste: () => pasteCommand.execute(widget.editorState),
+            onSelectAll: () => selectAllCommand.execute(widget.editorState),
+            onLiveTextInput: null,
+            onLookUp: null,
+            onSearchWeb: null,
+            onShare: null,
+            anchors: TextSelectionToolbarAnchors(
+              primaryAnchor: anchor,
+            ),
+          );
+        },
+        child: AppFlowyEditor(
+          editorStyle: _buildMobileEditorStyle(context),
           editorState: widget.editorState,
           editorScrollController: editorScrollController,
-          toolbarBuilder: (context, anchor, closeToolbar) {
-            return AdaptiveTextSelectionToolbar.editable(
-              clipboardStatus: ClipboardStatus.pasteable,
-              onCopy: () {
-                copyCommand.execute(widget.editorState);
-                closeToolbar();
-              },
-              onCut: () => cutCommand.execute(widget.editorState),
-              onPaste: () => pasteCommand.execute(widget.editorState),
-              onSelectAll: () => selectAllCommand.execute(widget.editorState),
-              onLiveTextInput: null,
-              onLookUp: null,
-              onSearchWeb: null,
-              onShare: null,
-              anchors: TextSelectionToolbarAnchors(
-                primaryAnchor: anchor,
-              ),
-            );
-          },
-          child: AppFlowyEditor(
-            editorStyle: _buildMobileEditorStyle(context),
-            editorState: widget.editorState,
-            editorScrollController: editorScrollController,
-            blockComponentBuilders: blockComponentBuilders,
-            footer: const SizedBox(
-              height: 100,
-            ),
+          blockComponentBuilders: blockComponentBuilders,
+          footer: const SizedBox(
+            height: 100,
           ),
         ),
       ),
