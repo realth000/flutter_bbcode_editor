@@ -11,8 +11,6 @@ final class MobileEditor extends BasicEditor {
   /// Constructor.
   const MobileEditor({
     required super.editorState,
-    required super.themeData,
-    required super.brightness,
     required super.controller,
     super.key,
   });
@@ -23,22 +21,22 @@ final class MobileEditor extends BasicEditor {
 
 final class _MobileEditorState extends BasicEditorState {
   late final EditorScrollController editorScrollController;
-  late EditorStyle editorStyle;
   late Map<String, BlockComponentBuilder> blockComponentBuilders;
-  late List<CommandShortcutEvent> commandShortcuts;
+  List<CommandShortcutEvent>? commandShortcuts;
 
   /// Build the editor appearance including cursor style, colorscheme and more.
-  EditorStyle _buildMobileEditorStyle() {
-    final primaryColor = widget.themeData.colorScheme.primary;
-    final selectionColor = switch (widget.brightness) {
+  EditorStyle _buildMobileEditorStyle(BuildContext context) {
+    final primaryColor = Theme.of(context).colorScheme.primary;
+    final selectionColor = switch (MediaQuery.of(context).platformBrightness) {
       Brightness.light =>
-        widget.themeData.colorScheme.primaryContainer.brighten(),
-      Brightness.dark => widget.themeData.colorScheme.primaryContainer.darken(),
+        Theme.of(context).colorScheme.primaryContainer.brighten(),
+      Brightness.dark =>
+        Theme.of(context).colorScheme.primaryContainer.darken(),
     };
 
     return EditorStyle.mobile(
       cursorWidth: 2.1,
-      cursorColor: widget.themeData.colorScheme.primary,
+      cursorColor: Theme.of(context).colorScheme.primary,
       dragHandleColor: primaryColor,
       selectionColor: selectionColor,
       padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -46,7 +44,7 @@ final class _MobileEditorState extends BasicEditorState {
       mobileDragHandleBallSize: const Size(12, 12),
       textStyleConfiguration: TextStyleConfiguration(
         text: TextStyle(
-          color: widget.themeData.textTheme.bodyLarge?.color ?? Colors.white,
+          color: Theme.of(context).textTheme.bodyLarge?.color ?? Colors.white,
         ),
       ),
     );
@@ -79,7 +77,7 @@ final class _MobileEditorState extends BasicEditorState {
     editorScrollController = EditorScrollController(
       editorState: widget.editorState,
     );
-    editorStyle = _buildMobileEditorStyle();
+
     blockComponentBuilders = _buildBlockComponentBuilders();
   }
 
@@ -92,7 +90,6 @@ final class _MobileEditorState extends BasicEditorState {
   @override
   void reassemble() {
     super.reassemble();
-    editorStyle = _buildMobileEditorStyle();
     blockComponentBuilders = _buildBlockComponentBuilders();
   }
 
@@ -136,7 +133,7 @@ final class _MobileEditorState extends BasicEditorState {
             );
           },
           child: AppFlowyEditor(
-            editorStyle: editorStyle,
+            editorStyle: _buildMobileEditorStyle(context),
             editorState: widget.editorState,
             editorScrollController: editorScrollController,
             blockComponentBuilders: blockComponentBuilders,

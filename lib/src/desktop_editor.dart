@@ -11,8 +11,6 @@ final class DesktopEditor extends BasicEditor {
   /// Constructor.
   const DesktopEditor({
     required super.editorState,
-    required super.themeData,
-    required super.brightness,
     super.controller,
     super.key,
   });
@@ -23,26 +21,26 @@ final class DesktopEditor extends BasicEditor {
 
 final class _DesktopEditorState extends BasicEditorState {
   late final EditorScrollController editorScrollController;
-  late EditorStyle editorStyle;
   late Map<String, BlockComponentBuilder> blockComponentBuilders;
-  late List<CommandShortcutEvent> commandShortcuts;
+  List<CommandShortcutEvent>? commandShortcuts;
 
   /// Build the editor appearance including cursor style, colorscheme and more.
-  EditorStyle _buildDesktopEditorStyle() {
-    final selectionColor = switch (widget.brightness) {
+  EditorStyle _buildDesktopEditorStyle(BuildContext context) {
+    final selectionColor = switch (MediaQuery.of(context).platformBrightness) {
       Brightness.light =>
-        widget.themeData.colorScheme.primaryContainer.brighten(),
-      Brightness.dark => widget.themeData.colorScheme.primaryContainer.darken(),
+        Theme.of(context).colorScheme.primaryContainer.brighten(),
+      Brightness.dark =>
+        Theme.of(context).colorScheme.primaryContainer.darken(),
     };
 
     return EditorStyle.desktop(
       cursorWidth: 2.1,
-      cursorColor: widget.themeData.colorScheme.primary,
+      cursorColor: Theme.of(context).colorScheme.primary,
       selectionColor: selectionColor,
       padding: EdgeInsets.zero,
       textStyleConfiguration: TextStyleConfiguration(
         text: TextStyle(
-          color: widget.themeData.textTheme.bodyLarge?.color ?? Colors.white,
+          color: Theme.of(context).textTheme.bodyLarge?.color ?? Colors.white,
         ),
       ),
     );
@@ -86,7 +84,7 @@ final class _DesktopEditorState extends BasicEditorState {
     return [
       customToggleHighlightCommand(
         style: ToggleColorsStyle(
-          highlightColor: widget.themeData.colorScheme.secondary,
+          highlightColor: Theme.of(context).colorScheme.secondary,
         ),
       ),
       ...[
@@ -117,9 +115,7 @@ final class _DesktopEditorState extends BasicEditorState {
     editorScrollController = EditorScrollController(
       editorState: widget.editorState,
     );
-    editorStyle = _buildDesktopEditorStyle();
     blockComponentBuilders = _buildBlockComponentBuilders();
-    commandShortcuts = _buildCommandShortcuts();
   }
 
   @override
@@ -131,13 +127,12 @@ final class _DesktopEditorState extends BasicEditorState {
   @override
   void reassemble() {
     super.reassemble();
-
-    editorStyle = _buildDesktopEditorStyle();
     blockComponentBuilders = _buildBlockComponentBuilders();
   }
 
   @override
   Widget build(BuildContext context) {
+    commandShortcuts ??= _buildCommandShortcuts();
     assert(
       PlatformExtension.isDesktopOrWeb,
       'DesktopEditor is only available on Desktop or Web platforms.',
@@ -161,20 +156,20 @@ final class _DesktopEditorState extends BasicEditorState {
       editorState: widget.editorState,
       editorScrollController: editorScrollController,
       style: FloatingToolbarStyle(
-        backgroundColor: widget.themeData.colorScheme.primaryContainer,
-        toolbarActiveColor: widget.themeData.colorScheme.primary,
-        toolbarIconColor: widget.themeData.colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        toolbarActiveColor: Theme.of(context).colorScheme.primary,
+        toolbarIconColor: Theme.of(context).colorScheme.secondary,
       ),
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: ColoredBox(
-          color: widget.themeData.colorScheme.surface,
+          color: Theme.of(context).colorScheme.surface,
           child: AppFlowyEditor(
             editorState: widget.editorState,
             editorScrollController: editorScrollController,
             blockComponentBuilders: blockComponentBuilders,
             commandShortcutEvents: commandShortcuts,
-            editorStyle: editorStyle,
+            editorStyle: _buildDesktopEditorStyle(context),
             footer: const SizedBox(
               height: 100,
             ),

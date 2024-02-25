@@ -18,24 +18,12 @@ class BasicEditor extends StatefulWidget {
   /// Constructor.
   const BasicEditor({
     required this.editorState,
-    required this.themeData,
-    required this.brightness,
     this.controller,
     super.key,
   });
 
   /// The state of editor.
   final EditorState editorState;
-
-  /// Theme of editor.
-  ///
-  /// Required because we can not access context during init state.
-  final ThemeData themeData;
-
-  /// Brightness when building the widget.
-  ///
-  /// Required because we can not access context during init state.
-  final Brightness brightness;
 
   /// Controller of editor.
   final BBCodeEditorController? controller;

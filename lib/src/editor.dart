@@ -234,15 +234,11 @@ final class _BBCodeEditorState extends State<BBCodeEditor>
           if (PlatformExtension.isDesktopOrWeb) {
             return DesktopEditor(
               editorState: editorState!,
-              themeData: Theme.of(context),
-              brightness: MediaQuery.of(context).platformBrightness,
               controller: widget.controller,
             );
           } else if (PlatformExtension.isMobile) {
             return MobileEditor(
               editorState: editorState!,
-              themeData: Theme.of(context),
-              brightness: MediaQuery.of(context).platformBrightness,
               controller: widget.controller,
             );
           }
