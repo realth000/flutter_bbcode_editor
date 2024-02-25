@@ -48,49 +48,36 @@ final class _BBCodeEditorState extends State<BBCodeEditor> {
   EditorState? editorState;
   bool initialized = false;
 
-  Widget _builder(BuildContext context, Future<String> data) {
-    return FutureBuilder<String>(
-      future: data,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          if (!initialized) {
-            initialized = true;
-            final editorState = EditorState(
-              document: Document.fromJson(
-                jsonDecode(snapshot.data!) as Map<String, dynamic>,
-              ),
-            );
+  Future<void> _traverse(
+      Node node, FutureOr<void> Function(Node node) work) async {
+    await work(node);
+    for (final ch in node.children) {
+      await _traverse(ch, work);
+    }
+  }
 
-            editorState.logConfiguration
-              ..handler = debugPrint
-              ..level = LogLevel.off;
+  Future<String?> convertToBBCode() async {
+    if (editorState == null) {
+      return null;
+    }
 
-            editorState.transactionStream.listen((event) {
-              if (event.$1 == TransactionTime.after) {
-                // Call editor state change callback after state changed.
-                widget.onEditorStateChange(editorState);
-              }
-            });
-            this.editorState = editorState;
-          }
+    await _traverse(editorState!.document.root, (node) {
+      final deltaContent = node.delta?.map((op) {
+        final d = switch (op.runtimeType) {
+          TextInsert => 'insert',
+          TextDelete => 'delete',
+          TextRetain => 'retain',
+          _ => 'unknown',
+        };
 
-          if (PlatformExtension.isDesktopOrWeb) {
-            return DesktopEditor(
-              editorState: editorState!,
-              themeData: Theme.of(context),
-              controller: widget.controller,
-            );
-          } else if (PlatformExtension.isMobile) {
-            return MobileEditor(
-              editorState: editorState!,
-              themeData: Theme.of(context),
-              controller: widget.controller,
-            );
-          }
-        }
-        return Container();
-      },
-    );
+        return '$d, attr=${op.attributes}';
+      }).join(', ');
+      print('level=${node.level}, '
+          'type=${node.type}, '
+          'delta=$deltaContent, ');
+    });
+
+    return null;
   }
 
   /// Import data from file path.

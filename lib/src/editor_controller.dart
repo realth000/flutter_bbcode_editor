@@ -42,4 +42,9 @@ final class BBCodeEditorController {
   ) async {
     await _state?.exportData(fileType, exportCallback);
   }
+
+  /// Convert the text data into bbcode.
+  Future<String?> convertToBBCode() async {
+    return await _state?.convertToBBCode();
+  }
 }

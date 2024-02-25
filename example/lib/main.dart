@@ -81,6 +81,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
                   },
                 ),
+                TextButton.icon(
+                  label: const Text('Convert To BBCode'),
+                  icon: const Icon(Icons.code),
+                  onPressed: () async {
+                    await controller.convertToBBCode();
+                  },
+                ),
               ],
             ),
             Expanded(
