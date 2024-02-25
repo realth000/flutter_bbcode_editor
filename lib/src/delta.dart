@@ -35,10 +35,10 @@ extension _BBCodeTextInsert on TextInsert {
   // TODO: Parse multiline code block.
   // TODO: Parse emoji.
   final label = switch (name) {
-    'italic' => ('i', null),
-    'bold' => ('b', null),
-    'underline' => ('u', null),
-    'strikethrough' => ('s', null),
+    'italic' when value == true => ('i', null),
+    'bold' when value == true => ('b', null),
+    'underline' when value == true => ('u', null),
+    'strikethrough' when value == true => ('s', null),
     'font_color' => ('color', _formatColor(value)),
     'bg_color' => ('backcolor', _formatColor(value)),
     'href' => ('url', _prependHttpScheme('$value')),
