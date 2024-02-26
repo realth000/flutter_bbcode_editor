@@ -6,6 +6,7 @@ import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/desktop_editor.dart';
 import 'package:flutter_bbcode_editor/src/file_type.dart';
 import 'package:flutter_bbcode_editor/src/mobile_editor.dart';
@@ -19,10 +20,10 @@ part 'editor_controller.dart';
 class BBCodeEditor extends StatefulWidget {
   /// Constructor.
   const BBCodeEditor({
-    required this.jsonString,
-    required this.onEditorStateChange,
+    this.jsonString,
     this.controller,
     this.editorStyle,
+    this.onEditorStateChange,
     super.key,
   });
 
@@ -33,13 +34,13 @@ class BBCodeEditor extends StatefulWidget {
   final BBCodeEditorController? controller;
 
   /// Text data to display, is json format, [String] type.
-  final Future<String> jsonString;
+  final String? jsonString;
 
   /// The editor appearance.
   final EditorStyle? editorStyle;
 
   /// Callback called every time when editor state changes.
-  final void Function(EditorState editorState) onEditorStateChange;
+  final void Function(EditorState editorState)? onEditorStateChange;
 
   @override
   State<BBCodeEditor> createState() => _BBCodeEditorState();
@@ -228,45 +229,39 @@ final class _BBCodeEditorState extends State<BBCodeEditor>
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<String>(
-      future: widget.jsonString,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          if (!initialized) {
-            initialized = true;
-            final editorState = EditorState(
-              document: Document.fromJson(
-                jsonDecode(snapshot.data!) as Map<String, dynamic>,
-              ),
-            );
+    if (!initialized) {
+      initialized = true;
+      final editorState = EditorState(
+        document: Document.fromJson(
+          jsonDecode(widget.jsonString ?? defaultDocument)
+              as Map<String, dynamic>,
+        ),
+      );
 
-            editorState.logConfiguration
-              ..handler = debugPrint
-              ..level = LogLevel.off;
+      editorState.logConfiguration
+        ..handler = debugPrint
+        ..level = LogLevel.off;
 
-            editorState.transactionStream.listen((event) {
-              if (event.$1 == TransactionTime.after) {
-                // Call editor state change callback after state changed.
-                widget.onEditorStateChange(editorState);
-              }
-            });
-            this.editorState = editorState;
-          }
-
-          if (PlatformExtension.isDesktopOrWeb) {
-            return DesktopEditor(
-              editorState: editorState!,
-              controller: widget.controller,
-            );
-          } else if (PlatformExtension.isMobile) {
-            return MobileEditor(
-              editorState: editorState!,
-              controller: widget.controller,
-            );
-          }
+      editorState.transactionStream.listen((event) {
+        if (event.$1 == TransactionTime.after) {
+          // Call editor state change callback after state changed.
+          widget.onEditorStateChange?.call(editorState);
         }
-        return Container();
-      },
-    );
+      });
+      this.editorState = editorState;
+    }
+
+    if (PlatformExtension.isDesktopOrWeb) {
+      return DesktopEditor(
+        editorState: editorState!,
+        controller: widget.controller,
+      );
+    } else if (PlatformExtension.isMobile) {
+      return MobileEditor(
+        editorState: editorState!,
+        controller: widget.controller,
+      );
+    }
+    return Container();
   }
 }

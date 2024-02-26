@@ -22,7 +22,15 @@ final class DesktopEditor extends BasicEditor {
 final class _DesktopEditorState extends BasicEditorState {
   late final EditorScrollController editorScrollController;
   late Map<String, BlockComponentBuilder> blockComponentBuilders;
+
   List<CommandShortcutEvent>? commandShortcuts;
+
+  /// All shortcut event triggered by single character.
+  ///
+  /// For example, show the slash context menu when user entered "/".
+  ///
+  /// For default standard shortcuts, see [standardCharacterShortcutEvents].
+  List<CharacterShortcutEvent>? characterShortcuts;
 
   /// Build the editor appearance including cursor style, colorscheme and more.
   EditorStyle _buildDesktopEditorStyle(BuildContext context) {
@@ -109,6 +117,32 @@ final class _DesktopEditorState extends BasicEditorState {
     ];
   }
 
+  /// We only use some of the [standardCharacterShortcutEvents], disabled many
+  /// events for stability and make the editor easy to use.
+  ///
+  /// Note that the default events offers markdown syntax support, disable them
+  /// for now and make optional in future.
+  List<CharacterShortcutEvent> _buildCharacterShortcutEvents() {
+    return [
+      // '\n'
+      // Insert new line.
+      insertNewLine,
+      insertNewLineAfterBulletedList,
+      insertNewLineAfterNumberedList,
+      insertNewLineAfterHeading,
+
+      // bulleted list
+      formatAsteriskToBulletedList,
+      formatMinusToBulletedList,
+
+      // numbered list
+      formatNumberToNumberedList,
+
+      // heading
+      formatSignToHeading,
+    ];
+  }
+
   @override
   void initState() {
     super.initState();
@@ -133,6 +167,7 @@ final class _DesktopEditorState extends BasicEditorState {
   @override
   Widget build(BuildContext context) {
     commandShortcuts ??= _buildCommandShortcuts();
+    characterShortcuts ??= _buildCharacterShortcutEvents();
     assert(
       PlatformExtension.isDesktopOrWeb,
       'DesktopEditor is only available on Desktop or Web platforms.',
@@ -156,18 +191,21 @@ final class _DesktopEditorState extends BasicEditorState {
       editorState: widget.editorState,
       editorScrollController: editorScrollController,
       style: FloatingToolbarStyle(
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.background,
         toolbarActiveColor: Theme.of(context).colorScheme.primary,
-        toolbarIconColor: Theme.of(context).colorScheme.secondary,
+        toolbarIconColor: Theme.of(context).textTheme.bodyLarge?.color ??
+            Theme.of(context).colorScheme.primary,
       ),
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: ColoredBox(
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).inputDecorationTheme.fillColor ?? Colors.red,
           child: AppFlowyEditor(
+            shrinkWrap: true,
             editorState: widget.editorState,
             editorScrollController: editorScrollController,
             blockComponentBuilders: blockComponentBuilders,
+            characterShortcutEvents: characterShortcuts,
             commandShortcutEvents: commandShortcuts,
             editorStyle: _buildDesktopEditorStyle(context),
             footer: const SizedBox(

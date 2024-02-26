@@ -1,5 +1,21 @@
 import 'dart:ui';
 
+const defaultDocument = '''
+{
+  "document" : {
+    "type": "page",
+    "children": [
+      {
+        "type": "paragraph",
+        "data": {
+          "delta": []
+        }
+      }
+    ]
+  }
+}
+''';
+
 const docTagPage = 'page';
 const docTagHeading = 'heading';
 const docTagParagraph = 'paragraph';
