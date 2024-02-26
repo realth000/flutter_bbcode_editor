@@ -57,7 +57,6 @@ Future<bool> showCompletionMenu(
   if (PlatformExtension.isMobile) {
     return false;
   }
-
   return true;
 }
 

@@ -11,6 +11,7 @@ import 'package:flutter_bbcode_editor/src/desktop_editor.dart';
 import 'package:flutter_bbcode_editor/src/file_type.dart';
 import 'package:flutter_bbcode_editor/src/mobile_editor.dart';
 import 'package:flutter_bbcode_editor/src/node.dart';
+import 'package:flutter_bbcode_editor/src/trigger/bold.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:universal_html/html.dart' as uh;
 
@@ -43,12 +44,19 @@ class BBCodeEditor extends StatefulWidget {
   final void Function(EditorState editorState)? onEditorStateChange;
 
   @override
-  State<BBCodeEditor> createState() => _BBCodeEditorState();
+  State<BBCodeEditor> createState() => BBCodeEditorState();
 }
 
-final class _BBCodeEditorState extends State<BBCodeEditor>
+/// The state of editor.
+final class BBCodeEditorState extends State<BBCodeEditor>
     with WidgetsBindingObserver {
+  /// True editor state.
   EditorState? editorState;
+
+  /// Get the selection of editor.
+  Selection? get selection => editorState?.selection;
+
+  /// Flag indicating already initialized or not.
   bool initialized = false;
 
   Future<void> _traverse(
@@ -67,6 +75,7 @@ final class _BBCodeEditorState extends State<BBCodeEditor>
     }
   }
 
+  /// Convert the data in editor into bbcode format.
   Future<String?> convertToBBCode() async {
     if (editorState == null) {
       return null;

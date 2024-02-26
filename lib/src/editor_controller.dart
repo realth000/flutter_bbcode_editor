@@ -13,10 +13,10 @@ part of 'editor.dart';
 /// Of course it's ok to use the default context menu or the toolbar to do such
 /// action, controller here just gives more flexibility.
 final class BBCodeEditorController {
-  _BBCodeEditorState? _state;
+  BBCodeEditorState? _state;
 
   // ignore: avoid_setters_without_getters
-  set _bind(_BBCodeEditorState state) {
+  set _bind(BBCodeEditorState state) {
     _state = state;
   }
 
@@ -46,5 +46,11 @@ final class BBCodeEditorController {
   /// Convert the text data into bbcode.
   Future<String?> convertToBBCode() async {
     return await _state?.convertToBBCode();
+  }
+
+  /////////////////////// Triggers ///////////////////////
+
+  Future<void> triggerBold() async {
+    await boldTrigger(_state);
   }
 }
