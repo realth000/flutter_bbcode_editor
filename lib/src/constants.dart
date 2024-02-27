@@ -16,6 +16,8 @@ const defaultDocument = '''
 }
 ''';
 
+const decorationNameBold = 'bold';
+
 const docTagPage = 'page';
 const docTagHeading = 'heading';
 const docTagParagraph = 'paragraph';

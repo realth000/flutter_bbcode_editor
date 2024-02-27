@@ -15,6 +15,8 @@ part of 'editor.dart';
 final class BBCodeEditorController {
   BBCodeEditorState? _state;
 
+  bool get isBold => _state?.isBold() ?? false;
+
   // ignore: avoid_setters_without_getters
   set _bind(BBCodeEditorState state) {
     _state = state;
@@ -50,7 +52,9 @@ final class BBCodeEditorController {
 
   /////////////////////// Triggers ///////////////////////
 
+  /// From appflowy project:
+  /// lib/plugins/document/presentation/editor_plugins/mobile_toolbar_item/mobile_text_decoration_item.dart
   Future<void> triggerBold() async {
-    await boldTrigger(_state);
+    await _state?.triggerBold();
   }
 }
