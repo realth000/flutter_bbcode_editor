@@ -16,7 +16,7 @@ extension EditorBold on BBCodeEditorState {
     final bool isSelected;
     // use `isCollapsed` to check whether selecting any text.
     if (selection.isCollapsed) {
-      isSelected = editorState!.toggledStyle.containsKey(decorationNameBold);
+      isSelected = editorState!.toggledStyle[decorationNameBold] ?? false;
     } else {
       isSelected = nodes.allSatisfyInSelection(
         selection,
@@ -41,8 +41,11 @@ extension EditorBold on BBCodeEditorState {
       return;
     }
     // Add or remove bold.
-    setState(() {
-      editorState!.toggleAttribute(decorationNameBold);
-    });
+    await editorState!.toggleAttribute(
+      decorationNameBold,
+      selectionExtraInfo: {
+        selectionExtraInfoDoNotAttachTextService: true,
+      },
+    );
   }
 }
