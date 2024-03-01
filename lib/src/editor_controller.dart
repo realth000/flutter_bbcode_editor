@@ -17,6 +17,12 @@ final class BBCodeEditorController {
 
   bool get isBold => _state?.isBold() ?? false;
 
+  bool get isItalic => _state?.isItalic() ?? false;
+
+  bool get isUnderline => _state?.isUnderline() ?? false;
+
+  bool get isStrikethrough => _state?.isStrikethrough() ?? false;
+
   // ignore: avoid_setters_without_getters
   set _bind(BBCodeEditorState state) {
     _state = state;
@@ -56,5 +62,17 @@ final class BBCodeEditorController {
   /// lib/plugins/document/presentation/editor_plugins/mobile_toolbar_item/mobile_text_decoration_item.dart
   Future<void> triggerBold() async {
     await _state?.triggerBold();
+  }
+
+  Future<void> triggerItalic() async {
+    await _state?.triggerItalic();
+  }
+
+  Future<void> triggerUnderline() async {
+    await _state?.triggerUnderline();
+  }
+
+  Future<void> triggerStrikethrough() async {
+    await _state?.triggerStrikethrough();
   }
 }

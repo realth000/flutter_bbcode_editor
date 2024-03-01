@@ -12,6 +12,9 @@ import 'package:flutter_bbcode_editor/src/file_type.dart';
 import 'package:flutter_bbcode_editor/src/mobile_editor.dart';
 import 'package:flutter_bbcode_editor/src/node.dart';
 import 'package:flutter_bbcode_editor/src/trigger/bold.dart';
+import 'package:flutter_bbcode_editor/src/trigger/italic.dart';
+import 'package:flutter_bbcode_editor/src/trigger/strikethrough.dart';
+import 'package:flutter_bbcode_editor/src/trigger/underline.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:universal_html/html.dart' as uh;
 

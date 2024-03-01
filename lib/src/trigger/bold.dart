@@ -1,30 +1,16 @@
-import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/editor.dart';
+import 'package:flutter_bbcode_editor/src/trigger/base.dart';
 
 extension EditorBold on BBCodeEditorState {
   /// Check the current editor state and selection is in bold state.
   ///
   /// Useful when changing state.
   bool isBold() {
-    final selection = editorState!.selection;
-    if (selection == null) {
+    if (editorState == null) {
       return false;
     }
-    final nodes = editorState!.getNodesInSelection(selection);
-    // Old used to set the bold button style.
-    final bool isSelected;
-    // use `isCollapsed` to check whether selecting any text.
-    if (selection.isCollapsed) {
-      isSelected = editorState!.toggledStyle[decorationNameBold] ?? false;
-    } else {
-      isSelected = nodes.allSatisfyInSelection(
-        selection,
-        (delta) =>
-            delta.everyAttributes((attr) => attr[decorationNameBold] == true),
-      );
-    }
-    return isSelected;
+    return checkStateSelectionAttr(editorState!, decorationNameBold);
   }
 
   /// Insert bold style into the editor.
@@ -33,19 +19,6 @@ extension EditorBold on BBCodeEditorState {
   /// * When no text is selected, add bold tag in the editor and move cursor
   ///   inside the tag.
   Future<void> triggerBold() async {
-    if (editorState == null) {
-      return;
-    }
-    final selection = editorState!.selection;
-    if (selection == null) {
-      return;
-    }
-    // Add or remove bold.
-    await editorState!.toggleAttribute(
-      decorationNameBold,
-      selectionExtraInfo: {
-        selectionExtraInfoDoNotAttachTextService: true,
-      },
-    );
+    await toggleStateSelectionAttr(editorState, decorationNameBold);
   }
 }

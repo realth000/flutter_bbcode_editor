@@ -17,6 +17,9 @@ const defaultDocument = '''
 ''';
 
 const decorationNameBold = 'bold';
+const decorationNameItalic = 'italic';
+const decorationNameUnderline = 'underline';
+const decorationNameStrikethrough = 'strikethrough';
 
 const docTagPage = 'page';
 const docTagHeading = 'heading';
