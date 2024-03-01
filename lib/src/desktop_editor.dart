@@ -173,44 +173,20 @@ final class _DesktopEditorState extends BasicEditorState {
       'DesktopEditor is only available on Desktop or Web platforms.',
     );
 
-    return FloatingToolbar(
+    return Directionality(
       textDirection: TextDirection.ltr,
-      items: [
-        paragraphItem,
-        ...headingItems,
-        ...markdownFormatItems,
-        quoteItem,
-        bulletedListItem,
-        numberedListItem,
-        linkItem,
-        buildTextColorItem(),
-        buildHighlightColorItem(),
-        ...textDirectionItems,
-        ...alignmentItems,
-      ],
-      editorState: widget.editorState,
-      editorScrollController: editorScrollController,
-      style: FloatingToolbarStyle(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        toolbarActiveColor: Theme.of(context).colorScheme.primary,
-        toolbarIconColor: Theme.of(context).textTheme.bodyLarge?.color ??
-            Theme.of(context).colorScheme.primary,
-      ),
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: ColoredBox(
-          color: Theme.of(context).inputDecorationTheme.fillColor ?? Colors.red,
-          child: AppFlowyEditor(
-            shrinkWrap: true,
-            editorState: widget.editorState,
-            editorScrollController: editorScrollController,
-            blockComponentBuilders: blockComponentBuilders,
-            characterShortcutEvents: characterShortcuts,
-            commandShortcutEvents: commandShortcuts,
-            editorStyle: _buildDesktopEditorStyle(context),
-            footer: const SizedBox(
-              height: 100,
-            ),
+      child: ColoredBox(
+        color: Theme.of(context).inputDecorationTheme.fillColor ?? Colors.red,
+        child: AppFlowyEditor(
+          shrinkWrap: true,
+          editorState: widget.editorState,
+          editorScrollController: editorScrollController,
+          blockComponentBuilders: blockComponentBuilders,
+          characterShortcutEvents: characterShortcuts,
+          commandShortcutEvents: commandShortcuts,
+          editorStyle: _buildDesktopEditorStyle(context),
+          footer: const SizedBox(
+            height: 100,
           ),
         ),
       ),

@@ -99,46 +99,35 @@ final class _MobileEditorState extends BasicEditorState {
       PlatformExtension.isMobile,
       'MobileEditor is only available on mobile platforms.',
     );
-    return MobileToolbarV2(
-      toolbarHeight: 48,
-      toolbarItems: [
-        textDecorationMobileToolbarItemV2,
-        buildTextAndBackgroundColorMobileToolbarItem(),
-        blocksMobileToolbarItem,
-        linkMobileToolbarItem,
-        dividerMobileToolbarItem,
-      ],
+    return MobileFloatingToolbar(
       editorState: widget.editorState,
-      child: MobileFloatingToolbar(
+      editorScrollController: editorScrollController,
+      toolbarBuilder: (context, anchor, closeToolbar) {
+        return AdaptiveTextSelectionToolbar.editable(
+          clipboardStatus: ClipboardStatus.pasteable,
+          onCopy: () {
+            copyCommand.execute(widget.editorState);
+            closeToolbar();
+          },
+          onCut: () => cutCommand.execute(widget.editorState),
+          onPaste: () => pasteCommand.execute(widget.editorState),
+          onSelectAll: () => selectAllCommand.execute(widget.editorState),
+          onLiveTextInput: null,
+          onLookUp: null,
+          onSearchWeb: null,
+          onShare: null,
+          anchors: TextSelectionToolbarAnchors(
+            primaryAnchor: anchor,
+          ),
+        );
+      },
+      child: AppFlowyEditor(
+        editorStyle: _buildMobileEditorStyle(context),
         editorState: widget.editorState,
         editorScrollController: editorScrollController,
-        toolbarBuilder: (context, anchor, closeToolbar) {
-          return AdaptiveTextSelectionToolbar.editable(
-            clipboardStatus: ClipboardStatus.pasteable,
-            onCopy: () {
-              copyCommand.execute(widget.editorState);
-              closeToolbar();
-            },
-            onCut: () => cutCommand.execute(widget.editorState),
-            onPaste: () => pasteCommand.execute(widget.editorState),
-            onSelectAll: () => selectAllCommand.execute(widget.editorState),
-            onLiveTextInput: null,
-            onLookUp: null,
-            onSearchWeb: null,
-            onShare: null,
-            anchors: TextSelectionToolbarAnchors(
-              primaryAnchor: anchor,
-            ),
-          );
-        },
-        child: AppFlowyEditor(
-          editorStyle: _buildMobileEditorStyle(context),
-          editorState: widget.editorState,
-          editorScrollController: editorScrollController,
-          blockComponentBuilders: blockComponentBuilders,
-          footer: const SizedBox(
-            height: 100,
-          ),
+        blockComponentBuilders: blockComponentBuilders,
+        footer: const SizedBox(
+          height: 100,
         ),
       ),
     );
