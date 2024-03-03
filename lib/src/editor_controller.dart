@@ -23,6 +23,10 @@ final class BBCodeEditorController {
 
   bool get isStrikethrough => _state?.isStrikethrough() ?? false;
 
+  Color? get getForegroundColor => _state?.getForegroundColor()?.tryToColor();
+
+  Color? get getBackgroundColor => _state?.getBackgroundColor()?.tryToColor();
+
   // ignore: avoid_setters_without_getters
   set _bind(BBCodeEditorState state) {
     _state = state;
@@ -74,5 +78,13 @@ final class BBCodeEditorController {
 
   Future<void> triggerStrikethrough() async {
     await _state?.triggerStrikethrough();
+  }
+
+  Future<void> setForegroundColor(Color color) async {
+    await _state?.triggerForegroundColor(color.toHex());
+  }
+
+  Future<void> setBackgroundColor(Color color) async {
+    await _state?.triggerBackgroundColor(color.toHex());
   }
 }

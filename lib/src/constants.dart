@@ -20,6 +20,9 @@ const decorationNameBold = 'bold';
 const decorationNameItalic = 'italic';
 const decorationNameUnderline = 'underline';
 const decorationNameStrikethrough = 'strikethrough';
+const decorationForegroundColor = 'font_color';
+const decorationBackgroundColor = 'bg_color';
+const decorationSize = 'font_size';
 
 const docTagPage = 'page';
 const docTagHeading = 'heading';

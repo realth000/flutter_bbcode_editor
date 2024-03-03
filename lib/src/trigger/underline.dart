@@ -6,19 +6,14 @@ extension EditorUnderline on BBCodeEditorState {
   /// Check the current editor state and selection is in underline state.
   ///
   /// Useful when changing state.
-  bool isUnderline() {
-    if (editorState == null) {
-      return false;
-    }
-    return checkStateSelectionAttr(editorState!, decorationNameUnderline);
-  }
+  bool isUnderline() =>
+      checkStateSelectionAttr(editorState, decorationNameUnderline);
 
   /// Insert underline style into the editor.
   ///
   /// * When currently have some selected text, add underline tag around those text.
   /// * When no text is selected, add underline tag in the editor and move cursor
   ///   inside the tag.
-  Future<void> triggerUnderline() async {
-    await toggleStateSelectionAttr(editorState, decorationNameUnderline);
-  }
+  Future<void> triggerUnderline() async =>
+      toggleStateSelectionAttr(editorState, decorationNameUnderline);
 }

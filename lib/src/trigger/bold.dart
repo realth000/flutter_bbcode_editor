@@ -7,10 +7,7 @@ extension EditorBold on BBCodeEditorState {
   ///
   /// Useful when changing state.
   bool isBold() {
-    if (editorState == null) {
-      return false;
-    }
-    return checkStateSelectionAttr(editorState!, decorationNameBold);
+    return checkStateSelectionAttr(editorState, decorationNameBold);
   }
 
   /// Insert bold style into the editor.
