@@ -18,6 +18,7 @@ class BasicEditor extends StatefulWidget {
   /// Constructor.
   const BasicEditor({
     required this.editorState,
+    this.focusNode,
     this.controller,
     super.key,
   });
@@ -27,6 +28,8 @@ class BasicEditor extends StatefulWidget {
 
   /// Controller of editor.
   final BBCodeEditorController? controller;
+
+  final FocusNode? focusNode;
 
   @override
   State<BasicEditor> createState() => BasicEditorState();

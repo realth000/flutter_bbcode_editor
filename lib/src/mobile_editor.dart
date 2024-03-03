@@ -11,7 +11,8 @@ final class MobileEditor extends BasicEditor {
   /// Constructor.
   const MobileEditor({
     required super.editorState,
-    required super.controller,
+    super.controller,
+    super.focusNode,
     super.key,
   });
 
@@ -122,6 +123,7 @@ final class _MobileEditorState extends BasicEditorState {
         );
       },
       child: AppFlowyEditor(
+        focusNode: widget.focusNode,
         editorStyle: _buildMobileEditorStyle(context),
         editorState: widget.editorState,
         editorScrollController: editorScrollController,

@@ -12,6 +12,7 @@ final class DesktopEditor extends BasicEditor {
   const DesktopEditor({
     required super.editorState,
     super.controller,
+    super.focusNode,
     super.key,
   });
 
@@ -178,6 +179,7 @@ final class _DesktopEditorState extends BasicEditorState {
       child: ColoredBox(
         color: Theme.of(context).inputDecorationTheme.fillColor ?? Colors.red,
         child: AppFlowyEditor(
+          focusNode: widget.focusNode,
           shrinkWrap: true,
           editorState: widget.editorState,
           editorScrollController: editorScrollController,

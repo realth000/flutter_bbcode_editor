@@ -28,6 +28,7 @@ class BBCodeEditor extends StatefulWidget {
     this.controller,
     this.editorStyle,
     this.onEditorStateChange,
+    this.focusNode,
     super.key,
   });
 
@@ -45,6 +46,9 @@ class BBCodeEditor extends StatefulWidget {
 
   /// Callback called every time when editor state changes.
   final void Function(EditorState editorState)? onEditorStateChange;
+
+  /// Focus node on the editor.
+  final FocusNode? focusNode;
 
   @override
   State<BBCodeEditor> createState() => BBCodeEditorState();
@@ -267,11 +271,13 @@ final class BBCodeEditorState extends State<BBCodeEditor>
       return DesktopEditor(
         editorState: editorState!,
         controller: widget.controller,
+        focusNode: widget.focusNode,
       );
     } else if (PlatformExtension.isMobile) {
       return MobileEditor(
         editorState: editorState!,
         controller: widget.controller,
+        focusNode: widget.focusNode,
       );
     }
     return Container();
