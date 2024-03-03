@@ -73,11 +73,11 @@ final class _DesktopEditorState extends BasicEditorState {
     // TODO: Customize.
     // Font size for every header level.
     // This is sync with the default font size on server side.
-    const levelToFontSize = defaultLevelToFontSize;
+    const levelToFontSize = defaultLevelToFontSizeMap;
 
     map[HeadingBlockKeys.type] = HeadingBlockComponentBuilder(
       textStyleBuilder: (level) => TextStyle(
-        fontSize: levelToFontSize.elementAtOrNull(level - 1) ?? defaultFontSize,
+        fontSize: levelToFontSize[level] ?? defaultFontSize,
         fontWeight: defaultHeaderFontWeight,
       ),
     );

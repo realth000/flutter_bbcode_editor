@@ -57,10 +57,10 @@ final class _MobileEditorState extends BasicEditorState {
       ...standardBlockComponentBuilderMap,
     };
     // TODO: Customize.
-    const levelToFontSize = defaultLevelToFontSize;
+    const levelToFontSize = defaultLevelToFontSizeMap;
     map[HeadingBlockKeys.type] = HeadingBlockComponentBuilder(
       textStyleBuilder: (level) => TextStyle(
-        fontSize: levelToFontSize.elementAtOrNull(level - 1) ?? defaultFontSize,
+        fontSize: levelToFontSize[level] ?? defaultFontSize,
         fontWeight: defaultHeaderFontWeight,
       ),
     );

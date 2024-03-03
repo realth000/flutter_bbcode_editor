@@ -27,6 +27,19 @@ final class BBCodeEditorController {
 
   Color? get getBackgroundColor => _state?.getBackgroundColor()?.tryToColor();
 
+  /// Get the level of font size.
+  ///
+  /// Return null if is invalid font size.
+  int? get getFontSize {
+    final sizeValue = _state?.getFontSize() ?? -1;
+    for (final entry in defaultLevelToFontSizeMap.entries) {
+      if (entry.value == sizeValue) {
+        return entry.key;
+      }
+    }
+    return null;
+  }
+
   // ignore: avoid_setters_without_getters
   set _bind(BBCodeEditorState state) {
     _state = state;
@@ -86,5 +99,20 @@ final class BBCodeEditorController {
 
   Future<void> setBackgroundColor(Color color) async {
     await _state?.triggerBackgroundColor(color.toHex());
+  }
+
+  /// Set the font size level.
+  ///
+  /// Level is available in [defaultLevelToFontSizeMap] list.
+  ///
+  /// Do nothing if [level] is invalid.
+  Future<void> setFontSize(int level) async {
+    final sizeValue = defaultLevelToFontSizeMap[level];
+
+    if (sizeValue == null) {
+      // Invalid level.
+      return;
+    }
+    await _state?.triggerFontSize(sizeValue);
   }
 }

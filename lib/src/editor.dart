@@ -13,6 +13,7 @@ import 'package:flutter_bbcode_editor/src/mobile_editor.dart';
 import 'package:flutter_bbcode_editor/src/node.dart';
 import 'package:flutter_bbcode_editor/src/trigger/background_color.dart';
 import 'package:flutter_bbcode_editor/src/trigger/bold.dart';
+import 'package:flutter_bbcode_editor/src/trigger/font_size.dart';
 import 'package:flutter_bbcode_editor/src/trigger/foreground_color.dart';
 import 'package:flutter_bbcode_editor/src/trigger/italic.dart';
 import 'package:flutter_bbcode_editor/src/trigger/strikethrough.dart';

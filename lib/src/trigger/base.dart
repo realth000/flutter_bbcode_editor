@@ -1,6 +1,5 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 
 /// Check [editorState] has [attrName] attribute or not.
 ///
@@ -111,10 +110,10 @@ T? checkStateSelectionAttrValue<T>(EditorState? editorState, String attrName) {
       .whereType<Set<T?>>()
       .flattened
       .toSet();
-  debugPrint(
-      '[BBCodeEditor] selection: $selection, collapsed:${selection.isCollapsed}');
-  debugPrint('[BBCodeEditor] nodeLength: ${nodes.length} ${nodes.first}');
-  debugPrint('[BBCodeEditor] check attr $attrName all values: $allValueUsed}');
+  // debugPrint(
+  //     '[BBCodeEditor] selection: $selection, collapsed:${selection.isCollapsed}');
+  // debugPrint('[BBCodeEditor] nodeLength: ${nodes.length} ${nodes.first}');
+  // debugPrint('[BBCodeEditor] check attr $attrName all values: $allValueUsed}');
   if (allValueUsed.isEmpty || allValueUsed.length > 1) {
     return null;
   } else {

@@ -22,7 +22,7 @@ const decorationNameUnderline = 'underline';
 const decorationNameStrikethrough = 'strikethrough';
 const decorationForegroundColor = 'font_color';
 const decorationBackgroundColor = 'bg_color';
-const decorationSize = 'font_size';
+const decorationFontSize = 'font_size';
 
 const docTagPage = 'page';
 const docTagHeading = 'heading';
@@ -35,22 +35,22 @@ const docTagImage = 'image';
 const defaultFontSize = 14.0;
 
 /// Default header text font size with given level.
-const defaultLevelToFontSize = [
+const defaultLevelToFontSizeMap = <int, double>{
   // Header1,
-  49.0,
+  7: 49.0,
   // Header2,
-  33.0,
+  6: 33.0,
   // Header3,
-  25.0,
+  5: 25.0,
   // Header4,
-  19.0,
+  4: 19.0,
   // Header5,
-  18.0,
+  3: 18.0,
   // Header6,
-  14.0,
+  2: 14.0,
   // Header7,
-  11.0,
-];
+  1: 11.0,
+};
 
 /// Default header font weight.
 const defaultHeaderFontWeight = FontWeight.w600;
