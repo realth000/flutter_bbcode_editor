@@ -141,3 +141,19 @@ Future<void> toggleStateSelectionAttr(
     },
   );
 }
+
+/// Toggle attribute named [attrName] with [attrValue] on current selection.
+Future<void> toggleStateSelectionAttrValue<T>(
+  EditorState? editorState,
+  String attrName,
+  T attrValue,
+) async {
+  if (editorState?.selection?.isCollapsed ?? true) {
+    return;
+  }
+
+  await editorState?.formatDelta(
+    editorState.selection,
+    {attrName: attrValue},
+  );
+}
