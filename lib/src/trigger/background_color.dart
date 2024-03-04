@@ -1,4 +1,3 @@
-import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/editor.dart';
 import 'package:flutter_bbcode_editor/src/trigger/base.dart';
@@ -17,9 +16,9 @@ extension EditorBackgroundColor on BBCodeEditorState {
   ///
   /// Originally from "appflowy-editor/lib/src/editor/toolbar/utils/format_color.dart"
   Future<void> triggerBackgroundColor(String? color) async =>
-      editorState?.formatDelta(
-        editorState!.selection,
-        {decorationBackgroundColor: color},
-        // withUpdateSelection: true,
+      toggleStateSelectionAttrValue(
+        editorState,
+        decorationBackgroundColor,
+        color,
       );
 }
