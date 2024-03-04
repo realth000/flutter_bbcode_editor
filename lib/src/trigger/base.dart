@@ -1,5 +1,42 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
+
+/// Find the delta contains cursor position and return it and it's index in node.
+///
+/// Currently only support [TextInsert] type delta.
+///
+/// Return null if not found.
+///
+/// This is useful when selection is collapsed.
+(int index, TextInsert delta)? _findCurrentDelta(EditorState editorState) {
+  final selection = editorState.selection;
+  if (selection == null) {
+    return null;
+  }
+  final nodes = editorState.getNodesInSelection(selection).normalized;
+  // Here is the cursor position.
+  final targetOffset = selection.start.offset;
+  // Already checked length.
+  var currentOffset = 0;
+  for (final node in nodes) {
+    final delta = node.delta;
+    if (delta == null) {
+      continue;
+    }
+    for (final (index, op) in delta.whereType<TextInsert>().indexed) {
+      currentOffset += op.text.length;
+      if (currentOffset >= targetOffset) {
+        // The sum of all already walked offset is larger than target offset
+        // Cursor is in current delta.
+        return (index, op);
+        // return op.attributes?[attrName] as T?;
+      }
+    }
+  }
+  // Fallback.
+  return null;
+}
 
 /// Check [editorState] has [attrName] attribute or not.
 ///
@@ -78,7 +115,7 @@ T? checkStateSelectionAttrValue<T>(EditorState? editorState, String attrName) {
       }
       for (final op in delta.whereType<TextInsert>()) {
         currentOffset += op.text.length;
-        if (currentOffset > targetOffset) {
+        if (currentOffset >= targetOffset) {
           // The sum of all already walked offset is larger than target offset
           // Cursor is in current delta.
           return op.attributes?[attrName] as T?;
@@ -89,10 +126,56 @@ T? checkStateSelectionAttrValue<T>(EditorState? editorState, String attrName) {
     return null;
   }
 
+  // When only selected one node, check the delta that contains version.
+  if (selection.start.path.equals(selection.end.path)) {
+    final node = nodes.first;
+    if (node.delta == null) {
+      return null;
+    }
+
+    // In the same node, have the same path, only check for offset.
+    final targetStartOffset = selection.start.offset;
+    final targetEndOffset = selection.end.offset;
+    var currentOffset = 0;
+    final allValueUsed = <T>{};
+    for (final delta in node.delta!) {
+      if (delta is! TextInsert) {
+        continue;
+      }
+      currentOffset += delta.length;
+      // delta is TextInsert.
+      if (currentOffset > targetStartOffset &&
+          currentOffset <= targetEndOffset) {
+        final v = delta.attributes?[attrName] as T?;
+        if (v != null) {
+          allValueUsed.add(v);
+        }
+      }
+      if (currentOffset > targetEndOffset) {
+        // Already after the selection position.
+        break;
+      }
+    }
+
+    debugPrint(
+        '[BBCodeEditor] selection: $selection, collapsed:${selection.isCollapsed}');
+    debugPrint('[BBCodeEditor] nodeLength: ${nodes.length} ${nodes.first}');
+    debugPrint(
+        '[BBCodeEditor] check attr $attrName all values: $allValueUsed}');
+
+    if (allValueUsed.isEmpty || allValueUsed.length > 1) {
+      return null;
+    } else {
+      return allValueUsed.first;
+    }
+  }
+
   // Selection not collapsed.
   final allValueUsed = nodes
       .mapIndexed(
         (index, node) {
+          print(
+              '>>> check node=${node.path}, target=${selection.start}->${selection.end}');
           Delta? delta;
           if (index == 0) {
             delta = node.delta?.slice(selection.start.offset);
@@ -101,19 +184,18 @@ T? checkStateSelectionAttrValue<T>(EditorState? editorState, String attrName) {
           } else {
             delta = node.delta;
           }
-          return delta
+          final x = delta
               ?.whereType<TextInsert>()
               .map((e) => e.attributes?[attrName] as T?)
+              .whereType<T>()
               .toSet();
+          print('>>> get x=$x');
+          return x;
         },
       )
       .whereType<Set<T?>>()
       .flattened
       .toSet();
-  // debugPrint(
-  //     '[BBCodeEditor] selection: $selection, collapsed:${selection.isCollapsed}');
-  // debugPrint('[BBCodeEditor] nodeLength: ${nodes.length} ${nodes.first}');
-  // debugPrint('[BBCodeEditor] check attr $attrName all values: $allValueUsed}');
   if (allValueUsed.isEmpty || allValueUsed.length > 1) {
     return null;
   } else {
@@ -148,11 +230,27 @@ Future<void> toggleStateSelectionAttrValue<T>(
   String attrName,
   T attrValue,
 ) async {
-  if (editorState?.selection?.isCollapsed ?? true) {
+  final selection = editorState?.selection;
+  if (editorState == null || selection == null) {
+    print('>> early return: editorstate=$editorState, selection=$selection');
+    return;
+  }
+  if (selection.isCollapsed) {
+    final ret = _findCurrentDelta(editorState);
+    if (ret == null) {
+      print('>>> early return: op=$ret');
+      print('>>> check: selection=$selection');
+      return;
+    }
+    await editorState.updateNode(selection, (node) {
+      print('>>> update op=$ret, node: $node');
+      return node;
+    });
+    ret.$2.attributes?[attrName] = [attrValue];
     return;
   }
 
-  await editorState?.formatDelta(
+  await editorState.formatDelta(
     editorState.selection,
     {attrName: attrValue},
   );
