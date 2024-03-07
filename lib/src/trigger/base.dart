@@ -54,7 +54,7 @@ bool checkStateSelectionAttr(EditorState? editorState, String attrName) {
   final bool isSelected;
   // use `isCollapsed` to check whether selecting any text.
   if (selection.isCollapsed) {
-    isSelected = editorState.toggledStyle[attrName] ?? false;
+    isSelected = editorState.toggledStyle[attrName] as bool? ?? false;
   } else {
     isSelected = nodes.allSatisfyInSelection(
       selection,
@@ -228,26 +228,16 @@ Future<void> toggleStateSelectionAttr(
 Future<void> toggleStateSelectionAttrValue<T>(
   EditorState? editorState,
   String attrName,
-  T attrValue,
+  T? attrValue,
 ) async {
   final selection = editorState?.selection;
   if (editorState == null || selection == null) {
-    print('>> early return: editorstate=$editorState, selection=$selection');
     return;
   }
   if (selection.isCollapsed) {
-    // final ret = _findCurrentDelta(editorState);
-    // if (ret == null) {
-    //   print('>>> early return: op=$ret');
-    //   print('>>> check: selection=$selection');
-    //   return;
-    // }
-    await editorState.updateNode(
-      selection,
-      (node) =>
-          _updateCursorDeltaInNode(editorState, node, attrName, attrValue),
-    );
-    // ret.$2.attributes?[attrName] = [attrValue];
+    // Originally from toggleAttribute method.
+    // In the collapsed branch, when
+    editorState.updateToggledStyle(attrName, attrValue);
     return;
   }
 
@@ -255,22 +245,4 @@ Future<void> toggleStateSelectionAttrValue<T>(
     editorState.selection,
     {attrName: attrValue},
   );
-}
-
-Node _updateCursorDeltaInNode<T>(
-  EditorState editorState,
-  Node node,
-  String attrName,
-  T attrValue,
-) {
-  final selection = editorState.selection;
-  if (selection == null ||
-      node.path < selection.start.path ||
-      selection.end.path < node.path) {
-    return node;
-  }
-  final newDelta = TextInsert('', attributes: {attrName: attrValue});
-  node.delta?.insert('', attributes: {attrName: attrValue});
-  print('>>> update node:${node}');
-  return node;
 }
