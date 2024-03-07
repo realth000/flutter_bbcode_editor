@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:appflowy_editor/appflowy_editor.dart';
+import 'package:collection/collection.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,18 +23,36 @@ import 'package:path_provider/path_provider.dart';
 import 'package:universal_html/html.dart' as uh;
 
 part 'editor_controller.dart';
+part 'editor_value.dart';
 
 /// The bbcode editor widget.
 class BBCodeEditor extends StatefulWidget {
   /// Constructor.
-  const BBCodeEditor({
+  BBCodeEditor({
     this.jsonString,
     this.controller,
     this.editorStyle,
     this.onEditorStateChange,
     this.focusNode,
     super.key,
-  });
+  }) : assert(
+          BBCodeEditor._initialized,
+          'Must call await BBCodeEditor.initialize() before useing the editor',
+        );
+
+  static bool _initialized = false;
+
+  /// Initialize the editor.
+  ///
+  /// Call this once before using [BBCodeEditor].
+  static Future<void> initialize() async {
+    if (_initialized) {
+      return;
+    }
+    // According to https://github.com/AppFlowy-IO/appflowy-editor/issues/637#issuecomment-1873187057
+    AppFlowyRichTextKeys.supportToggled.add(AppFlowyRichTextKeys.fontSize);
+    _initialized = true;
+  }
 
   /// Controller of the editor.
   ///
@@ -65,9 +84,6 @@ final class BBCodeEditorState extends State<BBCodeEditor>
 
   /// Get the selection of editor.
   Selection? get selection => editorState?.selection;
-
-  /// Flag indicating already initialized or not.
-  bool initialized = false;
 
   Future<void> _traverse(
     Node node,
@@ -234,42 +250,49 @@ final class BBCodeEditorState extends State<BBCodeEditor>
     }
   }
 
+  void onSelectionChanged() {
+    print('>>> selection changed! ${hashCode} ${editorState?.selection}');
+    setState(() {
+      widget.controller?._update();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+
+    final editorState = EditorState(
+      document: Document.fromJson(
+        jsonDecode(widget.jsonString ?? defaultDocument)
+            as Map<String, dynamic>,
+      ),
+    );
+
+    editorState.logConfiguration
+      ..handler = debugPrint
+      ..level = LogLevel.off;
+
+    editorState.transactionStream.listen((event) {
+      if (event.$1 == TransactionTime.after) {
+        // Call editor state change callback after state changed.
+        widget.onEditorStateChange?.call(editorState);
+      }
+    });
+    this.editorState = editorState;
+
     widget.controller?._bind = this;
+    editorState.selectionNotifier.addListener(onSelectionChanged);
   }
 
   @override
   void dispose() {
+    editorState?.selectionNotifier.removeListener(onSelectionChanged);
     editorState?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!initialized) {
-      initialized = true;
-      final editorState = EditorState(
-        document: Document.fromJson(
-          jsonDecode(widget.jsonString ?? defaultDocument)
-              as Map<String, dynamic>,
-        ),
-      );
-
-      editorState.logConfiguration
-        ..handler = debugPrint
-        ..level = LogLevel.off;
-
-      editorState.transactionStream.listen((event) {
-        if (event.$1 == TransactionTime.after) {
-          // Call editor state change callback after state changed.
-          widget.onEditorStateChange?.call(editorState);
-        }
-      });
-      this.editorState = editorState;
-    }
-
     if (PlatformExtension.isDesktopOrWeb) {
       return DesktopEditor(
         editorState: editorState!,

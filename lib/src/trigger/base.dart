@@ -1,6 +1,5 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 
 /// Find the delta contains cursor position and return it and it's index in node.
 ///
@@ -157,11 +156,11 @@ T? checkStateSelectionAttrValue<T>(EditorState? editorState, String attrName) {
       }
     }
 
-    debugPrint(
-        '[BBCodeEditor] selection: $selection, collapsed:${selection.isCollapsed}');
-    debugPrint('[BBCodeEditor] nodeLength: ${nodes.length} ${nodes.first}');
-    debugPrint(
-        '[BBCodeEditor] check attr $attrName all values: $allValueUsed}');
+    // debugPrint(
+    //     '[BBCodeEditor] selection: $selection, collapsed:${selection.isCollapsed}');
+    // debugPrint('[BBCodeEditor] nodeLength: ${nodes.length} ${nodes.first}');
+    // debugPrint(
+    //     '[BBCodeEditor] check attr $attrName all values: $allValueUsed}');
 
     if (allValueUsed.isEmpty || allValueUsed.length > 1) {
       return null;
@@ -189,7 +188,6 @@ T? checkStateSelectionAttrValue<T>(EditorState? editorState, String attrName) {
               .map((e) => e.attributes?[attrName] as T?)
               .whereType<T>()
               .toSet();
-          print('>>> get x=$x');
           return x;
         },
       )
