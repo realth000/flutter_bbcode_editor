@@ -35,6 +35,7 @@ class BBCodeEditorValue {
     int? fontSizeLevel,
     bool clearForegroundColor = false,
     bool clearBackgroundColor = false,
+    bool clearFontSizeLevel = false,
   }) {
     return BBCodeEditorValue(
       collapsed: collapsed ?? this.collapsed,
@@ -48,7 +49,8 @@ class BBCodeEditorValue {
       backgroundColor: clearBackgroundColor
           ? null
           : (backgroundColor ?? this.backgroundColor),
-      fontSizeLevel: fontSizeLevel ?? this.fontSizeLevel,
+      fontSizeLevel:
+          clearFontSizeLevel ? null : (fontSizeLevel ?? this.fontSizeLevel),
     );
   }
 

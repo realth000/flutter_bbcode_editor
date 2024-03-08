@@ -41,6 +41,7 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
       fontSizeLevel: fontSizeLevel,
       clearForegroundColor: foregroundColor == null,
       clearBackgroundColor: backgroundColor == null,
+      clearFontSizeLevel: fontSizeLevel == null,
     );
   }
 
@@ -84,18 +85,20 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   /// Get the level of font size.
   ///
   /// Return null if is invalid font size.
-  int? get fontSize {
+  double? get fontSize {
     final sizeValue = value.fontSizeLevel ?? -1;
     for (final entry in defaultLevelToFontSizeMap.entries) {
-      if (entry.value == sizeValue) {
-        return entry.key;
+      if (entry.key == sizeValue) {
+        return entry.value;
       }
     }
     return null;
   }
 
-  set _fontSizeLevel(int? fontSizeLevel) =>
-      value = value.copyWith(fontSizeLevel: fontSizeLevel);
+  set _fontSizeLevel(int? fontSizeLevel) => value = value.copyWith(
+        fontSizeLevel: fontSizeLevel,
+        clearFontSizeLevel: fontSizeLevel == null,
+      );
 
   // ignore: avoid_setters_without_getters
   set _bind(BBCodeEditorState state) {

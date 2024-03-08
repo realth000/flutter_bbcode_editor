@@ -251,7 +251,6 @@ final class BBCodeEditorState extends State<BBCodeEditor>
   }
 
   void onSelectionChanged() {
-    print('>>> selection changed! ${hashCode} ${editorState?.selection}');
     setState(() {
       widget.controller?._update();
     });

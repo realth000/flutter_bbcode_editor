@@ -143,16 +143,14 @@ T? checkStateSelectionAttrValue<T>(EditorState? editorState, String attrName) {
       }
       currentOffset += delta.length;
       // delta is TextInsert.
-      if (currentOffset > targetStartOffset &&
-          currentOffset <= targetEndOffset) {
+      if (currentOffset >= targetStartOffset) {
         final v = delta.attributes?[attrName] as T?;
         if (v != null) {
           allValueUsed.add(v);
         }
-      }
-      if (currentOffset > targetEndOffset) {
-        // Already after the selection position.
-        break;
+        if (currentOffset > targetEndOffset) {
+          break;
+        }
       }
     }
 
