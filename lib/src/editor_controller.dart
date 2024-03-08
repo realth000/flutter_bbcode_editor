@@ -39,8 +39,9 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
       foregroundColor: foregroundColor,
       backgroundColor: backgroundColor,
       fontSizeLevel: fontSizeLevel,
+      clearForegroundColor: foregroundColor == null,
+      clearBackgroundColor: backgroundColor == null,
     );
-    print('>>> _update! stateHashCode=${_state.hashCode} value=$value');
   }
 
   bool get collapsed => value.collapsed;
@@ -68,13 +69,17 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
 
   Color? get foregroundColor => value.foregroundColor;
 
-  set _foregroundColor(Color? foregroundColor) =>
-      value = value.copyWith(foregroundColor: foregroundColor);
+  set _foregroundColor(Color? foregroundColor) => value = value.copyWith(
+        foregroundColor: foregroundColor,
+        clearForegroundColor: foregroundColor == null,
+      );
 
   Color? get backgroundColor => value.backgroundColor;
 
-  set _backgroundColor(Color? backgroundColor) =>
-      value = value.copyWith(backgroundColor: backgroundColor);
+  set _backgroundColor(Color? backgroundColor) => value = value.copyWith(
+        backgroundColor: backgroundColor,
+        clearBackgroundColor: backgroundColor == null,
+      );
 
   /// Get the level of font size.
   ///

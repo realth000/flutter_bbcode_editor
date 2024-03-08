@@ -6,7 +6,9 @@ extension EditorItalic on BBCodeEditorState {
   /// Check the current editor state and selection is in italic state.
   ///
   /// Useful when changing state.
-  bool isItalic() => checkStateSelectionAttr(editorState, decorationNameItalic);
+  bool isItalic() =>
+      checkStateSelectionAttrValue<bool>(editorState, decorationNameItalic) ??
+      false;
 
   /// Insert italic style into the editor.
   ///

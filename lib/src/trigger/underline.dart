@@ -7,7 +7,9 @@ extension EditorUnderline on BBCodeEditorState {
   ///
   /// Useful when changing state.
   bool isUnderline() =>
-      checkStateSelectionAttr(editorState, decorationNameUnderline);
+      checkStateSelectionAttrValue<bool>(
+          editorState, decorationNameUnderline) ??
+      false;
 
   /// Insert underline style into the editor.
   ///

@@ -33,6 +33,8 @@ class BBCodeEditorValue {
     Color? foregroundColor,
     Color? backgroundColor,
     int? fontSizeLevel,
+    bool clearForegroundColor = false,
+    bool clearBackgroundColor = false,
   }) {
     return BBCodeEditorValue(
       collapsed: collapsed ?? this.collapsed,
@@ -40,8 +42,12 @@ class BBCodeEditorValue {
       italic: italic ?? this.italic,
       underline: underline ?? this.underline,
       strikethrough: strikethrough ?? this.strikethrough,
-      foregroundColor: foregroundColor ?? this.foregroundColor,
-      backgroundColor: backgroundColor ?? this.backgroundColor,
+      foregroundColor: clearForegroundColor
+          ? null
+          : (foregroundColor ?? this.foregroundColor),
+      backgroundColor: clearBackgroundColor
+          ? null
+          : (backgroundColor ?? this.backgroundColor),
       fontSizeLevel: fontSizeLevel ?? this.fontSizeLevel,
     );
   }

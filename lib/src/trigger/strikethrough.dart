@@ -7,7 +7,9 @@ extension EditorStrikethrough on BBCodeEditorState {
   ///
   /// Useful when changing state.
   bool isStrikethrough() =>
-      checkStateSelectionAttr(editorState, decorationNameStrikethrough);
+      checkStateSelectionAttrValue<bool>(
+          editorState, decorationNameStrikethrough) ??
+      false;
 
   /// Insert strikethrough style into the editor.
   ///
