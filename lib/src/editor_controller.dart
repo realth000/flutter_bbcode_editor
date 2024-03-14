@@ -182,4 +182,12 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
     _fontSizeLevel = level;
     await _state?.triggerFontSize(sizeValue);
   }
+
+  /// Insert an emoji in the current selection position.
+  ///
+  /// Emoji is represent as [code] in bbcode and display like [emoji].
+  Future<void> insertEmoji(String code) async {
+    print('>>> insert emoji  $code');
+    await _state?.insertEmoji(code);
+  }
 }

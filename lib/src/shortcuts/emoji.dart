@@ -1,5 +1,21 @@
 import 'dart:typed_data';
 
+import 'package:appflowy_editor/appflowy_editor.dart';
+import 'package:flutter_bbcode_editor/src/editor.dart';
+
+/// All keys used in emoji node.
+///
+/// Static const strings.
+class EmojiBlocKeys {
+  const EmojiBlocKeys._();
+
+  /// Type of the block.
+  static const String type = 'emoji';
+
+  /// Data here
+  static const String code = 'code';
+}
+
 /// Provider that provide the emoji image from the given url.
 ///
 /// Generally it's a http client but you can do validation and caching in
@@ -38,4 +54,60 @@ class EmojiGroup {
 
   /// All emoji in the group
   final List<Emoji> emojiList;
+}
+
+/// Emoji node in document.
+Node emojiNode({
+  required String code,
+}) {
+  return Node(type: EmojiBlocKeys.type, attributes: {
+    EmojiBlocKeys.code: code,
+  });
+}
+
+/// Provides emoji related method.
+extension EmojiExtension on BBCodeEditorState {
+  /// Insert emoji in current cursor position which represent like
+  /// [code].
+  Future<void> insertEmoji(String code) async {
+    if (editorState == null) {
+      return;
+    }
+    // editorState?.insertImageNode();
+    final selection = this.selection;
+    if (selection == null || !selection.isCollapsed) {
+      return;
+    }
+    final node = editorState!.getNodeAtPath(selection.end.path);
+    if (node == null) {
+      return;
+    }
+    final transaction = editorState!.transaction;
+    // if the current node is empty paragraph, replace it with image node
+    if (node.type == ParagraphBlockKeys.type &&
+        (node.delta?.isEmpty ?? false)) {
+      transaction
+        ..insertNode(
+          node.path,
+          emojiNode(code: code),
+        )
+        ..deleteNode(node);
+    } else {
+      transaction.insertNode(
+        node.path.next,
+        emojiNode(
+          code: code,
+        ),
+      );
+    }
+
+    transaction.afterSelection = Selection.collapsed(
+      Position(
+        path: node.path.next,
+        offset: 0,
+      ),
+    );
+
+    return editorState!.apply(transaction);
+  }
 }

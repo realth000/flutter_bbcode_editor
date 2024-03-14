@@ -12,6 +12,8 @@ import 'package:flutter_bbcode_editor/src/desktop_editor.dart';
 import 'package:flutter_bbcode_editor/src/file_type.dart';
 import 'package:flutter_bbcode_editor/src/mobile_editor.dart';
 import 'package:flutter_bbcode_editor/src/node.dart';
+import 'package:flutter_bbcode_editor/src/shortcuts/emoji.dart';
+import 'package:flutter_bbcode_editor/src/shortcuts/emoji_builder.dart';
 import 'package:flutter_bbcode_editor/src/trigger/background_color.dart';
 import 'package:flutter_bbcode_editor/src/trigger/bold.dart';
 import 'package:flutter_bbcode_editor/src/trigger/font_size.dart';
@@ -29,6 +31,7 @@ part 'editor_value.dart';
 class BBCodeEditor extends StatefulWidget {
   /// Constructor.
   BBCodeEditor({
+    required this.emojiBuilder,
     this.jsonString,
     this.controller,
     this.editorStyle,
@@ -72,6 +75,14 @@ class BBCodeEditor extends StatefulWidget {
   /// Focus node on the editor.
   final FocusNode? focusNode;
 
+  ////////////////// Component Builder //////////////////
+
+  /// Build emoji from bbcode.
+  ///
+  /// Return image data if code is valid.
+  /// Return null if code is invalid.
+  final EmojiBuilder emojiBuilder;
+
   @override
   State<BBCodeEditor> createState() => BBCodeEditorState();
 }
@@ -81,6 +92,8 @@ final class BBCodeEditorState extends State<BBCodeEditor>
     with WidgetsBindingObserver {
   /// True editor state.
   EditorState? editorState;
+
+  bool _didAutoFocus = false;
 
   /// Get the selection of editor.
   Selection? get selection => editorState?.selection;
@@ -291,16 +304,23 @@ final class BBCodeEditorState extends State<BBCodeEditor>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (PlatformExtension.isDesktopOrWeb) {
       return DesktopEditor(
         editorState: editorState!,
+        emojiBuilder: widget.emojiBuilder,
         controller: widget.controller,
         focusNode: widget.focusNode,
       );
     } else if (PlatformExtension.isMobile) {
       return MobileEditor(
         editorState: editorState!,
+        emojiBuilder: widget.emojiBuilder,
         controller: widget.controller,
         focusNode: widget.focusNode,
       );
