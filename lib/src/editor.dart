@@ -37,6 +37,7 @@ class BBCodeEditor extends StatefulWidget {
     this.editorStyle,
     this.onEditorStateChange,
     this.focusNode,
+    this.autoFocus = false,
     super.key,
   }) : assert(
           BBCodeEditor._initialized,
@@ -75,6 +76,9 @@ class BBCodeEditor extends StatefulWidget {
   /// Focus node on the editor.
   final FocusNode? focusNode;
 
+  /// Auto focus when changed.
+  final bool autoFocus;
+
   ////////////////// Component Builder //////////////////
 
   /// Build emoji from bbcode.
@@ -93,10 +97,23 @@ final class BBCodeEditorState extends State<BBCodeEditor>
   /// True editor state.
   EditorState? editorState;
 
-  bool _didAutoFocus = false;
-
   /// Get the selection of editor.
   Selection? get selection => editorState?.selection;
+
+  /// In many situations we lost focus when asking the user to insert some
+  /// data, for example choose an emoji. But right after the choice we want
+  /// to insert the data (if any) and restore the focus.
+  ///
+  /// This can't be reached without recording the last used selection because
+  /// we lost focus and do not know where to insert data and restore focus.
+  ///
+  /// Maybe we should use quill instead of AppFlowy Editor.
+  Selection? _lastUsedSelection;
+
+  /// Return the last used not-null selection.
+  ///
+  /// Return null when no selection used before.
+  Selection? get lastUsedSelection => _lastUsedSelection;
 
   Future<void> _traverse(
     Node node,
@@ -264,6 +281,10 @@ final class BBCodeEditorState extends State<BBCodeEditor>
   }
 
   void onSelectionChanged() {
+    if (editorState?.selection != null) {
+      // Only record the last used not-null selection.
+      _lastUsedSelection = editorState?.selection;
+    }
     setState(() {
       widget.controller?._update();
     });

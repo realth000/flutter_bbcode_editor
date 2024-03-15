@@ -15,6 +15,7 @@ final class DesktopEditor extends BasicEditor {
     required super.emojiBuilder,
     super.controller,
     super.focusNode,
+    super.autoFocus,
     super.key,
   });
 
@@ -185,6 +186,7 @@ final class _DesktopEditorState extends BasicEditorState {
       child: ColoredBox(
         color: Theme.of(context).inputDecorationTheme.fillColor ?? Colors.red,
         child: AppFlowyEditor(
+          autoFocus: widget.autoFocus,
           focusNode: widget.focusNode,
           shrinkWrap: true,
           editorState: widget.editorState,

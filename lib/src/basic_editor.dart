@@ -20,6 +20,7 @@ class BasicEditor extends StatefulWidget {
     required this.editorState,
     required this.emojiBuilder,
     this.focusNode,
+    this.autoFocus = false,
     this.controller,
     super.key,
   });
@@ -31,6 +32,8 @@ class BasicEditor extends StatefulWidget {
   final BBCodeEditorController? controller;
 
   final FocusNode? focusNode;
+
+  final bool autoFocus;
 
   /////////////// Component Builder ///////////////
 

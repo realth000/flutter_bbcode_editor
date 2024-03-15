@@ -15,6 +15,7 @@ final class MobileEditor extends BasicEditor {
     required super.emojiBuilder,
     super.controller,
     super.focusNode,
+    super.autoFocus,
     super.key,
   });
 
@@ -129,6 +130,7 @@ final class _MobileEditorState extends BasicEditorState {
         );
       },
       child: AppFlowyEditor(
+        autoFocus: widget.autoFocus,
         focusNode: widget.focusNode,
         editorStyle: _buildMobileEditorStyle(context),
         editorState: widget.editorState,

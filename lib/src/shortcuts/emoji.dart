@@ -73,8 +73,7 @@ extension EmojiExtension on BBCodeEditorState {
     if (editorState == null) {
       return;
     }
-    // editorState?.insertImageNode();
-    final selection = this.selection;
+    final selection = this.selection ?? lastUsedSelection;
     if (selection == null || !selection.isCollapsed) {
       return;
     }
