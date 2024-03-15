@@ -171,8 +171,6 @@ T? checkStateSelectionAttrValue<T>(EditorState? editorState, String attrName) {
   final allValueUsed = nodes
       .mapIndexed(
         (index, node) {
-          print(
-              '>>> check node=${node.path}, target=${selection.start}->${selection.end}');
           Delta? delta;
           if (index == 0) {
             delta = node.delta?.slice(selection.start.offset);

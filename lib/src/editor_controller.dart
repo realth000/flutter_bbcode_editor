@@ -183,11 +183,18 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
     await _state?.triggerFontSize(sizeValue);
   }
 
+  // TODO: Support same-line-image.
   /// Insert an emoji in the current selection position.
   ///
   /// Emoji is represent as [code] in bbcode and display like [emoji].
   Future<void> insertEmoji(String code) async {
-    print('>>> insert emoji  $code');
     await _state?.insertEmoji(code);
+  }
+
+  /// Insert raw emoji string into the editor
+  ///
+  /// Only a fallback choice when same-line-image is not supported.
+  Future<void> insertRawEmoji(String code) async {
+    await _state?.insertRawCode(code);
   }
 }

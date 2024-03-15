@@ -109,4 +109,42 @@ extension EmojiExtension on BBCodeEditorState {
 
     return editorState!.apply(transaction);
   }
+
+  /// Insert raw bbcode into editor.
+  ///
+  /// Only for components that do not support WYSIWYG.
+  Future<void> insertRawCode(String code) async {
+    if (editorState == null) {
+      return;
+    }
+    final selection = this.selection ?? lastUsedSelection;
+    // TODO: Support not collapsed selection.
+    if (selection == null) {
+      return;
+    }
+    final node = editorState!.getNodeAtPath(selection.end.path);
+    if (node == null) {
+      return;
+    }
+    final transaction = editorState!.transaction;
+    // if the current node is empty paragraph, replace it with image node
+    if (node.type == ParagraphBlockKeys.type &&
+        (node.delta?.isEmpty ?? false)) {
+    } else {
+      transaction.insertText(
+        node,
+        node.path.first + selection.startIndex,
+        code,
+      );
+    }
+
+    transaction.afterSelection = Selection.collapsed(
+      Position(
+        path: node.path.next,
+        offset: 0,
+      ),
+    );
+
+    return editorState!.apply(transaction);
+  }
 }
