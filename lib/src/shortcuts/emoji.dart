@@ -140,8 +140,8 @@ extension EmojiExtension on BBCodeEditorState {
 
     transaction.afterSelection = Selection.collapsed(
       Position(
-        path: node.path.next,
-        offset: 0,
+        path: node.path,
+        offset: node.path.first + selection.startIndex + code.length,
       ),
     );
 
