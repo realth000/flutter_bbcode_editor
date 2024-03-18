@@ -14,6 +14,7 @@ import 'package:flutter_bbcode_editor/src/mobile_editor.dart';
 import 'package:flutter_bbcode_editor/src/node.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji_builder.dart';
+import 'package:flutter_bbcode_editor/src/shortcuts/url.dart';
 import 'package:flutter_bbcode_editor/src/trigger/background_color.dart';
 import 'package:flutter_bbcode_editor/src/trigger/bold.dart';
 import 'package:flutter_bbcode_editor/src/trigger/font_size.dart';
@@ -41,7 +42,7 @@ class BBCodeEditor extends StatefulWidget {
     super.key,
   }) : assert(
           BBCodeEditor._initialized,
-          'Must call await BBCodeEditor.initialize() before useing the editor',
+          'Must call await BBCodeEditor.initialize() before using the editor',
         );
 
   static bool _initialized = false;
