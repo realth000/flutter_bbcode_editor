@@ -126,24 +126,19 @@ extension EmojiExtension on BBCodeEditorState {
     if (node == null) {
       return;
     }
-    final transaction = editorState!.transaction;
     // if the current node is empty paragraph, replace it with image node
-    if (node.type == ParagraphBlockKeys.type &&
-        (node.delta?.isEmpty ?? false)) {
-    } else {
-      transaction.insertText(
+    final transaction = editorState!.transaction
+      ..insertText(
         node,
         node.path.first + selection.startIndex,
         code,
+      )
+      ..afterSelection = Selection.collapsed(
+        Position(
+          path: node.path,
+          offset: node.path.first + selection.startIndex + code.length,
+        ),
       );
-    }
-
-    transaction.afterSelection = Selection.collapsed(
-      Position(
-        path: node.path,
-        offset: node.path.first + selection.startIndex + code.length,
-      ),
-    );
 
     return editorState!.apply(transaction);
   }
