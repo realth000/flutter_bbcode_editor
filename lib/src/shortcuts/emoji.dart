@@ -130,13 +130,13 @@ extension EmojiExtension on BBCodeEditorState {
     final transaction = editorState!.transaction
       ..insertText(
         node,
-        node.path.first + selection.startIndex,
+        selection.startIndex,
         code,
       )
       ..afterSelection = Selection.collapsed(
         Position(
           path: node.path,
-          offset: node.path.first + selection.startIndex + code.length,
+          offset: selection.startIndex + code.length,
         ),
       );
 
