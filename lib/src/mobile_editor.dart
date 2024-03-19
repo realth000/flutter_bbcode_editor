@@ -43,7 +43,7 @@ final class _MobileEditorState extends BasicEditorState {
       cursorColor: Theme.of(context).colorScheme.primary,
       dragHandleColor: primaryColor,
       selectionColor: selectionColor,
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: EdgeInsets.zero,
       magnifierSize: const Size(144, 96),
       mobileDragHandleBallSize: const Size(12, 12),
       textStyleConfiguration: TextStyleConfiguration(
