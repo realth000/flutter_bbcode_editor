@@ -21,10 +21,10 @@ packages:
     dependency: "direct main"
     description:
       name: appflowy_editor
-      sha256: ac15467098c0cba23f1e331e01fe42a2a5d05753108850fd81b07c0b361c9f23
+      sha256: a4c9e4a05a96f26fedea6895ea7b2c2f43e1ba9baa52618d5d70272d964c8f2f
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.3"
   archive:
     dependency: transitive
     description:
@@ -651,7 +651,7 @@ packages:
     source: hosted
     version: "2.2.2"
   url_launcher:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: url_launcher
       sha256: "0ecc004c62fd3ed36a2ffcbe0dd9700aee63bd7532d0b642a488b1ec310f492e"

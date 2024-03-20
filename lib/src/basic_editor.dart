@@ -1,6 +1,7 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
+import 'package:flutter_bbcode_editor/src/shortcuts/url.dart';
 
 // /// Default callback when export data successfully.
 // void _defaultExportCallback(BuildContext context, String exportPath) {
@@ -19,6 +20,7 @@ class BasicEditor extends StatefulWidget {
   const BasicEditor({
     required this.editorState,
     required this.emojiBuilder,
+    this.urlLauncher,
     this.focusNode,
     this.autoFocus = false,
     this.controller,
@@ -38,6 +40,8 @@ class BasicEditor extends StatefulWidget {
   /////////////// Component Builder ///////////////
 
   final EmojiBuilder emojiBuilder;
+
+  final UrlLauncher? urlLauncher;
 
   @override
   State<BasicEditor> createState() => BasicEditorState();

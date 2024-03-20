@@ -201,7 +201,14 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   /// Insert raw url string into the editor
   ///
   /// Only a fallback choice when same-line-url-block is not supported.
-  Future<void> insertRawUrl(String text, String url) async {
-    await _state?.insertRawUrl(text, url);
+  Future<void> insertRawUrl(String description, String url) async {
+    await _state?.insertRawUrl(description, url);
+  }
+
+  /// Insert url block into the editor.
+  ///
+  /// Url is [url], show [description].
+  Future<void> insertUrl(String description, String url) async {
+    await _state?.insertUrl(description, url);
   }
 }

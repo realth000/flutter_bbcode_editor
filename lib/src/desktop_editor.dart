@@ -13,6 +13,7 @@ final class DesktopEditor extends BasicEditor {
   const DesktopEditor({
     required super.editorState,
     required super.emojiBuilder,
+    super.urlLauncher,
     super.controller,
     super.focusNode,
     super.autoFocus,

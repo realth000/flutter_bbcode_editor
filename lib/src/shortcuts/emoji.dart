@@ -155,3 +155,7 @@ extension EmojiExtension on BBCodeEditorState {
     return editorState!.apply(transaction);
   }
 }
+
+extension CheckEmoji on Map<dynamic, dynamic> {
+  bool get hasEmoji => this[EmojiBlocKeys.code] is String;
+}

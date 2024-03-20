@@ -33,6 +33,7 @@ class BBCodeEditor extends StatefulWidget {
   /// Constructor.
   BBCodeEditor({
     required this.emojiBuilder,
+    this.urlLauncher,
     this.jsonString,
     this.controller,
     this.editorStyle,
@@ -87,6 +88,11 @@ class BBCodeEditor extends StatefulWidget {
   /// Return image data if code is valid.
   /// Return null if code is invalid.
   final EmojiBuilder emojiBuilder;
+
+  /// Function to launch url when url tapped.
+  ///
+  /// Use package url_launcher if not set.
+  final UrlLauncher? urlLauncher;
 
   @override
   State<BBCodeEditor> createState() => BBCodeEditorState();
@@ -336,6 +342,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
       return DesktopEditor(
         editorState: editorState!,
         emojiBuilder: widget.emojiBuilder,
+        urlLauncher: widget.urlLauncher,
         controller: widget.controller,
         focusNode: widget.focusNode,
       );
@@ -343,6 +350,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
       return MobileEditor(
         editorState: editorState!,
         emojiBuilder: widget.emojiBuilder,
+        urlLauncher: widget.urlLauncher,
         controller: widget.controller,
         focusNode: widget.focusNode,
       );

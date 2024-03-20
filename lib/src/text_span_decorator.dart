@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/basic_editor.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji_builder.dart';
+import 'package:flutter_bbcode_editor/src/shortcuts/url.dart';
 
 extension BBCodeTextSpanDecorator on BasicEditor {
   /// This is the builder function to build inline bbcode components.
@@ -52,10 +53,15 @@ extension BBCodeTextSpanDecorator on BasicEditor {
       return before;
     }
     final ret = switch (elementType) {
-      EmojiBlocKeys.type when codeMap[EmojiBlocKeys.code] is String =>
-        bbcodeInlineEmojiBuilder(
+      EmojiBlocKeys.type when codeMap.hasEmoji => bbcodeInlineEmojiBuilder(
           emojiBuilder,
           codeMap[EmojiBlocKeys.code] as String,
+        ),
+      UrlBlockKeys.type when codeMap.hasUrl => bbcodeInlineUrlBuilder(
+          context,
+          codeMap[UrlBlockKeys.description] as String,
+          codeMap[UrlBlockKeys.link] as String,
+          urlLauncher,
         ),
       String() => before,
     };
