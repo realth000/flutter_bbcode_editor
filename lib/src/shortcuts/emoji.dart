@@ -96,19 +96,28 @@ extension EmojiExtension on BBCodeEditorState {
     };
     if (node.type == ParagraphBlockKeys.type &&
         (node.delta?.isEmpty ?? false)) {
-      transaction
-        ..insertText(node, selection.endIndex, r'$', attributes: attr)
-        ..deleteNode(node);
+      // TODO: Handle selection is expanded.
+      transaction.insertText(
+        node,
+        selection.startIndex,
+        r'$',
+        attributes: attr,
+      );
     } else {
-      transaction.insertText(node, selection.endIndex, r'$', attributes: attr);
+      transaction.insertText(
+        node,
+        selection.startIndex,
+        r'$',
+        attributes: attr,
+      );
     }
 
-    // transaction.afterSelection = Selection.collapsed(
-    //   Position(
-    //     path: node.path.next,
-    //     offset: 0,
-    //   ),
-    // );
+    transaction.afterSelection = Selection.collapsed(
+      Position(
+        path: node.path,
+        offset: selection.endIndex + 1,
+      ),
+    );
 
     return editorState!.apply(transaction);
   }
