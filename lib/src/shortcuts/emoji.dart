@@ -83,29 +83,32 @@ extension EmojiExtension on BBCodeEditorState {
     }
     final transaction = editorState!.transaction;
     // if the current node is empty paragraph, replace it with image node
+    //
+    // Here we archive inline emoji by adding attributes to text node.
+    // All the bbcode inline elements are having a map value with key 'bbcode'.
+    // And in that map, 'type' key indicates the bbcode element type (emoji,
+    // url, image, mention user, ...).
+    final attr = {
+      'bbcode': {
+        'type': EmojiBlocKeys.type,
+        EmojiBlocKeys.code: code,
+      },
+    };
     if (node.type == ParagraphBlockKeys.type &&
         (node.delta?.isEmpty ?? false)) {
       transaction
-        ..insertNode(
-          node.path,
-          emojiNode(code: code),
-        )
+        ..insertText(node, selection.endIndex, r'$', attributes: attr)
         ..deleteNode(node);
     } else {
-      transaction.insertNode(
-        node.path.next,
-        emojiNode(
-          code: code,
-        ),
-      );
+      transaction.insertText(node, selection.endIndex, r'$', attributes: attr);
     }
 
-    transaction.afterSelection = Selection.collapsed(
-      Position(
-        path: node.path.next,
-        offset: 0,
-      ),
-    );
+    // transaction.afterSelection = Selection.collapsed(
+    //   Position(
+    //     path: node.path.next,
+    //     offset: 0,
+    //   ),
+    // );
 
     return editorState!.apply(transaction);
   }

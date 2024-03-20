@@ -1,8 +1,8 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/basic_editor.dart';
-import 'package:flutter_bbcode_editor/src/bbcode_block_component.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
+import 'package:flutter_bbcode_editor/src/text_span_decorator.dart';
 import 'package:flutter_bbcode_editor/src/utils.dart';
 
 /// Editor used on mobile platforms.
@@ -51,17 +51,14 @@ final class _MobileEditorState extends BasicEditorState {
           color: Theme.of(context).textTheme.bodyLarge?.color ?? Colors.white,
         ),
       ),
+      textSpanDecorator: widget.bbcodeInlineComponentBuilder,
     );
   }
 
   // showcase 2: customize the block style
   Map<String, BlockComponentBuilder> _buildBlockComponentBuilders() {
-    final bbcodeMap = bbcodeBlockComponentBuilder(
-      emojiBuilder: widget.emojiBuilder,
-    );
     final map = {
       ...standardBlockComponentBuilderMap,
-      ...bbcodeMap,
     };
     // TODO: Customize.
     const levelToFontSize = defaultLevelToFontSizeMap;
