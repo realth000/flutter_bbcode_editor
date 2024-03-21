@@ -167,6 +167,11 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
     await _state?.triggerForegroundColor(color.toHex());
   }
 
+  /// Clear the foreground color on editor selection.
+  Future<void> clearForegroundColor() async {
+    await _state?.triggerForegroundColor(null);
+  }
+
   Future<void> setBackgroundColor(Color color) async {
     _backgroundColor = color;
     await _state?.triggerBackgroundColor(color.toHex());
