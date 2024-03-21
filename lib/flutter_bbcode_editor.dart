@@ -1,3 +1,4 @@
+export 'src/constants.dart' show ForegroundColor;
 export 'src/editor.dart' show BBCodeEditor, BBCodeEditorController;
 export 'src/file_type.dart' show BBCodeFileType;
 export 'src/shortcuts/emoji_builder.dart' show EmojiBuilder;

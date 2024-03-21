@@ -222,21 +222,24 @@ Future<void> toggleStateSelectionAttr(
 Future<void> toggleStateSelectionAttrValue<T>(
   EditorState? editorState,
   String attrName,
-  T? attrValue,
-) async {
-  final selection = editorState?.selection;
+  T? attrValue, {
+  Selection? lastUsedSelection,
+}) async {
+  final selection = editorState?.selection ?? lastUsedSelection;
   if (editorState == null || selection == null) {
     return;
   }
   if (selection.isCollapsed) {
     // Originally from toggleAttribute method.
     // In the collapsed branch, when
-    editorState.updateToggledStyle(attrName, attrValue);
+    editorState
+      ..selection = selection
+      ..updateToggledStyle(attrName, attrValue);
     return;
   }
 
   await editorState.formatDelta(
-    editorState.selection,
+    selection,
     {attrName: attrValue},
   );
 }
