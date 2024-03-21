@@ -35,21 +35,23 @@ const docTagImage = 'image';
 const defaultFontSize = 14.0;
 
 /// Default header text font size with given level.
+///
+/// Normal size level is 19
 const defaultLevelToFontSizeMap = <int, double>{
   // Header1,
-  7: 49.0,
+  7: 49.0, // 64
   // Header2,
-  6: 33.0,
+  6: 33.0, // 43
   // Header3,
-  5: 25.0,
+  5: 25.0, // 33
   // Header4,
-  4: 19.0,
+  4: 19.0, // 25
   // Header5,
-  3: 18.0,
+  3: 18.0, // 22
   // Header6,
-  2: 14.0,
+  2: 12.0, // 18
   // Header7,
-  1: 11.0,
+  1: 11.0, // 14
 };
 
 /// Default header font weight.

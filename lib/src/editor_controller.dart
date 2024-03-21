@@ -82,7 +82,7 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
         clearBackgroundColor: backgroundColor == null,
       );
 
-  /// Get the level of font size.
+  /// Get the value of font size.
   ///
   /// Return null if is invalid font size.
   double? get fontSize {
@@ -94,6 +94,11 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
     }
     return null;
   }
+
+  /// Get the font size level of font size.
+  ///
+  /// Return null if is invalid font size.
+  int? get fontSizeLevel => value.fontSizeLevel;
 
   set _fontSizeLevel(int? fontSizeLevel) => value = value.copyWith(
         fontSizeLevel: fontSizeLevel,
