@@ -188,6 +188,41 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
     await _state?.triggerFontSize(sizeValue);
   }
 
+  /// Set the font size level in current selection to next level.
+  ///
+  /// 1 -> 2
+  /// 2 -> 3
+  /// ...
+  /// 6 -> 7
+  /// 7 -> 1
+  ///
+  /// If current font size level is null, set to [defaultLevel].
+  ///
+  /// Default value of [defaultLevel] is 3, larger than not set.
+  Future<void> setNextFontSizeLevel({int defaultLevel = 3}) async {
+    assert(
+      defaultLevelToFontSizeMap.containsKey(defaultLevel),
+      'defaultLevel should be valid value',
+    );
+    final currentLevel = value.fontSizeLevel;
+    if (currentLevel == null) {
+      // Font size not set, set to defaultLevel.
+      _fontSizeLevel = defaultLevel;
+      await _state?.triggerFontSize(defaultLevelToFontSizeMap[defaultLevel]);
+      return;
+    }
+    // Set to next level.
+    final nextLevel = currentLevel + 1;
+    if (defaultLevelToFontSizeMap.containsKey(nextLevel)) {
+      _fontSizeLevel = nextLevel;
+      await _state?.triggerFontSize(defaultLevelToFontSizeMap[nextLevel]);
+      return;
+    }
+    // Set back to the first level.
+    _fontSizeLevel = 1;
+    await _state?.triggerFontSize(1);
+  }
+
   // TODO: Support same-line-image.
   /// Insert an emoji in the current selection position.
   ///
