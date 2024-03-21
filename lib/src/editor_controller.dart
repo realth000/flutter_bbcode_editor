@@ -223,6 +223,12 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
     await _state?.triggerFontSize(1);
   }
 
+  /// Clear the font size in selection.
+  Future<void> clearFontSize() async {
+    _fontSizeLevel = null;
+    await _state?.triggerFontSize(null);
+  }
+
   // TODO: Support same-line-image.
   /// Insert an emoji in the current selection position.
   ///
