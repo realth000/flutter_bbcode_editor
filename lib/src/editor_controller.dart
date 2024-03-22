@@ -230,7 +230,7 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
     }
     // Set back to the first level.
     _fontSizeLevel = 1;
-    await _state?.triggerFontSize(1);
+    await _state?.triggerFontSize(defaultLevelToFontSizeMap[1]);
   }
 
   /// Clear the font size in selection.
