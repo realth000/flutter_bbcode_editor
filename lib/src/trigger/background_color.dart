@@ -20,5 +20,6 @@ extension EditorBackgroundColor on BBCodeEditorState {
         editorState,
         decorationBackgroundColor,
         color,
+        lastUsedSelection: lastUsedSelection,
       );
 }

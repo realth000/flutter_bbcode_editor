@@ -1,4 +1,5 @@
 import 'dart:ui';
+// ignore_for_file: public_member_api_docs
 
 const defaultDocument = '''
 {
@@ -57,8 +58,7 @@ const defaultLevelToFontSizeMap = <int, double>{
 /// Default header font weight.
 const defaultHeaderFontWeight = FontWeight.w600;
 
-// ignore_for_file: public_member_api_docs
-enum ForegroundColor {
+enum BBCodeEditorColor {
   black('黑色', Color(0xFF000000)),
   sienna('赭色', Color(0xFF804224)),
   darkOliveGreen('暗橄榄绿色', Color(0xFF445626)),
@@ -101,7 +101,7 @@ enum ForegroundColor {
   white('白色', Color(0xFF181a1b));
 
   /// Constructor.
-  const ForegroundColor(this.name, this.color);
+  const BBCodeEditorColor(this.name, this.color);
 
   final String name;
   final Color color;

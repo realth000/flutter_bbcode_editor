@@ -177,6 +177,11 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
     await _state?.triggerBackgroundColor(color.toHex());
   }
 
+  /// Clear the background color on editor selection.
+  Future<void> clearBackgroundColor() async {
+    await _state?.triggerBackgroundColor(null);
+  }
+
   /// Set the font size level.
   ///
   /// Level is available in [defaultLevelToFontSizeMap] list.
