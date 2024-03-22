@@ -125,13 +125,8 @@ extension UrlExtension on BBCodeEditorState {
   /// ```
   /// [url=${url}]${text}[/url]
   /// ```
-  Future<void> insertRawUrl(String text, String url) async {
-    if (text.startsWith('http://') || text.startsWith('https://')) {
-      await insertRawCode('[url=$url]$text[/url]');
-    } else {
-      await insertRawCode('[url=$url]https://$text[/url]');
-    }
-  }
+  Future<void> insertRawUrl(String text, String url) async =>
+      insertRawCode('[url=$url]$text[/url]');
 }
 
 extension CheckUrl on Map<dynamic, dynamic> {
