@@ -53,6 +53,7 @@ final class _DesktopEditorState extends BasicEditorState {
       padding: EdgeInsets.zero,
       textStyleConfiguration: TextStyleConfiguration(
         text: TextStyle(
+          fontSize: 16,
           color: Theme.of(context).textTheme.bodyLarge?.color ?? Colors.white,
         ),
       ),

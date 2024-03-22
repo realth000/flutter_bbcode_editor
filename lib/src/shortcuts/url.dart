@@ -48,14 +48,19 @@ InlineSpan bbcodeInlineUrlBuilder(
               backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             ),
             children: [
-              const WidgetSpan(child: Icon(Icons.link, size: 20)),
-              const WidgetSpan(child: SizedBox(width: 5, height: 20)),
+              const WidgetSpan(child: Icon(Icons.link, size: 23)),
+              const WidgetSpan(child: SizedBox(width: 5, height: 23)),
               WidgetSpan(
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     behavior: HitTestBehavior.translucent,
-                    child: Text(description),
+                    child: Text(
+                      description,
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ),
               ),
