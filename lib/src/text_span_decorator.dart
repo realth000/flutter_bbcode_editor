@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/basic_editor.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji_builder.dart';
+import 'package:flutter_bbcode_editor/src/shortcuts/image.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/url.dart';
 
 extension BBCodeTextSpanDecorator on BasicEditor {
@@ -62,6 +63,16 @@ extension BBCodeTextSpanDecorator on BasicEditor {
           codeMap[UrlBlockKeys.description] as String,
           codeMap[UrlBlockKeys.link] as String,
           urlLauncher,
+        ),
+      BBCodeImageBlockKeys.type when codeMap.hasImage =>
+        bbcodeInlineImageBuilder(
+          context,
+          codeMap[BBCodeImageBlockKeys.link] as String,
+          codeMap[BBCodeImageBlockKeys.width] as double,
+          codeMap[BBCodeImageBlockKeys.height] as double,
+          imageBuilder(codeMap[BBCodeImageBlockKeys.link] as String),
+          defaultImageLoadingBuilder,
+          defaultImageErrorBuilder,
         ),
       String() => before,
     };

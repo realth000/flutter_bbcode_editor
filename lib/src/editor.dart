@@ -14,6 +14,7 @@ import 'package:flutter_bbcode_editor/src/mobile_editor.dart';
 import 'package:flutter_bbcode_editor/src/node.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji_builder.dart';
+import 'package:flutter_bbcode_editor/src/shortcuts/image.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/url.dart';
 import 'package:flutter_bbcode_editor/src/trigger/background_color.dart';
 import 'package:flutter_bbcode_editor/src/trigger/bold.dart';
@@ -33,6 +34,7 @@ class BBCodeEditor extends StatefulWidget {
   /// Constructor.
   BBCodeEditor({
     required this.emojiBuilder,
+    required this.imageBuilder,
     this.urlLauncher,
     this.jsonString,
     this.controller,
@@ -93,6 +95,9 @@ class BBCodeEditor extends StatefulWidget {
   ///
   /// Use package url_launcher if not set.
   final UrlLauncher? urlLauncher;
+
+  /// Provide image.
+  final ImageProvider Function(String url) imageBuilder;
 
   @override
   State<BBCodeEditor> createState() => BBCodeEditorState();
@@ -342,6 +347,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
       return DesktopEditor(
         editorState: editorState!,
         emojiBuilder: widget.emojiBuilder,
+        imageBuilder: widget.imageBuilder,
         urlLauncher: widget.urlLauncher,
         controller: widget.controller,
         focusNode: widget.focusNode,
@@ -350,6 +356,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
       return MobileEditor(
         editorState: editorState!,
         emojiBuilder: widget.emojiBuilder,
+        imageBuilder: widget.imageBuilder,
         urlLauncher: widget.urlLauncher,
         controller: widget.controller,
         focusNode: widget.focusNode,

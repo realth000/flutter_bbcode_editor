@@ -13,6 +13,7 @@ final class MobileEditor extends BasicEditor {
   const MobileEditor({
     required super.editorState,
     required super.emojiBuilder,
+    required super.imageBuilder,
     super.urlLauncher,
     super.controller,
     super.focusNode,
