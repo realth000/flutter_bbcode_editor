@@ -68,8 +68,8 @@ extension BBCodeTextSpanDecorator on BasicEditor {
         bbcodeInlineImageBuilder(
           context,
           codeMap[BBCodeImageBlockKeys.link] as String,
-          codeMap[BBCodeImageBlockKeys.width] as double,
-          codeMap[BBCodeImageBlockKeys.height] as double,
+          codeMap[BBCodeImageBlockKeys.displayWidth] as double,
+          codeMap[BBCodeImageBlockKeys.displayHeight] as double,
           imageBuilder(codeMap[BBCodeImageBlockKeys.link] as String),
           defaultImageLoadingBuilder,
           defaultImageErrorBuilder,

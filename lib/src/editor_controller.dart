@@ -271,7 +271,13 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   /// Insert image into the editor.
   ///
   /// Build image from [url], display with size [width] and [height].
-  Future<void> insertImage(String url, double width, double height) async {
-    await _state?.insertImage(url, width, height);
+  Future<void> insertImage({
+    required String url,
+    required double width,
+    required double height,
+    required double displayWith,
+    required double displayHeight,
+  }) async {
+    await _state?.insertImage(url, width, height, displayWith, displayHeight);
   }
 }

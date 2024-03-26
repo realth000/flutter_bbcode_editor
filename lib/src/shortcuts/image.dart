@@ -103,25 +103,31 @@ class BBCodeImageBlockKeys {
   /// Data here
   static const String link = 'link';
 
-  /// Picture display width.
+  /// Image width set in bbcode.
   ///
   /// Value is double type and value should not be negative.
   static const String width = 'width';
 
-  /// Picture display height.
+  /// Image height set in bbcode.
   ///
   /// Value is double type and value should not be negative.
   static const String height = 'height';
+
+  /// Picture display width in editor.
+  static const String displayWidth = 'displayWith';
+
+  /// Picture display height in editor.
+  static const String displayHeight = 'displayHeight';
 }
 
 /// Internal function to build an image component from given [url].
 ///
-/// Build image with size [width] and [height].
+/// Build image with size [displayWidth] and [displayHeight].
 InlineSpan bbcodeInlineImageBuilder(
   BuildContext context,
   String url,
-  double width,
-  double height,
+  double displayWidth,
+  double displayHeight,
   ImageProvider imageProvider,
   ImageLoadingBuilder imageLoadingBuilder,
   ImageErrorBuilder imageErrorBuilder,
@@ -131,12 +137,15 @@ InlineSpan bbcodeInlineImageBuilder(
       cursor: SystemMouseCursors.click,
       child: Container(
         decoration: BoxDecoration(
+          border: Border.all(color: Theme.of(context).primaryColor),
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
           image: DecorationImage(
             image: imageProvider,
+            isAntiAlias: true,
           ),
         ),
-        width: width,
-        height: height,
+        width: displayWidth,
+        height: displayHeight,
       ),
     ),
   );
@@ -151,8 +160,14 @@ extension ImageExtension on BBCodeEditorState {
     String url,
     double width,
     double height,
+    double displayWidth,
+    double displayHeight,
   ) async {
     assert(width > 0 && height > 0, 'Image size should not be negative values');
+    assert(
+      displayWidth > 0 && displayHeight > 0,
+      'Image size should not be negative values',
+    );
     if (editorState == null) {
       return;
     }
@@ -173,6 +188,8 @@ extension ImageExtension on BBCodeEditorState {
         BBCodeImageBlockKeys.link: url,
         BBCodeImageBlockKeys.width: width,
         BBCodeImageBlockKeys.height: height,
+        BBCodeImageBlockKeys.displayWidth: displayWidth,
+        BBCodeImageBlockKeys.displayHeight: displayHeight,
       },
     };
 
@@ -212,7 +229,16 @@ extension CheckImage on Map<dynamic, dynamic> {
     }
     final width = this[BBCodeImageBlockKeys.width] as double?;
     final height = this[BBCodeImageBlockKeys.height] as double?;
-    if (width == null || width <= 0 || height == null || height <= 0) {
+    final displayWidth = this[BBCodeImageBlockKeys.displayWidth] as double?;
+    final displayHeight = this[BBCodeImageBlockKeys.displayHeight] as double?;
+    if (width == null ||
+        width <= 0 ||
+        height == null ||
+        height <= 0 ||
+        displayWidth == null ||
+        displayWidth <= 0 ||
+        displayHeight == null ||
+        displayHeight <= 0) {
       return false;
     }
     return true;
