@@ -45,6 +45,11 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
     );
   }
 
+  bool get editorVisible => value.editorVisible;
+
+  set editorVisible(bool visible) =>
+      value = value.copyWith(editorVisible: visible);
+
   bool get collapsed => value.collapsed;
 
   set _collapsed(bool collapsed) =>

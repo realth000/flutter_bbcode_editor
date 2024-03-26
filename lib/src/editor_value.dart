@@ -2,6 +2,7 @@ part of 'editor.dart';
 
 class BBCodeEditorValue {
   const BBCodeEditorValue({
+    this.editorVisible = true,
     this.collapsed = false,
     this.bold = false,
     this.italic = false,
@@ -14,6 +15,7 @@ class BBCodeEditorValue {
 
   static const empty = BBCodeEditorValue();
 
+  final bool editorVisible;
   final bool collapsed;
   final bool bold;
   final bool italic;
@@ -25,6 +27,7 @@ class BBCodeEditorValue {
 
   /// Copy with
   BBCodeEditorValue copyWith({
+    bool? editorVisible,
     bool? collapsed,
     bool? bold,
     bool? italic,
@@ -38,6 +41,7 @@ class BBCodeEditorValue {
     bool clearFontSizeLevel = false,
   }) {
     return BBCodeEditorValue(
+      editorVisible: editorVisible ?? this.editorVisible,
       collapsed: collapsed ?? this.collapsed,
       bold: bold ?? this.bold,
       italic: italic ?? this.italic,
@@ -56,6 +60,7 @@ class BBCodeEditorValue {
 
   @override
   String toString() => 'BBCodeEditorValue { '
+      'editorVisible=$editorVisible'
       'collapsed=$collapsed '
       'bold=$bold, italic=$italic, '
       'underline=$underline, strikethrough=$strikethrough '
