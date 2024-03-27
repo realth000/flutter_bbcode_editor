@@ -12,6 +12,7 @@ import 'package:flutter_bbcode_editor/src/desktop_editor.dart';
 import 'package:flutter_bbcode_editor/src/file_type.dart';
 import 'package:flutter_bbcode_editor/src/mobile_editor.dart';
 import 'package:flutter_bbcode_editor/src/node.dart';
+import 'package:flutter_bbcode_editor/src/parser/parser.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji_builder.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/image.dart';
@@ -305,13 +306,19 @@ final class BBCodeEditorState extends State<BBCodeEditor>
   @override
   void initState() {
     super.initState();
+    final Document doc;
+    if (widget.controller?.data == null) {
+      doc = Document.blank();
+    } else {
+      final d = BBCodeParser.parseToJsonDocument(widget.controller!.data!);
+      if (d == null) {
+        doc = Document.blank();
+      } else {
+        doc = Document.fromJson(d);
+      }
+    }
 
-    final editorState = EditorState(
-      document: Document.fromJson(
-        jsonDecode(widget.jsonString ?? defaultDocument)
-            as Map<String, dynamic>,
-      ),
-    );
+    final editorState = EditorState(document: doc);
 
     editorState.logConfiguration
       ..handler = debugPrint
