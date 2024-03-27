@@ -5,6 +5,11 @@ import 'package:flutter_bbcode_editor/src/delta.dart';
 
 /// Record state for multi-node bbcode components.
 class BBCodeState {
+  /// Build an empty state.
+  BBCodeState.empty()
+      : inOrderedList = false,
+        inUnorderedList = false;
+
   /// Munching ordered list or not.
   bool inOrderedList = false;
 
@@ -108,14 +113,16 @@ extension BBCodeNode on Node {
         '';
 
     final bodyData = switch (type) {
-      'page' => '',
+      'page' => children.map((e) => e.toBBCode(state)).join(),
       'heading' => _buildHeading(),
       'paragraph' => _buildParagraph(),
       'numbered_list' => _buildOrderedList(),
       'bulleted_list' => _buildUnorderedList(),
       'image' => _buildImage(),
-      String() => '',
+      String() => '${delta?.toBBCode()}',
     };
+
+    print('>>> parse type: $type, ${toJson()}');
 
     return '${tailData.isNotEmpty ? "$tailData\n" : ""}'
         '${headData.isNotEmpty ? "$headData\n" : ""}'
@@ -161,9 +168,9 @@ extension BBCodeNode on Node {
   }
 
   String _buildParagraph() {
-    if (delta == null) {
+    if (delta?.isEmpty ?? true) {
       // Empty paragraph, return an empty string.
-      return '';
+      return '\n';
     }
     final content = delta!.toBBCode();
     return content;

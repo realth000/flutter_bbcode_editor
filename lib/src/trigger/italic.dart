@@ -18,3 +18,10 @@ extension EditorItalic on BBCodeEditorState {
   Future<void> triggerItalic() async =>
       toggleStateSelectionAttr(editorState, decorationNameItalic);
 }
+
+String parseItalic(Map<String, dynamic> attr, String text) {
+  if (attr.containsKey(decorationNameItalic)) {
+    return '[i]$text[/i]';
+  }
+  return text;
+}

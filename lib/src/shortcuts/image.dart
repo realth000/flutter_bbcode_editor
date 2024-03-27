@@ -244,3 +244,13 @@ extension CheckImage on Map<dynamic, dynamic> {
     return true;
   }
 }
+
+String? parseImageData(Map<String, dynamic> data) {
+  final url = data[BBCodeImageBlockKeys.link];
+  final width = data[BBCodeImageBlockKeys.width] as double?;
+  final height = data[BBCodeImageBlockKeys.height] as double?;
+  if (url == null || width == null || height == null) {
+    return null;
+  }
+  return '[img=$width,$height]$url[/img]';
+}

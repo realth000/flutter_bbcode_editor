@@ -14,12 +14,18 @@ part of 'editor.dart';
 /// action, controller here just gives more flexibility.
 final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   /// Controller.
-  BBCodeEditorController({this.data}) : super(BBCodeEditorValue.empty);
+  BBCodeEditorController({String? data})
+      : _data = data,
+        super(BBCodeEditorValue.empty);
 
   BBCodeEditorState? _state;
 
   /// Editor data;
-  String? data;
+  String? _data;
+
+  String? get data => _state?.plainData() ?? _data;
+
+  set data(String? data) => _data = data;
 
   void _update() {
     final collapsed = _state?.editorState?.selection?.isCollapsed ?? true;

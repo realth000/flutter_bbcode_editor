@@ -25,6 +25,16 @@ const decorationForegroundColor = 'font_color';
 const decorationBackgroundColor = 'bg_color';
 const decorationFontSize = 'font_size';
 
+const decorationList = [
+  decorationNameBold,
+  decorationNameItalic,
+  decorationNameUnderline,
+  decorationNameStrikethrough,
+  decorationForegroundColor,
+  decorationBackgroundColor,
+  decorationFontSize,
+];
+
 const docTagPage = 'page';
 const docTagHeading = 'heading';
 const docTagParagraph = 'paragraph';

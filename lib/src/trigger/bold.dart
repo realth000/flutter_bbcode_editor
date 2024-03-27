@@ -23,3 +23,10 @@ extension EditorBold on BBCodeEditorState {
     await toggleStateSelectionAttr(editorState, decorationNameBold);
   }
 }
+
+String parseBold(Map<String, dynamic> attr, String text) {
+  if (attr.containsKey(decorationNameBold)) {
+    return '[b]$text[/b]';
+  }
+  return text;
+}

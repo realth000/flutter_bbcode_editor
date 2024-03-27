@@ -11,3 +11,17 @@ extension EditorFontSize on BBCodeEditorState {
   Future<void> triggerFontSize(double? fontSize) async =>
       toggleStateSelectionAttrValue(editorState, decorationFontSize, fontSize);
 }
+
+String parseFontSize(Map<String, dynamic> attr, String text) {
+  final fontSize = attr[decorationFontSize];
+  if (fontSize == null || fontSize is! double) {
+    return text;
+  }
+
+  for (final e in defaultLevelToFontSizeMap.entries) {
+    if (e.value == fontSize) {
+      return '[size=${e.key}]$text[/size]';
+    }
+  }
+  return text;
+}

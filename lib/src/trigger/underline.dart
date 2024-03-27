@@ -19,3 +19,10 @@ extension EditorUnderline on BBCodeEditorState {
   Future<void> triggerUnderline() async =>
       toggleStateSelectionAttr(editorState, decorationNameUnderline);
 }
+
+String parseUnderline(Map<String, dynamic> attr, String text) {
+  if (attr.containsKey(decorationNameUnderline)) {
+    return '[u]$text[/u]';
+  }
+  return text;
+}

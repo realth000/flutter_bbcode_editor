@@ -139,3 +139,12 @@ extension CheckUrl on Map<dynamic, dynamic> {
       this[UrlBlockKeys.link] is String &&
       this[UrlBlockKeys.description] is String;
 }
+
+String? parseUrlData(Map<String, dynamic> data) {
+  final link = data[UrlBlockKeys.link];
+  final description = data[UrlBlockKeys.description];
+  if (link == null || description == null) {
+    return null;
+  }
+  return '[url=$link]$description[/url]';
+}

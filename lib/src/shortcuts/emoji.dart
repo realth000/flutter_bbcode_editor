@@ -159,3 +159,11 @@ extension EmojiExtension on BBCodeEditorState {
 extension CheckEmoji on Map<dynamic, dynamic> {
   bool get hasEmoji => this[EmojiBlocKeys.code] is String;
 }
+
+String? parseEmojiData(Map<String, dynamic> data) {
+  final code = data[EmojiBlocKeys.code];
+  if (code == null) {
+    return null;
+  }
+  return '$code';
+}

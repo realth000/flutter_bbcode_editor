@@ -153,7 +153,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
     final contentStack = <String>[];
     final contentLevel = 0;
 
-    final bbcodeState = BBCodeState();
+    final bbcodeState = BBCodeState.empty();
 
     await _traverse(editorState!.document.root, contentStack, contentLevel, (
       node,
@@ -291,6 +291,10 @@ final class BBCodeEditorState extends State<BBCodeEditor>
         }
       }
     }
+  }
+
+  String? plainData() {
+    return editorState?.document.root.toBBCode(BBCodeState.empty());
   }
 
   void onSelectionChanged() {

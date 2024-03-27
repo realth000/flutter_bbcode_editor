@@ -19,3 +19,10 @@ extension EditorStrikethrough on BBCodeEditorState {
   Future<void> triggerStrikethrough() async =>
       toggleStateSelectionAttr(editorState, decorationNameStrikethrough);
 }
+
+String parseStrikethrough(Map<String, dynamic> attr, String text) {
+  if (attr.containsKey(decorationNameStrikethrough)) {
+    return '[s]$text[/s]';
+  }
+  return text;
+}
