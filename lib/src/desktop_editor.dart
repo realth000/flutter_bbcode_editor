@@ -188,7 +188,6 @@ final class _DesktopEditorState extends BasicEditorState {
         child: AppFlowyEditor(
           autoFocus: widget.autoFocus,
           focusNode: widget.focusNode,
-          shrinkWrap: true,
           editorState: widget.editorState,
           editorScrollController: editorScrollController,
           blockComponentBuilders: blockComponentBuilders,
