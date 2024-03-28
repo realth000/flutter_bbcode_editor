@@ -293,6 +293,10 @@ final class BBCodeEditorState extends State<BBCodeEditor>
     }
   }
 
+  bool isEmpty() {
+    return editorState?.document.isEmpty ?? true;
+  }
+
   String? plainData() {
     return editorState?.document.root.toBBCode(BBCodeState.empty());
   }
@@ -305,6 +309,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
     setState(() {
       widget.controller?._update();
     });
+    widget.controller?.onSelectionChanged?.call();
   }
 
   @override

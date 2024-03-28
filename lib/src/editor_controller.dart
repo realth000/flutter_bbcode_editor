@@ -14,9 +14,12 @@ part of 'editor.dart';
 /// action, controller here just gives more flexibility.
 final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   /// Controller.
-  BBCodeEditorController({String? data})
+  BBCodeEditorController({this.onSelectionChanged, String? data})
       : _data = data,
         super(BBCodeEditorValue.empty);
+
+  /// Callback when selection changed.
+  void Function()? onSelectionChanged;
 
   BBCodeEditorState? _state;
 
@@ -26,6 +29,14 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   String? get data => _state?.plainData() ?? _data;
 
   set data(String? data) => _data = data;
+
+  bool get isEmpty => _state?.isEmpty() ?? true;
+
+  bool get isNotEmpty => !isEmpty;
+
+  void clear() {
+    _state?.editorState = EditorState(document: Document.blank());
+  }
 
   void _update() {
     final collapsed = _state?.editorState?.selection?.isCollapsed ?? true;
