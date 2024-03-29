@@ -298,7 +298,13 @@ final class BBCodeEditorState extends State<BBCodeEditor>
   }
 
   String? plainData() {
-    return editorState?.document.root.toBBCode(BBCodeState.empty());
+    if (editorState == null) {
+      return null;
+    }
+    if (editorState!.document.isEmpty) {
+      return '';
+    }
+    return editorState!.document.root.toBBCode(BBCodeState.empty());
   }
 
   void onSelectionChanged() {
