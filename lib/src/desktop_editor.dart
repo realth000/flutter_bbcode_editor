@@ -183,21 +183,15 @@ final class _DesktopEditorState extends BasicEditorState {
 
     return Directionality(
       textDirection: TextDirection.ltr,
-      child: ColoredBox(
-        color: Theme.of(context).inputDecorationTheme.fillColor ?? Colors.red,
-        child: AppFlowyEditor(
-          autoFocus: widget.autoFocus,
-          focusNode: widget.focusNode,
-          editorState: widget.editorState,
-          editorScrollController: editorScrollController,
-          blockComponentBuilders: blockComponentBuilders,
-          characterShortcutEvents: characterShortcuts,
-          commandShortcutEvents: commandShortcuts,
-          editorStyle: _buildDesktopEditorStyle(context),
-          footer: const SizedBox(
-            height: 100,
-          ),
-        ),
+      child: AppFlowyEditor(
+        autoFocus: widget.autoFocus,
+        focusNode: widget.focusNode,
+        editorState: widget.editorState,
+        editorScrollController: editorScrollController,
+        blockComponentBuilders: blockComponentBuilders,
+        characterShortcutEvents: characterShortcuts,
+        commandShortcutEvents: commandShortcuts,
+        editorStyle: _buildDesktopEditorStyle(context),
       ),
     );
   }

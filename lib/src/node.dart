@@ -122,7 +122,7 @@ extension BBCodeNode on Node {
       String() => '${delta?.toBBCode()}',
     };
 
-    print('>>> parse type: $type, ${toJson()}');
+    // print('>>> parse type: $type, ${toJson()}');
 
     return '${tailData.isNotEmpty ? "$tailData\n" : ""}'
         '${headData.isNotEmpty ? "$headData\n" : ""}'
