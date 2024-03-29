@@ -373,6 +373,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
         urlLauncher: widget.urlLauncher,
         controller: widget.controller,
         focusNode: widget.focusNode,
+        autoFocus: widget.autoFocus,
       );
     } else if (PlatformExtension.isMobile) {
       return MobileEditor(
@@ -382,6 +383,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
         urlLauncher: widget.urlLauncher,
         controller: widget.controller,
         focusNode: widget.focusNode,
+        autoFocus: widget.autoFocus,
       );
     }
     return Container();
