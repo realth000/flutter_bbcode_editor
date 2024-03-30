@@ -135,9 +135,6 @@ final class _MobileEditorState extends BasicEditorState {
         editorState: widget.editorState,
         editorScrollController: editorScrollController,
         blockComponentBuilders: blockComponentBuilders,
-        footer: const SizedBox(
-          height: 100,
-        ),
       ),
     );
   }
