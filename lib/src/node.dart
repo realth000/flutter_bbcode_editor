@@ -113,7 +113,7 @@ extension BBCodeNode on Node {
         '';
 
     final bodyData = switch (type) {
-      'page' => children.map((e) => e.toBBCode(state)).join(),
+      'page' => children.map((e) => e.toBBCode(state)).join('\n'),
       'heading' => _buildHeading(),
       'paragraph' => _buildParagraph(),
       'numbered_list' => _buildOrderedList(),
