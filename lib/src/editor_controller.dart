@@ -298,8 +298,8 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   /// Build image from [url], display with size [width] and [height].
   Future<void> insertImage({
     required String url,
-    required double width,
-    required double height,
+    required int width,
+    required int height,
     required double displayWith,
     required double displayHeight,
   }) async {

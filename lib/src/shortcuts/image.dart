@@ -158,8 +158,8 @@ extension ImageExtension on BBCodeEditorState {
   /// Build image from [url] and add as description.
   Future<void> insertImage(
     String url,
-    double width,
-    double height,
+    int width,
+    int height,
     double displayWidth,
     double displayHeight,
   ) async {
@@ -227,8 +227,8 @@ extension CheckImage on Map<dynamic, dynamic> {
     if (this[BBCodeImageBlockKeys.link] is! String) {
       return false;
     }
-    final width = this[BBCodeImageBlockKeys.width] as double?;
-    final height = this[BBCodeImageBlockKeys.height] as double?;
+    final width = this[BBCodeImageBlockKeys.width] as int?;
+    final height = this[BBCodeImageBlockKeys.height] as int?;
     final displayWidth = this[BBCodeImageBlockKeys.displayWidth] as double?;
     final displayHeight = this[BBCodeImageBlockKeys.displayHeight] as double?;
     if (width == null ||
@@ -247,8 +247,8 @@ extension CheckImage on Map<dynamic, dynamic> {
 
 String? parseImageData(Map<String, dynamic> data) {
   final url = data[BBCodeImageBlockKeys.link];
-  final width = data[BBCodeImageBlockKeys.width] as double?;
-  final height = data[BBCodeImageBlockKeys.height] as double?;
+  final width = data[BBCodeImageBlockKeys.width] as int?;
+  final height = data[BBCodeImageBlockKeys.height] as int?;
   if (url == null || width == null || height == null) {
     return null;
   }
