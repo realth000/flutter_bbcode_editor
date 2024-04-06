@@ -230,6 +230,9 @@ Future<void> toggleStateSelectionAttrValue<T>(
     return;
   }
   if (selection.isCollapsed) {
+    if (attrValue is! bool) {
+      return;
+    }
     // Originally from toggleAttribute method.
     // In the collapsed branch, when
     editorState
