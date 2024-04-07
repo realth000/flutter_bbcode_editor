@@ -15,6 +15,7 @@ final class DesktopEditor extends BasicEditor {
     required super.emojiBuilder,
     required super.imageBuilder,
     super.urlLauncher,
+    super.mentionUserLauncher,
     super.controller,
     super.focusNode,
     super.autoFocus,

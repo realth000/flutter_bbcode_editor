@@ -3,6 +3,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/image.dart';
+import 'package:flutter_bbcode_editor/src/shortcuts/memtion_user.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/url.dart';
 import 'package:flutter_bbcode_editor/src/trigger/background_color.dart';
 import 'package:flutter_bbcode_editor/src/trigger/bold.dart';
@@ -35,6 +36,7 @@ extension _BBCodeTextInsert on TextInsert {
               EmojiBlocKeys.type => parseEmojiData(bbcodeMap),
               BBCodeImageBlockKeys.type => parseImageData(bbcodeMap),
               UrlBlockKeys.type => parseUrlData(bbcodeMap),
+              MentionUserKeys.type => parseMentionUserData(bbcodeMap),
               String() => null,
             } ??
             text;

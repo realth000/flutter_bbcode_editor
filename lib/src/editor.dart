@@ -16,6 +16,7 @@ import 'package:flutter_bbcode_editor/src/parser/parser.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji_builder.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/image.dart';
+import 'package:flutter_bbcode_editor/src/shortcuts/memtion_user.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/url.dart';
 import 'package:flutter_bbcode_editor/src/trigger/background_color.dart';
 import 'package:flutter_bbcode_editor/src/trigger/bold.dart';
@@ -37,6 +38,7 @@ class BBCodeEditor extends StatefulWidget {
     required this.emojiBuilder,
     required this.imageBuilder,
     this.urlLauncher,
+    this.mentionUserLauncher,
     this.jsonString,
     this.controller,
     this.editorStyle,
@@ -96,6 +98,9 @@ class BBCodeEditor extends StatefulWidget {
   ///
   /// Use package url_launcher if not set.
   final UrlLauncher? urlLauncher;
+
+  /// Function be called when user tap on user mention span, on `@${username}`.
+  final MentionUserLauncher? mentionUserLauncher;
 
   /// Provide image.
   final ImageProvider Function(String url) imageBuilder;
@@ -371,6 +376,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
         emojiBuilder: widget.emojiBuilder,
         imageBuilder: widget.imageBuilder,
         urlLauncher: widget.urlLauncher,
+        mentionUserLauncher: widget.mentionUserLauncher,
         controller: widget.controller,
         focusNode: widget.focusNode,
         autoFocus: widget.autoFocus,
@@ -381,6 +387,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
         emojiBuilder: widget.emojiBuilder,
         imageBuilder: widget.imageBuilder,
         urlLauncher: widget.urlLauncher,
+        mentionUserLauncher: widget.mentionUserLauncher,
         controller: widget.controller,
         focusNode: widget.focusNode,
         autoFocus: widget.autoFocus,

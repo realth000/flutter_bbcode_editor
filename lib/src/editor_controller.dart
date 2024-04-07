@@ -305,4 +305,11 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   }) async {
     await _state?.insertImage(url, width, height, displayWith, displayHeight);
   }
+
+  /// Insert an user mention span into the editor.
+  ///
+  /// @${username}.
+  Future<void> insertMentionUSer(String username) async {
+    await _state?.insertMentionUser(username);
+  }
 }

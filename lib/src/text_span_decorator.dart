@@ -4,6 +4,7 @@ import 'package:flutter_bbcode_editor/src/basic_editor.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji_builder.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/image.dart';
+import 'package:flutter_bbcode_editor/src/shortcuts/memtion_user.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/url.dart';
 
 extension BBCodeTextSpanDecorator on BasicEditor {
@@ -73,6 +74,12 @@ extension BBCodeTextSpanDecorator on BasicEditor {
           imageBuilder(codeMap[BBCodeImageBlockKeys.link] as String),
           defaultImageLoadingBuilder,
           defaultImageErrorBuilder,
+        ),
+      MentionUserKeys.type when codeMap.hasMentionUser =>
+        bbcodeInlineMentionUserBuilder(
+          context,
+          codeMap[MentionUserKeys.username] as String,
+          mentionUserLauncher,
         ),
       String() => before,
     };
