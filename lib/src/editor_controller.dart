@@ -28,7 +28,21 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
 
   String? get data => _state?.plainData() ?? _data;
 
-  set data(String? data) => _data = data;
+  set data(String? data) {
+    if (data == null) {
+      return;
+    }
+    _data = data;
+    _state?.editorState = EditorState(
+      document: Document.blank()
+        ..insert(
+          [
+            0,
+          ],
+          [paragraphNode(delta: Delta()..insert(data))],
+        ),
+    );
+  }
 
   bool get isEmpty => _state?.isEmpty() ?? true;
 
