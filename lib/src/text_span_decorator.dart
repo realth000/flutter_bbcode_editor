@@ -64,6 +64,7 @@ extension BBCodeTextSpanDecorator on BasicEditor {
           codeMap[UrlBlockKeys.description] as String,
           codeMap[UrlBlockKeys.link] as String,
           urlLauncher,
+          urlTextStyle,
         ),
       BBCodeImageBlockKeys.type when codeMap.hasImage =>
         bbcodeInlineImageBuilder(

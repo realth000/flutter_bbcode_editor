@@ -38,6 +38,7 @@ class BBCodeEditor extends StatefulWidget {
     required this.emojiBuilder,
     required this.imageBuilder,
     this.urlLauncher,
+    this.urlTextStyle,
     this.mentionUserLauncher,
     this.jsonString,
     this.controller,
@@ -98,6 +99,9 @@ class BBCodeEditor extends StatefulWidget {
   ///
   /// Use package url_launcher if not set.
   final UrlLauncher? urlLauncher;
+
+  /// Inline url text style.
+  final TextStyle? urlTextStyle;
 
   /// Function be called when user tap on user mention span, on `@${username}`.
   final MentionUserLauncher? mentionUserLauncher;
@@ -376,6 +380,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
         emojiBuilder: widget.emojiBuilder,
         imageBuilder: widget.imageBuilder,
         urlLauncher: widget.urlLauncher,
+        urlTextStyle: widget.urlTextStyle,
         mentionUserLauncher: widget.mentionUserLauncher,
         controller: widget.controller,
         focusNode: widget.focusNode,
@@ -387,6 +392,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
         emojiBuilder: widget.emojiBuilder,
         imageBuilder: widget.imageBuilder,
         urlLauncher: widget.urlLauncher,
+        urlTextStyle: widget.urlTextStyle,
         mentionUserLauncher: widget.mentionUserLauncher,
         controller: widget.controller,
         focusNode: widget.focusNode,

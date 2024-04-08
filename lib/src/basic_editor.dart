@@ -22,6 +22,7 @@ class BasicEditor extends StatefulWidget {
     required this.emojiBuilder,
     required this.imageBuilder,
     this.urlLauncher,
+    this.urlTextStyle,
     this.mentionUserLauncher,
     this.focusNode,
     this.autoFocus = false,
@@ -46,6 +47,8 @@ class BasicEditor extends StatefulWidget {
   final ImageProvider Function(String url) imageBuilder;
 
   final UrlLauncher? urlLauncher;
+
+  final TextStyle? urlTextStyle;
 
   final MentionUserLauncher? mentionUserLauncher;
 

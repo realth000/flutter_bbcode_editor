@@ -30,6 +30,7 @@ InlineSpan bbcodeInlineUrlBuilder(
   String description,
   String url,
   UrlLauncher? urlLauncher,
+  TextStyle? urlTextStyle,
 ) {
   return WidgetSpan(
     child: MouseRegion(
@@ -43,10 +44,12 @@ InlineSpan bbcodeInlineUrlBuilder(
             ),
         child: RichText(
           text: TextSpan(
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            ),
+            style: urlTextStyle ??
+                TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.primaryContainer,
+                ),
             children: [
               const WidgetSpan(
                 child: Row(
