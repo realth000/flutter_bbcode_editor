@@ -48,21 +48,16 @@ InlineSpan bbcodeInlineUrlBuilder(
               backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             ),
             children: [
-              const WidgetSpan(child: Icon(Icons.link, size: 23)),
-              const WidgetSpan(child: SizedBox(width: 5, height: 23)),
-              WidgetSpan(
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    child: Text(
-                      description,
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+              const WidgetSpan(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [Icon(Icons.link, size: 19), SizedBox(width: 5)],
                 ),
+              ),
+              TextSpan(
+                style: const TextStyle(fontSize: 17),
+                // Make text wrap inside words.
+                text: description.split('').join('\u200B'),
               ),
             ],
           ),
