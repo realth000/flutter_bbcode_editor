@@ -25,7 +25,9 @@ extension EditorBold on BBCodeEditorState {
 }
 
 String parseBold(Map<String, dynamic> attr, String text) {
-  if (attr.containsKey(decorationNameBold)) {
+  if (attr.containsKey(decorationNameBold) &&
+      attr[decorationNameBold] is bool &&
+      attr[decorationNameBold] as bool) {
     return '[b]$text[/b]';
   }
   return text;

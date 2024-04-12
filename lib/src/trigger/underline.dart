@@ -21,7 +21,9 @@ extension EditorUnderline on BBCodeEditorState {
 }
 
 String parseUnderline(Map<String, dynamic> attr, String text) {
-  if (attr.containsKey(decorationNameUnderline)) {
+  if (attr.containsKey(decorationNameUnderline) &&
+      attr[decorationNameUnderline] is bool &&
+      attr[decorationNameUnderline] as bool) {
     return '[u]$text[/u]';
   }
   return text;

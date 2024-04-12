@@ -21,7 +21,9 @@ extension EditorStrikethrough on BBCodeEditorState {
 }
 
 String parseStrikethrough(Map<String, dynamic> attr, String text) {
-  if (attr.containsKey(decorationNameStrikethrough)) {
+  if (attr.containsKey(decorationNameStrikethrough) &&
+      attr[decorationNameStrikethrough] is bool &&
+      attr[decorationNameStrikethrough] as bool) {
     return '[s]$text[/s]';
   }
   return text;

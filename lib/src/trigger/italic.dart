@@ -20,7 +20,9 @@ extension EditorItalic on BBCodeEditorState {
 }
 
 String parseItalic(Map<String, dynamic> attr, String text) {
-  if (attr.containsKey(decorationNameItalic)) {
+  if (attr.containsKey(decorationNameItalic) &&
+      attr[decorationNameItalic] is bool &&
+      attr[decorationNameItalic] as bool) {
     return '[i]$text[/i]';
   }
   return text;
