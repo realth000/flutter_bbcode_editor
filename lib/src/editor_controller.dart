@@ -49,7 +49,14 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   bool get isNotEmpty => !isEmpty;
 
   void clear() {
-    _state?.editorState = EditorState(document: Document.blank());
+    _state?.editorState?.document.delete([0], 100000);
+    _state?.editorState?.document
+        .insert([0], [paragraphNode(delta: Delta()..insert(''))]);
+    _state?.editorState?.selectionService.clearSelection();
+    _state?.editorState?.selectionService.clearCursor();
+    _state?.editorState?.scrollService?.jumpToTop();
+    _state?.editorState?.undoManager.redoStack.clear();
+    _state?.editorState?.undoManager.undoStack.clear();
   }
 
   void _update() {
