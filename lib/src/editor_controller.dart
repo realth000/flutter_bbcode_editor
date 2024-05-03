@@ -28,6 +28,19 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
 
   String? get data => _state?.plainData() ?? _data;
 
+  /// Position of last element in cursor selection.
+  Position? get selectionEndPosition => _state?.selectionEndPosition;
+
+  /// Position of last element in document.
+  ///
+  /// Using this function in some early stages (e.g. before initState finished)
+  /// may cause exception "using uninitialized variables". AppFlowy editor does
+  /// not promised that so we can only use `Future.delayed` as a workaround.
+  Position? get documentEndPosition => _state?.documentEndPosition;
+
+  /// Set the current cursor position.
+  set cursorPosition(Position position) => _state?.cursorPosition = position;
+
   set data(String? data) {
     if (data == null) {
       return;

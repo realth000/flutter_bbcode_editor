@@ -137,6 +137,32 @@ final class BBCodeEditorState extends State<BBCodeEditor>
   /// Return null when no selection used before.
   Selection? get lastUsedSelection => _lastUsedSelection;
 
+  /// Return the position of end selection.
+  Position? get selectionEndPosition => editorState?.selection?.end;
+
+  /// Return the position of last element in document.
+  ///
+  /// Represents text length.
+  Position? get documentEndPosition {
+    // executes after build
+    final lastSelectable = editorState?.getLastSelectable();
+    if (lastSelectable == null) {
+      return null;
+    }
+    return lastSelectable.$2.end(lastSelectable.$1);
+  }
+
+  /// Set the current cursor position.
+  set cursorPosition(Position position) {
+    editorState?.updateSelectionWithReason(
+      Selection(
+        start: position,
+        end: position,
+      ),
+      // reason: SelectionUpdateReason.uiEvent,
+    );
+  }
+
   Future<void> _traverse(
     Node node,
     List<String> contentStack,
