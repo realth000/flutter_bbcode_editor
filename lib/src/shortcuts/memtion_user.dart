@@ -1,5 +1,6 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/editor.dart';
 
 /// Function to call when tap on the mention user span.
@@ -33,23 +34,22 @@ InlineSpan bbcodeInlineMentionUserBuilder(
             style: TextStyle(
               color: Theme.of(context).colorScheme.primary,
               backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              fontSize: defaultFontSize,
             ),
             children: [
               const WidgetSpan(
-                child: Icon(
-                  Icons.alternate_email_outlined,
-                  size: 23,
+                alignment: PlaceholderAlignment.middle,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.alternate_email_outlined, size: defaultFontSize),
+                    // Don't know why but add 4 more here makes widget almost
+                    // same height with text.
+                    SizedBox(width: 5, height: defaultFontSize + 4),
+                  ],
                 ),
               ),
-              const WidgetSpan(child: SizedBox(width: 5, height: 23)),
-              WidgetSpan(
-                child: Text(
-                  username,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
+              TextSpan(text: username),
             ],
           ),
         ),

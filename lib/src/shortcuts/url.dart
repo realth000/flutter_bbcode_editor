@@ -1,5 +1,6 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/editor.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -49,16 +50,21 @@ InlineSpan bbcodeInlineUrlBuilder(
                   color: Theme.of(context).colorScheme.primary,
                   backgroundColor:
                       Theme.of(context).colorScheme.primaryContainer,
+                  fontSize: defaultFontSize,
                 ),
             children: [
               const WidgetSpan(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: [Icon(Icons.link, size: 19), SizedBox(width: 5)],
+                  children: [
+                    Icon(Icons.link, size: defaultFontSize),
+                    // Don't know why but add 4 more here makes widget almost
+                    // same height with text.
+                    SizedBox(width: 5, height: defaultFontSize + 4),
+                  ],
                 ),
               ),
               TextSpan(
-                style: const TextStyle(fontSize: 17),
                 // Make text wrap inside words.
                 text: description.split('').join('\u200B'),
               ),
