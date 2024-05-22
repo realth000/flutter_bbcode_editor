@@ -10,10 +10,7 @@ environment:
   sdk: ^3.4.0
 
 dependencies:
-  appflowy_editor:
-    git:
-      url: https://github.com/AppFlowy-IO/appflowy-editor
-      ref: 796d1249fe5a7f936cb9060208561c45db484098
+  appflowy_editor: ^2.5.1
   collection: ^1.18.0
   cupertino_icons: ^1.0.8
   file_picker: ^8.0.3
