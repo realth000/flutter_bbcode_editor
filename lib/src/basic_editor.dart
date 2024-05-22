@@ -27,6 +27,7 @@ class BasicEditor extends StatefulWidget {
     this.focusNode,
     this.autoFocus = false,
     this.controller,
+    this.scrollController,
     super.key,
   });
 
@@ -35,6 +36,9 @@ class BasicEditor extends StatefulWidget {
 
   /// Controller of editor.
   final BBCodeEditorController? controller;
+
+  /// Scroller controller of the editor.
+  final ScrollController? scrollController;
 
   final FocusNode? focusNode;
 

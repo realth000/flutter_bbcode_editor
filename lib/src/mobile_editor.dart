@@ -18,6 +18,7 @@ final class MobileEditor extends BasicEditor {
     super.urlTextStyle,
     super.mentionUserLauncher,
     super.controller,
+    super.scrollController,
     super.focusNode,
     super.autoFocus,
     super.key,
@@ -85,6 +86,7 @@ final class _MobileEditorState extends BasicEditorState {
     super.initState();
     editorScrollController = EditorScrollController(
       editorState: widget.editorState,
+      scrollController: widget.scrollController,
     );
 
     blockComponentBuilders = _buildBlockComponentBuilders();

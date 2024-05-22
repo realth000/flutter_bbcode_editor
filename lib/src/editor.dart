@@ -42,6 +42,7 @@ class BBCodeEditor extends StatefulWidget {
     this.mentionUserLauncher,
     this.jsonString,
     this.controller,
+    this.scrollController,
     this.editorStyle,
     this.onEditorStateChange,
     this.focusNode,
@@ -71,6 +72,9 @@ class BBCodeEditor extends StatefulWidget {
   /// Offers accessibility with editor actions, developer can call those editor
   /// actions anywhere through the controller.
   final BBCodeEditorController? controller;
+
+  /// Scroll controller of the editor.
+  final ScrollController? scrollController;
 
   /// Text data to display, is json format, [String] type.
   final String? jsonString;
@@ -409,6 +413,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
         urlTextStyle: widget.urlTextStyle,
         mentionUserLauncher: widget.mentionUserLauncher,
         controller: widget.controller,
+        scrollController: widget.scrollController,
         focusNode: widget.focusNode,
         autoFocus: widget.autoFocus,
       );
@@ -421,6 +426,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
         urlTextStyle: widget.urlTextStyle,
         mentionUserLauncher: widget.mentionUserLauncher,
         controller: widget.controller,
+        scrollController: widget.scrollController,
         focusNode: widget.focusNode,
         autoFocus: widget.autoFocus,
       );
