@@ -31,25 +31,21 @@ InlineSpan bbcodeInlineMentionUserBuilder(
         onTap: () async => mentionUserLauncher?.call(username),
         child: RichText(
           text: TextSpan(
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              fontSize: defaultFontSize,
-            ),
             children: [
               const WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.alternate_email_outlined, size: defaultFontSize),
+                    Icon(Icons.alternate_email_outlined),
                     // Don't know why but add 4 more here makes widget almost
                     // same height with text.
-                    SizedBox(width: 5, height: defaultFontSize + 4),
+                    SizedBox(width: 2, height: defaultFontSize + 4),
                   ],
                 ),
               ),
               TextSpan(text: username),
+              const WidgetSpan(child: SizedBox(width: 2, height: 5)),
             ],
           ),
         ),

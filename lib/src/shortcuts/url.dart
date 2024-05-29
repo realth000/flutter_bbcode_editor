@@ -45,22 +45,15 @@ InlineSpan bbcodeInlineUrlBuilder(
             ),
         child: RichText(
           text: TextSpan(
-            style: urlTextStyle ??
-                TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.primaryContainer,
-                  fontSize: defaultFontSize,
-                ),
             children: [
               const WidgetSpan(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.link, size: defaultFontSize),
+                    Icon(Icons.link),
                     // Don't know why but add 4 more here makes widget almost
                     // same height with text.
-                    SizedBox(width: 5, height: defaultFontSize + 4),
+                    SizedBox(width: 2, height: defaultFontSize + 4),
                   ],
                 ),
               ),
@@ -68,6 +61,7 @@ InlineSpan bbcodeInlineUrlBuilder(
                 // Make text wrap inside words.
                 text: description.split('').join('\u200B'),
               ),
+              const WidgetSpan(child: SizedBox(width: 2, height: 5)),
             ],
           ),
         ),
