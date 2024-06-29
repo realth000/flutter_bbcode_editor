@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
 
-void main() {
+Future<void> main() async {
+  await BBCodeEditor.initialize();
   runApp(const MyApp());
 }
 
@@ -126,10 +127,18 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             Expanded(
-              child: BBCodeEditor(
-                controller: controller,
-                jsonString: _jsonString,
-                onEditorStateChange: (editorState) {},
+              child: FutureBuilder(
+                future: _jsonString,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const CircularProgressIndicator();
+                  }
+                  return BBCodeEditor(
+                    controller: controller,
+                    jsonString: snapshot.data!,
+                    onEditorStateChange: (editorState) {},
+                  );
+                },
               ),
             ),
           ],

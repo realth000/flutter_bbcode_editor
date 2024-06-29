@@ -55,8 +55,9 @@ extension BBCodeTextSpanDecorator on BasicEditor {
       return before;
     }
     final ret = switch (elementType) {
-      EmojiBlocKeys.type when codeMap.hasEmoji => bbcodeInlineEmojiBuilder(
-          emojiBuilder,
+      EmojiBlocKeys.type when emojiBuilder != null && codeMap.hasEmoji =>
+        bbcodeInlineEmojiBuilder(
+          emojiBuilder!,
           codeMap[EmojiBlocKeys.code] as String,
         ),
       UrlBlockKeys.type when codeMap.hasUrl => bbcodeInlineUrlBuilder(
@@ -66,13 +67,13 @@ extension BBCodeTextSpanDecorator on BasicEditor {
           urlLauncher,
           urlTextStyle,
         ),
-      BBCodeImageBlockKeys.type when codeMap.hasImage =>
+      BBCodeImageBlockKeys.type when imageBuilder != null && codeMap.hasImage =>
         bbcodeInlineImageBuilder(
           context,
           codeMap[BBCodeImageBlockKeys.link] as String,
           codeMap[BBCodeImageBlockKeys.displayWidth] as double,
           codeMap[BBCodeImageBlockKeys.displayHeight] as double,
-          imageBuilder(codeMap[BBCodeImageBlockKeys.link] as String),
+          imageBuilder!(codeMap[BBCodeImageBlockKeys.link] as String),
           defaultImageLoadingBuilder,
           defaultImageErrorBuilder,
         ),

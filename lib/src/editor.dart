@@ -35,8 +35,8 @@ part 'editor_value.dart';
 class BBCodeEditor extends StatefulWidget {
   /// Constructor.
   BBCodeEditor({
-    required this.emojiBuilder,
-    required this.imageBuilder,
+    this.emojiBuilder,
+    this.imageBuilder,
     this.urlLauncher,
     this.urlTextStyle,
     this.mentionUserLauncher,
@@ -97,7 +97,7 @@ class BBCodeEditor extends StatefulWidget {
   ///
   /// Return image data if code is valid.
   /// Return null if code is invalid.
-  final EmojiBuilder emojiBuilder;
+  final EmojiBuilder? emojiBuilder;
 
   /// Function to launch url when url tapped.
   ///
@@ -111,7 +111,7 @@ class BBCodeEditor extends StatefulWidget {
   final MentionUserLauncher? mentionUserLauncher;
 
   /// Provide image.
-  final ImageProvider Function(String url) imageBuilder;
+  final ImageProvider Function(String url)? imageBuilder;
 
   @override
   State<BBCodeEditor> createState() => BBCodeEditorState();

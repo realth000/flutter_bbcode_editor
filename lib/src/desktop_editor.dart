@@ -12,8 +12,8 @@ final class DesktopEditor extends BasicEditor {
   /// Constructor.
   const DesktopEditor({
     required super.editorState,
-    required super.emojiBuilder,
-    required super.imageBuilder,
+    super.emojiBuilder,
+    super.imageBuilder,
     super.urlLauncher,
     super.urlTextStyle,
     super.mentionUserLauncher,

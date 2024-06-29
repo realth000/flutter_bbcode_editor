@@ -19,8 +19,8 @@ class BasicEditor extends StatefulWidget {
   /// Constructor.
   const BasicEditor({
     required this.editorState,
-    required this.emojiBuilder,
-    required this.imageBuilder,
+    this.emojiBuilder,
+    this.imageBuilder,
     this.urlLauncher,
     this.urlTextStyle,
     this.mentionUserLauncher,
@@ -46,9 +46,9 @@ class BasicEditor extends StatefulWidget {
 
   /////////////// Component Builder ///////////////
 
-  final EmojiBuilder emojiBuilder;
+  final EmojiBuilder? emojiBuilder;
 
-  final ImageProvider Function(String url) imageBuilder;
+  final ImageProvider Function(String url)? imageBuilder;
 
   final UrlLauncher? urlLauncher;
 
