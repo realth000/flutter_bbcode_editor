@@ -19,6 +19,8 @@ dependencies:
     sdk: flutter
   flutter_bbcode_editor:
     path: ../
+  flutter_quill: ^9.5.1
+  flutter_quill_extensions: ^9.5.1
 
 
 dev_dependencies:

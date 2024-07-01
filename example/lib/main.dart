@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill_extensions/flutter_quill_embeds.dart';
 
 Future<void> main() async {
-  await BBCodeEditor.initialize();
+  // await BBCodeEditor.initialize();
   runApp(const MyApp());
 }
 
@@ -55,7 +58,56 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final controller = BBCodeEditorController();
+  final _focusNode = FocusNode();
   late Future<String> _jsonString;
+
+  final _quillController = QuillController.basic();
+  final _quillFocusNode = FocusNode();
+
+  void test() {
+    _quillController.clear();
+  }
+
+  List<Widget> _buildQuill(BuildContext context) {
+    return [
+      QuillToolbar.simple(
+        configurations: QuillSimpleToolbarConfigurations(
+          controller: _quillController,
+          embedButtons: FlutterQuillEmbeds.toolbarButtons(),
+        ),
+      ),
+      Expanded(
+        child: FutureBuilder(
+          future: _jsonString,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const CircularProgressIndicator();
+            }
+            return QuillEditor.basic(
+              focusNode: _quillFocusNode,
+              configurations: QuillEditorConfigurations(
+                controller: _quillController,
+                embedBuilders: kIsWeb
+                    ? FlutterQuillEmbeds.editorWebBuilders()
+                    : FlutterQuillEmbeds.editorBuilders(),
+              ),
+            );
+          },
+        ),
+      ),
+    ];
+  }
+
+  List<Widget> _buildEditor(BuildContext context) {
+    return [
+      Expanded(
+        child: BBCodeEditor(
+          controller: controller,
+          focusNode: _focusNode,
+        ),
+      ),
+    ];
+  }
 
   @override
   void initState() {
@@ -64,6 +116,13 @@ class _MyHomePageState extends State<MyHomePage> {
     _jsonString = Platform.isAndroid || Platform.isIOS
         ? rootBundle.loadString('assets/mobile_example.json')
         : rootBundle.loadString('assets/example.json');
+  }
+
+  @override
+  void dispose() {
+    _quillController.dispose();
+    _quillFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -98,49 +157,39 @@ class _MyHomePageState extends State<MyHomePage> {
                   label: const Text('Import'),
                   icon: const Icon(Icons.file_upload),
                   onPressed: () {
-                    controller.importData(BBCodeFileType.documentJson);
+                    throw UnimplementedError('import data');
+                    // controller.importData(BBCodeFileType.documentJson);
                   },
                 ),
                 TextButton.icon(
                   label: const Text('Export'),
                   icon: const Icon(Icons.file_download),
                   onPressed: () {
-                    controller.exportData(BBCodeFileType.documentJson,
-                        (context, exportPath) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'This document is saved to the $exportPath',
-                          ),
-                        ),
-                      );
-                    });
+                    throw UnimplementedError('export data');
+                    // controller.exportData(BBCodeFileType.documentJson,
+                    //     (context, exportPath) {
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     SnackBar(
+                    //       content: Text(
+                    //         'This document is saved to the $exportPath',
+                    //       ),
+                    //     ),
+                    //   );
+                    // });
                   },
                 ),
                 TextButton.icon(
                   label: const Text('Convert To BBCode'),
                   icon: const Icon(Icons.code),
                   onPressed: () async {
-                    await controller.convertToBBCode();
+                    throw UnimplementedError('convert to bbcode');
+                    // await controller.convertToBBCode();
                   },
                 ),
               ],
             ),
-            Expanded(
-              child: FutureBuilder(
-                future: _jsonString,
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const CircularProgressIndicator();
-                  }
-                  return BBCodeEditor(
-                    controller: controller,
-                    jsonString: snapshot.data!,
-                    onEditorStateChange: (editorState) {},
-                  );
-                },
-              ),
-            ),
+            // ..._buildQuill(context),
+            ..._buildEditor(context),
           ],
         ),
       ),
