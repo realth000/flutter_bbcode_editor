@@ -100,6 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Widget> _buildEditor(BuildContext context) {
     return [
+      BBCodeEditorToolBar(
+        controller: controller,
+      ),
       Expanded(
         child: BBCodeEditor(
           controller: controller,

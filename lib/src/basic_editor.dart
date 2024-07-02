@@ -1,7 +1,6 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
-import 'package:flutter_bbcode_editor/src/shortcuts/memtion_user.dart';
+import 'package:flutter_bbcode_editor/src/v2/editor_controller.dart';
 
 // /// Default callback when export data successfully.
 // void _defaultExportCallback(BuildContext context, String exportPath) {

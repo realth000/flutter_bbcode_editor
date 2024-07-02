@@ -404,33 +404,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
 
   @override
   Widget build(BuildContext context) {
-    if (PlatformExtension.isDesktopOrWeb) {
-      return DesktopEditor(
-        editorState: editorState!,
-        emojiBuilder: widget.emojiBuilder,
-        imageBuilder: widget.imageBuilder,
-        urlLauncher: widget.urlLauncher,
-        urlTextStyle: widget.urlTextStyle,
-        mentionUserLauncher: widget.mentionUserLauncher,
-        controller: widget.controller,
-        scrollController: widget.scrollController,
-        focusNode: widget.focusNode,
-        autoFocus: widget.autoFocus,
-      );
-    } else if (PlatformExtension.isMobile) {
-      return MobileEditor(
-        editorState: editorState!,
-        emojiBuilder: widget.emojiBuilder,
-        imageBuilder: widget.imageBuilder,
-        urlLauncher: widget.urlLauncher,
-        urlTextStyle: widget.urlTextStyle,
-        mentionUserLauncher: widget.mentionUserLauncher,
-        controller: widget.controller,
-        scrollController: widget.scrollController,
-        focusNode: widget.focusNode,
-        autoFocus: widget.autoFocus,
-      );
-    }
+    return BBCodeEditor()
     return Container();
   }
 }
