@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/v2/editor_value.dart';
 import 'package:flutter_bbcode_editor/src/v2/extensions/to_bbcode.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/bold.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/font_size.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/italic.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/strikethrough.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/tag.dart';
@@ -16,6 +17,7 @@ final defaultBBCodeTags = <BBCodeTag>{
   const ItalicTag(),
   const UnderlineTag(),
   const StrikethroughTag(),
+  const FontSizeTag(),
 };
 
 /// V2 editor controller.

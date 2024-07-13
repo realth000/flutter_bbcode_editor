@@ -39,7 +39,7 @@ abstract class BBCodeTag {
   ///
   /// If is invalid attribute, return false so that the parsing progress can
   /// terminate or fallback to plain text.
-  bool get validateAttribute => true;
+  bool validateAttribute(String attr) => true;
 
   /// Add raw bbcode tag around current text.
   ///

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bbcode_editor/src/v2/constants.dart';
 import 'package:flutter_bbcode_editor/src/v2/editor_controller.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
@@ -43,8 +44,7 @@ class _BBCodeEditorToolBarState extends State<BBCodeEditorToolBar> {
         showIndent: false,
         showSearchButton: false,
         showSubscript: false,
-
-        buttonOptions: QuillSimpleToolbarButtonOptions(),
+        fontSizesValues: defaultFontSizeMap,
       ),
     );
   }
