@@ -32,14 +32,19 @@ class _BBCodeEditorToolBarState extends State<BBCodeEditorToolBar> {
         controller: controller.quillController,
         // Below are all formats implemented in quill but not supported in TSDM.
         // These formats are disabled on default.
-        showInlineCode: false,
+        //
+        // Font family are not fixed to what quill supports.
+        // Should let developer support it.
+        // showFontFamily: false,
         // Use font size instead.
         showHeaderStyle: false,
+        showInlineCode: false,
         showListCheck: false,
         showIndent: false,
-        showDirection: true,
         showSearchButton: false,
         showSubscript: false,
+
+        buttonOptions: QuillSimpleToolbarButtonOptions(),
       ),
     );
   }

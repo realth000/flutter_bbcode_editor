@@ -193,8 +193,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   label: const Text('Convert To BBCode'),
                   icon: const Icon(Icons.code),
                   onPressed: () async {
-                    throw UnimplementedError('convert to bbcode');
-                    // await controller.convertToBBCode();
+                    final bbcode = controller.toBBCode();
+                    debugPrint(bbcode);
                   },
                 ),
               ],

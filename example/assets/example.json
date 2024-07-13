@@ -1,448 +1,185 @@
-{
-  "document": {
-    "type": "page",
-    "children": [
-      {
-        "type": "heading",
-        "data": {
-          "level": 2,
-          "delta": [
-            {
-              "insert": "Some text to test for bbcode"
-            }
-          ],
-          "align": "center"
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "Italic",
-              "attributes": {
-                "italic": true
-              }
-            }
-          ]
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "Bold",
-              "attributes": {
-                "bold": true
-              }
-            }
-          ]
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "Underline",
-              "attributes": {
-                "underline": true
-              }
-            }
-          ]
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "Strikethrough",
-              "attributes": {
-                "strikethrough": true
-              }
-            }
-          ]
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "TextWithForgroundColorBrown",
-              "attributes": {
-                "font_color": "0xff795548"
-              }
-            }
-          ]
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "TextWithBackgroundColorRed",
-              "attributes": {
-                "bg_color": "0x4df44336"
-              }
-            }
-          ]
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "UrlLinkToGoogle",
-              "attributes": {
-                "href": "google.com"
-              }
-            }
-          ]
-        }
-      },
-      {
-        "type": "heading",
-        "data": {
-          "level": 1,
-          "delta": [
-            {
-              "insert": "Header1"
-            }
-          ]
-        }
-      },
-      {
-        "type": "heading",
-        "data": {
-          "level": 2,
-          "delta": [
-            {
-              "insert": "Header2"
-            }
-          ]
-        }
-      },
-      {
-        "type": "heading",
-        "data": {
-          "level": 3,
-          "delta": [
-            {
-              "insert": "Header3"
-            }
-          ]
-        }
-      },
-      {
-        "type": "quote",
-        "data": {
-          "delta": [
-            {
-              "insert": "Quote"
-            }
-          ]
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "Code",
-              "attributes": {
-                "code": true
-              }
-            }
-          ]
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "AlignLeft"
-            }
-          ],
-          "align": "left"
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "AlignCenter"
-            }
-          ],
-          "align": "center"
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "AlignRight"
-            }
-          ],
-          "align": "right"
-        }
-      },
-      {
-        "type": "bulleted_list",
-        "data": {
-          "delta": [
-            {
-              "insert": "unordered list item 1"
-            }
-          ]
-        }
-      },
-      {
-        "type": "bulleted_list",
-        "data": {
-          "delta": [
-            {
-              "insert": "unordered list item 2"
-            }
-          ]
-        }
-      },
-      {
-        "type": "numbered_list",
-        "data": {
-          "delta": [
-            {
-              "insert": "ordered lis item 1"
-            }
-          ]
-        }
-      },
-      {
-        "type": "numbered_list",
-        "data": {
-          "delta": [
-            {
-              "insert": "ordered list item 2"
-            }
-          ]
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": []
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "Image:"
-            }
-          ]
-        }
-      },
-      {
-        "type": "image",
-        "data": {
-          "url": "https://storage.googleapis.com/cms-storage-bucket/c823e53b3a1a7b0d36a9.png",
-          "align": "center"
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": []
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "Divider:"
-            }
-          ]
-        }
-      },
-      {
-        "type": "divider"
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": []
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": [
-            {
-              "insert": "Table:"
-            }
-          ]
-        }
-      },
-      {
-        "type": "table",
-        "children": [
-          {
-            "type": "table/cell",
-            "children": [
-              {
-                "type": "paragraph",
-                "data": {
-                  "delta": [
-                    {
-                      "insert": "0,0"
-                    }
-                  ]
-                }
-              }
-            ],
-            "data": {
-              "colPosition": 0,
-              "rowPosition": 0,
-              "height": 41.0,
-              "width": 80.0
-            }
-          },
-          {
-            "type": "table/cell",
-            "children": [
-              {
-                "type": "paragraph",
-                "data": {
-                  "delta": [
-                    {
-                      "insert": "1,0"
-                    }
-                  ]
-                }
-              }
-            ],
-            "data": {
-              "colPosition": 0,
-              "rowPosition": 1,
-              "height": 41.0,
-              "width": 80.0
-            }
-          },
-          {
-            "type": "table/cell",
-            "children": [
-              {
-                "type": "paragraph",
-                "data": {
-                  "delta": [
-                    {
-                      "insert": "0,1"
-                    }
-                  ]
-                }
-              }
-            ],
-            "data": {
-              "colPosition": 1,
-              "rowPosition": 0,
-              "height": 41.0,
-              "width": 80.0
-            }
-          },
-          {
-            "type": "table/cell",
-            "children": [
-              {
-                "type": "paragraph",
-                "data": {
-                  "delta": [
-                    {
-                      "insert": "1,1"
-                    }
-                  ]
-                }
-              }
-            ],
-            "data": {
-              "colPosition": 1,
-              "rowPosition": 1,
-              "height": 41.0,
-              "width": 80.0
-            }
-          },
-          {
-            "type": "table/cell",
-            "children": [
-              {
-                "type": "paragraph",
-                "data": {
-                  "delta": [
-                    {
-                      "insert": "0,2"
-                    }
-                  ]
-                }
-              }
-            ],
-            "data": {
-              "colPosition": 2,
-              "rowPosition": 0,
-              "height": 41.0,
-              "width": 80.0
-            }
-          },
-          {
-            "type": "table/cell",
-            "children": [
-              {
-                "type": "paragraph",
-                "data": {
-                  "delta": [
-                    {
-                      "insert": "1,2"
-                    }
-                  ]
-                }
-              }
-            ],
-            "data": {
-              "colPosition": 2,
-              "rowPosition": 1,
-              "height": 41.0,
-              "width": 80.0
-            }
-          }
-        ],
-        "data": {
-          "colsLen": 3,
-          "rowsLen": 2,
-          "colDefaultWidth": 80.0,
-          "rowDefaultHeight": 40.0,
-          "colMinimumWidth": 40.0,
-          "colsHeight": 88.0
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": []
-        }
-      },
-      {
-        "type": "paragraph",
-        "data": {
-          "delta": []
-        }
-      }
-    ]
+[
+  {
+    "insert": "Font Roboto Mono",
+    "attributes": {
+      "font": "roboto-mono"
+    }
+  },
+  {
+    "insert": "\n\n"
+  },
+  {
+    "insert": "fontSizeSnall",
+    "attributes": {
+      "size": "small"
+    }
+  },
+  {
+    "insert": "\n\n"
+  },
+  {
+    "insert": "fontSizeHuge",
+    "attributes": {
+      "size": "huge"
+    }
+  },
+  {
+    "insert": "\n\n"
+  },
+  {
+    "insert": "bold text",
+    "attributes": {
+      "bold": true
+    }
+  },
+  {
+    "insert": "\n"
+  },
+  {
+    "insert": "italic text",
+    "attributes": {
+      "italic": true
+    }
+  },
+  {
+    "insert": "\n"
+  },
+  {
+    "insert": "underline text",
+    "attributes": {
+      "underline": true
+    }
+  },
+  {
+    "insert": "\n"
+  },
+  {
+    "insert": "strikethrough text",
+    "attributes": {
+      "strike": true
+    }
+  },
+  {
+    "insert": "\n"
+  },
+  {
+    "insert": "all_style_text",
+    "attributes": {
+      "strike": true,
+      "bold": true,
+      "italic": true,
+      "underline": true
+    }
+  },
+  {
+    "insert": "\n\nsuperscript"
+  },
+  {
+    "insert": "superscriptContent",
+    "attributes": {
+      "script": "super"
+    }
+  },
+  {
+    "insert": "\n\n"
+  },
+  {
+    "insert": "font color re",
+    "attributes": {
+      "color": "#FFEC407A"
+    }
+  },
+  {
+    "insert": "\n\n"
+  },
+  {
+    "insert": "background color blue",
+    "attributes": {
+      "background": "#FF64B5F6"
+    }
+  },
+  {
+    "insert": "\n\nnumbered_list\n"
+  },
+  {
+    "insert": "numbered_list_1\n",
+    "attributes": {
+      "list": "ordered"
+    }
+  },
+  {
+    "insert": "numbered_list_2"
+  },
+  {
+    "insert": "\n",
+    "attributes": {
+      "list": "ordered"
+    }
+  },
+  {
+    "insert": "\nbullet_list\n"
+  },
+  {
+    "insert": "bullet_list_1\n",
+    "attributes": {
+      "list": "bullet"
+    }
+  },
+  {
+    "insert": "bullet_list_2"
+  },
+  {
+    "insert": "\n",
+    "attributes": {
+      "list": "bullet"
+    }
+  },
+  {
+    "insert": "\n"
+  },
+  {
+    "insert": "code_block\n",
+    "attributes": {
+      "code-block": true
+    }
+  },
+  {
+    "insert": "multiple lines"
+  },
+  {
+    "insert": "\n",
+    "attributes": {
+      "code-block": true
+    }
+  },
+  {
+    "insert": "quote"
+  },
+  {
+    "insert": "\n",
+    "attributes": {
+      "blockquote": true
+    }
+  },
+  {
+    "insert": "multiple lines"
+  },
+  {
+    "insert": "\n",
+    "attributes": {
+      "blockquote": true
+    }
+  },
+  {
+    "insert": "\nurl "
+  },
+  {
+    "insert": "flutter",
+    "attributes": {
+      "link": "https://flutter.dev"
+    }
+  },
+  {
+    "insert": "\n"
   }
-}
+]
