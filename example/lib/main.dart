@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -147,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Row(
               children: [
-                Text('Dark Mode'),
+                const Text('Dark Mode'),
                 Switch(
                   value: themeMode.value == ThemeMode.dark,
                   onChanged: (v) {
@@ -165,28 +167,41 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               children: [
                 TextButton.icon(
-                  label: const Text('Import'),
+                  label: const Text('Import Json'),
                   icon: const Icon(Icons.file_upload),
-                  onPressed: () {
-                    throw UnimplementedError('import data');
-                    // controller.importData(BBCodeFileType.documentJson);
+                  onPressed: () async {
+                    final result = await FilePicker.platform.pickFiles();
+
+                    if (result == null) {
+                      return;
+                    }
+
+                    final json =
+                        await File(result.files.single.path!).readAsString();
+                    final code = jsonDecode(json);
+                    if (code is! List<dynamic>) {
+                      debugPrint('invalid json data type: ${code.runtimeType}');
+                      return;
+                    }
+                    controller.setDocumentFromJson(code);
                   },
                 ),
                 TextButton.icon(
-                  label: const Text('Export'),
+                  label: const Text('Export Json'),
                   icon: const Icon(Icons.file_download),
-                  onPressed: () {
-                    throw UnimplementedError('export data');
-                    // controller.exportData(BBCodeFileType.documentJson,
-                    //     (context, exportPath) {
-                    //   ScaffoldMessenger.of(context).showSnackBar(
-                    //     SnackBar(
-                    //       content: Text(
-                    //         'This document is saved to the $exportPath',
-                    //       ),
-                    //     ),
-                    //   );
-                    // });
+                  onPressed: () async {
+                    final json = controller.toJson();
+
+                    final filePath = await FilePicker.platform.saveFile(
+                      dialogTitle: 'Save content in json',
+                      fileName: 'example.json',
+                    );
+
+                    if (filePath == null) {
+                      return;
+                    }
+
+                    await File(filePath).writeAsString(json);
                   },
                 ),
                 TextButton.icon(

@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bbcode_editor/src/v2/constants.dart';
-import 'package:flutter_bbcode_editor/src/v2/editor_controller.dart';
-import 'package:flutter_quill/flutter_quill.dart';
+part of 'editor.dart';
 
 /// Toolbar of the editor.
 class BBCodeEditorToolBar extends StatefulWidget {
@@ -30,7 +27,7 @@ class _BBCodeEditorToolBarState extends State<BBCodeEditorToolBar> {
   Widget build(BuildContext context) {
     return QuillToolbar.simple(
       configurations: QuillSimpleToolbarConfigurations(
-        controller: controller.quillController,
+        controller: controller._quillController,
         // Below are all formats implemented in quill but not supported in TSDM.
         // These formats are disabled on default.
         //

@@ -125,10 +125,10 @@ packages:
     dependency: transitive
     description:
       name: dart_quill_delta
-      sha256: a839810d09e9581fe2f384787f90ff11a261adaa5ee5afbd4a8a5fb4d9b6470c
+      sha256: "7b06bc122c2f27de65c06ced61f23709cd3a9fe810e59200fb9eae6872bca934"
       url: "https://pub.dev"
     source: hosted
-    version: "9.5.1"
+    version: "9.5.15"
   dart_style:
     dependency: transitive
     description:
@@ -194,7 +194,7 @@ packages:
     source: hosted
     version: "7.0.0"
   file_picker:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: file_picker
       sha256: "2ca051989f69d1b2ca012b2cf3ccf78c70d40144f0861ff2c063493f7c8c3d45"
@@ -390,10 +390,18 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: efda84b94419c2d23c57021cf3ec25d106b1b6004ef54cee9330d96a6d82ab92
+      sha256: "7b4d9110058b5dccc867717be82f3ae812f859e55f92ba8eb3b0585a708c4e40"
       url: "https://pub.dev"
     source: hosted
-    version: "9.5.1"
+    version: "9.5.15"
+  flutter_quill_delta_from_html:
+    dependency: transitive
+    description:
+      name: flutter_quill_delta_from_html
+      sha256: "78dd5d0e97e336246fc658af0d80aaf5e77ef1b040c262c780293f272deeb1bc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.1"
   flutter_quill_extensions:
     dependency: "direct main"
     description:
@@ -460,14 +468,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.15.4"
-  html2md:
-    dependency: transitive
-    description:
-      name: html2md
-      sha256: "465cf8ffa1b510fe0e97941579bf5b22e2d575f2cecb500a9c0254efe33a8036"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.3.2"
   http:
     dependency: transitive
     description:
@@ -1194,5 +1194,5 @@ packages:
     source: hosted
     version: "9.0.1"
 sdks:
-  dart: ">=3.4.0 <4.0.0"
+  dart: ">=3.4.3 <4.0.0"
   flutter: ">=3.22.0"

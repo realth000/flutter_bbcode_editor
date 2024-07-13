@@ -1,6 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bbcode_editor/src/v2/editor_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bbcode_editor/src/v2/constants.dart';
+import 'package:flutter_bbcode_editor/src/v2/editor_value.dart';
+import 'package:flutter_bbcode_editor/src/v2/extensions/to_bbcode.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/background_color.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/bold.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/code_block.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/color.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/font_size.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/italic.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/quote_block.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/strikethrough.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/tag.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/underline.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/url.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+
+part 'editor_controller.dart';
+part 'editor_tool_bar.dart';
 
 /// Quill based bbcode editor.
 class BBCodeEditor extends StatefulWidget {
@@ -34,7 +53,7 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
     return QuillEditor.basic(
       focusNode: widget.focusNode,
       configurations: QuillEditorConfigurations(
-        controller: _controllerV2.quillController,
+        controller: _controllerV2._quillController,
       ),
     );
   }
