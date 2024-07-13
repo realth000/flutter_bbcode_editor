@@ -104,9 +104,17 @@ class _MyHomePageState extends State<MyHomePage> {
         controller: controller,
       ),
       Expanded(
-        child: BBCodeEditor(
-          controller: controller,
-          focusNode: _focusNode,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: InputDecorator(
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+            ),
+            child: BBCodeEditor(
+              controller: controller,
+              focusNode: _focusNode,
+            ),
+          ),
         ),
       ),
     ];
