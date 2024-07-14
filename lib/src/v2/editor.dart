@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/v2/constants.dart';
+import 'package:flutter_bbcode_editor/src/v2/context.dart';
 import 'package:flutter_bbcode_editor/src/v2/editor_value.dart';
 import 'package:flutter_bbcode_editor/src/v2/extensions/to_bbcode.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/background_color.dart';

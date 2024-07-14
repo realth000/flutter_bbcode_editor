@@ -46,11 +46,20 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
 
     print('>>> ---------------------------');
 
+    // Parse operations from end to start, see BBCodeTagContext for details.
     return _quillController.document
         .toDelta()
         .operations
-        .map((e) => e.toBBCode(context, tags))
+        .reversed
+        .mapIndexed(
+          (index, e) => e.toBBCode(
+            context,
+            tags,
+            removeLastLineFeed: index == 0,
+          ),
+        )
         .toList()
+        .reversed
         .join();
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bbcode_editor/src/v2/context.dart';
 
 /// BBCode tag interface.
 ///
@@ -35,6 +36,39 @@ abstract class BBCodeTag {
   /// Use to identify a tag.
   String get tagName;
 
+  /// Whether the tag is "block", not "inline".
+  ///
+  /// Block tags MUST stay in a or more standalone rows, can not have text with
+  /// them in the same row.
+  ///
+  /// e.g. "code block" and "quote block" are blocks.
+  bool get isBlockTag => false;
+
+  /// If current text position is inside a block, optional transform step on
+  /// current text.
+  ///
+  /// Only works when [isBlockTag] is true.
+  ///
+  /// For example:
+  ///
+  /// Ordered list is "block" tag:
+  ///
+  /// ```bbcode
+  /// [list=1]
+  /// [*]foo
+  /// [*]bar
+  /// [/list]
+  /// ```
+  ///
+  /// Every item inside the list start with `[*]`, so the [inBlockTransformer]
+  /// for ordered block is:
+  ///
+  /// ```dart
+  /// @override
+  /// String inBlockTransformer(String text) => "[*]text";
+  /// ```
+  String inBlockTransformer(String text) => text;
+
   /// Validate the attribute string.
   ///
   /// If is invalid attribute, return false so that the parsing progress can
@@ -47,6 +81,12 @@ abstract class BBCodeTag {
   /// after side.
   String toBBCode(String text, dynamic attribute) =>
       '[$tagName]$text[/$tagName]';
+
+  /// Only prepend tag head to [text].
+  String prependBBCodeHead(String text) => '[$tagName]$text';
+
+  /// Only append tag tail to [text].
+  String appendBBCodeTail(String text) => '$text[/$tagName]';
 
   /// Transform [text] according to current parsing [context].
   String handleContext(String text, BBCodeTagContext context) {
@@ -63,68 +103,4 @@ abstract class BBCodeTag {
 
   @override
   int get hashCode => Object.hashAll([tagName]);
-}
-
-/// State of munching tag.
-///
-/// Provides information about current munching position with context.
-///
-/// This class is used as a state saver when parsing quill doc into bbcode.
-/// Because there is no context support in raw quill doc but sometimes we need
-/// it:
-///
-/// ```bbcode
-/// [list]
-/// [*]foo
-/// [*]bar
-/// [/list]
-/// ```
-///
-/// Consider the bbcode above, the corresponding quill doc is:
-///
-/// ```json
-/// [
-///   {
-///     "insert": "foo",
-///     "attributes":  {
-///       "list": "ordered"
-///     }
-///   },
-///   {
-///     "insert": "bar"
-///   },
-///   {
-///     "insert": "\n",
-///     "attributes":  {
-///       "list": "ordered"
-///     }
-///   }
-/// ]
-/// ```
-///
-/// where when we parsing "bar" text, the info that we are inside an ordered
-/// list or not.
-///
-/// Use this context to keep that info and parsing throughout the parsing
-/// progress.
-final class BBCodeTagContext {
-  /// Flag indicating inside ordered list or not.
-  ///
-  /// ```bbcode
-  /// [list=1]
-  /// [*]foo
-  /// [*]bar
-  /// [/list]
-  /// ```
-  bool insideOrderedList = false;
-
-  /// Flag indicating inside bullet list or not.
-  ///
-  /// ```bbcode
-  /// [list]
-  /// [*]foo
-  /// [*]bar
-  /// [/list]
-  /// ```
-  bool insideBulletList = false;
 }

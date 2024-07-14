@@ -17,4 +17,7 @@ final class QuoteBlockTag extends BBCodeTag {
 
   @override
   String get tagName => 'quote';
+
+  @override
+  bool get isBlockTag => true;
 }

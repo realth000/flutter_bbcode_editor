@@ -16,4 +16,7 @@ final class CodeBlockTag extends BBCodeTag {
 
   @override
   String get tagName => 'code';
+
+  @override
+  bool get isBlockTag => true;
 }
