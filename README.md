@@ -25,6 +25,10 @@ Based on [flutter_quill](https://pub.dev/packages/flutter_quill).
   * [x] Underline.
   * [x] Strikethrough.
   * [x] Superscript.
+  * [x] Alignment.
+    * [x] Align left.
+    * [x] Align center.
+    * [x] Align right.
   * [ ] Custom emoji `{emoji_id}`.
   * [ ] Paragraph alignment (left/center/right).
   * [x] Url `[url]`.
