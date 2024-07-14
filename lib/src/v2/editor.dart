@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/v2/constants.dart';
 import 'package:flutter_bbcode_editor/src/v2/context.dart';
@@ -23,6 +24,7 @@ import 'package:flutter_bbcode_editor/src/v2/tags/tag.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/underline.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/url.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 
 part 'editor_controller.dart';
 part 'editor_tool_bar.dart';
@@ -60,6 +62,9 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
       focusNode: widget.focusNode,
       configurations: QuillEditorConfigurations(
         controller: _controllerV2._quillController,
+        embedBuilders: kIsWeb
+            ? FlutterQuillEmbeds.editorWebBuilders()
+            : FlutterQuillEmbeds.editorBuilders(),
       ),
     );
   }

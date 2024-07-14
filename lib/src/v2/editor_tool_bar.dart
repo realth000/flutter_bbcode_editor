@@ -51,6 +51,12 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
 
         //
         fontFamilyValues: widget._config.fontFamilyValues,
+
+        // embedButtons: FlutterQuillEmbeds.toolbarButtons(),
+        embedButtons: [
+          (controller, toolbarIconSize, iconTheme, dialogTheme) =>
+              QuillToolbarImageButton(controller: controller),
+        ],
       ),
     );
   }
