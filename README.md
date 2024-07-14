@@ -10,30 +10,34 @@ Edit bbcode with WYSIWYG support.
 
 Flutter widget to edit [bbcode](https://en.wikipedia.org/wiki/BBCode) with [WYSIWYG](https://en.wikipedia.org/wiki/WYSIWYG) support.
 
-Based on [AppFlowy-IO/appflowy-editor](https://github.com/AppFlowy-IO/appflowy-editor).
+Based on [flutter_quill](https://pub.dev/packages/flutter_quill).
 
 ## Features
 
-> These tags are used by the [TSDM forum](https://tsdm39.com/).
+> These tags are used by [TSDM forum](https://tsdm39.com/).
 
-* [ ] BBCode tags
-  * [ ] Font size (specified value 1~7).
-  * [ ] Font color.
-  * [ ] Bold.
-  * [ ] Italic.
-  * [ ] Underline.
-  * [ ] Strikethrough.
+* [ ] BBCode tags.
+  * [x] Font family (no preset).
+  * [x] Font size (specified value 1~7).
+  * [x] Font color.
+  * [x] Bold.
+  * [x] Italic.
+  * [x] Underline.
+  * [x] Strikethrough.
+  * [x] Superscript.
   * [ ] Custom emoji `{emoji_id}`.
   * [ ] Paragraph alignment (left/center/right).
-  * [ ] Url `[url]`.
+  * [x] Url `[url]`.
   * [ ] Image `[img]`.
+    * Specify size `[img=$width,$height]$image_url[/img]`.
   * [ ] Spoiler `[spoiler]`.
   * [ ] Locked area `[hide]`.
   * [ ] Mention other users with `[@]`.
   * [ ] Unordered list.
   * [ ] Ordered list.
   * [ ] Table.
-* [ ] Edit in WYSIWYG mode.
+* [x] Edit in WYSIWYG mode.
 * [ ] ~~Edit in source code mode.~~
 * [ ] View render result.
-* [ ] Export plain code result.
+* [x] Export plain code result.
+* [ ] Custom tags.
