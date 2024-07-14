@@ -20,7 +20,8 @@ final class BackgroundColorTag extends BBCodeTag {
   String get tagName => 'backcolor';
 
   @override
-  bool validateAttribute(String attr) => ColorUtils.isColor(attr);
+  bool validateAttribute(dynamic attr) =>
+      attr is String && ColorUtils.isColor(attr);
 
   @override
   String toBBCode(String text, dynamic attribute) {

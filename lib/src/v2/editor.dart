@@ -8,6 +8,7 @@ import 'package:flutter_bbcode_editor/src/v2/context.dart';
 import 'package:flutter_bbcode_editor/src/v2/editor_configuration.dart';
 import 'package:flutter_bbcode_editor/src/v2/editor_value.dart';
 import 'package:flutter_bbcode_editor/src/v2/extensions/to_bbcode.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/align.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/background_color.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/bold.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/code_block.dart';

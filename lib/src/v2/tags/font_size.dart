@@ -21,7 +21,8 @@ final class FontSizeTag extends BBCodeTag {
   String get tagName => 'size';
 
   @override
-  bool validateAttribute(String attr) => defaultFontSizeMap.containsKey(attr);
+  bool validateAttribute(dynamic attr) =>
+      attr is String && defaultFontSizeMap.containsKey(attr);
 
   @override
   String toBBCode(String text, dynamic attribute) {

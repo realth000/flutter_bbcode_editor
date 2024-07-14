@@ -46,6 +46,8 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
         showSearchButton: false,
         showSubscript: false,
         fontSizesValues: defaultFontSizeMap,
+        showAlignmentButtons: true,
+        showJustifyAlignment: false,
 
         //
         fontFamilyValues: widget._config.fontFamilyValues,

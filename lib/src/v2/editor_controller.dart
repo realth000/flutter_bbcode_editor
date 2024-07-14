@@ -14,6 +14,9 @@ final defaultBBCodeTags = <BBCodeTag>{
   const UrlTag(),
   const FontFamilyTag(),
   const ScriptTag(),
+  const AlignLeftTag(),
+  const AlignCenterTag(),
+  const AlignRightTag(),
 };
 
 /// V2 editor controller.
@@ -44,20 +47,18 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
     final context = BBCodeTagContext();
 
     final rawJson = _quillController.document.toDelta().toJson();
-    print('>>> DOC=${jsonEncode(rawJson)}');
-
-    print('>>> ---------------------------');
+    print('>>> DOC: ${jsonEncode(rawJson)}');
 
     // Parse operations from end to start, see BBCodeTagContext for details.
-    return _quillController.document
-        .toDelta()
-        .operations
-        .reversed
+    final op = _quillController.document.toDelta().operations;
+    return op.reversed
         .mapIndexed(
           (index, e) => e.toBBCode(
             context,
             tags,
             removeLastLineFeed: index == 0,
+            // Pop all block at the last node.
+            popAllBlock: index == op.length - 1,
           ),
         )
         .toList()

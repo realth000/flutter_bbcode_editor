@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bbcode_editor/src/v2/context.dart';
 
 /// BBCode tag interface.
@@ -73,7 +73,7 @@ abstract class BBCodeTag {
   ///
   /// If is invalid attribute, return false so that the parsing progress can
   /// terminate or fallback to plain text.
-  bool validateAttribute(String attr) => true;
+  bool validateAttribute(dynamic attr) => true;
 
   /// Add raw bbcode tag around current text.
   ///
@@ -99,8 +99,8 @@ abstract class BBCodeTag {
 
   @override
   bool operator ==(Object other) =>
-      other is BBCodeTag && tagName == other.tagName;
+      other is BBCodeTag && description == other.description;
 
   @override
-  int get hashCode => Object.hashAll([tagName]);
+  int get hashCode => Object.hashAll([description]);
 }
