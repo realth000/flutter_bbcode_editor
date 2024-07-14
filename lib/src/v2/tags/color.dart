@@ -26,7 +26,7 @@ final class ColorTag extends BBCodeTag {
   String toBBCode(String text, dynamic attribute) {
     if (attribute is String) {
       if (ColorUtils.isColor(attribute)) {
-        return '[$tagName=$attribute]$text[/$tagName]';
+        return '[$tagName=${ColorUtils.toBBCodeColor(attribute)}]$text[/$tagName]';
       }
     }
     return text;

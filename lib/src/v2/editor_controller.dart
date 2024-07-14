@@ -12,6 +12,8 @@ final defaultBBCodeTags = <BBCodeTag>{
   const CodeBlockTag(),
   const QuoteBlockTag(),
   const UrlTag(),
+  const FontFamilyTag(),
+  const ScriptTag(),
 };
 
 /// V2 editor controller.

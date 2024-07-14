@@ -102,8 +102,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Widget> _buildEditor(BuildContext context) {
     return [
-      BBCodeEditorToolBar(
+      BBCodeEditorToolbar(
         controller: controller,
+        config: const BBCodeEditorToolbarConfiguration(
+          fontFamilyValues: {
+            'Arial': 'Arial',
+          },
+        ),
       ),
       Expanded(
         child: Padding(

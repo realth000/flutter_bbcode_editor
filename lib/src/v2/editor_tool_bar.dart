@@ -1,20 +1,24 @@
 part of 'editor.dart';
 
 /// Toolbar of the editor.
-class BBCodeEditorToolBar extends StatefulWidget {
+class BBCodeEditorToolbar extends StatefulWidget {
   /// Constructor.
-  const BBCodeEditorToolBar({
+  const BBCodeEditorToolbar({
     required BBCodeEditorController controller,
+    required BBCodeEditorToolbarConfiguration config,
     super.key,
-  }) : _controller = controller;
+  })  : _controller = controller,
+        _config = config;
 
   final BBCodeEditorController _controller;
 
+  final BBCodeEditorToolbarConfiguration _config;
+
   @override
-  State<BBCodeEditorToolBar> createState() => _BBCodeEditorToolBarState();
+  State<BBCodeEditorToolbar> createState() => _BBCodeEditorToolbarState();
 }
 
-class _BBCodeEditorToolBarState extends State<BBCodeEditorToolBar> {
+class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
   late final BBCodeEditorController controller;
 
   @override
@@ -42,6 +46,9 @@ class _BBCodeEditorToolBarState extends State<BBCodeEditorToolBar> {
         showSearchButton: false,
         showSubscript: false,
         fontSizesValues: defaultFontSizeMap,
+
+        //
+        fontFamilyValues: widget._config.fontFamilyValues,
       ),
     );
   }
