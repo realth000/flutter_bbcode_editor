@@ -4,13 +4,10 @@ import 'dart:io';
 
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:collection/collection.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
-import 'package:flutter_bbcode_editor/src/desktop_editor.dart';
 import 'package:flutter_bbcode_editor/src/file_type.dart';
-import 'package:flutter_bbcode_editor/src/mobile_editor.dart';
 import 'package:flutter_bbcode_editor/src/node.dart';
 import 'package:flutter_bbcode_editor/src/parser/parser.dart';
 import 'package:flutter_bbcode_editor/src/shortcuts/emoji.dart';
@@ -404,7 +401,7 @@ final class BBCodeEditorState extends State<BBCodeEditor>
 
   @override
   Widget build(BuildContext context) {
-    return BBCodeEditor()
+    return BBCodeEditor();
     return Container();
   }
 }
