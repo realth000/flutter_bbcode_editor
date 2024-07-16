@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/v2/constants.dart';
 import 'package:flutter_bbcode_editor/src/v2/context.dart';
 import 'package:flutter_bbcode_editor/src/v2/editor_configuration.dart';
@@ -16,6 +16,8 @@ import 'package:flutter_bbcode_editor/src/v2/tags/code_block.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/color.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/font_family.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/font_size.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/image/image_builder.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/image/image_button.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/italic.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/quote_block.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/script.dart';
@@ -24,6 +26,7 @@ import 'package:flutter_bbcode_editor/src/v2/tags/tag.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/underline.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/url.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill/translations.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 
 part 'editor_controller.dart';
@@ -58,13 +61,17 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
 
   @override
   Widget build(BuildContext context) {
-    return QuillEditor.basic(
-      focusNode: widget.focusNode,
-      configurations: QuillEditorConfigurations(
-        controller: _controllerV2._quillController,
-        embedBuilders: kIsWeb
-            ? FlutterQuillEmbeds.editorWebBuilders()
-            : FlutterQuillEmbeds.editorBuilders(),
+    return BBCodeLocalizationsWidget(
+      child: FlutterQuillLocalizationsWidget(
+        child: QuillEditor.basic(
+          focusNode: widget.focusNode,
+          configurations: QuillEditorConfigurations(
+            controller: _controllerV2._quillController,
+            embedBuilders: [
+              BBCodeImageEmbedBuilder(),
+            ],
+          ),
+        ),
       ),
     );
   }

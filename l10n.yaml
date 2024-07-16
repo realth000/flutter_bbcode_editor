@@ -2,4 +2,6 @@ arb-dir: lib/src/l10n
 template-arb-file: bbcode_en.arb
 output-localization-file: bbcode_localizations.dart
 output-class: BBCodeEditorLocalizations
+output-dir: lib/src/l10n/generated
+synthetic-package: false
 format: true

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
+import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
+import 'package:flutter_bbcode_editor/src/v2/constants.dart';
 import 'package:flutter_bbcode_editor/src/v2/extensions/context.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/translations.dart';
@@ -34,6 +36,9 @@ final class _ImageInfo {
   final String link;
   final int? width;
   final int? height;
+
+  @override
+  String toString() => 'link=$link;width=${width ?? 0};height=${height ?? 0}';
 }
 
 final class _PickImageDialog extends StatefulWidget {
@@ -159,18 +164,24 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
   final BBCodeEditorController controller;
   final QuillDialogTheme? dialogTheme;
 
-  Future<ImageInfo?> _waitInputUrlImage(BuildContext context) async {
-    final imageInfo = await showDialog<String>(
+  Future<void> _waitInputUrlImage(BuildContext context) async {
+    final imageInfo = await showDialog<_ImageInfo>(
       context: context,
-      builder: (_) => FlutterQuillLocalizationsWidget(
-        child: _PickImageDialog(dialogTheme: dialogTheme),
+      builder: (_) => BBCodeLocalizationsWidget(
+        child: FlutterQuillLocalizationsWidget(
+          child: _PickImageDialog(dialogTheme: dialogTheme),
+        ),
       ),
     );
     if (imageInfo == null) {
       return null;
     }
 
-    // TODO: Handle image insertion.
+    print('>>>> get imageINfo: $imageInfo');
+
+    controller.insertEmbedBlock(BBCodeEmbedTypes.image, imageInfo.toString());
+
+    return null;
   }
 
   @override

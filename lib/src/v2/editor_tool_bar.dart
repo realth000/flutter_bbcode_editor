@@ -29,34 +29,41 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
 
   @override
   Widget build(BuildContext context) {
-    return QuillToolbar.simple(
-      configurations: QuillSimpleToolbarConfigurations(
-        controller: controller._quillController,
-        // Below are all formats implemented in quill but not supported in TSDM.
-        // These formats are disabled on default.
-        //
-        // Font family are not fixed to what quill supports.
-        // Should let developer support it.
-        // showFontFamily: false,
-        // Use font size instead.
-        showHeaderStyle: false,
-        showInlineCode: false,
-        showListCheck: false,
-        showIndent: false,
-        showSearchButton: false,
-        showSubscript: false,
-        fontSizesValues: defaultFontSizeMap,
-        showAlignmentButtons: true,
-        showJustifyAlignment: false,
+    return BBCodeLocalizationsWidget(
+      child: QuillToolbar.simple(
+        configurations: QuillSimpleToolbarConfigurations(
+          controller: controller._quillController,
+          // Below are all formats implemented in quill but not supported in TSDM.
+          // These formats are disabled on default.
+          //
+          // Font family are not fixed to what quill supports.
+          // Should let developer support it.
+          // showFontFamily: false,
+          // Use font size instead.
+          showHeaderStyle: false,
+          showInlineCode: false,
+          showListCheck: false,
+          showIndent: false,
+          showSearchButton: false,
+          showSubscript: false,
+          fontSizesValues: defaultFontSizeMap,
+          showAlignmentButtons: true,
+          showJustifyAlignment: false,
 
-        //
-        fontFamilyValues: widget._config.fontFamilyValues,
+          //
+          fontFamilyValues: widget._config.fontFamilyValues,
 
-        // embedButtons: FlutterQuillEmbeds.toolbarButtons(),
-        embedButtons: [
-          (controller, toolbarIconSize, iconTheme, dialogTheme) =>
-              QuillToolbarImageButton(controller: controller),
-        ],
+          // embedButtons: FlutterQuillEmbeds.toolbarButtons(),
+          embedButtons: [
+            (controller, toolbarIconSize, iconTheme, dialogTheme) =>
+                // FIXME: Do not add l10n here.
+                BBCodeLocalizationsWidget(
+                  child: BBCodeEditorToolbarImageButton(
+                    controller: widget._controller,
+                  ),
+                ),
+          ],
+        ),
       ),
     );
   }

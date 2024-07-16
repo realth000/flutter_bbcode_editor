@@ -66,6 +66,19 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
         .join();
   }
 
+  /// Insert formatted embed block [data] into editor.
+  void insertEmbedBlock(String embedType, String data) {
+    _quillController
+      ..skipRequestKeyboard = true
+      ..replaceText(
+        _quillController.index,
+        _quillController.length,
+        BlockEmbed.custom(CustomBlockEmbed(embedType, data)),
+        null,
+      )
+      ..moveCursorToPosition(_quillController.index + 1);
+  }
+
   @override
   void dispose() {
     _quillController.dispose();

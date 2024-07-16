@@ -125,10 +125,10 @@ packages:
     dependency: transitive
     description:
       name: dart_quill_delta
-      sha256: "7b06bc122c2f27de65c06ced61f23709cd3a9fe810e59200fb9eae6872bca934"
+      sha256: "65c245ba1118c14a708965e010a89fcf6693be731237bf503491424f3f3c164e"
       url: "https://pub.dev"
     source: hosted
-    version: "9.5.15"
+    version: "9.5.20"
   dart_style:
     dependency: transitive
     description:
@@ -390,26 +390,26 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: "9e38dfb57e7c2536eef7da4bf7b25ba83008b88babefd58a3a06ff91e4190993"
+      sha256: e5e3a54451c33613fba810191a72e856103ea6e7d84850222a21ad869d7b9d24
       url: "https://pub.dev"
     source: hosted
-    version: "9.5.17"
+    version: "9.5.20"
   flutter_quill_delta_from_html:
     dependency: transitive
     description:
       name: flutter_quill_delta_from_html
-      sha256: "78dd5d0e97e336246fc658af0d80aaf5e77ef1b040c262c780293f272deeb1bc"
+      sha256: "3cddb27325e005459fd2bbd6af4d813525d5b2bcb6e9828ab2b449f70eaf1147"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.1"
+    version: "1.3.12"
   flutter_quill_extensions:
     dependency: "direct main"
     description:
       name: flutter_quill_extensions
-      sha256: "2673900662d78859fb356f5ddeedf5ce4a5fb4d3928402b53c782bd5dd4b01ae"
+      sha256: "5eb90fad32580102347a5ed09b434cc752dbaa1c519e81b503f5a41075477de3"
       url: "https://pub.dev"
     source: hosted
-    version: "9.5.17"
+    version: "9.5.20"
   flutter_svg:
     dependency: transitive
     description:

@@ -3,5 +3,9 @@
   "imageDialogWidth": "Width",
   "imageDialogHeight": "Height",
   "imageDialogEmptySize": "Empty size",
-  "imageDialogInvalidSize": "Invalid Number"
+  "imageDialogInvalidSize": "Invalid Number",
+  "imageBuilderDialogTitle": "Operate Image",
+  "imageBuilderDialogEdit": "Edit",
+  "imageBuilderDialogDelete": "Delete",
+  "imageBuilderDialogCopyLink": "Copy image link"
 }
