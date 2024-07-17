@@ -29,52 +29,6 @@ String? _validateImageSize(BuildContext context, String? v) {
   return null;
 }
 
-final class _ImageInfo {
-  const _ImageInfo(
-    this.link, {
-    this.width,
-    this.height,
-  });
-
-  final String link;
-  final int? width;
-  final int? height;
-
-  @override
-  String toString() => '${ImageKeys.link}=$link, '
-      '${ImageKeys.width}=$width, '
-      '${ImageKeys.height}=$height';
-
-  Map<String, dynamic> toJson() => {
-        ImageKeys.link: link,
-        ImageKeys.width: width,
-        ImageKeys.height: height,
-      };
-
-  static _ImageInfo fromJson(Map<String, dynamic> json) {
-    final link = switch (json) {
-      {ImageKeys.link: final String data} => data,
-      _ => null,
-    };
-    assert(link != null, 'Link in Image delta json MUST NOT a String');
-
-    final width = switch (json) {
-      {ImageKeys.width: final int? data} => data,
-      _ => null,
-    };
-    final height = switch (json) {
-      {ImageKeys.height: final int? data} => data,
-      _ => null,
-    };
-
-    return _ImageInfo(
-      link!,
-      width: width,
-      height: height,
-    );
-  }
-}
-
 final class _PickImageDialog extends StatefulWidget {
   const _PickImageDialog({
     this.link,
@@ -171,7 +125,7 @@ class _PickImageDialogState extends State<_PickImageDialog> {
             }
 
             Navigator.of(context).pop(
-              _ImageInfo(
+              BBCodeImageInfo(
                 linkController.text,
                 width: int.tryParse(widthController.text),
                 height: int.tryParse(heightController.text),
@@ -199,7 +153,7 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
   final QuillDialogTheme? dialogTheme;
 
   Future<void> _waitInputUrlImage(BuildContext context) async {
-    final imageInfo = await showDialog<_ImageInfo>(
+    final imageInfo = await showDialog<BBCodeImageInfo>(
       context: context,
       builder: (_) => BBCodeLocalizationsWidget(
         child: FlutterQuillLocalizationsWidget(
@@ -211,7 +165,7 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
       return;
     }
 
-    print('>>>> get imageINfo: $imageInfo');
+    print('>>>> get imageInfo: $imageInfo');
 
     controller.insertEmbedBlock(
       BBCodeEmbedTypes.image,
