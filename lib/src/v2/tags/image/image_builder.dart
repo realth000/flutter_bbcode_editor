@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/v2/constants.dart';
 import 'package:flutter_bbcode_editor/src/v2/extensions/context.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/image/image_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 /// Editor widget builder for embed image types.
@@ -23,8 +26,8 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     TextStyle textStyle,
   ) {
     final tr = context.bbcodeL10n;
-    final data = node.value.data as String;
-    final link = data.split(';').first.split('=').elementAt(1);
+    final data = jsonDecode(node.value.data as String) as Map<String, dynamic>;
+    final link = data[ImageKeys.link] as String;
 
     return GestureDetector(
       onTap: () async {

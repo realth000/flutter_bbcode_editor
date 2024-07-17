@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/v2/constants.dart';
 import 'package:flutter_bbcode_editor/src/v2/extensions/context.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/image/image_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/translations.dart';
 
@@ -38,7 +41,38 @@ final class _ImageInfo {
   final int? height;
 
   @override
-  String toString() => 'link=$link;width=${width ?? 0};height=${height ?? 0}';
+  String toString() => '${ImageKeys.link}=$link, '
+      '${ImageKeys.width}=$width, '
+      '${ImageKeys.height}=$height';
+
+  Map<String, dynamic> toJson() => {
+        ImageKeys.link: link,
+        ImageKeys.width: width,
+        ImageKeys.height: height,
+      };
+
+  static _ImageInfo fromJson(Map<String, dynamic> json) {
+    final link = switch (json) {
+      {ImageKeys.link: final String data} => data,
+      _ => null,
+    };
+    assert(link != null, 'Link in Image delta json MUST NOT a String');
+
+    final width = switch (json) {
+      {ImageKeys.width: final int? data} => data,
+      _ => null,
+    };
+    final height = switch (json) {
+      {ImageKeys.height: final int? data} => data,
+      _ => null,
+    };
+
+    return _ImageInfo(
+      link!,
+      width: width,
+      height: height,
+    );
+  }
 }
 
 final class _PickImageDialog extends StatefulWidget {
@@ -174,14 +208,17 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
       ),
     );
     if (imageInfo == null) {
-      return null;
+      return;
     }
 
     print('>>>> get imageINfo: $imageInfo');
 
-    controller.insertEmbedBlock(BBCodeEmbedTypes.image, imageInfo.toString());
+    controller.insertEmbedBlock(
+      BBCodeEmbedTypes.image,
+      jsonEncode(imageInfo.toJson()),
+    );
 
-    return null;
+    return;
   }
 
   @override
