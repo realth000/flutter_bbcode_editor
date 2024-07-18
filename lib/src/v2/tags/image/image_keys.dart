@@ -49,4 +49,16 @@ final class BBCodeImageInfo {
       height: height,
     );
   }
+
+  BBCodeImageInfo copyWith({
+    String? link,
+    int? width,
+    int? height,
+  }) {
+    return BBCodeImageInfo(
+      link ?? this.link,
+      width: width ?? this.width,
+      height: height ?? this.height,
+    );
+  }
 }

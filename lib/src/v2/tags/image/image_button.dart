@@ -29,8 +29,8 @@ String? _validateImageSize(BuildContext context, String? v) {
   return null;
 }
 
-final class _PickImageDialog extends StatefulWidget {
-  const _PickImageDialog({
+final class PickImageDialog extends StatefulWidget {
+  const PickImageDialog({
     this.link,
     this.width,
     this.height,
@@ -44,10 +44,10 @@ final class _PickImageDialog extends StatefulWidget {
   final int? height;
 
   @override
-  State<_PickImageDialog> createState() => _PickImageDialogState();
+  State<PickImageDialog> createState() => _PickImageDialogState();
 }
 
-class _PickImageDialogState extends State<_PickImageDialog> {
+class _PickImageDialogState extends State<PickImageDialog> {
   final formKey = GlobalKey<FormState>();
   late TextEditingController linkController;
   late TextEditingController widthController;
@@ -157,7 +157,7 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
       context: context,
       builder: (_) => BBCodeLocalizationsWidget(
         child: FlutterQuillLocalizationsWidget(
-          child: _PickImageDialog(dialogTheme: dialogTheme),
+          child: PickImageDialog(dialogTheme: dialogTheme),
         ),
       ),
     );
