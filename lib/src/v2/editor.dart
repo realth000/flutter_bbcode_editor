@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/v2/constants.dart';
 import 'package:flutter_bbcode_editor/src/v2/context.dart';
+import 'package:flutter_bbcode_editor/src/v2/convert/to_bbcode.dart';
 import 'package:flutter_bbcode_editor/src/v2/editor_configuration.dart';
 import 'package:flutter_bbcode_editor/src/v2/editor_value.dart';
 import 'package:flutter_bbcode_editor/src/v2/extensions/to_bbcode.dart';

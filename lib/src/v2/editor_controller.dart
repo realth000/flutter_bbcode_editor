@@ -44,6 +44,12 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
 
   /// Convert current document to bbcode.
   String toBBCode() {
+    final converter = DeltaToBBCode();
+    final ret = converter.convert(_quillController.document.toDelta());
+    print('>> >ret=$ret');
+    return ret;
+
+    // r
     final context = BBCodeTagContext();
 
     final rawJson = _quillController.document.toDelta().toJson();
