@@ -79,7 +79,6 @@ class _PickImageDialogState extends State<PickImageDialog> {
   Widget build(BuildContext context) {
     final tr = context.bbcodeL10n;
     return AlertDialog(
-      backgroundColor: widget.dialogTheme?.dialogBackgroundColor,
       content: Form(
         key: formKey,
         child: Column(

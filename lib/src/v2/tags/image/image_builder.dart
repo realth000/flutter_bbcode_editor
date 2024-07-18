@@ -117,37 +117,43 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
       onTap: () async {
         await showModalBottomSheet<void>(
           context: context,
-          builder: (_) => Scaffold(
-            appBar: AppBar(
-              forceMaterialTransparency: true,
-              title: Text(tr.imageBuilderDialogTitle),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(15),
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  ListTile(
-                    leading: const Icon(Icons.edit),
-                    title: Text(tr.imageBuilderDialogEdit),
-                    onTap: readOnly
-                        ? null
-                        : () async => _onEditImage(context, controller, node),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.delete),
-                    title: Text(tr.imageBuilderDialogDelete),
-                    onTap: readOnly
-                        ? null
-                        : () async => _onDelete(context, controller, node),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.copy),
-                    title: Text(tr.imageBuilderDialogCopyLink),
-                    onTap: () async => _onCopy(context, controller, node),
-                  ),
-                ],
-              ),
+          builder: (_) => Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // TODO: Optional bottom sheet title.
+                // Center(
+                //   child: Text(
+                //     tr.imageBuilderDialogTitle,
+                //     style: Theme.of(context).textTheme.titleMedium,
+                //   ),
+                // ),
+                ListView(
+                  shrinkWrap: true,
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.edit),
+                      title: Text(tr.imageBuilderDialogEdit),
+                      onTap: readOnly
+                          ? null
+                          : () async => _onEditImage(context, controller, node),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.delete),
+                      title: Text(tr.imageBuilderDialogDelete),
+                      onTap: readOnly
+                          ? null
+                          : () async => _onDelete(context, controller, node),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.copy),
+                      title: Text(tr.imageBuilderDialogCopyLink),
+                      onTap: () async => _onCopy(context, controller, node),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         );
