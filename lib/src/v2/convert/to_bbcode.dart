@@ -1,11 +1,13 @@
 // refer: https://github.com/singerdmx/flutter-quill/blob/master/lib/src/packages/quill_markdown/delta_to_markdown.dart
 
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bbcode_editor/src/v2/constants.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/image/image_keys.dart';
+import 'package:flutter_bbcode_editor/src/v2/utils.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 
@@ -30,6 +32,8 @@ class _AttributeHandler {
   )? afterContent;
 }
 
+typedef AttrHandlerMap = Map<String, _AttributeHandler>;
+
 abstract class _NodeVisitor<T> {
   const _NodeVisitor._();
 
@@ -46,7 +50,6 @@ abstract class _NodeVisitor<T> {
 
 extension _NodeX on Node {
   T accept<T>(_NodeVisitor<T> visitor, [T? context]) {
-    print('>>> accept! $runtimeType');
     switch (runtimeType) {
       case const (Root):
         return visitor.visitRoot(this as Root, context);
@@ -103,15 +106,16 @@ class DeltaToBBCode extends Converter<Delta, String>
     BBCodeEmbedTypes.image: (embed, out) {
       final d1 = jsonDecode(embed.value.data as String) as Map<String, dynamic>;
       final imageInfo = BBCodeImageInfo.fromJson(
-          jsonDecode(d1[BBCodeEmbedTypes.image] as String)
-              as Map<String, dynamic>);
+        jsonDecode(d1[BBCodeEmbedTypes.image] as String)
+            as Map<String, dynamic>,
+      );
       out.write('[img=${imageInfo.width},${imageInfo.height}]'
           '${imageInfo.link}'
           '[/img]');
     },
   };
 
-  final Map<String, _AttributeHandler> _blockAttrsHandlers = {
+  final AttrHandlerMap _blockAttrHandlers = {
     Attribute.codeBlock.key: _AttributeHandler(
       beforeContent: (attribute, node, output) => output.write('[code]'),
       afterContent: (attribute, node, output) => output.write('[/code]'),
@@ -122,8 +126,69 @@ class DeltaToBBCode extends Converter<Delta, String>
     ),
   };
 
-  final Map<String, _AttributeHandler> _lineAttrsHandlers = {
-    // TODO: Implement line attr handlers.
+  final AttrHandlerMap _lineAttrHandlers = {
+    // Align.
+    //
+    // * Align left
+    // * Align center
+    // * Align right
+    Attribute.align.key: _AttributeHandler(
+      beforeContent: (attribute, node, output) =>
+          output.write('[align=${attribute.value}]'),
+      afterContent: (attribute, node, output) => output.write('[/align]'),
+    ),
+  };
+
+  final AttrHandlerMap _textAttrHandlers = {
+    // Bold.
+    Attribute.bold.key: _AttributeHandler(
+      beforeContent: (attribute, node, output) => output.write('[b]'),
+      afterContent: (attribute, node, output) => output.write('[/b]'),
+    ),
+    // Italic.
+    Attribute.italic.key: _AttributeHandler(
+      beforeContent: (attribute, node, output) => output.write('[i]'),
+      afterContent: (attribute, node, output) => output.write('[/i]'),
+    ),
+    // Underline.
+    Attribute.underline.key: _AttributeHandler(
+      beforeContent: (attribute, node, output) => output.write('[u]'),
+      afterContent: (attribute, node, output) => output.write('[/u]'),
+    ),
+    // Strikethrough.
+    Attribute.strikeThrough.key: _AttributeHandler(
+      beforeContent: (attribute, node, output) => output.write('[s]'),
+      afterContent: (attribute, node, output) => output.write('[/s]'),
+    ),
+    // Currently only support superscript.
+    // Superscript.
+    Attribute.subscript.key: _AttributeHandler(
+      beforeContent: (attribute, node, output) {
+        if (attribute.value.toString() != 'super') {
+          return;
+        }
+        output.write('[sup]');
+      },
+      afterContent: (attribute, node, output) {
+        if (attribute.value.toString() != 'super') {
+          return;
+        }
+        output.write('[/sup]');
+      },
+    ),
+    // Font color.
+    Attribute.color.key: _AttributeHandler(
+      beforeContent: (attribute, node, output) => output.write(
+          '[color=${ColorUtils.toBBCodeColor(attribute.value as String? ?? "")}]'),
+      afterContent: (attribute, node, output) => output.write('[/color]'),
+    ),
+    // Background color.
+    Attribute.background.key: _AttributeHandler(
+      beforeContent: (attribute, node, output) => output.write(
+        '[backcolor=${ColorUtils.toBBCodeColor(attribute.value as String? ?? "")}]',
+      ),
+      afterContent: (attribute, node, output) => output.write('[/color]'),
+    )
   };
 
   void _handleAttribute(
@@ -169,11 +234,12 @@ class DeltaToBBCode extends Converter<Delta, String>
   StringSink visitBlock(Block block, [StringSink? output]) {
     print('>>> visitBlock');
     final out = output ??= StringBuffer();
-    _handleAttribute(_blockAttrsHandlers, block, output, () {
+    _handleAttribute(_blockAttrHandlers, block, output, () {
       for (final line in block.children) {
         line.accept(this, out);
       }
     });
+    out.writeln();
     return out;
   }
 
@@ -191,23 +257,22 @@ class DeltaToBBCode extends Converter<Delta, String>
 
   @override
   StringSink visitLine(Line line, [StringSink? output]) {
-    print('>>> visitLine: hasEmbed=${line.hasEmbed}');
+    print('>>> visitLine: style=${line.style}, hasEmbed=${line.hasEmbed}');
     // TODO: implement visitLine
     final out = output ??= StringBuffer();
     final style = line.style;
-    _handleAttribute(_lineAttrsHandlers, line, output, () {
+    _handleAttribute(_lineAttrHandlers, line, output, () {
       for (final leaf in line.children) {
         leaf.accept(this, out);
       }
     });
-    if (style.isEmpty ||
-        style.values.every((item) => item.scope != AttributeScope.block)) {
-      out.writeln();
-    }
-    if (style.containsKey(Attribute.list.key) &&
-        line.nextLine?.style.containsKey(Attribute.list.key) != true) {
-      out.writeln();
-    }
+    // if (style.isEmpty ||
+    //     style.values.every((item) => item.scope != AttributeScope.block)) {
+    //   out.writeln();
+    // }
+    // if (style.containsKey(Attribute.list.key) &&
+    //     line.nextLine?.style.containsKey(Attribute.list.key) != true) {
+    // }
     out.writeln();
     return out;
   }
@@ -224,10 +289,12 @@ class DeltaToBBCode extends Converter<Delta, String>
 
   @override
   StringSink visitText(QuillText text, [StringSink? output]) {
-    print('>>> visitText');
+    print('>>> visitText: ${text.style}');
     // TODO: implement visitText
     final out = output ??= StringBuffer();
-    out.writeln(text);
+    _handleAttribute(_textAttrHandlers, text, output, () {
+      out.write(text.value);
+    });
     return out;
   }
 }
