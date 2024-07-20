@@ -137,6 +137,46 @@ class DeltaToBBCode extends Converter<Delta, String>
           output.write('[align=${attribute.value}]'),
       afterContent: (attribute, node, output) => output.write('[/align]'),
     ),
+    // Ordered list and bullet list.
+    //
+    //
+    // Ordered list:
+    //
+    // [list=1]
+    // [*] foo
+    // [*] bar
+    // [*] baz
+    // [/list]
+    //
+    // Bullet list:
+    //
+    // [list]
+    // [*] foo
+    // [*] bar
+    // [*] baz
+    // [/list]
+    Attribute.list.key: _AttributeHandler(
+      beforeContent: (attribute, node, output) {
+        if (node.previous == null) {
+          final listType =
+              node.style.attributes[Attribute.list.key]!.value as String;
+          final listHead = switch (listType) {
+            'ordered' => '[list=1]',
+            'bullet' => '[list]',
+            String() => '', // Impossible
+          };
+          output.writeln(listHead);
+        }
+        output.write('[*]');
+      },
+      afterContent: (attribute, node, output) {
+        if (node.next == null) {
+          output
+            ..writeln()
+            ..writeln('[/list]');
+        }
+      },
+    ),
   };
 
   final AttrHandlerMap _textAttrHandlers = {
@@ -188,7 +228,14 @@ class DeltaToBBCode extends Converter<Delta, String>
         '[backcolor=${ColorUtils.toBBCodeColor(attribute.value as String? ?? "")}]',
       ),
       afterContent: (attribute, node, output) => output.write('[/color]'),
-    )
+    ),
+    // Url
+    Attribute.link.key: _AttributeHandler(
+      beforeContent: (attribute, node, output) => output.write(
+        '[url=${attribute.value as String? ?? ""}]',
+      ),
+      afterContent: (attribute, node, output) => output.write('[/url]'),
+    ),
   };
 
   void _handleAttribute(
