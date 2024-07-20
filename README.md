@@ -14,10 +14,11 @@ Based on [flutter_quill](https://pub.dev/packages/flutter_quill).
 
 ## Features
 
-> These tags are used by [TSDM forum](https://tsdm39.com/).
+> These tags are used in [TSDM](https://tsdm39.com/) forum.
+> Can disable and override.
 
 * [ ] BBCode tags.
-  * [x] Font family (no preset).
+  * [x] Font family (support code convert but no visual result).
   * [x] Font size (specified value 1~7).
   * [x] Font color.
   * [x] Bold.
@@ -32,16 +33,20 @@ Based on [flutter_quill](https://pub.dev/packages/flutter_quill).
   * [ ] Custom emoji `{emoji_id}`.
   * [ ] Paragraph alignment (left/center/right).
   * [x] Url `[url]`.
-  * [ ] Image `[img]`.
+  * [x] Image `[img]`.
     * Specify size `[img=$width,$height]$image_url[/img]`.
   * [ ] Spoiler `[spoiler]`.
   * [ ] Locked area `[hide]`.
   * [ ] Mention other users with `[@]`.
-  * [ ] Unordered list.
-  * [ ] Ordered list.
+  * [x] Ordered list.
+  * [x] Bullet list.
   * [ ] Table.
-* [x] Edit in WYSIWYG mode.
-* [ ] ~~Edit in source code mode.~~
-* [ ] View render result.
+* [ ] Source code mode.
 * [x] Export plain code result.
 * [ ] Custom tags.
+
+### Not supported
+
+These features are not supported.
+
+* Nested block styles (code block, quote block, list)
