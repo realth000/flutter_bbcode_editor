@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bbcode_editor/src/v2/constants.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/emoji/emoji_keys.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/image/image_keys.dart';
 import 'package:flutter_bbcode_editor/src/v2/utils.dart';
 import 'package:flutter_quill/flutter_quill.dart';
@@ -49,6 +50,13 @@ final Map<String, EmbedToBBCode> defaultEmbedHandlers = {
     out.write('[img=${imageInfo.width},${imageInfo.height}]'
         '${imageInfo.link}'
         '[/img]');
+  },
+  BBCodeEmbedTypes.emoji: (embed, out) {
+    final d1 = jsonDecode(embed.value.data as String) as Map<String, dynamic>;
+    final imageInfo = BBCodeEmojiInfo.fromJson(
+      jsonDecode(d1[BBCodeEmbedTypes.emoji] as String) as Map<String, dynamic>,
+    );
+    out.write(imageInfo.code);
   },
 };
 

@@ -6,13 +6,17 @@ class BBCodeEditorToolbar extends StatefulWidget {
   const BBCodeEditorToolbar({
     required BBCodeEditorController controller,
     required BBCodeEditorToolbarConfiguration config,
+    required BBCodeEmojiPicker emojiPicker,
     super.key,
   })  : _controller = controller,
-        _config = config;
+        _config = config,
+        _emojiPicker = emojiPicker;
 
   final BBCodeEditorController _controller;
 
   final BBCodeEditorToolbarConfiguration _config;
+
+  final BBCodeEmojiPicker _emojiPicker;
 
   @override
   State<BBCodeEditorToolbar> createState() => _BBCodeEditorToolbarState();
@@ -46,6 +50,7 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
           showIndent: false,
           showSearchButton: false,
           showSubscript: false,
+
           fontSizesValues: defaultFontSizeMap,
           showAlignmentButtons: true,
           showJustifyAlignment: false,
@@ -60,6 +65,13 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                 BBCodeLocalizationsWidget(
                   child: BBCodeEditorToolbarImageButton(
                     controller: widget._controller,
+                  ),
+                ),
+            (controller, toolbarIconSize, iconTheme, dialogTheme) =>
+                BBCodeLocalizationsWidget(
+                  child: BBCodeEditorToolbarEmojiButton(
+                    controller: widget._controller,
+                    emojiPicker: widget._emojiPicker,
                   ),
                 ),
           ],

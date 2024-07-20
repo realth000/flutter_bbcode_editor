@@ -146,6 +146,12 @@ abstract class BBCodeEditorLocalizations {
   /// In en, this message translates to:
   /// **'Copy image link'**
   String get imageBuilderDialogCopyLink;
+
+  /// No description provided for @emojiInsertEmoji.
+  ///
+  /// In en, this message translates to:
+  /// **'Insert emoji'**
+  String get emojiInsertEmoji;
 }
 
 class _BBCodeEditorLocalizationsDelegate

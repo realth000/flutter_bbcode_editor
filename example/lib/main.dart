@@ -10,6 +10,49 @@ import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill_extensions/flutter_quill_embeds.dart';
 
+// Dialog to pick a emoji.
+Future<String?> _emojiPicker(BuildContext context) {
+  return showModalBottomSheet<String>(
+      context: context,
+      builder: (_) => Center(
+            child: GridView(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 30,
+                mainAxisExtent: 30,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+              ),
+              children: [
+                Icons.add,
+                Icons.remove,
+                Icons.arrow_left,
+                Icons.arrow_upward,
+                Icons.arrow_right,
+                Icons.arrow_downward,
+              ]
+                  .map(
+                    (e) => GestureDetector(
+                        onTap: () {
+                          // Here returns the emoji bbcode.
+                          // Every forum may have different styles:
+                          //
+                          // * {$code}
+                          // * [emoji=$code]
+                          // * ...
+                          //
+                          // Here assumes format as [emoji=$code].
+                          // Keep the same process when converting emoji code
+                          // to emoji image then everything is ok.
+                          Navigator.of(context)
+                              .pop('[emoji=${Icons.add.codePoint}]');
+                        },
+                        child: CircleAvatar(child: Icon(e))),
+                  )
+                  .toList(),
+            ),
+          ));
+}
+
 Future<void> main() async {
   // await BBCodeEditor.initialize();
   runApp(const MyApp());
@@ -109,6 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
             'Arial': 'Arial',
           },
         ),
+        emojiPicker: (context) async => _emojiPicker(context),
       ),
       Expanded(
         child: Padding(
@@ -120,6 +164,28 @@ class _MyHomePageState extends State<MyHomePage> {
             child: BBCodeEditor(
               controller: controller,
               focusNode: _focusNode,
+              emojiProvider: (context, code) {
+                // Assume emoji code format is [emoji=].
+                // Keep the same format with what we define in emojiPicker.
+                final codeValue = int.parse(
+                    code.replaceFirst('[emoji=', '').replaceFirst(']', ''));
+
+                if (codeValue == Icons.add.codePoint) {
+                  return const Icon(Icons.add);
+                } else if (codeValue == Icons.remove.codePoint) {
+                  return const Icon(Icons.remove);
+                } else if (codeValue == Icons.arrow_left.codePoint) {
+                  return const Icon(Icons.arrow_left);
+                } else if (codeValue == Icons.arrow_upward.codePoint) {
+                  return const Icon(Icons.arrow_upward);
+                } else if (codeValue == Icons.arrow_right.codePoint) {
+                  return const Icon(Icons.arrow_right);
+                } else if (codeValue == Icons.arrow_downward.codePoint) {
+                  return const Icon(Icons.arrow_downward);
+                } else {
+                  throw UnimplementedError();
+                }
+              },
             ),
           ),
         ),

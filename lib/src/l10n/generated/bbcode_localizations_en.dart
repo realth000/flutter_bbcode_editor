@@ -30,4 +30,7 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
 
   @override
   String get imageBuilderDialogCopyLink => 'Copy image link';
+
+  @override
+  String get emojiInsertEmoji => 'Insert emoji';
 }

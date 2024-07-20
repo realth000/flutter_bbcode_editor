@@ -7,5 +7,6 @@
   "imageBuilderDialogTitle": "Operate Image",
   "imageBuilderDialogEdit": "Edit",
   "imageBuilderDialogDelete": "Delete",
-  "imageBuilderDialogCopyLink": "Copy image link"
+  "imageBuilderDialogCopyLink": "Copy image link",
+  "emojiInsertEmoji": "Insert emoji"
 }

@@ -15,6 +15,8 @@ import 'package:flutter_bbcode_editor/src/v2/tags/background_color.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/bold.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/code_block.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/color.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/emoji/emoji_builder.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/emoji/emoji_button.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/font_family.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/font_size.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/image/image_builder.dart';
@@ -38,6 +40,8 @@ class BBCodeEditor extends StatefulWidget {
   /// Constructor.
   const BBCodeEditor({
     required BBCodeEditorController controller,
+    // TODO: Make optional.
+    required this.emojiProvider,
     this.focusNode,
     super.key,
   }) : _controller = controller;
@@ -46,6 +50,11 @@ class BBCodeEditor extends StatefulWidget {
 
   /// Editor focus node.
   final FocusNode? focusNode;
+
+  // TODO: Make optional.
+  /// Callback when need to build an image according to the emoji bbcode code.
+  ///
+  final BBCodeEmojiProvider emojiProvider;
 
   @override
   State<BBCodeEditor> createState() => _BBCodeEditorState();
@@ -70,6 +79,7 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
             controller: _controllerV2._quillController,
             embedBuilders: [
               BBCodeImageEmbedBuilder(),
+              BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
             ],
           ),
         ),
