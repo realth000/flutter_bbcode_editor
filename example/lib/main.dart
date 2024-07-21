@@ -3,12 +3,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
-import 'package:flutter_quill/flutter_quill.dart';
-import 'package:flutter_quill_extensions/flutter_quill_embeds.dart';
 
 // Dialog to pick a emoji.
 Future<String?> _emojiPicker(BuildContext context) {
@@ -51,6 +48,55 @@ Future<String?> _emojiPicker(BuildContext context) {
                   .toList(),
             ),
           ));
+}
+
+Future<PickUrlResult?> _urlPicker(BuildContext context) async {
+  final urlController = TextEditingController();
+  final descController = TextEditingController();
+  final result = await showDialog<PickUrlResult>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                keyboardType: TextInputType.url,
+                decoration: const InputDecoration(
+                  labelText: 'URL',
+                  icon: Icon(Icons.link),
+                ),
+                autofocus: true,
+                controller: urlController,
+              ),
+              TextField(
+                keyboardType: TextInputType.url,
+                decoration: const InputDecoration(
+                  labelText: 'Description',
+                  icon: Icon(Icons.description),
+                ),
+                autofocus: true,
+                controller: descController,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(PickUrlResult(
+                  url: urlController.text,
+                  description: descController.text,
+                ));
+              },
+              child: const Text('Submit'),
+            )
+          ],
+        );
+      });
+
+  urlController.dispose();
+  descController.dispose();
+  return result;
 }
 
 Future<void> main() async {
@@ -106,42 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _focusNode = FocusNode();
   late Future<String> _jsonString;
 
-  final _quillController = QuillController.basic();
   final _quillFocusNode = FocusNode();
-
-  void test() {
-    _quillController.clear();
-  }
-
-  List<Widget> _buildQuill(BuildContext context) {
-    return [
-      QuillToolbar.simple(
-        configurations: QuillSimpleToolbarConfigurations(
-          controller: _quillController,
-          embedButtons: FlutterQuillEmbeds.toolbarButtons(),
-        ),
-      ),
-      Expanded(
-        child: FutureBuilder(
-          future: _jsonString,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const CircularProgressIndicator();
-            }
-            return QuillEditor.basic(
-              focusNode: _quillFocusNode,
-              configurations: QuillEditorConfigurations(
-                controller: _quillController,
-                embedBuilders: kIsWeb
-                    ? FlutterQuillEmbeds.editorWebBuilders()
-                    : FlutterQuillEmbeds.editorBuilders(),
-              ),
-            );
-          },
-        ),
-      ),
-    ];
-  }
 
   List<Widget> _buildEditor(BuildContext context) {
     return [
@@ -153,6 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         emojiPicker: (context) async => _emojiPicker(context),
+        urlPicker: (context) async => _urlPicker(context),
       ),
       Expanded(
         child: Padding(
@@ -204,8 +216,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    _quillController.dispose();
-    _quillFocusNode.dispose();
     super.dispose();
   }
 

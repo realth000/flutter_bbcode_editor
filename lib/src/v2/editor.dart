@@ -43,6 +43,7 @@ class BBCodeEditor extends StatefulWidget {
     // TODO: Make optional.
     required this.emojiProvider,
     this.focusNode,
+    this.onLaunchUrl,
     super.key,
   }) : _controller = controller;
 
@@ -55,6 +56,9 @@ class BBCodeEditor extends StatefulWidget {
   /// Callback when need to build an image according to the emoji bbcode code.
   ///
   final BBCodeEmojiProvider emojiProvider;
+
+  /// Callback when user intend to launch an url.
+  final void Function(String)? onLaunchUrl;
 
   @override
   State<BBCodeEditor> createState() => _BBCodeEditorState();
@@ -81,6 +85,7 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
               BBCodeImageEmbedBuilder(),
               BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
             ],
+            onLaunchUrl: widget.onLaunchUrl,
           ),
         ),
       ),

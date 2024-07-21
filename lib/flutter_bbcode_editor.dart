@@ -5,5 +5,12 @@
 // export 'src/shortcuts/url.dart' show UrlLauncher;
 
 export 'src/v2/editor.dart'
-    show BBCodeEditor, BBCodeEditorController, BBCodeEditorToolbar;
+    show
+        BBCodeColorPicker,
+        BBCodeEditor,
+        BBCodeEditorController,
+        BBCodeEditorToolbar,
+        BBCodeUrlPicker,
+        PickColorResult,
+        PickUrlResult;
 export 'src/v2/editor_configuration.dart';

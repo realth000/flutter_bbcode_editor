@@ -1,0 +1,4 @@
+[submodule "packages/flutter-quill"]
+	path = packages/flutter-quill
+	url = https://github.com/realth000/flutter-quill.git
+	branch = build
