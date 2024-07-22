@@ -42,9 +42,10 @@ class BBCodeEditor extends StatefulWidget {
     required BBCodeEditorController controller,
     // TODO: Make optional.
     required this.emojiProvider,
+    this.imageProvider,
     this.scrollController,
     this.focusNode,
-    this.onLaunchUrl,
+    this.urlLauncher,
     this.autoFocus = false,
     super.key,
   }) : _controller = controller;
@@ -62,8 +63,11 @@ class BBCodeEditor extends StatefulWidget {
   ///
   final BBCodeEmojiProvider emojiProvider;
 
+  /// Callback when need to build an image from given url.
+  final BBCodeImageProvider? imageProvider;
+
   /// Callback when user intend to launch an url.
-  final void Function(String)? onLaunchUrl;
+  final void Function(String)? urlLauncher;
 
   /// Automatically requires focus.
   final bool autoFocus;
@@ -101,10 +105,10 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
                 autoFocus: widget.autoFocus,
                 controller: _controllerV2._quillController,
                 embedBuilders: [
-                  BBCodeImageEmbedBuilder(),
+                  BBCodeImageEmbedBuilder(widget.imageProvider),
                   BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
                 ],
-                onLaunchUrl: widget.onLaunchUrl,
+                onLaunchUrl: widget.urlLauncher,
               ),
             ),
           ),

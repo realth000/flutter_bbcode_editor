@@ -9,10 +9,18 @@ import 'package:flutter_bbcode_editor/src/v2/tags/image/image_button.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/image/image_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
+/// External function build a image widget from given image [url].
+typedef BBCodeImageProvider = Widget Function(String url);
+
 /// Editor widget builder for embed image types.
 ///
 /// Only web images.
 final class BBCodeImageEmbedBuilder extends EmbedBuilder {
+  /// Constructor.
+  const BBCodeImageEmbedBuilder(this._bbCodeImageProvider);
+
+  final BBCodeImageProvider? _bbCodeImageProvider;
+
   Future<void> _onEditImage(
     BuildContext context,
     QuillController controller,
@@ -158,7 +166,7 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
           ),
         );
       },
-      child: Image.network(link),
+      child: _bbCodeImageProvider?.call(link) ?? Image.network(link),
     );
   }
 }

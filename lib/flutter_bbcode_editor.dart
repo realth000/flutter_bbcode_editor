@@ -15,3 +15,4 @@ export 'src/v2/editor.dart'
         PickColorResult,
         PickUrlResult;
 export 'src/v2/editor_configuration.dart';
+export 'src/v2/tags/image/image_builder.dart' show BBCodeImageProvider;

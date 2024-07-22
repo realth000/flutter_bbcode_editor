@@ -5,6 +5,7 @@ import 'package:flutter_bbcode_editor/src/v2/constants.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/emoji/emoji_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
+// TODO: Async?
 /// External function, provide emoji image from bbcode [code].
 typedef BBCodeEmojiProvider = Widget Function(
   BuildContext context,
