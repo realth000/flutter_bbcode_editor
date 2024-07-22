@@ -4,6 +4,7 @@
 // export 'src/shortcuts/emoji_builder.dart' show EmojiBuilder;
 // export 'src/shortcuts/url.dart' show UrlLauncher;
 
+export 'src/constants.dart' show BBCodeEditorColor;
 export 'src/v2/editor.dart'
     show
         BBCodeColorPicker,
