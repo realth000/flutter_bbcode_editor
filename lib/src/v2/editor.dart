@@ -42,6 +42,7 @@ class BBCodeEditor extends StatefulWidget {
     required BBCodeEditorController controller,
     // TODO: Make optional.
     required this.emojiProvider,
+    this.scrollController,
     this.focusNode,
     this.onLaunchUrl,
     this.autoFocus = false,
@@ -49,6 +50,9 @@ class BBCodeEditor extends StatefulWidget {
   }) : _controller = controller;
 
   final BBCodeEditorController _controller;
+
+  /// Optional scroll controller of editor.
+  final ScrollController? scrollController;
 
   /// Editor focus node.
   final FocusNode? focusNode;
@@ -91,6 +95,7 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
         return BBCodeLocalizationsWidget(
           child: FlutterQuillLocalizationsWidget(
             child: QuillEditor.basic(
+              scrollController: widget.scrollController,
               focusNode: widget.focusNode,
               configurations: QuillEditorConfigurations(
                 autoFocus: widget.autoFocus,
