@@ -44,6 +44,7 @@ class BBCodeEditor extends StatefulWidget {
     required this.emojiProvider,
     this.focusNode,
     this.onLaunchUrl,
+    this.autoFocus = false,
     super.key,
   }) : _controller = controller;
 
@@ -60,6 +61,9 @@ class BBCodeEditor extends StatefulWidget {
   /// Callback when user intend to launch an url.
   final void Function(String)? onLaunchUrl;
 
+  /// Automatically requires focus.
+  final bool autoFocus;
+
   @override
   State<BBCodeEditor> createState() => _BBCodeEditorState();
 }
@@ -75,20 +79,32 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
 
   @override
   Widget build(BuildContext context) {
-    return BBCodeLocalizationsWidget(
-      child: FlutterQuillLocalizationsWidget(
-        child: QuillEditor.basic(
-          focusNode: widget.focusNode,
-          configurations: QuillEditorConfigurations(
-            controller: _controllerV2._quillController,
-            embedBuilders: [
-              BBCodeImageEmbedBuilder(),
-              BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
-            ],
-            onLaunchUrl: widget.onLaunchUrl,
+    // FutureBuilder as a workaround for
+    // https://github.com/singerdmx/flutter-quill/issues/2045
+    return FutureBuilder(
+      future: Future.value(''),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const SizedBox.shrink();
+        }
+
+        return BBCodeLocalizationsWidget(
+          child: FlutterQuillLocalizationsWidget(
+            child: QuillEditor.basic(
+              focusNode: widget.focusNode,
+              configurations: QuillEditorConfigurations(
+                autoFocus: widget.autoFocus,
+                controller: _controllerV2._quillController,
+                embedBuilders: [
+                  BBCodeImageEmbedBuilder(),
+                  BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
+                ],
+                onLaunchUrl: widget.onLaunchUrl,
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

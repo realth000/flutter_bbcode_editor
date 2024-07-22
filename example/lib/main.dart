@@ -75,7 +75,6 @@ Future<PickUrlResult?> _urlPicker(BuildContext context) async {
                   labelText: 'Description',
                   icon: Icon(Icons.description),
                 ),
-                autofocus: true,
                 controller: descController,
               ),
             ],
@@ -152,8 +151,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final _focusNode = FocusNode();
   late Future<String> _jsonString;
 
-  final _quillFocusNode = FocusNode();
-
   List<Widget> _buildEditor(BuildContext context) {
     return [
       BBCodeEditorToolbar(
@@ -176,6 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: BBCodeEditor(
               controller: controller,
               focusNode: _focusNode,
+              autoFocus: true,
               emojiProvider: (context, code) {
                 // Assume emoji code format is [emoji=].
                 // Keep the same format with what we define in emojiPicker.
@@ -295,7 +293,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            // ..._buildQuill(context),
             ..._buildEditor(context),
           ],
         ),

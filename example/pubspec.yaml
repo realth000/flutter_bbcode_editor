@@ -21,7 +21,6 @@ dependencies:
   flutter_bbcode_editor:
     path: ../
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -68,6 +68,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
     required BBCodeEditorController controller,
     required BBCodeEditorToolbarConfiguration config,
     required BBCodeEmojiPicker emojiPicker,
+    this.focusNode,
     BBCodeColorPicker? colorPicker,
     BBCodeColorPicker? backgroundColorPicker,
     BBCodeUrlPicker? urlPicker,
@@ -84,6 +85,8 @@ class BBCodeEditorToolbar extends StatefulWidget {
   final BBCodeEditorController _controller;
 
   final BBCodeEditorToolbarConfiguration _config;
+
+  final FocusNode? focusNode;
 
   final BBCodeEmojiPicker _emojiPicker;
 
