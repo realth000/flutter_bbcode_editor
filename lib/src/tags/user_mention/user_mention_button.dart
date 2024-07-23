@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
+import 'package:flutter_bbcode_editor/src/editor.dart';
+import 'package:flutter_bbcode_editor/src/extensions/context.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
-import 'package:flutter_bbcode_editor/src/v2/extensions/context.dart';
-import 'package:flutter_bbcode_editor/src/v2/tags/user_mention/user_mention_keys.dart';
+import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/translations.dart';
 

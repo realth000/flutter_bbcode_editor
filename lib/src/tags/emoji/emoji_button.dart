@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bbcode_editor/src/v2/constants.dart';
-import 'package:flutter_bbcode_editor/src/v2/editor.dart';
-import 'package:flutter_bbcode_editor/src/v2/extensions/context.dart';
-import 'package:flutter_bbcode_editor/src/v2/tags/emoji/emoji_keys.dart';
+import 'package:flutter_bbcode_editor/src/constants.dart';
+import 'package:flutter_bbcode_editor/src/editor.dart';
+import 'package:flutter_bbcode_editor/src/extensions/context.dart';
+import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 /// External emoji picker function.

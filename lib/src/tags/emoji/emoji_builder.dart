@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bbcode_editor/src/v2/constants.dart';
-import 'package:flutter_bbcode_editor/src/v2/tags/emoji/emoji_keys.dart';
+import 'package:flutter_bbcode_editor/src/constants.dart';
+import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 // TODO: Async?

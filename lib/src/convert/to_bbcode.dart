@@ -4,11 +4,11 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_bbcode_editor/src/v2/constants.dart';
-import 'package:flutter_bbcode_editor/src/v2/tags/emoji/emoji_keys.dart';
-import 'package:flutter_bbcode_editor/src/v2/tags/image/image_keys.dart';
-import 'package:flutter_bbcode_editor/src/v2/tags/user_mention/user_mention_keys.dart';
-import 'package:flutter_bbcode_editor/src/v2/utils.dart';
+import 'package:flutter_bbcode_editor/src/constants.dart';
+import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_keys.dart';
+import 'package:flutter_bbcode_editor/src/tags/image/image_keys.dart';
+import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
+import 'package:flutter_bbcode_editor/src/utils.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 
