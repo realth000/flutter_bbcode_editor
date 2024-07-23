@@ -50,9 +50,13 @@ Future<String?> _emojiPicker(BuildContext context) {
           ));
 }
 
-Future<PickUrlResult?> _urlPicker(BuildContext context) async {
-  final urlController = TextEditingController();
-  final descController = TextEditingController();
+Future<PickUrlResult?> _urlPicker(
+  BuildContext context,
+  String? url,
+  String description,
+) async {
+  final urlController = TextEditingController(text: url ?? '');
+  final descController = TextEditingController(text: description);
   final result = await showDialog<PickUrlResult>(
       context: context,
       builder: (context) {
@@ -161,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         emojiPicker: (context) async => _emojiPicker(context),
-        urlPicker: (context) async => _urlPicker(context),
+        urlPicker: (context, url, desc) async => _urlPicker(context, url, desc),
       ),
       Expanded(
         child: Padding(

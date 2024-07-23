@@ -59,7 +59,11 @@ final class PickUrlResult {
 /// Function to pick an url.
 ///
 ///
-typedef BBCodeUrlPicker = Future<PickUrlResult?> Function(BuildContext context);
+typedef BBCodeUrlPicker = Future<PickUrlResult?> Function(
+  BuildContext context,
+  String? url,
+  String description,
+);
 
 /// Toolbar of the editor.
 class BBCodeEditorToolbar extends StatefulWidget {
@@ -176,7 +180,12 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
     if (widget._urlPicker != null) {
       urlButtonOptions = QuillToolbarLinkStyleButtonOptions(
         customOnPressedCallback: (controller) async {
-          final urlResult = await widget._urlPicker!(context);
+          final initialLink = QuillTextLink.prepare(controller);
+          final urlResult = await widget._urlPicker!(
+            context,
+            initialLink.link,
+            initialLink.text,
+          );
           if (urlResult == null) {
             return;
           }
