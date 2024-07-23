@@ -15,6 +15,18 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   void setDocumentFromJson(List<dynamic> json) =>
       _quillController.document = Document.fromJson(json);
 
+  /// Set the document from raw text without format.
+  void setDocumentFromRawText(String text) {
+    final String fixedText;
+    if (text.isNotEmpty && text.endsWith('\n')) {
+      fixedText = text;
+    } else {
+      fixedText = '$text\n';
+    }
+    _quillController.document =
+        Document.fromDelta(Delta.fromOperations([Operation.insert(fixedText)]));
+  }
+
   /// Check if editor has empty content.
   bool get isEmpty {
     final deltaList = _quillController.document.toDelta();
