@@ -1,13 +1,13 @@
 // refer: https://github.com/singerdmx/flutter-quill/blob/master/lib/src/packages/quill_markdown/delta_to_markdown.dart
 
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bbcode_editor/src/v2/constants.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/emoji/emoji_keys.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/image/image_keys.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/user_mention/user_mention_keys.dart';
 import 'package:flutter_bbcode_editor/src/v2/utils.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
@@ -189,6 +189,12 @@ final AttrHandlerMap defaultTextAttrHandlers = {
     ),
     afterContent: (attribute, node, output) => output.write('[/url]'),
   ),
+  UserMentionAttributeKeys.key: BBCodeAttributeHandler(
+    beforeContent: (attribute, node, output) => output.write('[@]'),
+    afterContent: (attribute, node, output) => output.write('[/@]'),
+    // Remove additional `@` before username.
+    contentHandler: (text) => text.startsWith('@') ? text.substring(1) : text,
+  ),
 };
 
 /// Handler a specified attribute.
@@ -208,6 +214,7 @@ class BBCodeAttributeHandler {
   const BBCodeAttributeHandler({
     this.beforeContent,
     this.afterContent,
+    this.contentHandler,
   });
 
   /// Prepend text before text content.
@@ -223,6 +230,11 @@ class BBCodeAttributeHandler {
     Node node,
     StringSink output,
   )? afterContent;
+
+  /// Optional function to transform content text.
+  ///
+  /// Return the transformed text.
+  final String Function(String content)? contentHandler;
 }
 
 /// A map of attribute handlers.
@@ -331,6 +343,41 @@ class DeltaToBBCode extends Converter<Delta, String>
     }
   }
 
+  void _handleTextAttribute(
+    Map<String, BBCodeAttributeHandler> handlers,
+    QuillText text,
+    StringSink output,
+    void Function(String) contentHandler, {
+    bool sortedAttrsBySpan = false,
+  }) {
+    final attrs = sortedAttrsBySpan
+        ? text.attrsSortedByLongestSpan()
+        : text.style.attributes.values.toList();
+    final handlersToUse = attrs
+        .where((attr) => handlers.containsKey(attr.key))
+        .map((attr) => MapEntry(attr.key, handlers[attr.key]!))
+        .toList();
+    var transformedText = text.value;
+    for (final handlerEntry in handlersToUse) {
+      handlerEntry.value.beforeContent?.call(
+        text.style.attributes[handlerEntry.key]!,
+        text,
+        output,
+      );
+      transformedText =
+          handlerEntry.value.contentHandler?.call(transformedText) ??
+              transformedText;
+    }
+    contentHandler(transformedText);
+    for (final handlerEntry in handlersToUse.reversed) {
+      handlerEntry.value.afterContent?.call(
+        text.style.attributes[handlerEntry.key]!,
+        text,
+        output,
+      );
+    }
+  }
+
   /// Entry function to convert quilt delta to bbcode.
   @override
   String convert(Delta input) {
@@ -401,8 +448,8 @@ class DeltaToBBCode extends Converter<Delta, String>
     print('>>> visitText: ${text.style}');
     // TODO: implement visitText
     final out = output ??= StringBuffer();
-    _handleAttribute(defaultTextAttrHandlers, text, output, () {
-      out.write(text.value);
+    _handleTextAttribute(defaultTextAttrHandlers, text, output, (data) {
+      out.write(data);
     });
     return out;
   }

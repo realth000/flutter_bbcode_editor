@@ -96,6 +96,7 @@ class BBCodeEditorToolbarUserMentionButtonOptions
     }
 
     controller.insertFormattedText(
+      // Remove `@` when converting to bbcode.
       '@$username',
       UserMentionAttribute(username: username),
     );
