@@ -36,6 +36,9 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   /// Check if editor has empty content.
   bool get isNotEmpty => !isEmpty;
 
+  /// Clear all content in editor.
+  void clear() => _quillController.clear();
+
   /// Convert current document to bbcode.
   String toBBCode() {
     final converter = DeltaToBBCode();
