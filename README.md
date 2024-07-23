@@ -15,7 +15,7 @@ Based on [flutter_quill](https://pub.dev/packages/flutter_quill).
 ## Features
 
 > These tags are used in [TSDM](https://tsdm39.com/) forum.
-> Can disable and override.
+> Allow to disable and override.
 
 * [ ] BBCode tags.
   * [x] Font family (support code convert but no visual result).
@@ -30,14 +30,14 @@ Based on [flutter_quill](https://pub.dev/packages/flutter_quill).
     * [x] Align left.
     * [x] Align center.
     * [x] Align right.
-  * [ ] Custom emoji `{emoji_id}`.
+  * [x] Custom emoji `{emoji_id}`.
   * [ ] Paragraph alignment (left/center/right).
   * [x] Url `[url]`.
   * [x] Image `[img]`.
     * Specify size `[img=$width,$height]$image_url[/img]`.
   * [ ] Spoiler `[spoiler]`.
   * [ ] Locked area `[hide]`.
-  * [ ] Mention other users with `[@]`.
+  * [x] Mention user with `[@]`.
   * [x] Ordered list.
   * [x] Bullet list.
   * [ ] Table.
