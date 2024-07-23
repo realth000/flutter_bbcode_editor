@@ -15,6 +15,27 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   void setDocumentFromJson(List<dynamic> json) =>
       _quillController.document = Document.fromJson(json);
 
+  /// Check if editor has empty content.
+  bool get isEmpty {
+    final deltaList = _quillController.document.toDelta();
+    if (deltaList.isEmpty) {
+      // Impossible
+      return true;
+    }
+    if (deltaList.length > 1) {
+      return false;
+    }
+    final firstDelta = deltaList[0].data;
+    if (firstDelta is String) {
+      return firstDelta == '\n';
+    } else {
+      return false;
+    }
+  }
+
+  /// Check if editor has empty content.
+  bool get isNotEmpty => !isEmpty;
+
   /// Convert current document to bbcode.
   String toBBCode() {
     final converter = DeltaToBBCode();
