@@ -200,6 +200,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   throw UnimplementedError();
                 }
               },
+              userMentionHandler: (username) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Called $username'),
+                ));
+              },
             ),
           ),
         ),

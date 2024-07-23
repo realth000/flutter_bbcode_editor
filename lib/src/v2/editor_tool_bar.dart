@@ -211,54 +211,67 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
   @override
   Widget build(BuildContext context) {
     return BBCodeLocalizationsWidget(
-      child: QuillToolbar.simple(
-        configurations: QuillSimpleToolbarConfigurations(
-          controller: controller._quillController,
-          // Below are all formats implemented in quill but not supported in
-          // TSDM.
-          // These formats are disabled on default.
-          //
-          // Font family are not fixed to what quill supports.
-          // Should let developer support it.
-          // showFontFamily: false,
-          // Use font size instead.
-          showHeaderStyle: false,
-          showInlineCode: false,
-          showListCheck: false,
-          showIndent: false,
-          showSearchButton: false,
-          showSubscript: false,
+      child: Builder(
+        builder: (context) => QuillToolbar.simple(
+          configurations: QuillSimpleToolbarConfigurations(
+            controller: controller._quillController,
+            // Below are all formats implemented in quill but not supported in
+            // TSDM.
+            // These formats are disabled on default.
+            //
+            // Font family are not fixed to what quill supports.
+            // Should let developer support it.
+            // showFontFamily: false,
+            // Use font size instead.
+            showHeaderStyle: false,
+            showInlineCode: false,
+            showListCheck: false,
+            showIndent: false,
+            showSearchButton: false,
+            showSubscript: false,
 
-          fontSizesValues: defaultFontSizeMap,
-          showAlignmentButtons: true,
-          showJustifyAlignment: false,
+            fontSizesValues: defaultFontSizeMap,
+            showAlignmentButtons: true,
+            showJustifyAlignment: false,
 
-          //
-          fontFamilyValues: widget._config.fontFamilyValues,
+            //
+            fontFamilyValues: widget._config.fontFamilyValues,
 
-          buttonOptions: QuillSimpleToolbarButtonOptions(
-            color: colorButtonOptions,
-            backgroundColor: backgroundColorButtonOptions,
-            linkStyle: urlButtonOptions,
+            customButtons: [
+              // User mention
+              BBCodeEditorToolbarUserMentionButtonOptions(
+                icon: const Icon(Icons.alternate_email),
+                iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
+                onPressed: () async =>
+                    // FIXME: Context usage.
+                    BBCodeEditorToolbarUserMentionButtonOptions
+                        .openUserMentionDialog(context, controller),
+              ),
+            ],
+            buttonOptions: QuillSimpleToolbarButtonOptions(
+              color: colorButtonOptions,
+              backgroundColor: backgroundColorButtonOptions,
+              linkStyle: urlButtonOptions,
+            ),
+
+            // embedButtons: FlutterQuillEmbeds.toolbarButtons(),
+            embedButtons: [
+              (controller, toolbarIconSize, iconTheme, dialogTheme) =>
+                  // FIXME: Do not add l10n here.
+                  BBCodeLocalizationsWidget(
+                    child: BBCodeEditorToolbarImageButton(
+                      controller: widget._controller,
+                    ),
+                  ),
+              (controller, toolbarIconSize, iconTheme, dialogTheme) =>
+                  BBCodeLocalizationsWidget(
+                    child: BBCodeEditorToolbarEmojiButton(
+                      controller: widget._controller,
+                      emojiPicker: widget._emojiPicker,
+                    ),
+                  ),
+            ],
           ),
-
-          // embedButtons: FlutterQuillEmbeds.toolbarButtons(),
-          embedButtons: [
-            (controller, toolbarIconSize, iconTheme, dialogTheme) =>
-                // FIXME: Do not add l10n here.
-                BBCodeLocalizationsWidget(
-                  child: BBCodeEditorToolbarImageButton(
-                    controller: widget._controller,
-                  ),
-                ),
-            (controller, toolbarIconSize, iconTheme, dialogTheme) =>
-                BBCodeLocalizationsWidget(
-                  child: BBCodeEditorToolbarEmojiButton(
-                    controller: widget._controller,
-                    emojiPicker: widget._emojiPicker,
-                  ),
-                ),
-          ],
         ),
       ),
     );

@@ -33,4 +33,13 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
 
   @override
   String get emojiInsertEmoji => 'Insert emoji';
+
+  @override
+  String get userMention => 'Mention user';
+
+  @override
+  String get userMentionDialogUsername => 'Username';
+
+  @override
+  String get userMentionDialogEmptyUsername => 'Username can not be empty';
 }

@@ -8,5 +8,8 @@
   "imageBuilderDialogEdit": "Edit",
   "imageBuilderDialogDelete": "Delete",
   "imageBuilderDialogCopyLink": "Copy image link",
-  "emojiInsertEmoji": "Insert emoji"
+  "emojiInsertEmoji": "Insert emoji",
+  "userMention": "Mention user",
+  "userMentionDialogUsername": "Username",
+  "userMentionDialogEmptyUsername": "Username can not be empty"
 }

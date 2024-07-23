@@ -152,6 +152,24 @@ abstract class BBCodeEditorLocalizations {
   /// In en, this message translates to:
   /// **'Insert emoji'**
   String get emojiInsertEmoji;
+
+  /// No description provided for @userMention.
+  ///
+  /// In en, this message translates to:
+  /// **'Mention user'**
+  String get userMention;
+
+  /// No description provided for @userMentionDialogUsername.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get userMentionDialogUsername;
+
+  /// No description provided for @userMentionDialogEmptyUsername.
+  ///
+  /// In en, this message translates to:
+  /// **'Username can not be empty'**
+  String get userMentionDialogEmptyUsername;
 }
 
 class _BBCodeEditorLocalizationsDelegate

@@ -72,6 +72,14 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
         .join();
   }
 
+  /// Insert [text] into current cursor position and format with [attr].
+  void insertFormattedText(String text, Attribute<dynamic> attr) {
+    _quillController
+      ..replaceText(_quillController.index, _quillController.length, text, null)
+      ..formatText(_quillController.index, text.length, attr)
+      ..moveCursorToPosition(_quillController.index + text.length);
+  }
+
   /// Insert formatted embed block [data] into editor.
   void insertEmbedBlock(String embedType, String data) {
     _quillController

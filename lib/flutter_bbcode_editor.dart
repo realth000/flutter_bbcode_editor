@@ -16,3 +16,5 @@ export 'src/v2/editor.dart'
         PickUrlResult;
 export 'src/v2/editor_configuration.dart';
 export 'src/v2/tags/image/image_builder.dart' show BBCodeImageProvider;
+export 'src/v2/tags/user_mention/user_mention_keys.dart'
+    show BBCodeUserMentionHandler;

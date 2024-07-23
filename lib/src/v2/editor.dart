@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/v2/constants.dart';
@@ -28,6 +28,8 @@ import 'package:flutter_bbcode_editor/src/v2/tags/strikethrough.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/tag.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/underline.dart';
 import 'package:flutter_bbcode_editor/src/v2/tags/url.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/user_mention/user_mention_button.dart';
+import 'package:flutter_bbcode_editor/src/v2/tags/user_mention/user_mention_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/translations.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
@@ -43,6 +45,7 @@ class BBCodeEditor extends StatefulWidget {
     // TODO: Make optional.
     required this.emojiProvider,
     this.imageProvider,
+    this.userMentionHandler,
     this.scrollController,
     this.focusNode,
     this.urlLauncher,
@@ -65,6 +68,9 @@ class BBCodeEditor extends StatefulWidget {
 
   /// Callback when need to build an image from given url.
   final BBCodeImageProvider? imageProvider;
+
+  /// Callback when user tap on text with user mention attribute.
+  final BBCodeUserMentionHandler? userMentionHandler;
 
   /// Callback when user intend to launch an url.
   final void Function(String)? urlLauncher;
@@ -109,6 +115,24 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
                   BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
                 ],
                 onLaunchUrl: widget.urlLauncher,
+                customRecognizerBuilder: (attribute, node) {
+                  // User mention
+                  if (attribute.key == UserMentionAttributeKeys.key) {
+                    return TapGestureRecognizer()
+                      ..onTap = () async => widget.userMentionHandler
+                          ?.call(attribute.value as String);
+                  }
+                  return null;
+                },
+                customStyleBuilder: (attribute) {
+                  // User mention
+                  if (attribute.key == UserMentionAttributeKeys.key) {
+                    return const TextStyle(
+                      decoration: TextDecoration.underline,
+                    );
+                  }
+                  return const TextStyle();
+                },
               ),
             ),
           ),
