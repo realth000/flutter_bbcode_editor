@@ -1,9 +1,9 @@
 part of 'editor.dart';
 
 /// V2 editor controller.
-final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
+final class BBCodeEditorController {
   /// Constructor.
-  BBCodeEditorController() : super(BBCodeEditorValue());
+  BBCodeEditorController();
 
   /// Underlying quill editor controller.
   final QuillController _quillController = QuillController.basic();
@@ -48,6 +48,14 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
   /// Check if editor has empty content.
   bool get isNotEmpty => !isEmpty;
 
+  /// Add [callback] on each editor state change.
+  void addListener(VoidCallback callback) =>
+      _quillController.addListener(callback);
+
+  /// Remove [callback].
+  void removeListener(VoidCallback callback) =>
+      _quillController.removeListener(callback);
+
   /// Clear all content in editor.
   void clear() => _quillController.clear();
 
@@ -79,9 +87,8 @@ final class BBCodeEditorController extends ValueNotifier<BBCodeEditorValue> {
       ..moveCursorToPosition(_quillController.index + 1);
   }
 
-  @override
+  /// Dispose the controller.
   void dispose() {
     _quillController.dispose();
-    super.dispose();
   }
 }
