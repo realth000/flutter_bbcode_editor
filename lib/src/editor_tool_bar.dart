@@ -242,6 +242,7 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
               BBCodeEditorToolbarUserMentionButtonOptions(
                 icon: const Icon(Icons.alternate_email),
                 iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
+                tooltip: context.bbcodeL10n.userMention,
                 onPressed: () async =>
                     // FIXME: Context usage.
                     BBCodeEditorToolbarUserMentionButtonOptions

@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'bbcode_localizations_en.dart';
+import 'bbcode_localizations_zh.dart';
 
 /// Callers can lookup localized strings with an instance of BBCodeEditorLocalizations
 /// returned by `BBCodeEditorLocalizations.of(context)`.
@@ -91,7 +92,11 @@ abstract class BBCodeEditorLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('zh'),
+    Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant')
+  ];
 
   /// No description provided for @imageDialogLink.
   ///
@@ -184,17 +189,31 @@ class _BBCodeEditorLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en'].contains(locale.languageCode);
+      <String>['en', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_BBCodeEditorLocalizationsDelegate old) => false;
 }
 
 BBCodeEditorLocalizations lookupBBCodeEditorLocalizations(Locale locale) {
+  // Lookup logic when language+script codes are specified.
+  switch (locale.languageCode) {
+    case 'zh':
+      {
+        switch (locale.scriptCode) {
+          case 'Hant':
+            return BBCodeEditorLocalizationsZhHant();
+        }
+        break;
+      }
+  }
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en':
       return BBCodeEditorLocalizationsEn();
+    case 'zh':
+      return BBCodeEditorLocalizationsZh();
   }
 
   throw FlutterError(

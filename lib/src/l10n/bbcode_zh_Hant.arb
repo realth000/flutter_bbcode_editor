@@ -1,0 +1,15 @@
+{
+  "imageDialogLink": "連結",
+  "imageDialogWidth": "寬度",
+  "imageDialogHeight": "高度",
+  "imageDialogEmptySize": "大小為空",
+  "imageDialogInvalidSize": "無效的數字",
+  "imageBuilderDialogTitle": "操作圖片",
+  "imageBuilderDialogEdit": "編輯",
+  "imageBuilderDialogDelete": "刪除",
+  "imageBuilderDialogCopyLink": "複製圖片連結",
+  "emojiInsertEmoji": "插入表情",
+  "userMention": "提醒使用者",
+  "userMentionDialogUsername": "使用者名稱",
+  "userMentionDialogEmptyUsername": "使用者名稱不能為空"
+}
