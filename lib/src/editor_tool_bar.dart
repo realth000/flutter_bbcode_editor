@@ -77,6 +77,32 @@ class BBCodeEditorToolbar extends StatefulWidget {
     BBCodeColorPicker? backgroundColorPicker,
     BBCodeUrlPicker? urlPicker,
     String? host,
+    this.showUndo = true,
+    this.showRedo = true,
+    this.showFontFamily = true,
+    this.showFontSize = true,
+    this.showBoldButton = true,
+    this.showItalicButton = true,
+    this.showUnderlineButton = true,
+    this.showStrikethroughButton = true,
+    this.showSuperscriptButton = true,
+    this.showColorButton = true,
+    this.showBackgroundColorButton = true,
+    this.showClearFormatButton = true,
+    this.showImageButton = true,
+    this.showEmojiButton = true,
+    this.showLeftAlignButton = true,
+    this.showCenterAlignButton = true,
+    this.showRightAlignButton = true,
+    this.showOrderedListButton = true,
+    this.showBulletListButton = true,
+    this.showUrlButton = true,
+    this.showCodeBlockButton = true,
+    this.showQuoteBlockButton = true,
+    this.showClipboardCutButton = true,
+    this.showClipboardCopyButton = true,
+    this.showClipboardPasteButton = true,
+    this.showUserMentionButton = true,
     super.key,
   })  : _controller = controller,
         _config = config,
@@ -102,6 +128,104 @@ class BBCodeEditorToolbar extends StatefulWidget {
   ///
   /// Used in picking urls if url does not contain a host.
   final String? _host;
+
+  //////////// All customizable optional flags ////////////
+
+  /// Show undo button.
+  final bool showUndo;
+
+  /// Show redo button.
+  final bool showRedo;
+
+  /// Show font family button.
+  final bool showFontFamily;
+
+  /// Show font size button.
+  final bool showFontSize;
+
+  /// Show bold text button.
+  final bool showBoldButton;
+
+  /// Show italic text button.
+  final bool showItalicButton;
+
+  /// Show underline text button.
+  final bool showUnderlineButton;
+
+  /// Show strikethrough text button.
+  final bool showStrikethroughButton;
+
+  /// Show superscript text button. text button.
+  final bool showSuperscriptButton;
+
+  /// Show text foreground color button.
+  final bool showColorButton;
+
+  /// Show text background color button.
+  final bool showBackgroundColorButton;
+
+  /// Show clear text format button.
+  final bool showClearFormatButton;
+
+  /// Show online url image button.
+  ///
+  /// Embed image.
+  final bool showImageButton;
+
+  /// Show emoji button.
+  ///
+  /// Embed emoji image.
+  final bool showEmojiButton;
+
+  /// Show align left button.
+  final bool showLeftAlignButton;
+
+  /// Show align center button.
+  final bool showCenterAlignButton;
+
+  /// Show align right button.
+  final bool showRightAlignButton;
+
+  /// Show ordered list button.
+  ///
+  /// ``` console
+  /// 1. foo
+  /// 2. bar
+  /// ```
+  final bool showOrderedListButton;
+
+  /// Show bullet list button.
+  ///
+  /// ``` console
+  /// * foo
+  /// * bar
+  /// ```
+  final bool showBulletListButton;
+
+  /// Show insert url button.
+  final bool showUrlButton;
+
+  ///  Show code block.
+  final bool showCodeBlockButton;
+
+  ///  Show quote content block.
+  final bool showQuoteBlockButton;
+
+  /// Show cut button.
+  final bool showClipboardCutButton;
+
+  /// Show copy button.
+  final bool showClipboardCopyButton;
+
+  /// Show paste button.
+  final bool showClipboardPasteButton;
+
+  /// Show user mention button.
+  ///
+  /// ```console
+  /// @username
+  /// ```
+  final bool showUserMentionButton;
 
   @override
   State<BBCodeEditorToolbar> createState() => _BBCodeEditorToolbarState();
@@ -215,6 +339,36 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
         builder: (context) => QuillToolbar.simple(
           configurations: QuillSimpleToolbarConfigurations(
             controller: controller._quillController,
+            // TODO: Make dividers customizable.
+            showDividers: false,
+            toolbarIconAlignment: WrapAlignment.start,
+            // multiRowsDisplay: false,
+            // color: Colors.transparent,
+            // Below are custom flags that can be applied from user side.
+            showUndo: widget.showUndo,
+            showRedo: widget.showRedo,
+            showFontFamily: widget.showFontFamily,
+            showFontSize: widget.showFontSize,
+            showBoldButton: widget.showBoldButton,
+            showItalicButton: widget.showItalicButton,
+            showUnderLineButton: widget.showUnderlineButton,
+            showStrikeThrough: widget.showStrikethroughButton,
+            showSuperscript: widget.showSuperscriptButton,
+            showColorButton: widget.showColorButton,
+            showBackgroundColorButton: widget.showBackgroundColorButton,
+            showClearFormat: widget.showClearFormatButton,
+            showLeftAlignment: widget.showLeftAlignButton,
+            showCenterAlignment: widget.showCenterAlignButton,
+            showRightAlignment: widget.showRightAlignButton,
+            showListNumbers: widget.showOrderedListButton,
+            showListBullets: widget.showBulletListButton,
+            showLink: widget.showUrlButton,
+            showCodeBlock: widget.showCodeBlockButton,
+            showQuote: widget.showQuoteBlockButton,
+            showClipboardCut: widget.showClipboardCutButton,
+            showClipboardCopy: widget.showClipboardCopyButton,
+            showClipboardPaste: widget.showClipboardPasteButton,
+
             // Below are all formats implemented in quill but not supported in
             // TSDM.
             // These formats are disabled on default.
@@ -238,16 +392,17 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
             fontFamilyValues: widget._config.fontFamilyValues,
 
             customButtons: [
-              // User mention
-              BBCodeEditorToolbarUserMentionButtonOptions(
-                icon: const Icon(Icons.alternate_email),
-                iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
-                tooltip: context.bbcodeL10n.userMention,
-                onPressed: () async =>
-                    // FIXME: Context usage.
-                    BBCodeEditorToolbarUserMentionButtonOptions
-                        .openUserMentionDialog(context, controller),
-              ),
+              if (widget.showUserMentionButton)
+                // User mention
+                BBCodeEditorToolbarUserMentionButtonOptions(
+                  icon: const Icon(Icons.alternate_email),
+                  iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
+                  tooltip: context.bbcodeL10n.userMention,
+                  onPressed: () async =>
+                      // FIXME: Context usage.
+                      BBCodeEditorToolbarUserMentionButtonOptions
+                          .openUserMentionDialog(context, controller),
+                ),
             ],
             buttonOptions: QuillSimpleToolbarButtonOptions(
               color: colorButtonOptions,
@@ -257,20 +412,22 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
 
             // embedButtons: FlutterQuillEmbeds.toolbarButtons(),
             embedButtons: [
-              (controller, toolbarIconSize, iconTheme, dialogTheme) =>
-                  // FIXME: Do not add l10n here.
-                  BBCodeLocalizationsWidget(
-                    child: BBCodeEditorToolbarImageButton(
-                      controller: widget._controller,
+              if (widget.showImageButton)
+                (controller, toolbarIconSize, iconTheme, dialogTheme) =>
+                    // FIXME: Do not add l10n here.
+                    BBCodeLocalizationsWidget(
+                      child: BBCodeEditorToolbarImageButton(
+                        controller: widget._controller,
+                      ),
                     ),
-                  ),
-              (controller, toolbarIconSize, iconTheme, dialogTheme) =>
-                  BBCodeLocalizationsWidget(
-                    child: BBCodeEditorToolbarEmojiButton(
-                      controller: widget._controller,
-                      emojiPicker: widget._emojiPicker,
+              if (widget.showEmojiButton)
+                (controller, toolbarIconSize, iconTheme, dialogTheme) =>
+                    BBCodeLocalizationsWidget(
+                      child: BBCodeEditorToolbarEmojiButton(
+                        controller: widget._controller,
+                        emojiPicker: widget._emojiPicker,
+                      ),
                     ),
-                  ),
             ],
           ),
         ),
