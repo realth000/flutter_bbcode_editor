@@ -114,7 +114,7 @@ final AttrHandlerMap defaultLineAttrHandlers = {
       if (node.next == null) {
         output
           ..writeln()
-          ..writeln('[/list]');
+          ..write('[/list]');
       }
     },
   ),
@@ -396,7 +396,6 @@ class DeltaToBBCode extends Converter<Delta, String>
         line.accept(this, out);
       }
     });
-    out.writeln();
     return out;
   }
 
