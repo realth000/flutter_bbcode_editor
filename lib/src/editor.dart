@@ -34,6 +34,7 @@ class BBCodeEditor extends StatefulWidget {
     this.focusNode,
     this.urlLauncher,
     this.autoFocus = false,
+    this.initialText,
     super.key,
   }) : _controller = controller;
 
@@ -62,6 +63,9 @@ class BBCodeEditor extends StatefulWidget {
   /// Automatically requires focus.
   final bool autoFocus;
 
+  /// Optional initial text.
+  final String? initialText;
+
   @override
   State<BBCodeEditor> createState() => _BBCodeEditorState();
 }
@@ -73,6 +77,9 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
   void initState() {
     super.initState();
     _controllerV2 = widget._controller;
+    if (widget.initialText != null) {
+      _controllerV2.setDocumentFromRawText(widget.initialText!);
+    }
   }
 
   @override
