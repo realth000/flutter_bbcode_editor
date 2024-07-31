@@ -78,7 +78,9 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
     super.initState();
     _controllerV2 = widget._controller;
     if (widget.initialText != null) {
-      _controllerV2.setDocumentFromRawText(widget.initialText!);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _controllerV2.setDocumentFromRawText(widget.initialText!);
+      });
     }
   }
 
