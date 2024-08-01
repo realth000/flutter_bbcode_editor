@@ -18,21 +18,53 @@ final class BBCodeEmbedTypes {
 /// Default available font size.
 ///
 /// default font size (when not set) should be 19.
+///
+///
+/// Originally on the web site is:
+///
+///
+/// // x-small
+/// '1': '16.0',
+/// // small
+/// '2': '17.0',
+/// // medium
+/// '3': '21.0',
+/// // large
+/// '4': '24.0',
+/// // x-large
+/// '5': '31.0',
+/// // xx-large
+/// '6': '42.0',
+/// // xxx-large
+/// '7': '64.0',
+///
+/// To keep the same appearance with html muncher， set to:
+///
+/// FontSize.size1 => 11.0,
+/// FontSize.size2 => 14.0,
+/// FontSize.size3 => 17.0,
+/// FontSize.size4 => 19.0,
+/// FontSize.size5 => 25.0,
+/// FontSize.size6 => 33.0,
+/// FontSize.size7 => 49.0,
+/// FontSize.notSupport => 18.0, // Default is 18
 const defaultFontSizeMap = <String, String>{
   // x-small
-  '1': '16.0',
+  '1': '11.0',
   // small
-  '2': '17.0',
+  '2': '14.0',
   // medium
-  '3': '21.0',
+  '3': '17.0',
   // large
-  '4': '24.0',
+  '4': '19.0',
   // x-large
-  '5': '31.0',
+  '5': '25.0',
   // xx-large
-  '6': '42.0',
+  '6': '33.0',
   // xxx-large
-  '7': '64.0',
+  '7': '49.0',
+  // Not set
+  '0': '0',
 };
 
 /// Color names.
