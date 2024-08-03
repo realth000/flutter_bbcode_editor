@@ -16,10 +16,12 @@ typedef BBCodeEmojiProvider = Widget Function(
 ///
 final class BBCodeEmojiEmbedBuilder extends EmbedBuilder {
   /// Constructor.
-  const BBCodeEmojiEmbedBuilder({required this.emojiProvider});
+  BBCodeEmojiEmbedBuilder({required this.emojiProvider});
 
   /// Injected emoji provider.
   final BBCodeEmojiProvider emojiProvider;
+
+  Widget? _emojiCache;
 
   @override
   bool get expanded => false;
@@ -36,8 +38,12 @@ final class BBCodeEmojiEmbedBuilder extends EmbedBuilder {
     bool inline,
     TextStyle textStyle,
   ) {
-    final data = jsonDecode(node.value.data as String) as Map<String, dynamic>;
-    final code = data[BBCodeEmojiKeys.code] as String;
-    return emojiProvider(context, code);
+    if (_emojiCache == null) {
+      final data =
+          jsonDecode(node.value.data as String) as Map<String, dynamic>;
+      final code = data[BBCodeEmojiKeys.code] as String;
+      _emojiCache = emojiProvider(context, code);
+    }
+    return _emojiCache!;
   }
 }

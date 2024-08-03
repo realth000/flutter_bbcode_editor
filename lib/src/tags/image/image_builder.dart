@@ -17,9 +17,11 @@ typedef BBCodeImageProvider = Widget Function(String url);
 /// Only web images.
 final class BBCodeImageEmbedBuilder extends EmbedBuilder {
   /// Constructor.
-  const BBCodeImageEmbedBuilder(this._bbCodeImageProvider);
+  BBCodeImageEmbedBuilder(this._bbCodeImageProvider);
 
   final BBCodeImageProvider? _bbCodeImageProvider;
+
+  Widget? _imageCache;
 
   Future<void> _onEditImage(
     BuildContext context,
@@ -121,6 +123,9 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     final data = jsonDecode(node.value.data as String) as Map<String, dynamic>;
     final link = data[ImageKeys.link] as String;
 
+    // Setup cache.
+    _imageCache ??= _bbCodeImageProvider?.call(link) ?? Image.network(link);
+
     return GestureDetector(
       onTap: () async {
         await showModalBottomSheet<void>(
@@ -166,7 +171,7 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
           ),
         );
       },
-      child: _bbCodeImageProvider?.call(link) ?? Image.network(link),
+      child: _imageCache,
     );
   }
 }
