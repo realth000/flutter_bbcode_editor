@@ -92,6 +92,7 @@ class _PickImageDialogState extends State<PickImageDialog> {
                 labelText: tr.imageDialogLink,
               ),
             ),
+            const SizedBox(width: 10, height: 10),
             TextFormField(
               controller: widthController,
               keyboardType: TextInputType.number,
@@ -102,6 +103,7 @@ class _PickImageDialogState extends State<PickImageDialog> {
               ),
               validator: (v) => _validateImageSize(context, v),
             ),
+            const SizedBox(width: 10, height: 10),
             TextFormField(
               controller: heightController,
               keyboardType: TextInputType.number,
