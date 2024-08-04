@@ -101,6 +101,7 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
               scrollController: widget.scrollController,
               focusNode: widget.focusNode,
               configurations: QuillEditorConfigurations(
+                enableMarkdownStyleConversion: false,
                 autoFocus: widget.autoFocus,
                 controller: _controllerV2._quillController,
                 embedBuilders: [
