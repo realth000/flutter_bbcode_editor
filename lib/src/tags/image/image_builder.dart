@@ -10,18 +10,24 @@ import 'package:flutter_bbcode_editor/src/tags/image/image_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 /// External function build a image widget from given image [url].
-typedef BBCodeImageProvider = Widget Function(BuildContext context, String url);
+typedef BBCodeImageProvider = Widget Function(
+  BuildContext context,
+  String url,
+);
 
 /// Editor widget builder for embed image types.
 ///
 /// Only web images.
 final class BBCodeImageEmbedBuilder extends EmbedBuilder {
   /// Constructor.
-  BBCodeImageEmbedBuilder(this._bbCodeImageProvider);
+  BBCodeImageEmbedBuilder(this._bbCodeImageProvider, {this.constraints});
 
   final BBCodeImageProvider? _bbCodeImageProvider;
 
   Widget? _imageCache;
+
+  /// Optional size constraints on rendered image.
+  BoxConstraints? constraints;
 
   Future<void> _onEditImage(
     BuildContext context,
@@ -122,6 +128,8 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     final tr = context.bbcodeL10n;
     final data = jsonDecode(node.value.data as String) as Map<String, dynamic>;
     final link = data[ImageKeys.link] as String;
+    final width = data[ImageKeys.width] as int?;
+    final height = data[ImageKeys.height] as int?;
 
     // Setup cache.
     _imageCache ??=
@@ -172,7 +180,22 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
           ),
         );
       },
-      child: _imageCache,
+      child: Badge(
+        label: Text('${width}x$height'),
+        isLabelVisible:
+            _bbCodeImageProvider != null && width != null && height != null,
+        alignment: Alignment.topLeft.add(const Alignment(0, 0.05)),
+        child: constraints != null
+            ? ConstrainedBox(
+                constraints: constraints!,
+                child: Column(
+                  children: [
+                    Expanded(child: _imageCache!),
+                  ],
+                ),
+              )
+            : _imageCache,
+      ),
     );
   }
 }

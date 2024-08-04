@@ -35,6 +35,7 @@ class BBCodeEditor extends StatefulWidget {
     this.urlLauncher,
     this.autoFocus = false,
     this.initialText,
+    this.imageConstraints,
     super.key,
   }) : _controller = controller;
 
@@ -65,6 +66,9 @@ class BBCodeEditor extends StatefulWidget {
 
   /// Optional initial text.
   final String? initialText;
+
+  /// Optional layout constraints when rendering image.
+  final BoxConstraints? imageConstraints;
 
   @override
   State<BBCodeEditor> createState() => _BBCodeEditorState();
@@ -105,7 +109,10 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
                 autoFocus: widget.autoFocus,
                 controller: _controllerV2._quillController,
                 embedBuilders: [
-                  BBCodeImageEmbedBuilder(widget.imageProvider),
+                  BBCodeImageEmbedBuilder(
+                    widget.imageProvider,
+                    constraints: widget.imageConstraints,
+                  ),
                   BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
                 ],
                 onLaunchUrl: widget.urlLauncher,
