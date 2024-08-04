@@ -14,28 +14,20 @@ final class PickColorResult {
       : color = null,
         clearColor = true;
 
-  /// User cancel the pick.
-  PickColorResult.canceled()
-      : color = null,
-        clearColor = false;
-
   /// Color to apply.
   Color? color;
 
   /// Need to clear color.
   bool clearColor;
-
-  /// Check the result is canceled or not.
-  bool get isCanceled => color == null && !clearColor;
 }
 
 /// Function to pick and return a color.
 ///
 /// ## Return
-///
-/// * Color: Nullable color. Return the color if user picked.
-/// * bool
-typedef BBCodeColorPicker = Future<PickColorResult> Function(
+/// * [PickColorResult.picked] if any color picked.
+/// * [PickColorResult.clearColor] if user requested to clear color.
+/// * `null` if pick progress canceled.
+typedef BBCodeColorPicker = Future<PickColorResult?> Function(
   BuildContext context,
 );
 
@@ -268,7 +260,7 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
       colorButtonOptions = QuillToolbarColorButtonOptions(
         customOnPressedCallback: (controller, isBackground) async {
           final pickResult = await widget._colorPicker!(context);
-          if (pickResult.isCanceled || !mounted) {
+          if (pickResult == null || !mounted) {
             return;
           }
 
@@ -286,7 +278,7 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
       backgroundColorButtonOptions = QuillToolbarColorButtonOptions(
         customOnPressedCallback: (controller, isBackground) async {
           final pickResult = await widget._backgroundColorPicker!(context);
-          if (pickResult.isCanceled || !mounted) {
+          if (pickResult == null || !mounted) {
             return;
           }
 
