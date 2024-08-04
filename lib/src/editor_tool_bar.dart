@@ -54,7 +54,7 @@ final class PickUrlResult {
 typedef BBCodeUrlPicker = Future<PickUrlResult?> Function(
   BuildContext context,
   String? url,
-  String description,
+  String? description,
 );
 
 /// Toolbar of the editor.
