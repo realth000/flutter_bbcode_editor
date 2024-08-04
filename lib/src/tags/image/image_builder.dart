@@ -10,7 +10,7 @@ import 'package:flutter_bbcode_editor/src/tags/image/image_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 /// External function build a image widget from given image [url].
-typedef BBCodeImageProvider = Widget Function(String url);
+typedef BBCodeImageProvider = Widget Function(BuildContext context, String url);
 
 /// Editor widget builder for embed image types.
 ///
@@ -124,7 +124,8 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     final link = data[ImageKeys.link] as String;
 
     // Setup cache.
-    _imageCache ??= _bbCodeImageProvider?.call(link) ?? Image.network(link);
+    _imageCache ??=
+        _bbCodeImageProvider?.call(context, link) ?? Image.network(link);
 
     return GestureDetector(
       onTap: () async {
