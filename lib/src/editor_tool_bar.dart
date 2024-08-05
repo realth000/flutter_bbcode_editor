@@ -68,6 +68,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
     BBCodeColorPicker? colorPicker,
     BBCodeColorPicker? backgroundColorPicker,
     BBCodeUrlPicker? urlPicker,
+    BBCodeImagePicker? imagePicker,
     String? host,
     this.showUndo = true,
     this.showRedo = true,
@@ -102,6 +103,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
         _colorPicker = colorPicker,
         _backgroundColorPicker = backgroundColorPicker,
         _urlPicker = urlPicker,
+        _imagePicker = imagePicker,
         _host = host;
 
   final BBCodeEditorController _controller;
@@ -115,6 +117,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
   final BBCodeColorPicker? _colorPicker;
   final BBCodeColorPicker? _backgroundColorPicker;
   final BBCodeUrlPicker? _urlPicker;
+  final BBCodeImagePicker? _imagePicker;
 
   /// Host of site.
   ///
@@ -410,6 +413,7 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                     BBCodeLocalizationsWidget(
                       child: BBCodeEditorToolbarImageButton(
                         controller: widget._controller,
+                        imagePicker: widget._imagePicker,
                       ),
                     ),
               if (widget.showEmojiButton)

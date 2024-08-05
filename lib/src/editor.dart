@@ -29,6 +29,7 @@ class BBCodeEditor extends StatefulWidget {
     // TODO: Make optional.
     required this.emojiProvider,
     this.imageProvider,
+    this.imagePicker,
     this.userMentionHandler,
     this.scrollController,
     this.focusNode,
@@ -54,6 +55,8 @@ class BBCodeEditor extends StatefulWidget {
 
   /// Callback when need to build an image from given url.
   final BBCodeImageProvider? imageProvider;
+
+  final BBCodeImagePicker? imagePicker;
 
   /// Callback when user tap on text with user mention attribute.
   final BBCodeUserMentionHandler? userMentionHandler;
@@ -111,6 +114,7 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
                 embedBuilders: [
                   BBCodeImageEmbedBuilder(
                     widget.imageProvider,
+                    widget.imagePicker,
                     constraints: widget.imageConstraints,
                   ),
                   BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),

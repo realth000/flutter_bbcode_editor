@@ -20,9 +20,15 @@ typedef BBCodeImageProvider = Widget Function(
 /// Only web images.
 final class BBCodeImageEmbedBuilder extends EmbedBuilder {
   /// Constructor.
-  BBCodeImageEmbedBuilder(this._bbCodeImageProvider, {this.constraints});
+  BBCodeImageEmbedBuilder(
+    this._bbCodeImageProvider,
+    this._imagePicker, {
+    this.constraints,
+  });
 
   final BBCodeImageProvider? _bbCodeImageProvider;
+
+  final BBCodeImagePicker? _imagePicker;
 
   Widget? _imageCache;
 
@@ -37,16 +43,27 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     final imageInfo = BBCodeImageInfo.fromJson(
       jsonDecode(node.value.data as String) as Map<String, dynamic>,
     );
-    final info = await showDialog<BBCodeImageInfo>(
-      context: context,
-      builder: (_) => BBCodeLocalizationsWidget(
-        child: PickImageDialog(
-          link: imageInfo.link,
-          width: imageInfo.width,
-          height: imageInfo.height,
+    BBCodeImageInfo? info;
+    if (_imagePicker != null) {
+      info = await _imagePicker(
+        context,
+        imageInfo.link,
+        imageInfo.width,
+        imageInfo.height,
+      );
+    } else {
+      info = await showDialog<BBCodeImageInfo>(
+        context: context,
+        builder: (_) => BBCodeLocalizationsWidget(
+          child: PickImageDialog(
+            link: imageInfo.link,
+            width: imageInfo.width,
+            height: imageInfo.height,
+          ),
         ),
-      ),
-    );
+      );
+    }
+
     if (info == null) {
       if (context.mounted) {
         Navigator.of(context).pop();

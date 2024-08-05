@@ -10,6 +10,22 @@ import 'package:flutter_bbcode_editor/src/tags/image/image_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/translations.dart';
 
+/// Function to pick an image.
+///
+///
+/// The following optional parameters are passed (may be not null) when editing
+/// already inserted images:
+///
+/// * [link] image url.
+/// * [width] image width.
+/// * [height] image height.
+typedef BBCodeImagePicker = Future<BBCodeImageInfo?> Function(
+  BuildContext context,
+  String? link,
+  int? width,
+  int? height,
+);
+
 final _imageSizeFormatters = [
   FilteringTextInputFormatter.allow(
     RegExp('[0-9]+'),
@@ -146,6 +162,7 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
   const BBCodeEditorToolbarImageButton({
     required this.controller,
     this.dialogTheme,
+    this.imagePicker,
     super.key,
   });
 
@@ -153,28 +170,18 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
   final BBCodeEditorController controller;
   final QuillDialogTheme? dialogTheme;
 
-  Future<void> _waitInputUrlImage(BuildContext context) async {
-    final imageInfo = await showDialog<BBCodeImageInfo>(
-      context: context,
-      builder: (_) => BBCodeLocalizationsWidget(
-        child: FlutterQuillLocalizationsWidget(
-          child: PickImageDialog(dialogTheme: dialogTheme),
+  /// Optional image picker.
+  final BBCodeImagePicker? imagePicker;
+
+  Future<BBCodeImageInfo?> _waitInputUrlImage(BuildContext context) async =>
+      showDialog<BBCodeImageInfo>(
+        context: context,
+        builder: (_) => BBCodeLocalizationsWidget(
+          child: FlutterQuillLocalizationsWidget(
+            child: PickImageDialog(dialogTheme: dialogTheme),
+          ),
         ),
-      ),
-    );
-    if (imageInfo == null) {
-      return;
-    }
-
-    print('>>>> get imageInfo: $imageInfo');
-
-    controller.insertEmbedBlock(
-      BBCodeEmbedTypes.image,
-      jsonEncode(imageInfo.toJson()),
-    );
-
-    return;
-  }
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +190,25 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
       tooltip: context.loc.insertImage,
       isSelected: false,
       iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
-      onPressed: () => _waitInputUrlImage(context),
+      onPressed: () async {
+        BBCodeImageInfo? imageInfo;
+        if (imagePicker != null) {
+          imageInfo = await imagePicker!(context, null, null, null);
+        } else {
+          imageInfo = await _waitInputUrlImage(context);
+        }
+
+        if (imageInfo == null) {
+          return;
+        }
+
+        controller.insertEmbedBlock(
+          BBCodeEmbedTypes.image,
+          jsonEncode(imageInfo.toJson()),
+        );
+
+        return;
+      },
     );
   }
 }
