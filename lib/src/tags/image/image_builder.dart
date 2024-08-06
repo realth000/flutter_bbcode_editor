@@ -30,7 +30,8 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
 
   final BBCodeImagePicker? _imagePicker;
 
-  Widget? _imageCache;
+  /// Map of image url and calculated image widget.
+  final _imageCacheMap = <String, Widget>{};
 
   /// Optional size constraints on rendered image.
   BoxConstraints? constraints;
@@ -149,8 +150,10 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     final height = data[ImageKeys.height] as int?;
 
     // Setup cache.
-    _imageCache ??=
-        _bbCodeImageProvider?.call(context, link) ?? Image.network(link);
+    if (!_imageCacheMap.containsKey(link)) {
+      _imageCacheMap[link] =
+          _bbCodeImageProvider?.call(context, link) ?? Image.network(link);
+    }
 
     return GestureDetector(
       onTap: () async {
@@ -207,11 +210,11 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
                 constraints: constraints!,
                 child: Column(
                   children: [
-                    Expanded(child: _imageCache!),
+                    Expanded(child: _imageCacheMap[link]!),
                   ],
                 ),
               )
-            : _imageCache,
+            : _imageCacheMap[link],
       ),
     );
   }

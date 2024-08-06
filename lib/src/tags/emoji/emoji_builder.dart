@@ -21,7 +21,8 @@ final class BBCodeEmojiEmbedBuilder extends EmbedBuilder {
   /// Injected emoji provider.
   final BBCodeEmojiProvider emojiProvider;
 
-  Widget? _emojiCache;
+  /// Map of emoji code and calculated widget.
+  final _emojiCacheMap = <String, Widget>{};
 
   @override
   bool get expanded => false;
@@ -38,12 +39,11 @@ final class BBCodeEmojiEmbedBuilder extends EmbedBuilder {
     bool inline,
     TextStyle textStyle,
   ) {
-    if (_emojiCache == null) {
-      final data =
-          jsonDecode(node.value.data as String) as Map<String, dynamic>;
-      final code = data[BBCodeEmojiKeys.code] as String;
-      _emojiCache = emojiProvider(context, code);
+    final data = jsonDecode(node.value.data as String) as Map<String, dynamic>;
+    final code = data[BBCodeEmojiKeys.code] as String;
+    if (!_emojiCacheMap.containsKey(code)) {
+      _emojiCacheMap[code] = emojiProvider(context, code);
     }
-    return _emojiCache!;
+    return _emojiCacheMap[code]!;
   }
 }
