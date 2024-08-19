@@ -133,6 +133,17 @@ final AttrHandlerMap defaultLineAttrHandlers = {
 /// * Background color.
 /// * Url.
 final AttrHandlerMap defaultTextAttrHandlers = {
+  Attribute.size.key: BBCodeAttributeHandler(
+    beforeContent: (attr, node, output) {
+      final size = defaultFontSizeMap.entries
+          .firstWhereOrNull(
+            (e) => e.value == (attr.value as double?).toString(),
+          )
+          ?.key;
+      output.write('[size=${size ?? "0"}]');
+    },
+    afterContent: (attr, node, output) => output.write('[/size]'),
+  ),
   // Bold.
   Attribute.bold.key: BBCodeAttributeHandler(
     beforeContent: (attribute, node, output) => output.write('[b]'),
