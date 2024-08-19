@@ -58,6 +58,11 @@ final Map<String, EmbedToBBCode> defaultEmbedHandlers = {
     );
     out.write(imageInfo.code);
   },
+  UserMentionAttributeKeys.key: (embed, out) {
+    final d1 = jsonDecode(embed.value.data as String) as Map<String, dynamic>;
+    final username = d1[UserMentionAttributeKeys.key] as String;
+    out.write('[@]$username[/@]');
+  },
 };
 
 /// Default attribute handlers for line nodes.
@@ -199,12 +204,6 @@ final AttrHandlerMap defaultTextAttrHandlers = {
       '[url=${attribute.value as String? ?? ""}]',
     ),
     afterContent: (attribute, node, output) => output.write('[/url]'),
-  ),
-  UserMentionAttributeKeys.key: BBCodeAttributeHandler(
-    beforeContent: (attribute, node, output) => output.write('[@]'),
-    afterContent: (attribute, node, output) => output.write('[/@]'),
-    // Remove additional `@` before username.
-    contentHandler: (text) => text.startsWith('@') ? text.substring(1) : text,
   ),
 };
 

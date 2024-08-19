@@ -77,13 +77,13 @@ final class BBCodeEditorController {
   /// Insert formatted embed block [data] into editor.
   void insertEmbedBlock(String embedType, String data) {
     _quillController
-      ..skipRequestKeyboard = true
       ..replaceText(
         _quillController.index,
         _quillController.length,
         BlockEmbed.custom(CustomBlockEmbed(embedType, data)),
         null,
       )
+      ..editorFocusNode?.requestFocus()
       ..moveCursorToPosition(_quillController.index + 1);
   }
 

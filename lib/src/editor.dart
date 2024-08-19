@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/convert/to_bbcode.dart';
 import 'package:flutter_bbcode_editor/src/editor_configuration.dart';
-import 'package:flutter_bbcode_editor/src/extensions/context.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_button.dart';
+import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
@@ -118,6 +118,7 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
                     constraints: widget.imageConstraints,
                   ),
                   BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
+                  BBCodeUserMentionEmbedBuilder(),
                 ],
                 onLaunchUrl: widget.urlLauncher,
                 customRecognizerBuilder: (attribute, node) {

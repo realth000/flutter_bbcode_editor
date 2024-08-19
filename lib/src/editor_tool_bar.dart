@@ -386,19 +386,6 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
             //
             fontFamilyValues: widget._config.fontFamilyValues,
 
-            customButtons: [
-              if (widget.showUserMentionButton)
-                // User mention
-                BBCodeEditorToolbarUserMentionButtonOptions(
-                  icon: const Icon(Icons.alternate_email),
-                  iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
-                  tooltip: context.bbcodeL10n.userMention,
-                  onPressed: () async =>
-                      // FIXME: Context usage.
-                      BBCodeEditorToolbarUserMentionButtonOptions
-                          .openUserMentionDialog(context, controller),
-                ),
-            ],
             buttonOptions: QuillSimpleToolbarButtonOptions(
               color: colorButtonOptions,
               backgroundColor: backgroundColorButtonOptions,
@@ -423,6 +410,12 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                         controller: widget._controller,
                         emojiPicker: widget._emojiPicker,
                       ),
+                    ),
+              // User mention
+              if (widget.showUserMentionButton)
+                (controller, toolbarIconSize, iconTheme, dialogTheme) =>
+                    BBCodeEditorToolbarUserMentionButton(
+                      controller: widget._controller,
                     ),
             ],
           ),

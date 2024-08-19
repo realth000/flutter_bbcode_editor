@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/editor.dart';
 import 'package:flutter_bbcode_editor/src/extensions/context.dart';
@@ -8,15 +6,16 @@ import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.da
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/translations.dart';
 
-class _PickUserMentionDialog extends StatefulWidget {
-  const _PickUserMentionDialog({this.username, super.key});
+class PickUserMentionDialog extends StatefulWidget {
+  const PickUserMentionDialog({this.username, super.key});
 
   final String? username;
+
   @override
-  State<_PickUserMentionDialog> createState() => _PickUserMentionDialogState();
+  State<PickUserMentionDialog> createState() => _PickUserMentionDialogState();
 }
 
-class _PickUserMentionDialogState extends State<_PickUserMentionDialog> {
+class _PickUserMentionDialogState extends State<PickUserMentionDialog> {
   final formKey = GlobalKey<FormState>();
   late TextEditingController usernameController;
 
@@ -67,48 +66,42 @@ class _PickUserMentionDialogState extends State<_PickUserMentionDialog> {
 }
 
 /// User mention button in toolbar.
-class BBCodeEditorToolbarUserMentionButtonOptions
-    extends QuillToolbarCustomButtonOptions {
+class BBCodeEditorToolbarUserMentionButton extends StatelessWidget {
   /// Constructor.
-  const BBCodeEditorToolbarUserMentionButtonOptions({
+  const BBCodeEditorToolbarUserMentionButton({
     /// Callback when button pressed.
-    required super.onPressed,
-    super.icon,
-    super.iconTheme,
-    super.tooltip,
-    super.afterButtonPressed,
+    required this.controller,
+    super.key,
   });
 
-  static Future<void> openUserMentionDialog(
-    BuildContext context,
-    BBCodeEditorController controller,
-  ) async {
-    final username = await showDialog<String>(
-      context: context,
-      builder: (_) => const BBCodeLocalizationsWidget(
-        child: FlutterQuillLocalizationsWidget(
-          child: _PickUserMentionDialog(),
-        ),
-      ),
-    );
-    if (username == null) {
-      return;
-    }
+  /// Injected editor controller.
+  final BBCodeEditorController controller;
 
-    controller.insertFormattedText(
-      // Remove `@` when converting to bbcode.
-      '@$username',
-      UserMentionAttribute(username: username),
+  @override
+  Widget build(BuildContext context) {
+    return QuillToolbarIconButton(
+      icon: const Icon(Icons.alternate_email),
+      tooltip: context.bbcodeL10n.userMention,
+      isSelected: false,
+      iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
+      onPressed: () async {
+        final username = await showDialog<String>(
+          context: context,
+          builder: (_) => const BBCodeLocalizationsWidget(
+            child: FlutterQuillLocalizationsWidget(
+              child: PickUserMentionDialog(),
+            ),
+          ),
+        );
+        if (username == null) {
+          return;
+        }
+
+        controller.insertEmbedBlock(
+          UserMentionAttributeKeys.key,
+          username, // String type
+        );
+      },
     );
   }
-
-  // Widget build(BuildContext context) {
-  //   return QuillToolbarIconButton(
-  //     icon: const Icon(Icons.alternate_email),
-  //     tooltip: context.bbcodeL10n.userMention,
-  //     isSelected: false,
-  //     iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
-  //     onPressed: () async => _openUserMentionDialog(context),
-  //   );
-  // }
 }
