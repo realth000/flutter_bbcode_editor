@@ -191,7 +191,7 @@ final AttrHandlerMap defaultTextAttrHandlers = {
     beforeContent: (attribute, node, output) => output.write(
       '[backcolor=${ColorUtils.toBBCodeColor(attribute.value as String? ?? "")}]',
     ),
-    afterContent: (attribute, node, output) => output.write('[/color]'),
+    afterContent: (attribute, node, output) => output.write('[/backcolor]'),
   ),
   // Url
   Attribute.link.key: BBCodeAttributeHandler(
