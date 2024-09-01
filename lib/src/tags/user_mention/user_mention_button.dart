@@ -6,6 +6,14 @@ import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.da
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/translations.dart';
 
+/// External function to get a username.
+///
+/// Used when want to mention someone.
+///
+/// The default picker is a simple dialog that allows user to enter username.
+/// With this injected picker, more convenient features can be used.
+typedef BBCodeUsernamePicker = Future<String?> Function(BuildContext context);
+
 class PickUserMentionDialog extends StatefulWidget {
   const PickUserMentionDialog({this.username, super.key});
 
@@ -71,11 +79,15 @@ class BBCodeEditorToolbarUserMentionButton extends StatelessWidget {
   const BBCodeEditorToolbarUserMentionButton({
     /// Callback when button pressed.
     required this.controller,
+    this.usernamePicker,
     super.key,
   });
 
   /// Injected editor controller.
   final BBCodeEditorController controller;
+
+  /// Optional username picker that provide the username to mention.
+  final BBCodeUsernamePicker? usernamePicker;
 
   @override
   Widget build(BuildContext context) {
@@ -85,14 +97,20 @@ class BBCodeEditorToolbarUserMentionButton extends StatelessWidget {
       isSelected: false,
       iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
       onPressed: () async {
-        final username = await showDialog<String>(
-          context: context,
-          builder: (_) => const BBCodeLocalizationsWidget(
-            child: FlutterQuillLocalizationsWidget(
-              child: PickUserMentionDialog(),
+        String? username;
+        if (usernamePicker != null) {
+          username = await usernamePicker!.call(context);
+        } else {
+          username = await showDialog<String>(
+            context: context,
+            builder: (_) => const BBCodeLocalizationsWidget(
+              child: FlutterQuillLocalizationsWidget(
+                child: PickUserMentionDialog(),
+              ),
             ),
-          ),
-        );
+          );
+        }
+
         if (username == null) {
           return;
         }

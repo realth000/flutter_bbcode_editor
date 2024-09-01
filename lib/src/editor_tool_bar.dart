@@ -69,6 +69,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
     BBCodeColorPicker? backgroundColorPicker,
     BBCodeUrlPicker? urlPicker,
     BBCodeImagePicker? imagePicker,
+    BBCodeUsernamePicker? usernamePicker,
     String? host,
     this.showUndo = true,
     this.showRedo = true,
@@ -104,6 +105,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
         _backgroundColorPicker = backgroundColorPicker,
         _urlPicker = urlPicker,
         _imagePicker = imagePicker,
+        _usernamePicker = usernamePicker,
         _host = host;
 
   final BBCodeEditorController _controller;
@@ -118,6 +120,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
   final BBCodeColorPicker? _backgroundColorPicker;
   final BBCodeUrlPicker? _urlPicker;
   final BBCodeImagePicker? _imagePicker;
+  final BBCodeUsernamePicker? _usernamePicker;
 
   /// Host of site.
   ///
@@ -416,6 +419,7 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                 (controller, toolbarIconSize, iconTheme, dialogTheme) =>
                     BBCodeEditorToolbarUserMentionButton(
                       controller: widget._controller,
+                      usernamePicker: widget._usernamePicker,
                     ),
             ],
           ),
