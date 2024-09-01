@@ -12,7 +12,11 @@ import 'package:flutter_quill/translations.dart';
 ///
 /// The default picker is a simple dialog that allows user to enter username.
 /// With this injected picker, more convenient features can be used.
-typedef BBCodeUsernamePicker = Future<String?> Function(BuildContext context);
+///
+/// [username] is an optional initial username if user is going to edit an
+/// existing username block in editor.
+typedef BBCodeUsernamePicker = Future<String?> Function(BuildContext context,
+    {String? username});
 
 class PickUserMentionDialog extends StatefulWidget {
   const PickUserMentionDialog({this.username, super.key});

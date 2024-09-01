@@ -37,6 +37,7 @@ class BBCodeEditor extends StatefulWidget {
     this.autoFocus = false,
     this.initialText,
     this.imageConstraints,
+    this.usernamePicker,
     super.key,
   }) : _controller = controller;
 
@@ -63,6 +64,8 @@ class BBCodeEditor extends StatefulWidget {
 
   /// Callback when user intend to launch an url.
   final void Function(String)? urlLauncher;
+
+  final BBCodeUsernamePicker? usernamePicker;
 
   /// Automatically requires focus.
   final bool autoFocus;
@@ -118,7 +121,8 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
                     constraints: widget.imageConstraints,
                   ),
                   BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
-                  BBCodeUserMentionEmbedBuilder(),
+                  BBCodeUserMentionEmbedBuilder(
+                      usernamePicker: widget.usernamePicker),
                 ],
                 onLaunchUrl: widget.urlLauncher,
                 customRecognizerBuilder: (attribute, node) {

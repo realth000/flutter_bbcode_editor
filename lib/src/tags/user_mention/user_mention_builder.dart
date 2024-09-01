@@ -10,6 +10,11 @@ import 'package:flutter_quill/translations.dart';
 /// Build a area of text, contains "@" following user's name to mention, with
 /// rounded background color.
 final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
+  /// Constructor.
+  BBCodeUserMentionEmbedBuilder({this.usernamePicker});
+
+  final BBCodeUsernamePicker? usernamePicker;
+
   @override
   String get key => UserMentionAttributeKeys.key;
 
@@ -29,14 +34,23 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
 
     return GestureDetector(
       onTap: () async {
-        final username = await showDialog<String>(
-          context: context,
-          builder: (_) => BBCodeLocalizationsWidget(
-            child: FlutterQuillLocalizationsWidget(
-              child: PickUserMentionDialog(username: initialUsername),
+        String? username;
+        if (usernamePicker != null) {
+          username = await usernamePicker!.call(
+            context,
+            username: initialUsername,
+          );
+        } else {
+          username = await showDialog<String>(
+            context: context,
+            builder: (_) => BBCodeLocalizationsWidget(
+              child: FlutterQuillLocalizationsWidget(
+                child: PickUserMentionDialog(username: initialUsername),
+              ),
             ),
-          ),
-        );
+          );
+        }
+
         if (username == null) {
           return;
         }
