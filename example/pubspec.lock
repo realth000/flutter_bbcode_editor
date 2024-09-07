@@ -85,10 +85,10 @@ packages:
     dependency: transitive
     description:
       name: dart_quill_delta
-      sha256: "1654b14b6eb5cc82ee3c122f4912c7299d3c26782a094703cd8085099aadb938"
+      sha256: e001f64695c0830551f4ff5729625599d5e338fd5b3f4db42109d0ca37fc1252
       url: "https://pub.dev"
     source: hosted
-    version: "10.5.0"
+    version: "10.5.9"
   device_info_plus:
     dependency: transitive
     description:
@@ -344,7 +344,7 @@ packages:
       path: "../packages/flutter-quill"
       relative: true
     source: path
-    version: "10.5.0"
+    version: "10.5.9"
   flutter_quill_delta_from_html:
     dependency: transitive
     description:
@@ -359,7 +359,7 @@ packages:
       path: "../packages/flutter-quill/flutter_quill_extensions"
       relative: true
     source: path
-    version: "10.5.0"
+    version: "10.5.9"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -811,10 +811,10 @@ packages:
     dependency: transitive
     description:
       name: uuid
-      sha256: "83d37c7ad7aaf9aa8e275490669535c8080377cfa7a7004c24dfac53afffaa90"
+      sha256: f33d6bb662f0e4f79dcd7ada2e6170f3b3a2530c28fc41f49a411ddedd576a77
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.2"
+    version: "4.5.0"
   vector_math:
     dependency: transitive
     description:
@@ -835,10 +835,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_android
-      sha256: "101028b643a3b43ced72107aacdbc4d30d55365487751de001a36cf0d86038d1"
+      sha256: "38d8fe136c427abdce68b5e8c3c08ea29d7a794b453c7a51b12ecfad4aad9437"
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.2"
+    version: "2.7.3"
   video_player_avfoundation:
     dependency: transitive
     description:
