@@ -8,6 +8,8 @@ import 'package:intl/intl.dart' as intl;
 import 'bbcode_localizations_en.dart';
 import 'bbcode_localizations_zh.dart';
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of BBCodeEditorLocalizations
 /// returned by `BBCodeEditorLocalizations.of(context)`.
 ///
@@ -175,6 +177,60 @@ abstract class BBCodeEditorLocalizations {
   /// In en, this message translates to:
   /// **'Username can not be empty'**
   String get userMentionDialogEmptyUsername;
+
+  /// No description provided for @portationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Export and import'**
+  String get portationTitle;
+
+  /// No description provided for @portationExportBBCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Export BBCode'**
+  String get portationExportBBCode;
+
+  /// No description provided for @portationImportBBCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Import BBCode'**
+  String get portationImportBBCode;
+
+  /// No description provided for @portationExportQuillDelta.
+  ///
+  /// In en, this message translates to:
+  /// **'Export Quill Delta'**
+  String get portationExportQuillDelta;
+
+  /// No description provided for @portationImportQuillDelta.
+  ///
+  /// In en, this message translates to:
+  /// **'Import Quill Delta'**
+  String get portationImportQuillDelta;
+
+  /// No description provided for @portationCopyBBCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy BBCode to clipboard'**
+  String get portationCopyBBCode;
+
+  /// No description provided for @portationCopyQuillDelta.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Quill Delta to clipboard'**
+  String get portationCopyQuillDelta;
+
+  /// No description provided for @portationCopiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard'**
+  String get portationCopiedToClipboard;
+
+  /// No description provided for @portationSelectDirectory.
+  ///
+  /// In en, this message translates to:
+  /// **'Select an output file:'**
+  String get portationSelectDirectory;
 }
 
 class _BBCodeEditorLocalizationsDelegate

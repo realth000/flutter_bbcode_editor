@@ -381,14 +381,12 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
             showIndent: false,
             showSearchButton: false,
             showSubscript: false,
-
             fontSizesValues: defaultFontSizeMap,
             showAlignmentButtons: true,
             showJustifyAlignment: false,
 
             //
             fontFamilyValues: widget._config.fontFamilyValues,
-
             buttonOptions: QuillSimpleToolbarButtonOptions(
               color: colorButtonOptions,
               backgroundColor: backgroundColorButtonOptions,
@@ -421,6 +419,15 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                       controller: widget._controller,
                       usernamePicker: widget._usernamePicker,
                     ),
+            ],
+            customButtons: [
+              BBCodePortationButtonOptions(
+                tooltip: context.bbcodeL10n.portationTitle,
+                onPressed: () async => openPortationModalBottomSheet(
+                  context,
+                  widget._controller,
+                ),
+              ),
             ],
           ),
         ),

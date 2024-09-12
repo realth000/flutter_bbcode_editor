@@ -53,7 +53,7 @@ Future<String?> _emojiPicker(BuildContext context) {
 Future<PickUrlResult?> _urlPicker(
   BuildContext context,
   String? url,
-  String description,
+  String? description,
 ) async {
   final urlController = TextEditingController(text: url ?? '');
   final descController = TextEditingController(text: description);

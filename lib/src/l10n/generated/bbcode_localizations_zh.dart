@@ -1,5 +1,7 @@
 import 'bbcode_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Chinese (`zh`).
 class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
   BBCodeEditorLocalizationsZh([String locale = 'zh']) : super(locale);
@@ -42,6 +44,33 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
 
   @override
   String get userMentionDialogEmptyUsername => '用户名不能为空';
+
+  @override
+  String get portationTitle => '导入和导出';
+
+  @override
+  String get portationExportBBCode => '导出为BBCode';
+
+  @override
+  String get portationImportBBCode => '导入BBCode';
+
+  @override
+  String get portationExportQuillDelta => '导出为Quill Delta';
+
+  @override
+  String get portationImportQuillDelta => '导入Quill Delta';
+
+  @override
+  String get portationCopyBBCode => '复制BBCode到剪切板';
+
+  @override
+  String get portationCopyQuillDelta => '复制Quill Delta到剪切板';
+
+  @override
+  String get portationCopiedToClipboard => '已复制到剪切板';
+
+  @override
+  String get portationSelectDirectory => '选择一个位置保存：';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -86,4 +115,31 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
 
   @override
   String get userMentionDialogEmptyUsername => '使用者名稱不能為空';
+
+  @override
+  String get portationTitle => '導入與導出';
+
+  @override
+  String get portationExportBBCode => '導出為BBCode';
+
+  @override
+  String get portationImportBBCode => '導入BBCode';
+
+  @override
+  String get portationExportQuillDelta => '導出為Quill Delta';
+
+  @override
+  String get portationImportQuillDelta => '導入Quill Delta';
+
+  @override
+  String get portationCopyBBCode => '複製 BBCode 到剪貼簿';
+
+  @override
+  String get portationCopyQuillDelta => '複製 Quill Delta 到剪貼簿';
+
+  @override
+  String get portationCopiedToClipboard => '已複製到剪貼簿';
+
+  @override
+  String get portationSelectDirectory => '選擇一個位置儲存：';
 }

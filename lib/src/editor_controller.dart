@@ -66,6 +66,10 @@ final class BBCodeEditorController {
     return ret;
   }
 
+  /// Convert current document to quill delta.
+  String toQuillDelta() =>
+      jsonEncode(_quillController.document.toDelta().toJson());
+
   /// Insert [text] into current cursor position and format with [attr].
   void insertFormattedText(String text, Attribute<dynamic> attr) {
     _quillController

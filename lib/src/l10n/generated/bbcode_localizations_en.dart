@@ -1,5 +1,7 @@
 import 'bbcode_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for English (`en`).
 class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
   BBCodeEditorLocalizationsEn([String locale = 'en']) : super(locale);
@@ -42,4 +44,31 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
 
   @override
   String get userMentionDialogEmptyUsername => 'Username can not be empty';
+
+  @override
+  String get portationTitle => 'Export and import';
+
+  @override
+  String get portationExportBBCode => 'Export BBCode';
+
+  @override
+  String get portationImportBBCode => 'Import BBCode';
+
+  @override
+  String get portationExportQuillDelta => 'Export Quill Delta';
+
+  @override
+  String get portationImportQuillDelta => 'Import Quill Delta';
+
+  @override
+  String get portationCopyBBCode => 'Copy BBCode to clipboard';
+
+  @override
+  String get portationCopyQuillDelta => 'Copy Quill Delta to clipboard';
+
+  @override
+  String get portationCopiedToClipboard => 'Copied to clipboard';
+
+  @override
+  String get portationSelectDirectory => 'Select an output file:';
 }

@@ -11,5 +11,14 @@
   "emojiInsertEmoji": "插入表情",
   "userMention": "提醒用户",
   "userMentionDialogUsername": "用户名",
-  "userMentionDialogEmptyUsername": "用户名不能为空"
+  "userMentionDialogEmptyUsername": "用户名不能为空",
+  "portationTitle": "导入和导出",
+  "portationExportBBCode": "导出为BBCode",
+  "portationImportBBCode": "导入BBCode",
+  "portationExportQuillDelta": "导出为Quill Delta",
+  "portationImportQuillDelta": "导入Quill Delta",
+  "portationCopyBBCode": "复制BBCode到剪切板",
+  "portationCopyQuillDelta": "复制Quill Delta到剪切板",
+  "portationCopiedToClipboard": "已复制到剪切板",
+  "portationSelectDirectory": "选择一个位置保存："
 }
