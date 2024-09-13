@@ -85,10 +85,10 @@ packages:
     dependency: transitive
     description:
       name: dart_quill_delta
-      sha256: e001f64695c0830551f4ff5729625599d5e338fd5b3f4db42109d0ca37fc1252
+      sha256: a2a368bf39de9d6b981088298ac11d3dd333f488d93604835f4381798b54556d
       url: "https://pub.dev"
     source: hosted
-    version: "10.5.9"
+    version: "10.5.18"
   device_info_plus:
     dependency: transitive
     description:
@@ -329,7 +329,7 @@ packages:
       path: "packages/flutter-quill"
       relative: true
     source: path
-    version: "10.0.2"
+    version: "10.5.16"
   flutter_quill_delta_from_html:
     dependency: transitive
     description:
@@ -344,7 +344,7 @@ packages:
       path: "packages/flutter-quill/flutter_quill_extensions"
       relative: true
     source: path
-    version: "10.0.2"
+    version: "10.5.16"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -611,6 +611,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  quill_native_bridge:
+    dependency: transitive
+    description:
+      name: quill_native_bridge
+      sha256: "1588ce085778367244e9bc8b08dd25a095982fb5718eb5df69c8640e6689f645"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.5.18"
   quiver:
     dependency: transitive
     description:
@@ -668,18 +676,18 @@ packages:
     dependency: transitive
     description:
       name: super_clipboard
-      sha256: "71d2a81e0e3a8c5d6339715a42f8dd42c6def02c0c805a23d45611010de39fbe"
+      sha256: cfeb142360fac67e0da1ca339accb892eb790c6528a218a008eef1709d96ed0f
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.20"
+    version: "0.8.22"
   super_native_extensions:
     dependency: transitive
     description:
       name: super_native_extensions
-      sha256: "9d674b8c71e16f586b3967e67a6faa83c35e3d9ea4f64bca8551badfddf992cb"
+      sha256: "6a7cfb7d212da7023b86fb99c736081e9c2cd982265d15dc5fe6381a32dbc875"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.20"
+    version: "0.8.22"
   term_glyph:
     dependency: transitive
     description:
@@ -876,10 +884,10 @@ packages:
     dependency: transitive
     description:
       name: win32_registry
-      sha256: "723b7f851e5724c55409bb3d5a32b203b3afe8587eaf5dafb93a5fed8ecda0d6"
+      sha256: "21ec76dfc731550fd3e2ce7a33a9ea90b828fdf19a5c3bcf556fa992cfa99852"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.4"
+    version: "1.1.5"
   xml:
     dependency: transitive
     description:
@@ -905,5 +913,5 @@ packages:
     source: hosted
     version: "9.0.3"
 sdks:
-  dart: ">=3.5.0 <4.0.0"
+  dart: ">=3.5.1 <4.0.0"
   flutter: ">=3.24.0"
