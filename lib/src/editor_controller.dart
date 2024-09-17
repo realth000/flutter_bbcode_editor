@@ -3,10 +3,17 @@ part of 'editor.dart';
 /// V2 editor controller.
 final class BBCodeEditorController {
   /// Constructor.
-  BBCodeEditorController();
+  BBCodeEditorController({
+    this.focusNode,
+  }) {
+    _quillController = QuillController.basic(editorFocusNode: focusNode);
+  }
+
+  /// Optional focus node to manage focus.
+  final FocusNode? focusNode;
 
   /// Underlying quill editor controller.
-  final QuillController _quillController = QuillController.basic();
+  late final QuillController _quillController;
 
   /// Convert current document to json format
   String toJson() => jsonEncode(_quillController.document.toDelta().toJson());

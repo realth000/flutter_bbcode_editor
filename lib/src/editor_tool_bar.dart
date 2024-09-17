@@ -64,7 +64,6 @@ class BBCodeEditorToolbar extends StatefulWidget {
     required BBCodeEditorController controller,
     required BBCodeEditorToolbarConfiguration config,
     required BBCodeEmojiPicker emojiPicker,
-    this.focusNode,
     BBCodeColorPicker? colorPicker,
     BBCodeColorPicker? backgroundColorPicker,
     BBCodeUrlPicker? urlPicker,
@@ -97,6 +96,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
     this.showClipboardCopyButton = true,
     this.showClipboardPasteButton = true,
     this.showUserMentionButton = true,
+    this.afterButtonPressed,
     super.key,
   })  : _controller = controller,
         _config = config,
@@ -111,8 +111,6 @@ class BBCodeEditorToolbar extends StatefulWidget {
   final BBCodeEditorController _controller;
 
   final BBCodeEditorToolbarConfiguration _config;
-
-  final FocusNode? focusNode;
 
   final BBCodeEmojiPicker _emojiPicker;
 
@@ -225,6 +223,9 @@ class BBCodeEditorToolbar extends StatefulWidget {
   /// ```
   final bool showUserMentionButton;
 
+  /// Callback when button pressed.
+  final VoidCallback? afterButtonPressed;
+
   @override
   State<BBCodeEditorToolbar> createState() => _BBCodeEditorToolbarState();
 }
@@ -335,8 +336,8 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
     return BBCodeLocalizationsWidget(
       child: Builder(
         builder: (context) => QuillToolbar.simple(
+          controller: controller._quillController,
           configurations: QuillSimpleToolbarConfigurations(
-            controller: controller._quillController,
             // TODO: Make dividers customizable.
             showDividers: false,
             toolbarIconAlignment: WrapAlignment.start,
@@ -391,6 +392,9 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
               color: colorButtonOptions,
               backgroundColor: backgroundColorButtonOptions,
               linkStyle: urlButtonOptions,
+              base: QuillToolbarBaseButtonOptions(
+                afterButtonPressed: widget.afterButtonPressed,
+              ),
             ),
 
             // embedButtons: FlutterQuillEmbeds.toolbarButtons(),
