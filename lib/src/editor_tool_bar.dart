@@ -395,6 +395,14 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
               base: QuillToolbarBaseButtonOptions(
                 afterButtonPressed: widget.afterButtonPressed,
               ),
+              fontSize:
+                  // TODO: Override font size button callback.
+                  // Add this empty option will let font size menu able to
+                  // show after pressed on mobile platforms which may wrapped in
+                  // chat_bottom_container.
+                  //
+                  // This is tricky but works, may be available in future.
+                  QuillToolbarFontSizeButtonOptions(afterButtonPressed: () {}),
             ),
 
             // embedButtons: FlutterQuillEmbeds.toolbarButtons(),
