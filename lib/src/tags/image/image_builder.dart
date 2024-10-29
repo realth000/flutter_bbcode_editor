@@ -13,6 +13,8 @@ import 'package:flutter_quill/flutter_quill.dart';
 typedef BBCodeImageProvider = Widget Function(
   BuildContext context,
   String url,
+  int? width,
+  int? height,
 );
 
 /// Editor widget builder for embed image types.
@@ -151,8 +153,13 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
 
     // Setup cache.
     if (!_imageCacheMap.containsKey(link)) {
-      _imageCacheMap[link] =
-          _bbCodeImageProvider?.call(context, link) ?? Image.network(link);
+      _imageCacheMap[link] = _bbCodeImageProvider?.call(
+            context,
+            link,
+            width,
+            height,
+          ) ??
+          Image.network(link);
     }
 
     return GestureDetector(
@@ -204,7 +211,7 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
         label: Text('${width}x$height'),
         isLabelVisible:
             _bbCodeImageProvider != null && width != null && height != null,
-        alignment: Alignment.topLeft.add(const Alignment(0, 0.05)),
+        alignment: Alignment.topLeft.add(const Alignment(0, 0.2)),
         child: constraints != null
             ? ConstrainedBox(
                 constraints: constraints!,
