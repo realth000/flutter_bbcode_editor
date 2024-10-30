@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/editor.dart';
 import 'package:flutter_bbcode_editor/src/extensions/context.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
+import 'package:flutter_bbcode_editor/src/tags/image/image_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/translations.dart';
@@ -202,10 +200,7 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
           return;
         }
 
-        controller.insertEmbedBlock(
-          BBCodeEmbedTypes.image,
-          jsonEncode(imageInfo.toJson()),
-        );
+        controller.insertEmbedBlock(BBCodeImageEmbed(imageInfo));
 
         return;
       },

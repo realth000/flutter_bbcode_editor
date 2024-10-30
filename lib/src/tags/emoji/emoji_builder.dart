@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
-import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 // TODO: Async?
@@ -39,11 +36,13 @@ final class BBCodeEmojiEmbedBuilder extends EmbedBuilder {
     bool inline,
     TextStyle textStyle,
   ) {
-    final data = jsonDecode(node.value.data as String) as Map<String, dynamic>;
-    final code = data[BBCodeEmojiKeys.code] as String;
+    final code = node.value.data as String;
     if (!_emojiCacheMap.containsKey(code)) {
       _emojiCacheMap[code] = emojiProvider(context, code);
     }
-    return _emojiCacheMap[code]!;
+    return Padding(
+      padding: const EdgeInsets.only(left: 4, right: 2),
+      child: _emojiCacheMap[code],
+    );
   }
 }

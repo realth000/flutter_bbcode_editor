@@ -6,10 +6,13 @@ final class BBCodeEmbedTypes {
   /// Image.
   ///
   /// From url.
-  static String image = 'bbcode-image';
+  static const String image = 'bbcode-image';
 
   /// Emoji.
-  static String emoji = 'emoji';
+  static const String emoji = 'bbcode-emoji';
+
+  /// User mention block.
+  static const String userMention = 'bbcode-userMention';
 }
 
 // ignore_for_file: public_member_api_docs

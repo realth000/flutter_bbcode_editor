@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/editor.dart';
 import 'package:flutter_bbcode_editor/src/extensions/context.dart';
-import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_keys.dart';
+import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_embed.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 /// External emoji picker function.
@@ -40,10 +38,7 @@ class BBCodeEditorToolbarEmojiButton extends StatelessWidget {
       onPressed: () async {
         final code = await emojiPicker(context);
         if (code != null) {
-          controller.insertEmbedBlock(
-            BBCodeEmbedTypes.emoji,
-            jsonEncode(BBCodeEmojiInfo(code).toJson()),
-          );
+          controller.insertEmbedBlock(BBCodeEmojiEmbed(code));
         }
       },
     );

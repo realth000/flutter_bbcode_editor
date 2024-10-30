@@ -85,13 +85,13 @@ final class BBCodeEditorController {
       ..moveCursorToPosition(_quillController.index + text.length);
   }
 
-  /// Insert formatted embed block [data] into editor.
-  void insertEmbedBlock(String embedType, String data) {
+  /// Insert formatted embed block [embed] into editor.
+  void insertEmbedBlock(CustomBlockEmbed embed) {
     _quillController
       ..replaceText(
         _quillController.index,
         _quillController.length,
-        BlockEmbed.custom(CustomBlockEmbed(embedType, data)),
+        BlockEmbed.custom(embed),
         null,
       )
       ..editorFocusNode?.requestFocus()

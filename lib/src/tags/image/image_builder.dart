@@ -73,7 +73,6 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
       }
       return;
     }
-
     final offset = getEmbedNode(
       controller,
       controller.selection.start,
@@ -146,10 +145,12 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     TextStyle textStyle,
   ) {
     final tr = context.bbcodeL10n;
-    final data = jsonDecode(node.value.data as String) as Map<String, dynamic>;
-    final link = data[ImageKeys.link] as String;
-    final width = data[ImageKeys.width] as int?;
-    final height = data[ImageKeys.height] as int?;
+    final info = BBCodeImageInfo.fromJson(
+      jsonDecode(node.value.data as String) as Map<String, dynamic>,
+    );
+    final link = info.link;
+    final width = info.width;
+    final height = info.height;
 
     // Setup cache.
     if (!_imageCacheMap.containsKey(link)) {
@@ -215,14 +216,32 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
         child: constraints != null
             ? ConstrainedBox(
                 constraints: constraints!,
-                child: Column(
-                  children: [
-                    Expanded(child: _imageCacheMap[link]!),
-                  ],
-                ),
+                child: _imageCacheMap[link],
               )
             : _imageCacheMap[link],
       ),
     );
   }
 }
+
+/*
+
+                          final res = getEmbedNode(
+                            controller,
+                            controller.selection.start,
+                          );
+
+                          final attr = replaceStyleStringWithSize(
+                            getImageStyleString(controller),
+                            width: width,
+                            height: height,
+                          );
+                          controller
+                            ..skipRequestKeyboard = true
+                            ..formatText(
+                              res.offset,
+                              1,
+                              StyleAttribute(attr),
+                            );
+
+ */

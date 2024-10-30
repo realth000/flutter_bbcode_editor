@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
@@ -15,8 +16,54 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
 
   final BBCodeUsernamePicker? usernamePicker;
 
+  Future<void> _onTap(
+    BuildContext context,
+    QuillController controller,
+    String initialUsername,
+  ) async {
+    String? username;
+    if (usernamePicker != null) {
+      username = await usernamePicker!.call(
+        context,
+        username: initialUsername,
+      );
+    } else {
+      username = await showDialog<String>(
+        context: context,
+        builder: (_) => BBCodeLocalizationsWidget(
+          child: FlutterQuillLocalizationsWidget(
+            child: PickUserMentionDialog(username: initialUsername),
+          ),
+        ),
+      );
+    }
+
+    if (username == null) {
+      return;
+    }
+
+    final offset = getEmbedNode(
+      controller,
+      controller.selection.start,
+    ).offset;
+    controller
+      ..replaceText(
+        offset,
+        1,
+        BlockEmbed.custom(
+          CustomBlockEmbed(
+            UserMentionAttributeKeys.key,
+            username,
+          ),
+        ),
+        TextSelection.collapsed(offset: offset),
+      )
+      ..editorFocusNode?.requestFocus()
+      ..moveCursorToPosition(offset + 1);
+  }
+
   @override
-  String get key => UserMentionAttributeKeys.key;
+  String get key => BBCodeEmbedTypes.userMention;
 
   @override
   bool get expanded => false;
@@ -32,60 +79,26 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
   ) {
     final initialUsername = node.value.data as String;
 
-    return GestureDetector(
-      onTap: () async {
-        String? username;
-        if (usernamePicker != null) {
-          username = await usernamePicker!.call(
-            context,
-            username: initialUsername,
-          );
-        } else {
-          username = await showDialog<String>(
-            context: context,
-            builder: (_) => BBCodeLocalizationsWidget(
-              child: FlutterQuillLocalizationsWidget(
-                child: PickUserMentionDialog(username: initialUsername),
-              ),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () async => _onTap(context, controller, initialUsername),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 2, right: 2),
+          child: Text(
+            '@$initialUsername',
+            style: TextStyle(
+              // // refer: https://stackoverflow.com/a/70293635
+              // background: Paint()
+              //   ..color = Theme.of(context).colorScheme.onPrimary
+              //   ..strokeWidth = 10
+              //   ..strokeJoin = StrokeJoin.round
+              //   ..strokeCap = StrokeCap.round
+              //   ..style = PaintingStyle.stroke,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
+              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
             ),
-          );
-        }
-
-        if (username == null) {
-          return;
-        }
-
-        final offset = getEmbedNode(
-          controller,
-          controller.selection.start,
-        ).offset;
-        controller
-          ..replaceText(
-            offset,
-            1,
-            BlockEmbed.custom(
-              CustomBlockEmbed(
-                UserMentionAttributeKeys.key,
-                username,
-              ),
-            ),
-            TextSelection.collapsed(offset: offset),
-          )
-          ..editorFocusNode?.requestFocus()
-          ..moveCursorToPosition(offset + 1);
-      },
-      child: Text(
-        '@$initialUsername',
-        style: TextStyle(
-          // // refer: https://stackoverflow.com/a/70293635
-          // background: Paint()
-          //   ..color = Theme.of(context).colorScheme.onPrimary
-          //   ..strokeWidth = 10
-          //   ..strokeJoin = StrokeJoin.round
-          //   ..strokeCap = StrokeCap.round
-          //   ..style = PaintingStyle.stroke,
-          color: Theme.of(context).colorScheme.primary,
-          backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+          ),
         ),
       ),
     );

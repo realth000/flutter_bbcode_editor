@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/editor.dart';
 import 'package:flutter_bbcode_editor/src/extensions/context.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
-import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
+import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_embed.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/translations.dart';
 
@@ -119,10 +119,7 @@ class BBCodeEditorToolbarUserMentionButton extends StatelessWidget {
           return;
         }
 
-        controller.insertEmbedBlock(
-          UserMentionAttributeKeys.key,
-          username, // String type
-        );
+        controller.insertEmbedBlock(BBCodeUserMentionEmbed(username));
       },
     );
   }
