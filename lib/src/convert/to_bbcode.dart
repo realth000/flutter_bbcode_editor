@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
-import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_keys.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_keys.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
 import 'package:flutter_bbcode_editor/src/utils.dart';
@@ -53,10 +52,7 @@ final Map<String, EmbedToBBCode> defaultEmbedHandlers = {
   },
   BBCodeEmbedTypes.emoji: (embed, out) {
     final d1 = jsonDecode(embed.value.data as String) as Map<String, dynamic>;
-    final imageInfo = BBCodeEmojiInfo.fromJson(
-      jsonDecode(d1[BBCodeEmbedTypes.emoji] as String) as Map<String, dynamic>,
-    );
-    out.write(imageInfo.code);
+    out.write(d1[BBCodeEmbedTypes.emoji] as String);
   },
   UserMentionAttributeKeys.key: (embed, out) {
     final d1 = jsonDecode(embed.value.data as String) as Map<String, dynamic>;
