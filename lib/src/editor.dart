@@ -114,7 +114,6 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
               scrollController: widget.scrollController,
               focusNode: widget.focusNode,
               configurations: QuillEditorConfigurations(
-                enableMarkdownStyleConversion: false,
                 autoFocus: widget.autoFocus,
                 embedBuilders: [
                   BBCodeImageEmbedBuilder(
@@ -124,7 +123,8 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
                   ),
                   BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
                   BBCodeUserMentionEmbedBuilder(
-                      usernamePicker: widget.usernamePicker),
+                    usernamePicker: widget.usernamePicker,
+                  ),
                 ],
                 onLaunchUrl: widget.urlLauncher,
                 customRecognizerBuilder: (attribute, node) {

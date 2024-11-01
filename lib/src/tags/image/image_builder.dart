@@ -32,9 +32,6 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
 
   final BBCodeImagePicker? _imagePicker;
 
-  /// Map of image url and calculated image widget.
-  final _imageCacheMap = <String, Widget>{};
-
   /// Optional size constraints on rendered image.
   BoxConstraints? constraints;
 
@@ -136,6 +133,17 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
   bool get expanded => false;
 
   @override
+  WidgetSpan buildWidgetSpan(Widget widget) {
+    return WidgetSpan(
+      child: Padding(
+        // Add padding to avoid covering cursor.
+        padding: const EdgeInsets.only(left: 2),
+        child: widget,
+      ),
+    );
+  }
+
+  @override
   Widget build(
     BuildContext context,
     QuillController controller,
@@ -151,17 +159,6 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     final link = info.link;
     final width = info.width;
     final height = info.height;
-
-    // Setup cache.
-    if (!_imageCacheMap.containsKey(link)) {
-      _imageCacheMap[link] = _bbCodeImageProvider?.call(
-            context,
-            link,
-            width,
-            height,
-          ) ??
-          Image.network(link);
-    }
 
     return GestureDetector(
       onTap: () async {
@@ -208,17 +205,23 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
           ),
         );
       },
-      child: Badge(
-        label: Text('${width}x$height'),
-        isLabelVisible:
-            _bbCodeImageProvider != null && width != null && height != null,
-        alignment: Alignment.topLeft.add(const Alignment(0, 0.2)),
-        child: constraints != null
-            ? ConstrainedBox(
-                constraints: constraints!,
-                child: _imageCacheMap[link],
-              )
-            : _imageCacheMap[link],
+      child: Material(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 2, top: 8, right: 2),
+          child: Badge(
+            label: Text('${width}x$height'),
+            isLabelVisible:
+                _bbCodeImageProvider != null && width != null && height != null,
+            alignment: Alignment.topLeft,
+            child: _bbCodeImageProvider?.call(
+                  context,
+                  link,
+                  width,
+                  height,
+                ) ??
+                Image.network(link),
+          ),
+        ),
       ),
     );
   }
