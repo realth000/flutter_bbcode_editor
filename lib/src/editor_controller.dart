@@ -98,6 +98,24 @@ final class BBCodeEditorController {
       ..moveCursorToPosition(_quillController.index + 1);
   }
 
+  /// Insert formatted embed block [embed] into editor.
+  ///
+  /// Works like [insertEmbedBlock] but exists due to #2303 where should use
+  /// [Embeddable] instead of [CustomBlockEmbed] as a workaround.
+  ///
+  /// refer: https://github.com/singerdmx/flutter-quill/issues/2303
+  void insertEmbeddable(Embeddable embed) {
+    _quillController
+      ..replaceText(
+        _quillController.index,
+        _quillController.length,
+        embed,
+        null,
+      )
+      ..editorFocusNode?.requestFocus()
+      ..moveCursorToPosition(_quillController.index + 1);
+  }
+
   /// Dispose the controller.
   void dispose() {
     _quillController.dispose();

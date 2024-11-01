@@ -200,7 +200,8 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
           return;
         }
 
-        controller.insertEmbedBlock(BBCodeImageEmbed(imageInfo));
+        // FIXME: Waiting for upstream fix. check func definition for details.
+        controller.insertEmbeddable(BBCodeImageEmbed(imageInfo));
 
         return;
       },

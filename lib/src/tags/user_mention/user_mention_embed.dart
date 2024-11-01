@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
+// FIXME: Waiting for upstream fix. Should derive from CustomEmbedBlock.
 /// Definition of image used in bbcode editor.
-final class BBCodeUserMentionEmbed extends CustomBlockEmbed {
+final class BBCodeUserMentionEmbed extends Embeddable {
   /// Constructor.
   const BBCodeUserMentionEmbed(String value) : super(embedType, value);
 

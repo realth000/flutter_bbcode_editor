@@ -38,7 +38,8 @@ class BBCodeEditorToolbarEmojiButton extends StatelessWidget {
       onPressed: () async {
         final code = await emojiPicker(context);
         if (code != null) {
-          controller.insertEmbedBlock(BBCodeEmojiEmbed(code));
+          // FIXME: Waiting for upstream fix. check func definition for details.
+          controller.insertEmbeddable(BBCodeEmojiEmbed(code));
         }
       },
     );

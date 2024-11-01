@@ -4,8 +4,9 @@ import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
+// FIXME: Waiting for upstream fix. Should derive from CustomEmbedBlock.
 /// Definition of image used in bbcode editor.
-final class BBCodeImageEmbed extends CustomBlockEmbed {
+final class BBCodeImageEmbed extends Embeddable {
   /// Constructor.
   BBCodeImageEmbed(BBCodeImageInfo value)
       : super(bbcodeImageType, jsonEncode(value.toJson()));

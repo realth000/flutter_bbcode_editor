@@ -119,7 +119,8 @@ class BBCodeEditorToolbarUserMentionButton extends StatelessWidget {
           return;
         }
 
-        controller.insertEmbedBlock(BBCodeUserMentionEmbed(username));
+        // FIXME: Waiting for upstream fix. check func definition for details.
+        controller.insertEmbeddable(BBCodeUserMentionEmbed(username));
       },
     );
   }
