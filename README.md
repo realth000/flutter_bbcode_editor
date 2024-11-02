@@ -1,10 +1,12 @@
+English | [简体中文](./docs/readme.zh-CN.md)
+
 # flutter_bbcode_editor
 
 Edit bbcode with WYSIWYG support.
 
-> **Warning**
->
-> This package is still work in progress.
+## WIP
+
+**This package is still work in progress. Feature or API may change in the future.**
 
 ## Introduction
 
@@ -12,41 +14,46 @@ Flutter widget to edit [bbcode](https://en.wikipedia.org/wiki/BBCode) with [WYSI
 
 Based on [flutter_quill](https://pub.dev/packages/flutter_quill).
 
-## Features
+## Feature
 
 > These tags are used in [TSDM](https://tsdm39.com/) forum.
 > Allow to disable and override.
 
-* [ ] BBCode tags.
-  * [x] Font family (support code convert but no visual result).
-  * [x] Font size (specified value 1~7).
-  * [x] Font color.
-  * [x] Bold.
-  * [x] Italic.
-  * [x] Underline.
-  * [x] Strikethrough.
-  * [x] Superscript.
-  * [x] Alignment.
-    * [x] Align left.
-    * [x] Align center.
-    * [x] Align right.
-  * [x] Custom emoji `{emoji_id}`.
-  * [ ] Paragraph alignment (left/center/right).
-  * [x] Url `[url]`.
-  * [x] Image `[img]`.
-    * Specify size `[img=$width,$height]$image_url[/img]`.
-  * [ ] Spoiler `[spoiler]`.
-  * [ ] Locked area `[hide]`.
-  * [x] Mention user with `[@]`.
-  * [x] Ordered list.
-  * [x] Bullet list.
-  * [ ] Table.
-* [ ] Source code mode.
-* [x] Export plain code result.
-* [ ] Custom tags.
-
-### Not supported
-
-These features are not supported.
-
-* Nested block styles (code block, quote block, list)
+* [ ] BBCode tags
+  * ~~Font family~~ *Not planned*
+  * [x] Font size `[size=$size]` (specified value 1~7)
+  * [x] Font color `[color]`
+  * [x] Bold `[b]`
+  * [x] Italic `[i]`
+  * [x] Underline `[u]`
+  * [x] Background color `[backcolor=$color]`
+  * [x] Strikethrough `[s]`
+  * [x] Superscript `[sup]`
+  * [x] Alignment
+    * [x] Align left `[align=left]`
+    * [x] Align center `[align=center]`
+    * [x] Align right `[align=right]`
+  * [x] Emoji `{:emoji_id:}`
+  * [x] Url `[url]`
+  * [x] Image `[img]`
+    * Specify size `[img=$width,$height]$image_url[/img]`
+  * [ ] Spoiler `[spoiler]`
+  * [ ] Locked area
+    * [ ] Locked with reply `[hide]` *Users need to reply to see this content.*
+    * [ ] Locked with points `[hide=$points]` *Only users have points more than $points are allowed to see this content.*
+  * [x] Mention user with `[@]$user_name[/@]`
+  * [x] Ordered list `[list=1]`
+  * [x] Bullet list `[list=]`
+  * [ ] Splitter `[hr]`
+  * [ ] Table `[table]`
+  * [x] Code block `[code]`
+  * [ ] Quote block `[quote]`
+* [ ] Source code mode
+* [x] Export **Output format is not stable yet, changes in future may cause old data unparsable.**
+  * [x] As bbcode
+  * [x] As quill delta
+* [ ] Import
+  * [ ] From BBCode
+  * [x] From quill delta
+* [ ] Custom tags
+* [ ] Nested block styles (code block, quote block, list)
