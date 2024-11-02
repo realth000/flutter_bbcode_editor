@@ -169,13 +169,15 @@ final AttrHandlerMap defaultTextAttrHandlers = {
   // Font color.
   Attribute.color.key: BBCodeAttributeHandler(
     beforeContent: (attribute, node, output) => output.write(
-        '[color=${ColorUtils.toBBCodeColor(attribute.value as String? ?? "")}]'),
+      '[color=${ColorUtils.toBBCodeColor(attribute.value as String? ?? "")}]',
+    ),
     afterContent: (attribute, node, output) => output.write('[/color]'),
   ),
   // Background color.
   Attribute.background.key: BBCodeAttributeHandler(
     beforeContent: (attribute, node, output) => output.write(
-      '[backcolor=${ColorUtils.toBBCodeColor(attribute.value as String? ?? "")}]',
+      '[backcolor='
+      '${ColorUtils.toBBCodeColor(attribute.value as String? ?? "")}]',
     ),
     afterContent: (attribute, node, output) => output.write('[/backcolor]'),
   ),
@@ -262,22 +264,6 @@ extension _NodeX on Node {
         return visitor.visitEmbed(this as Embed, context);
     }
     throw Exception('Container of type $runtimeType cannot be visited');
-  }
-
-  bool containsAttr(String attributeKey, [Object? value]) {
-    if (!style.containsKey(attributeKey)) {
-      return false;
-    }
-    if (value == null) {
-      return true;
-    }
-    return style.attributes[attributeKey]!.value == value;
-  }
-
-  T getAttrValueOr<T>(String attributeKey, T or) {
-    final attrs = style.attributes;
-    final attrValue = attrs[attributeKey]?.value as T?;
-    return attrValue ?? or;
   }
 
   List<Attribute<Object?>> attrsSortedByLongestSpan() {
@@ -380,7 +366,6 @@ class DeltaToBBCode extends Converter<Delta, String>
 
   @override
   StringSink visitBlock(Block block, [StringSink? output]) {
-    print('>>> visitBlock');
     final out = output ??= StringBuffer();
     _handleAttribute(defaultBlockAttrHandlers, block, output, () {
       for (final line in block.children) {
@@ -392,7 +377,6 @@ class DeltaToBBCode extends Converter<Delta, String>
 
   @override
   StringSink visitEmbed(Embed embed, [StringSink? output]) {
-    print('>>> visitEmbed');
     final out = output ??= StringBuffer();
     defaultEmbedHandlers[embed.value.type]?.call(embed, out);
     return out;
@@ -400,7 +384,6 @@ class DeltaToBBCode extends Converter<Delta, String>
 
   @override
   StringSink visitLine(Line line, [StringSink? output]) {
-    print('>>> visitLine: style=${line.style}, hasEmbed=${line.hasEmbed}');
     // TODO: implement visitLine
     final out = output ??= StringBuffer();
     _handleAttribute(defaultLineAttrHandlers, line, output, () {
@@ -421,7 +404,6 @@ class DeltaToBBCode extends Converter<Delta, String>
 
   @override
   StringSink visitRoot(Root root, [StringSink? output]) {
-    print('>>> visitRoot');
     final out = output ??= StringBuffer();
     for (final container in root.children) {
       container.accept(this, out);
@@ -431,12 +413,9 @@ class DeltaToBBCode extends Converter<Delta, String>
 
   @override
   StringSink visitText(QuillText text, [StringSink? output]) {
-    print('>>> visitText: ${text.style}');
     // TODO: implement visitText
     final out = output ??= StringBuffer();
-    _handleTextAttribute(defaultTextAttrHandlers, text, output, (data) {
-      out.write(data);
-    });
+    _handleTextAttribute(defaultTextAttrHandlers, text, output, out.write);
     return out;
   }
 }

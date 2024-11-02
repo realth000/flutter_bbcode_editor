@@ -27,7 +27,9 @@ String? _validateImageSize(BuildContext context, String? v) {
   return null;
 }
 
+/// Default dialog to pick an image.
 final class PickImageDialog extends StatefulWidget {
+  /// Constructor.
   const PickImageDialog({
     this.link,
     this.width,
@@ -36,9 +38,22 @@ final class PickImageDialog extends StatefulWidget {
     super.key,
   });
 
+  /// Injected quill theme.
   final QuillDialogTheme? dialogTheme;
+
+  /// Image url.
   final String? link;
+
+  /// Initial image width.
+  ///
+  /// Pass this field from outside to display as the initial image width value
+  /// in dialog.
   final int? width;
+
+  /// Initial image height.
+  ///
+  /// Pass this field from outside to display as the initial image height value
+  /// in dialog.
   final int? height;
 
   @override
@@ -150,6 +165,8 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
 
   /// Injected editor controller.
   final BBCodeEditorController controller;
+
+  /// Injected theme.
   final QuillDialogTheme? dialogTheme;
 
   /// Optional image picker.

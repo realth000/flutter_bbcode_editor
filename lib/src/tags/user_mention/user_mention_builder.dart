@@ -14,6 +14,7 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
   /// Constructor.
   BBCodeUserMentionEmbedBuilder({this.usernamePicker});
 
+  /// Callback when want user to pick a username.
   final BBCodeUsernamePicker? usernamePicker;
 
   Future<void> _onTap(

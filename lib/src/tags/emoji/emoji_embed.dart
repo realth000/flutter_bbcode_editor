@@ -21,6 +21,7 @@ final class BBCodeEmojiInfo {
   /// Constructor.
   BBCodeEmojiInfo({required this.code});
 
+  /// Construct from [json] string.
   factory BBCodeEmojiInfo.fromJson(String json) {
     final data = jsonDecode(json) as Map<String, dynamic>;
     return BBCodeEmojiInfo(code: data[BBCodeEmojiKeys.code] as String);
@@ -32,6 +33,7 @@ final class BBCodeEmojiInfo {
     out.write(d1.code);
   }
 
+  /// Convert to json string.
   String toJson() => jsonEncode(<String, dynamic>{
         BBCodeEmojiKeys.code: code,
       });

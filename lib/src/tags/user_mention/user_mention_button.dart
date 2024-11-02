@@ -15,12 +15,22 @@ import 'package:flutter_quill/translations.dart';
 ///
 /// [username] is an optional initial username if user is going to edit an
 /// existing username block in editor.
-typedef BBCodeUsernamePicker = Future<String?> Function(BuildContext context,
-    {String? username});
+typedef BBCodeUsernamePicker = Future<String?> Function(
+  BuildContext context, {
+  String? username,
+});
 
+/// Default dialog to pick user name working for the user mention feature.
 class PickUserMentionDialog extends StatefulWidget {
+  /// Constructor.
   const PickUserMentionDialog({this.username, super.key});
 
+  /// Initial username.
+  ///
+  /// This dialog may be constructed when user tapping a user mention embed
+  /// widget in editor. In this situation it's not creating a new embed, instead
+  /// modifying an existing one. So here is an existing username saved in this
+  /// field.
   final String? username;
 
   @override

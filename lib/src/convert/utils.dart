@@ -1,7 +1,6 @@
 //ignore_for_file: cast_nullable_to_non_nullable
 
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:flutter_quill/markdown_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 
 /// To allow embedding images/videos in horizontal mode.
@@ -20,7 +19,8 @@ Delta transform(Delta delta) {
     res.push(op);
     autoAppendNewlineAfterEmbeddable(i, ops, op, res, [
       'hr',
-      EmbeddableTable.tableType,
+      'x-embed-table',
+      // EmbeddableTable.tableType,
     ]);
   }
   return res;

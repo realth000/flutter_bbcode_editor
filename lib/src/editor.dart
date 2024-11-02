@@ -58,6 +58,7 @@ class BBCodeEditor extends StatefulWidget {
   /// Callback when need to build an image from given url.
   final BBCodeImageProvider? imageProvider;
 
+  /// Callback when need to pick an image.
   final BBCodeImagePicker? imagePicker;
 
   /// Callback when user tap on text with user mention attribute.
@@ -66,6 +67,7 @@ class BBCodeEditor extends StatefulWidget {
   /// Callback when user intend to launch an url.
   final void Function(String)? urlLauncher;
 
+  /// Callback when need to pick username.
   final BBCodeUsernamePicker? usernamePicker;
 
   /// Automatically requires focus.

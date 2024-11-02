@@ -36,6 +36,7 @@ class BBCodeUserMentionInfo {
     );
   }
 
+  /// Parse en current type [embed] and add bbcode to [out].
   static void toBBCode(Embed embed, StringSink out) {
     final info = BBCodeUserMentionInfo.fromJson(embed.value.data as String);
     out.write('[@]${info.username}[/@]');
