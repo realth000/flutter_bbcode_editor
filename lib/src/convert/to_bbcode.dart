@@ -5,16 +5,16 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
+import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_embed.dart';
+import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_keys.dart';
+import 'package:flutter_bbcode_editor/src/tags/image/image_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_keys.dart';
+import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
+import 'package:flutter_bbcode_editor/src/types.dart';
 import 'package:flutter_bbcode_editor/src/utils.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
-
-/// Functions convert [Embed] to bbcode content.
-///
-/// An [Embed] is something embedded in content, like an image.
-typedef EmbedToBBCode = void Function(Embed embed, StringSink out);
 
 /// Bellow are default attribute handlers for different delta node types.
 
@@ -41,24 +41,9 @@ final AttrHandlerMap defaultBlockAttrHandlers = {
 ///
 /// * Image.
 final Map<String, EmbedToBBCode> defaultEmbedHandlers = {
-  BBCodeEmbedTypes.image: (embed, out) {
-    final d1 = jsonDecode(embed.value.data as String) as Map<String, dynamic>;
-    final imageInfo = BBCodeImageInfo.fromJson(
-      jsonDecode(d1[BBCodeEmbedTypes.image] as String) as Map<String, dynamic>,
-    );
-    out.write('[img=${imageInfo.width},${imageInfo.height}]'
-        '${imageInfo.link}'
-        '[/img]');
-  },
-  BBCodeEmbedTypes.emoji: (embed, out) {
-    final d1 = jsonDecode(embed.value.data as String) as Map<String, dynamic>;
-    out.write(d1[BBCodeEmbedTypes.emoji] as String);
-  },
-  UserMentionAttributeKeys.key: (embed, out) {
-    final d1 = jsonDecode(embed.value.data as String) as Map<String, dynamic>;
-    final username = d1[UserMentionAttributeKeys.key] as String;
-    out.write('[@]$username[/@]');
-  },
+  BBCodeEmojiKeys.type: BBCodeEmojiInfo.toBBCode,
+  BBCodeImageKeys.type: BBCodeImageInfo.toBBCode,
+  BBCodeUserMentionKeys.type: BBCodeUserMentionInfo.toBBCode,
 };
 
 /// Default attribute handlers for line nodes.
@@ -409,11 +394,7 @@ class DeltaToBBCode extends Converter<Delta, String>
   StringSink visitEmbed(Embed embed, [StringSink? output]) {
     print('>>> visitEmbed');
     final out = output ??= StringBuffer();
-    final embedDataMap =
-        jsonDecode(embed.value.data as String) as Map<String, dynamic>;
-    final type = embedDataMap.keys.first;
-    print('>>> type $type, data=${embedDataMap[type]}');
-    defaultEmbedHandlers[type]?.call(embed, out);
+    defaultEmbedHandlers[embed.value.type]?.call(embed, out);
     return out;
   }
 

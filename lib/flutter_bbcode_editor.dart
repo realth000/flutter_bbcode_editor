@@ -8,11 +8,14 @@ export 'src/editor.dart'
         BBCodeUrlPicker,
         PickColorResult,
         PickUrlResult;
-export 'src/editor_configuration.dart';
-export 'src/tags/image/image_builder.dart' show BBCodeImageProvider;
-export 'src/tags/image/image_button.dart' show BBCodeImagePicker;
-export 'src/tags/image/image_keys.dart' show BBCodeImageInfo;
+export 'src/editor_configuration.dart' show BBCodeEditorToolbarConfiguration;
+export 'src/tags/image/image_embed.dart' show BBCodeImageInfo;
 export 'src/tags/user_mention/user_mention_button.dart'
     show BBCodeUsernamePicker;
-export 'src/tags/user_mention/user_mention_keys.dart'
-    show BBCodeUserMentionHandler;
+export 'src/types.dart'
+    show
+        BBCodeEmojiPicker,
+        BBCodeEmojiProvider,
+        BBCodeImagePicker,
+        BBCodeImageProvider,
+        BBCodeUserMentionHandler;

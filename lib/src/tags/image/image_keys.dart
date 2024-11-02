@@ -1,64 +1,16 @@
-final class ImageKeys {
-  ImageKeys._();
+/// Keys related to image tag.
+final class BBCodeImageKeys {
+  BBCodeImageKeys._();
+
+  /// Tag type.
+  static const String type = 'bbcodeImage';
+
+  /// Image url.
   static const String link = 'link';
+
+  /// Image width.
   static const String width = 'width';
+
+  /// Image height.
   static const String height = 'height';
-}
-
-final class BBCodeImageInfo {
-  const BBCodeImageInfo(
-    this.link, {
-    this.width,
-    this.height,
-  });
-
-  final String link;
-  final int? width;
-  final int? height;
-
-  @override
-  String toString() => '${ImageKeys.link}=$link, '
-      '${ImageKeys.width}=$width, '
-      '${ImageKeys.height}=$height';
-
-  Map<String, dynamic> toJson() => {
-        ImageKeys.link: link,
-        ImageKeys.width: width,
-        ImageKeys.height: height,
-      };
-
-  static BBCodeImageInfo fromJson(Map<String, dynamic> json) {
-    final link = switch (json) {
-      {ImageKeys.link: final String data} => data,
-      _ => null,
-    };
-    assert(link != null, 'Link in Image delta json MUST NOT a String');
-
-    final width = switch (json) {
-      {ImageKeys.width: final int? data} => data,
-      _ => null,
-    };
-    final height = switch (json) {
-      {ImageKeys.height: final int? data} => data,
-      _ => null,
-    };
-
-    return BBCodeImageInfo(
-      link!,
-      width: width,
-      height: height,
-    );
-  }
-
-  BBCodeImageInfo copyWith({
-    String? link,
-    int? width,
-    int? height,
-  }) {
-    return BBCodeImageInfo(
-      link ?? this.link,
-      width: width ?? this.width,
-      height: height ?? this.height,
-    );
-  }
 }

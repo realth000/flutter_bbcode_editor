@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_button.dart';
+import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/translations.dart';
@@ -50,12 +50,7 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
       ..replaceText(
         offset,
         1,
-        BlockEmbed.custom(
-          CustomBlockEmbed(
-            UserMentionAttributeKeys.key,
-            username,
-          ),
-        ),
+        BBCodeUserMentionEmbed.raw(username: username),
         TextSelection.collapsed(offset: offset),
       )
       ..editorFocusNode?.requestFocus()
@@ -63,7 +58,7 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
   }
 
   @override
-  String get key => BBCodeEmbedTypes.userMention;
+  String get key => BBCodeUserMentionKeys.type;
 
   @override
   bool get expanded => false;
@@ -77,16 +72,18 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
     bool inline,
     TextStyle textStyle,
   ) {
-    final initialUsername = node.value.data as String;
+    final initialUsername =
+        BBCodeUserMentionInfo.fromJson(node.value.data as String);
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () async => _onTap(context, controller, initialUsername),
+        onTap: () async =>
+            _onTap(context, controller, initialUsername.username),
         child: Padding(
           padding: const EdgeInsets.only(left: 2, right: 2),
           child: Text(
-            '@$initialUsername',
+            '@${initialUsername.username}',
             style: TextStyle(
               // // refer: https://stackoverflow.com/a/70293635
               // background: Paint()

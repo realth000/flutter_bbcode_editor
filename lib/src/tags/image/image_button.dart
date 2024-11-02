@@ -4,25 +4,9 @@ import 'package:flutter_bbcode_editor/src/editor.dart';
 import 'package:flutter_bbcode_editor/src/extensions/context.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_embed.dart';
-import 'package:flutter_bbcode_editor/src/tags/image/image_keys.dart';
+import 'package:flutter_bbcode_editor/src/types.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/translations.dart';
-
-/// Function to pick an image.
-///
-///
-/// The following optional parameters are passed (may be not null) when editing
-/// already inserted images:
-///
-/// * [link] image url.
-/// * [width] image width.
-/// * [height] image height.
-typedef BBCodeImagePicker = Future<BBCodeImageInfo?> Function(
-  BuildContext context,
-  String? link,
-  int? width,
-  int? height,
-);
 
 final _imageSizeFormatters = [
   FilteringTextInputFormatter.allow(

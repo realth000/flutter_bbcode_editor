@@ -1,22 +1,54 @@
 import 'dart:convert';
 
-import 'package:flutter_bbcode_editor/src/constants.dart';
+import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
 // FIXME: Waiting for upstream fix. Should derive from CustomEmbedBlock.
 /// Definition of image used in bbcode editor.
 final class BBCodeUserMentionEmbed extends Embeddable {
   /// Constructor.
-  const BBCodeUserMentionEmbed(String value) : super(embedType, value);
+  BBCodeUserMentionEmbed(BBCodeUserMentionInfo data)
+      : super(BBCodeUserMentionKeys.type, data.toJson());
 
   /// Construct from quill document.
-  factory BBCodeUserMentionEmbed.fromDocument(Document document) =>
-      BBCodeUserMentionEmbed(jsonEncode(document.toDelta().toJson()));
+  factory BBCodeUserMentionEmbed.raw({required String username}) =>
+      BBCodeUserMentionEmbed(BBCodeUserMentionInfo(username: username));
+}
 
-  /// Embed type.
-  static const embedType = BBCodeEmbedTypes.userMention;
+/// Data class carrying user mention data.
+class BBCodeUserMentionInfo {
+  /// Constructor.
+  const BBCodeUserMentionInfo({
+    required this.username,
+  });
 
-  /// Get the quill document.
-  Document get document =>
-      Document.fromJson(jsonDecode(data as String) as List);
+  /// Build from json.
+  ///
+  /// ```json
+  /// {
+  ///   "username": $USERNAME
+  /// }
+  /// ```
+  factory BBCodeUserMentionInfo.fromJson(String json) {
+    final data = jsonDecode(json) as Map<String, dynamic>;
+    return BBCodeUserMentionInfo(
+      username: data[BBCodeUserMentionKeys.username] as String,
+    );
+  }
+
+  static void toBBCode(Embed embed, StringSink out) {
+    final info = BBCodeUserMentionInfo.fromJson(embed.value.data as String);
+    out.write('[@]${info.username}[/@]');
+  }
+
+  /// User name to mention.
+  final String username;
+
+  /// Convert info json.
+  String toJson() => jsonEncode(<String, dynamic>{
+        BBCodeUserMentionKeys.username: username,
+      });
+
+  @override
+  String toString() => 'BBCodeUserMentionInfo{ username=$username }';
 }

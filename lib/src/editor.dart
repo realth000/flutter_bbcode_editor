@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/convert/to_bbcode.dart';
@@ -14,7 +13,7 @@ import 'package:flutter_bbcode_editor/src/tags/image/image_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_button.dart';
-import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
+import 'package:flutter_bbcode_editor/src/types.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 import 'package:flutter_quill/translations.dart';
@@ -127,24 +126,24 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
                   ),
                 ],
                 onLaunchUrl: widget.urlLauncher,
-                customRecognizerBuilder: (attribute, node) {
-                  // User mention
-                  if (attribute.key == UserMentionAttributeKeys.key) {
-                    return TapGestureRecognizer()
-                      ..onTap = () async => widget.userMentionHandler
-                          ?.call(attribute.value as String);
-                  }
-                  return null;
-                },
-                customStyleBuilder: (attribute) {
-                  // User mention
-                  if (attribute.key == UserMentionAttributeKeys.key) {
-                    return const TextStyle(
-                      decoration: TextDecoration.underline,
-                    );
-                  }
-                  return const TextStyle();
-                },
+                // customRecognizerBuilder: (attribute, node) {
+                //   // User mention
+                //   if (attribute.key == BBCodeEmbedTypes.userMention) {
+                //     return TapGestureRecognizer()
+                //       ..onTap = () async => widget.userMentionHandler
+                //           ?.call(attribute.value as String);
+                //   }
+                //   return null;
+                // },
+                // customStyleBuilder: (attribute) {
+                //   // User mention
+                //   if (attribute.key == BBCodeEmbedTypes.userMention) {
+                //     return const TextStyle(
+                //       decoration: TextDecoration.underline,
+                //     );
+                //   }
+                //   return const TextStyle();
+                // },
               ),
             ),
           ),

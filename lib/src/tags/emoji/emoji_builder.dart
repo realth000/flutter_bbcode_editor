@@ -1,16 +1,10 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bbcode_editor/src/constants.dart';
+import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_embed.dart';
+import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_keys.dart';
+import 'package:flutter_bbcode_editor/src/types.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
-// TODO: Async?
-/// External function, provide emoji image from bbcode [code].
-typedef BBCodeEmojiProvider = Widget Function(
-  BuildContext context,
-  String code,
-);
-
-/// Editor widget builder for embed emoji types.
-///
+/// Editor widget builder for emoji.
 final class BBCodeEmojiEmbedBuilder extends EmbedBuilder {
   /// Constructor.
   BBCodeEmojiEmbedBuilder({required this.emojiProvider});
@@ -25,7 +19,7 @@ final class BBCodeEmojiEmbedBuilder extends EmbedBuilder {
   bool get expanded => false;
 
   @override
-  String get key => BBCodeEmbedTypes.emoji;
+  String get key => BBCodeEmojiKeys.type;
 
   @override
   Widget build(
@@ -36,7 +30,8 @@ final class BBCodeEmojiEmbedBuilder extends EmbedBuilder {
     bool inline,
     TextStyle textStyle,
   ) {
-    final code = node.value.data as String;
+    final info = BBCodeEmojiInfo.fromJson(node.value.data as String);
+    final code = info.code;
     if (!_emojiCacheMap.containsKey(code)) {
       _emojiCacheMap[code] = emojiProvider(context, code);
     }

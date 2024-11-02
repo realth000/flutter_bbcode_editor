@@ -1,21 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/extensions/context.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_button.dart';
+import 'package:flutter_bbcode_editor/src/tags/image/image_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_keys.dart';
+import 'package:flutter_bbcode_editor/src/types.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-
-/// External function build a image widget from given image [url].
-typedef BBCodeImageProvider = Widget Function(
-  BuildContext context,
-  String url,
-  int? width,
-  int? height,
-);
 
 /// Editor widget builder for embed image types.
 ///
@@ -40,9 +31,7 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     QuillController controller,
     Embed node,
   ) async {
-    final imageInfo = BBCodeImageInfo.fromJson(
-      jsonDecode(node.value.data as String) as Map<String, dynamic>,
-    );
+    final imageInfo = BBCodeImageInfo.fromJson(node.value.data as String);
     BBCodeImageInfo? info;
     if (_imagePicker != null) {
       info = await _imagePicker(
@@ -77,12 +66,7 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     controller.replaceText(
       offset,
       1,
-      BlockEmbed.custom(
-        CustomBlockEmbed(
-          BBCodeEmbedTypes.image,
-          jsonEncode(info.toJson()),
-        ),
-      ),
+      BBCodeImageEmbed(info),
       TextSelection.collapsed(offset: offset),
     );
 
@@ -115,9 +99,7 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     QuillController controller,
     Embed node,
   ) async {
-    final imageInfo = BBCodeImageInfo.fromJson(
-      jsonDecode(node.value.data as String) as Map<String, dynamic>,
-    );
+    final imageInfo = BBCodeImageInfo.fromJson(node.value.data as String);
     await Clipboard.setData(
       ClipboardData(text: imageInfo.link),
     );
@@ -127,7 +109,7 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
   }
 
   @override
-  String get key => BBCodeEmbedTypes.image;
+  String get key => BBCodeImageKeys.type;
 
   @override
   bool get expanded => false;
@@ -153,9 +135,7 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     TextStyle textStyle,
   ) {
     final tr = context.bbcodeL10n;
-    final info = BBCodeImageInfo.fromJson(
-      jsonDecode(node.value.data as String) as Map<String, dynamic>,
-    );
+    final info = BBCodeImageInfo.fromJson(node.value.data as String);
     final link = info.link;
     final width = info.width;
     final height = info.height;
@@ -226,25 +206,3 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
     );
   }
 }
-
-/*
-
-                          final res = getEmbedNode(
-                            controller,
-                            controller.selection.start,
-                          );
-
-                          final attr = replaceStyleStringWithSize(
-                            getImageStyleString(controller),
-                            width: width,
-                            height: height,
-                          );
-                          controller
-                            ..skipRequestKeyboard = true
-                            ..formatText(
-                              res.offset,
-                              1,
-                              StyleAttribute(attr),
-                            );
-
- */

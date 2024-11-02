@@ -1,20 +1,5 @@
 import 'dart:ui';
 
-final class BBCodeEmbedTypes {
-  BBCodeEmbedTypes._();
-
-  /// Image.
-  ///
-  /// From url.
-  static const String image = 'bbcode-image';
-
-  /// Emoji.
-  static const String emoji = 'bbcode-emoji';
-
-  /// User mention block.
-  static const String userMention = 'bbcode-userMention';
-}
-
 // ignore_for_file: public_member_api_docs
 
 // TODO: Dynamic font size.
