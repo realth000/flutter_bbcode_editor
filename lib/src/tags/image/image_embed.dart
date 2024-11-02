@@ -73,9 +73,11 @@ final class BBCodeImageInfo {
   /// Parse en current type [embed] and add bbcode to [out].
   static void toBBCode(Embed embed, StringSink out) {
     final imageInfo = BBCodeImageInfo.fromJson(embed.value.data as String);
-    out.write('[img=${imageInfo.width},${imageInfo.height}]'
-        '${imageInfo.link}'
-        '[/img]');
+    final w = imageInfo.width ?? '';
+    final h = imageInfo.height ?? '';
+    final comma =
+        imageInfo.width != null && imageInfo.height != null ? ',' : '';
+    out.write('[img=$w$comma$h]${imageInfo.link}[/img]');
   }
 
   @override
