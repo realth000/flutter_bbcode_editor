@@ -120,4 +120,14 @@ final class BBCodeEditorController {
   void dispose() {
     _quillController.dispose();
   }
+
+  /// Move cursor to the end of document.
+  void moveCursorToEnd() {
+    _quillController.moveCursorToEnd();
+  }
+
+  /// Move cursor to the start of document.
+  void moveCursorToStart() {
+    _quillController.moveCursorToStart();
+  }
 }
