@@ -39,6 +39,7 @@ class BBCodeEditor extends StatefulWidget {
     this.initialText,
     this.imageConstraints,
     this.usernamePicker,
+    this.moveCursorToEndOnInitState = true,
     super.key,
   }) : _controller = controller;
 
@@ -76,6 +77,10 @@ class BBCodeEditor extends StatefulWidget {
   /// Optional initial text.
   final String? initialText;
 
+  /// Enable this flag if intend to move the cursor to the end of document once
+  /// the [initialText] applied to the editor.
+  final bool moveCursorToEndOnInitState;
+
   /// Optional layout constraints when rendering image.
   final BoxConstraints? imageConstraints;
 
@@ -93,6 +98,9 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
     if (widget.initialText != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _controllerV2.setDocumentFromRawText(widget.initialText!);
+        if (widget.moveCursorToEndOnInitState) {
+          _controllerV2.moveCursorToEnd();
+        }
       });
     }
   }
