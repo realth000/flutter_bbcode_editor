@@ -99,58 +99,29 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
 
   @override
   Widget build(BuildContext context) {
-    // FutureBuilder as a workaround for
-    // https://github.com/singerdmx/flutter-quill/issues/2045
-    return FutureBuilder(
-      future: Future.value(''),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const SizedBox.shrink();
-        }
-
-        return BBCodeLocalizationsWidget(
-          child: FlutterQuillLocalizationsWidget(
-            child: QuillEditor.basic(
-              controller: _controllerV2._quillController,
-              scrollController: widget.scrollController,
-              focusNode: widget.focusNode,
-              configurations: QuillEditorConfigurations(
-                autoFocus: widget.autoFocus,
-                embedBuilders: [
-                  BBCodeImageEmbedBuilder(
-                    widget.imageProvider,
-                    widget.imagePicker,
-                    constraints: widget.imageConstraints,
-                  ),
-                  BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
-                  BBCodeUserMentionEmbedBuilder(
-                    usernamePicker: widget.usernamePicker,
-                  ),
-                ],
-                onLaunchUrl: widget.urlLauncher,
-                // customRecognizerBuilder: (attribute, node) {
-                //   // User mention
-                //   if (attribute.key == BBCodeEmbedTypes.userMention) {
-                //     return TapGestureRecognizer()
-                //       ..onTap = () async => widget.userMentionHandler
-                //           ?.call(attribute.value as String);
-                //   }
-                //   return null;
-                // },
-                // customStyleBuilder: (attribute) {
-                //   // User mention
-                //   if (attribute.key == BBCodeEmbedTypes.userMention) {
-                //     return const TextStyle(
-                //       decoration: TextDecoration.underline,
-                //     );
-                //   }
-                //   return const TextStyle();
-                // },
+    return BBCodeLocalizationsWidget(
+      child: FlutterQuillLocalizationsWidget(
+        child: QuillEditor.basic(
+          controller: _controllerV2._quillController,
+          scrollController: widget.scrollController,
+          focusNode: widget.focusNode,
+          configurations: QuillEditorConfigurations(
+            autoFocus: widget.autoFocus,
+            embedBuilders: [
+              BBCodeImageEmbedBuilder(
+                widget.imageProvider,
+                widget.imagePicker,
+                constraints: widget.imageConstraints,
               ),
-            ),
+              BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
+              BBCodeUserMentionEmbedBuilder(
+                usernamePicker: widget.usernamePicker,
+              ),
+            ],
+            onLaunchUrl: widget.urlLauncher,
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
