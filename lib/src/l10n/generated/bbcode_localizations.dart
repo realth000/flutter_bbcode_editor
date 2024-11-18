@@ -279,6 +279,42 @@ abstract class BBCodeEditorLocalizations {
   /// In en, this message translates to:
   /// **'Expand'**
   String get spoilerExpand;
+
+  /// No description provided for @spoilerEditPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit spoiler'**
+  String get spoilerEditPageTitle;
+
+  /// No description provided for @spoilerEditPageOuter.
+  ///
+  /// In en, this message translates to:
+  /// **'Outer text'**
+  String get spoilerEditPageOuter;
+
+  /// No description provided for @spoilerEditPageOuterHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Text show on outer button'**
+  String get spoilerEditPageOuterHelper;
+
+  /// No description provided for @spoilerEditPageInner.
+  ///
+  /// In en, this message translates to:
+  /// **'Inner content'**
+  String get spoilerEditPageInner;
+
+  /// No description provided for @spoilerEditPageInnerHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Content can be collapsed'**
+  String get spoilerEditPageInnerHelper;
+
+  /// No description provided for @spoilerEditPageSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get spoilerEditPageSave;
 }
 
 class _BBCodeEditorLocalizationsDelegate

@@ -47,3 +47,6 @@ typedef BBCodeImagePicker = Future<BBCodeImageInfo?> Function(
   int? width,
   int? height,
 );
+
+/// Function to launch an url.
+typedef BBCodeUrlLauncher = void Function(String)?;

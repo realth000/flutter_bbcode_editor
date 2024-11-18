@@ -31,16 +31,20 @@ class BBCodeEditor extends StatefulWidget {
     required BBCodeEditorController controller,
     // TODO: Make optional.
     required this.emojiProvider,
+    required this.emojiPicker,
+    this.colorPicker,
+    this.backgroundColorPicker,
+    this.urlPicker,
     this.imageProvider,
     this.imagePicker,
     this.userMentionHandler,
     this.scrollController,
+    this.usernamePicker,
     this.focusNode,
     this.urlLauncher,
     this.autoFocus = false,
     this.initialText,
     this.imageConstraints,
-    this.usernamePicker,
     this.moveCursorToEndOnInitState = true,
     super.key,
   }) : _controller = controller;
@@ -58,6 +62,19 @@ class BBCodeEditor extends StatefulWidget {
   ///
   final BBCodeEmojiProvider emojiProvider;
 
+  /// Text color picker callback.
+  final BBCodeColorPicker? colorPicker;
+
+  /// Text background color picker callback.
+  final BBCodeColorPicker? backgroundColorPicker;
+
+  /// Url picker callback.
+  final BBCodeUrlPicker? urlPicker;
+
+  // TODO: Make optional.
+  /// Callback to pick emoji.
+  final BBCodeEmojiPicker emojiPicker;
+
   /// Callback when need to build an image from given url.
   final BBCodeImageProvider? imageProvider;
 
@@ -68,7 +85,7 @@ class BBCodeEditor extends StatefulWidget {
   final BBCodeUserMentionHandler? userMentionHandler;
 
   /// Callback when user intend to launch an url.
-  final void Function(String)? urlLauncher;
+  final BBCodeUrlLauncher urlLauncher;
 
   /// Callback when need to pick username.
   final BBCodeUsernamePicker? usernamePicker;
@@ -127,7 +144,18 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
               BBCodeUserMentionEmbedBuilder(
                 usernamePicker: widget.usernamePicker,
               ),
-              BBCodeSpoilerEmbedBuilder(),
+              BBCodeSpoilerEmbedBuilder(
+                emojiPicker: widget.emojiPicker,
+                emojiProvider: widget.emojiProvider,
+                colorPicker: widget.colorPicker,
+                backgroundColorPicker: widget.backgroundColorPicker,
+                urlPicker: widget.urlPicker,
+                imagePicker: widget.imagePicker,
+                imageProvider: widget.imageProvider,
+                usernamePicker: widget.usernamePicker,
+                userMentionHandler: widget.userMentionHandler,
+                urlLauncher: widget.urlLauncher,
+              ),
             ],
             onLaunchUrl: widget.urlLauncher,
           ),

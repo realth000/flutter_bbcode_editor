@@ -28,5 +28,11 @@
   "spoilerCopyQuilDelta": "Copy quill delta",
   "spoilerDelete": "Delete",
   "spoilerCollapse": "Collapse",
-  "spoilerExpand": "Expand"
+  "spoilerExpand": "Expand",
+  "spoilerEditPageTitle": "Edit spoiler",
+  "spoilerEditPageOuter": "Outer text",
+  "spoilerEditPageOuterHelper": "Text show on outer button",
+  "spoilerEditPageInner": "Inner content",
+  "spoilerEditPageInnerHelper": "Content can be collapsed",
+  "spoilerEditPageSave": "Save"
 }

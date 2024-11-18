@@ -95,6 +95,24 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
 
   @override
   String get spoilerExpand => '展开';
+
+  @override
+  String get spoilerEditPageTitle => '编辑折叠区域';
+
+  @override
+  String get spoilerEditPageOuter => '外部文字';
+
+  @override
+  String get spoilerEditPageOuterHelper => '显示在外部按钮上的文字';
+
+  @override
+  String get spoilerEditPageInner => '内部内容';
+
+  @override
+  String get spoilerEditPageInnerHelper => '可被折叠收起的内容';
+
+  @override
+  String get spoilerEditPageSave => '保存';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -190,4 +208,22 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
 
   @override
   String get spoilerExpand => '展開';
+
+  @override
+  String get spoilerEditPageTitle => '編輯折疊區域';
+
+  @override
+  String get spoilerEditPageOuter => '外部文字';
+
+  @override
+  String get spoilerEditPageOuterHelper => '顯示在外部按鈕上的文字';
+
+  @override
+  String get spoilerEditPageInner => '內部內容';
+
+  @override
+  String get spoilerEditPageInnerHelper => '可被折疊收起的內容';
+
+  @override
+  String get spoilerEditPageSave => '儲存';
 }

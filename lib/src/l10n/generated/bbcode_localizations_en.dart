@@ -95,4 +95,22 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
 
   @override
   String get spoilerExpand => 'Expand';
+
+  @override
+  String get spoilerEditPageTitle => 'Edit spoiler';
+
+  @override
+  String get spoilerEditPageOuter => 'Outer text';
+
+  @override
+  String get spoilerEditPageOuterHelper => 'Text show on outer button';
+
+  @override
+  String get spoilerEditPageInner => 'Inner content';
+
+  @override
+  String get spoilerEditPageInnerHelper => 'Content can be collapsed';
+
+  @override
+  String get spoilerEditPageSave => 'Save';
 }

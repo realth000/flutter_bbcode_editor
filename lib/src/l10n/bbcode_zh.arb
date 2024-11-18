@@ -28,5 +28,11 @@
   "spoilerCopyQuilDelta": "复制Quill delta",
   "spoilerDelete": "删除",
   "spoilerCollapse": "收起",
-  "spoilerExpand": "展开"
+  "spoilerExpand": "展开",
+  "spoilerEditPageTitle": "编辑折叠区域",
+  "spoilerEditPageOuter": "外部文字",
+  "spoilerEditPageOuterHelper": "显示在外部按钮上的文字",
+  "spoilerEditPageInner": "内部内容",
+  "spoilerEditPageInnerHelper": "可被折叠收起的内容",
+  "spoilerEditPageSave": "保存"
 }
