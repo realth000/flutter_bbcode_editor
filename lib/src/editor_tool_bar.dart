@@ -96,6 +96,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
     this.showClipboardCopyButton = true,
     this.showClipboardPasteButton = true,
     this.showUserMentionButton = true,
+    this.showSpoilerButton = true,
     this.afterButtonPressed,
     super.key,
   })  : _controller = controller,
@@ -222,6 +223,13 @@ class BBCodeEditorToolbar extends StatefulWidget {
   /// @username
   /// ```
   final bool showUserMentionButton;
+
+  /// Show spoiler embed block button.
+  ///
+  /// ```console
+  /// [spoiler=$TITLE]$DATA[/spoiler]
+  /// ```
+  final bool showSpoilerButton;
 
   /// Callback when button pressed.
   final VoidCallback? afterButtonPressed;
@@ -430,6 +438,12 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                     BBCodeEditorToolbarUserMentionButton(
                       controller: widget._controller,
                       usernamePicker: widget._usernamePicker,
+                    ),
+              // Spoiler
+              if (widget.showSpoilerButton)
+                (controller, toolbarIconSize, iconTheme, dialogTheme) =>
+                    BBCodeEditorToolbarSpoilerButton(
+                      controller: widget._controller,
                     ),
             ],
             customButtons: [

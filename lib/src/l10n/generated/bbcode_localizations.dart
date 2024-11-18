@@ -231,6 +231,54 @@ abstract class BBCodeEditorLocalizations {
   /// In en, this message translates to:
   /// **'Select an output file:'**
   String get portationSelectDirectory;
+
+  /// No description provided for @spoiler.
+  ///
+  /// In en, this message translates to:
+  /// **'Spoiler'**
+  String get spoiler;
+
+  /// No description provided for @spoilerDefaultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Click to expand'**
+  String get spoilerDefaultTitle;
+
+  /// No description provided for @spoilerEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get spoilerEdit;
+
+  /// No description provided for @spoilerCopyBBCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy bbcode'**
+  String get spoilerCopyBBCode;
+
+  /// No description provided for @spoilerCopyQuilDelta.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy quill delta'**
+  String get spoilerCopyQuilDelta;
+
+  /// No description provided for @spoilerDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get spoilerDelete;
+
+  /// No description provided for @spoilerCollapse.
+  ///
+  /// In en, this message translates to:
+  /// **'Collapse'**
+  String get spoilerCollapse;
+
+  /// No description provided for @spoilerExpand.
+  ///
+  /// In en, this message translates to:
+  /// **'Expand'**
+  String get spoilerExpand;
 }
 
 class _BBCodeEditorLocalizationsDelegate

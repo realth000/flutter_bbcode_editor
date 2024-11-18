@@ -11,6 +11,8 @@ import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_button.dart';
+import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_builder.dart';
+import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_button.dart';
 import 'package:flutter_bbcode_editor/src/types.dart';
@@ -125,6 +127,7 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
               BBCodeUserMentionEmbedBuilder(
                 usernamePicker: widget.usernamePicker,
               ),
+              BBCodeSpoilerEmbedBuilder(),
             ],
             onLaunchUrl: widget.urlLauncher,
           ),

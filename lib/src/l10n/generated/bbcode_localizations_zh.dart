@@ -71,6 +71,30 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
 
   @override
   String get portationSelectDirectory => '选择一个位置保存：';
+
+  @override
+  String get spoiler => '折叠区域';
+
+  @override
+  String get spoilerDefaultTitle => '点此展开';
+
+  @override
+  String get spoilerEdit => '编辑';
+
+  @override
+  String get spoilerCopyBBCode => '复制BBCode';
+
+  @override
+  String get spoilerCopyQuilDelta => '复制Quill delta';
+
+  @override
+  String get spoilerDelete => '删除';
+
+  @override
+  String get spoilerCollapse => '收起';
+
+  @override
+  String get spoilerExpand => '展开';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -142,4 +166,28 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
 
   @override
   String get portationSelectDirectory => '選擇一個位置儲存：';
+
+  @override
+  String get spoiler => '折疊區域';
+
+  @override
+  String get spoilerDefaultTitle => '點此展開';
+
+  @override
+  String get spoilerEdit => '編輯';
+
+  @override
+  String get spoilerCopyBBCode => '複製BBCode';
+
+  @override
+  String get spoilerCopyQuilDelta => '複製Quill delta';
+
+  @override
+  String get spoilerDelete => '刪除';
+
+  @override
+  String get spoilerCollapse => '收起';
+
+  @override
+  String get spoilerExpand => '展開';
 }

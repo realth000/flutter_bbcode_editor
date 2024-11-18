@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
+import 'package:flutter_bbcode_editor/src/editor.dart';
+import 'package:flutter_bbcode_editor/src/extensions/context.dart';
+import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_embed.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+
+/// Spoiler button in toolbar.
+class BBCodeEditorToolbarSpoilerButton extends StatelessWidget {
+  /// Constructor.
+  const BBCodeEditorToolbarSpoilerButton({
+    required this.controller,
+    super.key,
+  });
+
+  /// Injected editor controller.
+  final BBCodeEditorController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return QuillToolbarIconButton(
+      icon: const Icon(Icons.expand_circle_down_outlined),
+      tooltip: context.bbcodeL10n.spoiler,
+      iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
+      isSelected: false,
+      onPressed: () async {
+        controller.insertEmbeddable(
+          BBCodeSpoilerEmbed(
+            BBCodeSpoilerInfo.buildEmpty(
+              context.bbcodeL10n.spoilerDefaultTitle,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}

@@ -5,12 +5,35 @@ final class BBCodeEditorController {
   /// Constructor.
   BBCodeEditorController({
     this.focusNode,
+    this.readOnly = false,
   }) {
-    _quillController = QuillController.basic(editorFocusNode: focusNode);
+    _quillController = QuillController(
+      editorFocusNode: focusNode,
+      document: Document(),
+      selection: const TextSelection.collapsed(offset: 0),
+      readOnly: readOnly,
+    );
   }
+
+  /*
+  factory QuillController.basic(
+          {QuillControllerConfigurations configurations =
+              const QuillControllerConfigurations(),
+          FocusNode? editorFocusNode}) =>
+      QuillController(
+        configurations: configurations,
+        editorFocusNode: editorFocusNode,
+        document: Document(),
+        selection: const TextSelection.collapsed(offset: 0),
+      );
+
+   */
 
   /// Optional focus node to manage focus.
   final FocusNode? focusNode;
+
+  /// Readonly mode or not.
+  final bool readOnly;
 
   /// Underlying quill editor controller.
   late final QuillController _quillController;

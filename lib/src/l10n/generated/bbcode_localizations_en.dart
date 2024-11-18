@@ -71,4 +71,28 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
 
   @override
   String get portationSelectDirectory => 'Select an output file:';
+
+  @override
+  String get spoiler => 'Spoiler';
+
+  @override
+  String get spoilerDefaultTitle => 'Click to expand';
+
+  @override
+  String get spoilerEdit => 'Edit';
+
+  @override
+  String get spoilerCopyBBCode => 'Copy bbcode';
+
+  @override
+  String get spoilerCopyQuilDelta => 'Copy quill delta';
+
+  @override
+  String get spoilerDelete => 'Delete';
+
+  @override
+  String get spoilerCollapse => 'Collapse';
+
+  @override
+  String get spoilerExpand => 'Expand';
 }

@@ -20,5 +20,13 @@
   "portationCopyBBCode": "复制BBCode到剪切板",
   "portationCopyQuillDelta": "复制Quill Delta到剪切板",
   "portationCopiedToClipboard": "已复制到剪切板",
-  "portationSelectDirectory": "选择一个位置保存："
+  "portationSelectDirectory": "选择一个位置保存：",
+  "spoiler": "折叠区域",
+  "spoilerDefaultTitle": "点此展开",
+  "spoilerEdit": "编辑",
+  "spoilerCopyBBCode": "复制BBCode",
+  "spoilerCopyQuilDelta": "复制Quill delta",
+  "spoilerDelete": "删除",
+  "spoilerCollapse": "收起",
+  "spoilerExpand": "展开"
 }

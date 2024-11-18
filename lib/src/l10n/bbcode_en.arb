@@ -20,5 +20,13 @@
   "portationCopyBBCode": "Copy BBCode to clipboard",
   "portationCopyQuillDelta": "Copy Quill Delta to clipboard",
   "portationCopiedToClipboard": "Copied to clipboard",
-  "portationSelectDirectory": "Select an output file:"
+  "portationSelectDirectory": "Select an output file:",
+  "spoiler": "Spoiler",
+  "spoilerDefaultTitle": "Click to expand",
+  "spoilerEdit": "Edit",
+  "spoilerCopyBBCode": "Copy bbcode",
+  "spoilerCopyQuilDelta": "Copy quill delta",
+  "spoilerDelete": "Delete",
+  "spoilerCollapse": "Collapse",
+  "spoilerExpand": "Expand"
 }
