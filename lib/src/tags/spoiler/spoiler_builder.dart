@@ -9,6 +9,7 @@ import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_keys.dart';
 import 'package:flutter_bbcode_editor/src/types.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill/quill_delta.dart';
 
 /// Editor widget builder for embed spoiler types.
 ///
@@ -324,6 +325,13 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
     super.initState();
     titleController = TextEditingController(text: widget.initialData?.title);
     bodyController = BBCodeEditorController();
+    if (widget.initialData != null) {
+      bodyController.setDocumentFromDelta(
+        Delta.fromJson(
+          jsonDecode(widget.initialData!.body) as List<dynamic>,
+        ),
+      );
+    }
   }
 
   @override
@@ -384,6 +392,10 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
               urlPicker: widget.urlPicker,
               imagePicker: widget.imagePicker,
               usernamePicker: widget.usernamePicker,
+              // Disable font family
+              showFontFamily: false,
+              // Disable nested spoiler
+              showSpoilerButton: false,
             ),
           ],
         ),

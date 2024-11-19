@@ -45,6 +45,10 @@ final class BBCodeEditorController {
   void setDocumentFromJson(List<dynamic> json) =>
       _quillController.document = Document.fromJson(json);
 
+  /// Set the document from delta
+  void setDocumentFromDelta(Delta delta) =>
+      _quillController.document = Document.fromDelta(delta);
+
   /// Set the document from raw text without format.
   void setDocumentFromRawText(String text) {
     final String fixedText;
