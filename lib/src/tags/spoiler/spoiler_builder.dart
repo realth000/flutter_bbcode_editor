@@ -50,6 +50,11 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
   final BBCodeEmojiProvider _emojiProvider;
   final BBCodeUrlLauncher _urlLauncher;
 
+  /// Inner value wrapped the spoiler content.
+  ///
+  /// Because EmbedBuilder is called every time to build a new value.
+  _SpoilerContentValue? _value;
+
   @override
   String get key => BBCodeSpoilerKeys.type;
 
@@ -75,8 +80,26 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
     bool inline,
     TextStyle textStyle,
   ) {
-    final info = BBCodeSpoilerInfo.fromJson(node.value.data as String);
+    final info =
+        _value?.info ?? BBCodeSpoilerInfo.fromJson(node.value.data as String);
+
     return _SpoilerCard(
+      onEdited: (info) {
+        _value = _SpoilerContentValue(info);
+        final offset = getEmbedNode(
+          controller,
+          controller.selection.start,
+        ).offset;
+        controller
+          ..replaceText(
+            offset,
+            1,
+            BBCodeSpoilerEmbed(info),
+            TextSelection.collapsed(offset: offset),
+          )
+          ..editorFocusNode?.requestFocus()
+          ..moveCursorToPosition(offset + 1);
+      },
       initialData: info,
       emojiPicker: _emojiPicker,
       colorPicker: _colorPicker,
@@ -94,6 +117,7 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
 
 class _SpoilerCard extends StatefulWidget {
   const _SpoilerCard({
+    required this.onEdited,
     required this.initialData,
     required this.emojiPicker,
     required this.emojiProvider,
@@ -106,6 +130,9 @@ class _SpoilerCard extends StatefulWidget {
     this.imageProvider,
     this.usernamePicker,
   });
+
+  /// Callback when spoiler content is edited.
+  final void Function(BBCodeSpoilerInfo) onEdited;
 
   final BBCodeEmojiPicker emojiPicker;
   final BBCodeColorPicker? colorPicker;
@@ -129,10 +156,96 @@ class _SpoilerCardState extends State<_SpoilerCard> {
   late BBCodeEditorController bodyController;
 
   /// Current carrying body data.
+  ///
+  /// The data here is only to save content from edit page and load content for
+  /// edit page.
   late BBCodeSpoilerInfo data;
 
   /// Flag indicating body is visible or not.
   bool _visible = false;
+
+  Future<void> editSpoiler() async {
+    final data = await Navigator.push<BBCodeSpoilerInfo>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BBCodeLocalizationsWidget(
+          child: _SpoilerEditPage(
+            initialData: this.data,
+            colorPicker: widget.colorPicker,
+            backgroundColorPicker: widget.backgroundColorPicker,
+            urlPicker: widget.urlPicker,
+            imagePicker: widget.imagePicker,
+            imageProvider: widget.imageProvider,
+            usernamePicker: widget.usernamePicker,
+            userMentionHandler: widget.userMentionHandler,
+            emojiPicker: widget.emojiPicker,
+            emojiProvider: widget.emojiProvider,
+          ),
+        ),
+      ),
+    );
+    if (data != null) {
+      setState(() {
+        this.data = data;
+        bodyController.setDocumentFromJson(
+          jsonDecode(data.body) as List<dynamic>,
+        );
+      });
+      // Call the callback to save data in embed builder, otherwise when
+      // the builder called next time, data will reset to default.
+      widget.onEdited(data);
+    }
+  }
+
+  Future<void> copyQuillDelta() async {
+    final quillDelta = bodyController.toQuillDelta();
+    await Clipboard.setData(ClipboardData(text: quillDelta));
+  }
+
+  Future<void> copyBBCode() async {
+    final bbcode = bodyController.toBBCode();
+    await Clipboard.setData(ClipboardData(text: bbcode));
+  }
+
+  Widget buildDialog(BuildContext context) {
+    final tr = context.bbcodeL10n;
+    return AlertDialog(
+      title: Text(tr.spoiler),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.edit_outlined),
+            title: Text(tr.spoilerEdit),
+            onTap: () async {
+              Navigator.pop(context);
+              await editSpoiler();
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.copy_outlined),
+            title: Text(tr.spoilerCopyQuilDelta),
+            onTap: () async {
+              await copyQuillDelta();
+              if (context.mounted) {
+                Navigator.pop(context);
+              }
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.copy_all_outlined),
+            title: Text(tr.spoilerCopyBBCode),
+            onTap: () async {
+              await copyBBCode();
+              if (context.mounted) {
+                Navigator.pop(context);
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildToolbar(BuildContext context) {
     final primaryColor = Theme.of(context).colorScheme.primary;
@@ -143,72 +256,27 @@ class _SpoilerCardState extends State<_SpoilerCard> {
         Icon(Icons.expand_outlined, color: primaryColor),
         const SizedBox(width: 8),
         Text(
-          context.bbcodeL10n.spoiler,
+          tr.spoiler,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: primaryColor,
               ),
         ),
-        const SizedBox(width: 24),
-        IconButton(
-          icon: const Icon(Icons.edit_outlined),
-          tooltip: tr.spoilerEdit,
-          onPressed: () async {
-            final data = await Navigator.push<BBCodeSpoilerInfo>(
-              context,
-              MaterialPageRoute(
-                builder: (context) => BBCodeLocalizationsWidget(
-                  child: _SpoilerEditPage(
-                    initialData: this.data,
-                    colorPicker: widget.colorPicker,
-                    backgroundColorPicker: widget.backgroundColorPicker,
-                    urlPicker: widget.urlPicker,
-                    imagePicker: widget.imagePicker,
-                    imageProvider: widget.imageProvider,
-                    usernamePicker: widget.usernamePicker,
-                    userMentionHandler: widget.userMentionHandler,
-                    emojiPicker: widget.emojiPicker,
-                    emojiProvider: widget.emojiProvider,
-                  ),
-                ),
-              ),
-            );
-            if (data != null) {
-              setState(() {
-                this.data = data;
-                bodyController.setDocumentFromJson(
-                  jsonDecode(data.body) as List<dynamic>,
-                );
-              });
-            }
-          },
-        ),
-        const SizedBox(width: 4),
-        IconButton(
-          icon: const Icon(Icons.copy_outlined),
-          tooltip: tr.spoilerCopyQuilDelta,
-          onPressed: () async {
-            final quillDelta = bodyController.toQuillDelta();
-            await Clipboard.setData(ClipboardData(text: quillDelta));
-          },
-        ),
-        IconButton(
-          icon: const Icon(Icons.copy_all_outlined),
-          tooltip: tr.spoilerCopyBBCode,
-          onPressed: () async {
-            final bbcode = bodyController.toBBCode();
-            await Clipboard.setData(ClipboardData(text: bbcode));
-          },
-        ),
-        // TODO: implement delete action.
+        // const SizedBox(width: 24),
+        // IconButton(
+        //   icon: const Icon(Icons.edit_outlined),
+        //   tooltip: tr.spoilerEdit,
+        //   onPressed: () async => editSpoiler(),
+        // ),
         // const SizedBox(width: 4),
         // IconButton(
-        //   icon: Icon(
-        //     Icons.delete_outline,
-        //     color: Theme.of(context).colorScheme.error,
-        //   ),
-        //   tooltip: tr.spoilerDelete,
-        //   onPressed: () {
-        //   },
+        //   icon: const Icon(Icons.copy_outlined),
+        //   tooltip: tr.spoilerCopyQuilDelta,
+        //   onPressed: () async => copyQuillDelta(),
+        // ),
+        // IconButton(
+        //   icon: const Icon(Icons.copy_all_outlined),
+        //   tooltip: tr.spoilerCopyBBCode,
+        //   onPressed: () async => copyBBCode(),
         // ),
       ],
     );
@@ -219,6 +287,22 @@ class _SpoilerCardState extends State<_SpoilerCard> {
     super.initState();
     bodyController = BBCodeEditorController(readOnly: true);
     data = widget.initialData;
+    // Because the card may be frequently built when user add content above the
+    // current spoiler, each rebuild will construct a different card state,
+    // sync the content data in last card state to current state's controller.
+    // This fixes card content become empty when user add new paragraph above
+    // the current spoiler.
+    if (data.body.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() {
+          bodyController.setDocumentFromDelta(
+            Delta.fromJson(
+              jsonDecode(data.body) as List<dynamic>,
+            ),
+          );
+        });
+      });
+    }
   }
 
   @override
@@ -231,45 +315,51 @@ class _SpoilerCardState extends State<_SpoilerCard> {
   Widget build(BuildContext context) {
     final tr = context.bbcodeL10n;
 
-    return Card(
-      margin: EdgeInsets.zero,
-      clipBehavior: Clip.hardEdge,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildToolbar(context),
-            const SizedBox(height: 8),
-            OutlinedButton.icon(
-              icon: _visible
-                  ? const Icon(Icons.expand_less_outlined)
-                  : const Icon(Icons.expand_more_outlined),
-              label: Text(_visible ? tr.spoilerCollapse : tr.spoilerExpand),
-              onPressed: () {
-                setState(() {
-                  _visible = !_visible;
-                });
-              },
-            ),
-            if (_visible) ...[
+    return GestureDetector(
+      onTap: () async => showDialog<void>(
+        context: context,
+        builder: (_) => buildDialog(context),
+      ),
+      child: Card(
+        margin: EdgeInsets.zero,
+        clipBehavior: Clip.hardEdge,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildToolbar(context),
               const SizedBox(height: 8),
-              BBCodeEditor(
-                controller: bodyController,
-                // TODO: Implement it.
-                emojiProvider: widget.emojiProvider,
-                emojiPicker: widget.emojiPicker,
-                colorPicker: widget.colorPicker,
-                backgroundColorPicker: widget.backgroundColorPicker,
-                urlPicker: widget.urlPicker,
-                imageProvider: widget.imageProvider,
-                imagePicker: widget.imagePicker,
-                userMentionHandler: widget.userMentionHandler,
-                urlLauncher: widget.urlLauncher,
-                usernamePicker: widget.usernamePicker,
+              OutlinedButton.icon(
+                icon: _visible
+                    ? const Icon(Icons.expand_less_outlined)
+                    : const Icon(Icons.expand_more_outlined),
+                label: Text(_visible ? tr.spoilerCollapse : tr.spoilerExpand),
+                onPressed: () {
+                  setState(() {
+                    _visible = !_visible;
+                  });
+                },
               ),
+              if (_visible) ...[
+                const SizedBox(height: 8),
+                BBCodeEditor(
+                  controller: bodyController,
+                  // TODO: Implement it.
+                  emojiProvider: widget.emojiProvider,
+                  emojiPicker: widget.emojiPicker,
+                  colorPicker: widget.colorPicker,
+                  backgroundColorPicker: widget.backgroundColorPicker,
+                  urlPicker: widget.urlPicker,
+                  imageProvider: widget.imageProvider,
+                  imagePicker: widget.imagePicker,
+                  userMentionHandler: widget.userMentionHandler,
+                  urlLauncher: widget.urlLauncher,
+                  usernamePicker: widget.usernamePicker,
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );
@@ -325,7 +415,7 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
     super.initState();
     titleController = TextEditingController(text: widget.initialData?.title);
     bodyController = BBCodeEditorController();
-    if (widget.initialData != null) {
+    if (widget.initialData != null && widget.initialData!.body.isNotEmpty) {
       bodyController.setDocumentFromDelta(
         Delta.fromJson(
           jsonDecode(widget.initialData!.body) as List<dynamic>,
@@ -402,4 +492,11 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
       ),
     );
   }
+}
+
+/// Mutable wrapper on [BBCodeSpoilerInfo] to make the injected value mutable.
+class _SpoilerContentValue {
+  _SpoilerContentValue(this.info);
+
+  final BBCodeSpoilerInfo info;
 }
