@@ -452,6 +452,7 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
             const SizedBox(height: 12),
             Expanded(
               child: BBCodeEditor(
+                autoFocus: true,
                 controller: bodyController,
                 emojiProvider: widget.emojiProvider,
                 emojiPicker: widget.emojiPicker,
