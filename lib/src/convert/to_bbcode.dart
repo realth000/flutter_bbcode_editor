@@ -9,6 +9,8 @@ import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_keys.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_keys.dart';
+import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_embed.dart';
+import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_keys.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
 import 'package:flutter_bbcode_editor/src/types.dart';
@@ -44,6 +46,7 @@ final Map<String, EmbedToBBCode> defaultEmbedHandlers = {
   BBCodeEmojiKeys.type: BBCodeEmojiInfo.toBBCode,
   BBCodeImageKeys.type: BBCodeImageInfo.toBBCode,
   BBCodeUserMentionKeys.type: BBCodeUserMentionInfo.toBBCode,
+  BBCodeSpoilerKeys.type: BBCodeSpoilerInfo.toBBCode,
 };
 
 /// Default attribute handlers for line nodes.

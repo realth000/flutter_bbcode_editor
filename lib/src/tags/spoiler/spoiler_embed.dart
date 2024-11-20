@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter_bbcode_editor/src/convert/to_bbcode.dart';
 import 'package:flutter_bbcode_editor/src/tags/embeddable.dart';
 import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_keys.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill/quill_delta.dart';
 
 /// Definition of spoiler area used in bbcode editor.
 ///
@@ -50,6 +53,14 @@ final class BBCodeSpoilerInfo {
   /// be a default value, usually injected with l10n on build context.
   factory BBCodeSpoilerInfo.buildEmpty(String title) =>
       BBCodeSpoilerInfo(title: title, body: '');
+
+  /// Parse a current type [embed] and add bbcode to [out].
+  static void toBBCode(Embed embed, StringSink out) {
+    final info = BBCodeSpoilerInfo.fromJson(embed.value.data as String);
+    final bbcode = DeltaToBBCode()
+        .convert(Delta.fromJson(jsonDecode(info.body) as List<dynamic>));
+    out.write('[spoiler=${info.title}]$bbcode[/spoiler]');
+  }
 
   /// Plain text title to show when collapsed.
   final String title;
