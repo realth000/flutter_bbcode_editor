@@ -27,7 +27,7 @@ class BBCodeEditorToolbarSpoilerButton extends StatelessWidget {
         controller.insertEmbeddable(
           BBCodeSpoilerEmbed(
             BBCodeSpoilerInfo.buildEmpty(
-              context.bbcodeL10n.spoilerDefaultTitle,
+              context.bbcodeL10n.spoilerExpandOrCollapse,
             ),
           ),
         );

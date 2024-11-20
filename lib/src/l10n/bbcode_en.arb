@@ -29,6 +29,7 @@
   "spoilerDelete": "Delete",
   "spoilerCollapse": "Collapse",
   "spoilerExpand": "Expand",
+  "spoilerExpandOrCollapse": "Expand/Collapse",
   "spoilerEditPageTitle": "Edit spoiler",
   "spoilerEditPageOuter": "Outer text",
   "spoilerEditPageOuterHelper": "Text show on outer button",

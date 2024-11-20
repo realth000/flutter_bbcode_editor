@@ -280,6 +280,12 @@ abstract class BBCodeEditorLocalizations {
   /// **'Expand'**
   String get spoilerExpand;
 
+  /// No description provided for @spoilerExpandOrCollapse.
+  ///
+  /// In en, this message translates to:
+  /// **'Expand/Collapse'**
+  String get spoilerExpandOrCollapse;
+
   /// No description provided for @spoilerEditPageTitle.
   ///
   /// In en, this message translates to:

@@ -97,6 +97,9 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
   String get spoilerExpand => 'Expand';
 
   @override
+  String get spoilerExpandOrCollapse => 'Expand/Collapse';
+
+  @override
   String get spoilerEditPageTitle => 'Edit spoiler';
 
   @override

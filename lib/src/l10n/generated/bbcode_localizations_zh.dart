@@ -97,6 +97,9 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
   String get spoilerExpand => '展开';
 
   @override
+  String get spoilerExpandOrCollapse => '展开/收起';
+
+  @override
   String get spoilerEditPageTitle => '编辑折叠区域';
 
   @override
@@ -208,6 +211,9 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
 
   @override
   String get spoilerExpand => '展開';
+
+  @override
+  String get spoilerExpandOrCollapse => '展開/收起';
 
   @override
   String get spoilerEditPageTitle => '編輯折疊區域';

@@ -29,6 +29,7 @@
   "spoilerDelete": "刪除",
   "spoilerCollapse": "收起",
   "spoilerExpand": "展開",
+  "spoilerExpandOrCollapse": "展開/收起",
   "spoilerEditPageTitle": "編輯折疊區域",
   "spoilerEditPageOuter": "外部文字",
   "spoilerEditPageOuterHelper": "顯示在外部按鈕上的文字",

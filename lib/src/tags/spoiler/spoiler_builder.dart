@@ -306,8 +306,6 @@ class _SpoilerCardState extends State<_SpoilerCard> {
 
   @override
   Widget build(BuildContext context) {
-    final tr = context.bbcodeL10n;
-
     return GestureDetector(
       onTap: () async => showDialog<void>(
         context: context,
@@ -327,7 +325,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
                 icon: _visible
                     ? const Icon(Icons.expand_less_outlined)
                     : const Icon(Icons.expand_more_outlined),
-                label: Text(_visible ? tr.spoilerCollapse : tr.spoilerExpand),
+                label: Text(data.title),
                 onPressed: () {
                   setState(() {
                     _visible = !_visible;
