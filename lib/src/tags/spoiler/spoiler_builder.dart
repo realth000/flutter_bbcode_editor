@@ -50,11 +50,6 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
   final BBCodeEmojiProvider _emojiProvider;
   final BBCodeUrlLauncher _urlLauncher;
 
-  /// Inner value wrapped the spoiler content.
-  ///
-  /// Because EmbedBuilder is called every time to build a new value.
-  _SpoilerContentValue? _value;
-
   @override
   String get key => BBCodeSpoilerKeys.type;
 
@@ -80,12 +75,10 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
     bool inline,
     TextStyle textStyle,
   ) {
-    final info =
-        _value?.info ?? BBCodeSpoilerInfo.fromJson(node.value.data as String);
+    final info = BBCodeSpoilerInfo.fromJson(node.value.data as String);
 
     return _SpoilerCard(
       onEdited: (info) {
-        _value = _SpoilerContentValue(info);
         final offset = getEmbedNode(
           controller,
           controller.selection.start,
@@ -492,11 +485,4 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
       ),
     );
   }
-}
-
-/// Mutable wrapper on [BBCodeSpoilerInfo] to make the injected value mutable.
-class _SpoilerContentValue {
-  _SpoilerContentValue(this.info);
-
-  final BBCodeSpoilerInfo info;
 }
