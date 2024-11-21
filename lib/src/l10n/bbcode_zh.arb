@@ -1,4 +1,8 @@
 {
+  "edit": "编辑",
+  "copyBBCode": "复制BBCode",
+  "copyQuilDelta": "复制Quill delta",
+  "delete": "删除",
   "imageDialogLink": "链接",
   "imageDialogWidth": "宽度",
   "imageDialogHeight": "高度",
@@ -23,10 +27,6 @@
   "portationSelectDirectory": "选择一个位置保存：",
   "spoiler": "折叠区域",
   "spoilerDefaultTitle": "点此展开",
-  "spoilerEdit": "编辑",
-  "spoilerCopyBBCode": "复制BBCode",
-  "spoilerCopyQuilDelta": "复制Quill delta",
-  "spoilerDelete": "删除",
   "spoilerCollapse": "收起",
   "spoilerExpand": "展开",
   "spoilerExpandOrCollapse": "展开/收起",
@@ -35,5 +35,15 @@
   "spoilerEditPageOuterHelper": "显示在外部按钮上的文字",
   "spoilerEditPageInner": "内部内容",
   "spoilerEditPageInnerHelper": "可被折叠收起的内容",
-  "spoilerEditPageSave": "保存"
+  "spoilerEditPageSave": "保存",
+  "hide": "隐藏区域",
+  "hideWithReply": "隐藏以回复",
+  "hideWithReplyDetail": "用户需要回复才能看到内容",
+  "hideWithReplyOuter": "回复后可见",
+  "hideWithPoints": "隐藏以积分",
+  "hideWithPointsDetail": "用户需要至少持有这么多积分才能看到内容",
+  "hideWithPointsOuterHead": "持有 ",
+  "hideWithPointsOuterTail": " 积分后可见",
+  "hidePoints": "积分",
+  "hidePointsInvalid": "无效的积分数值"
 }

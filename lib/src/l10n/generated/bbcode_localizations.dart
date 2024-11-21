@@ -100,6 +100,30 @@ abstract class BBCodeEditorLocalizations {
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant')
   ];
 
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @copyBBCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy bbcode'**
+  String get copyBBCode;
+
+  /// No description provided for @copyQuilDelta.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy quill delta'**
+  String get copyQuilDelta;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
   /// No description provided for @imageDialogLink.
   ///
   /// In en, this message translates to:
@@ -244,30 +268,6 @@ abstract class BBCodeEditorLocalizations {
   /// **'Click to expand'**
   String get spoilerDefaultTitle;
 
-  /// No description provided for @spoilerEdit.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit'**
-  String get spoilerEdit;
-
-  /// No description provided for @spoilerCopyBBCode.
-  ///
-  /// In en, this message translates to:
-  /// **'Copy bbcode'**
-  String get spoilerCopyBBCode;
-
-  /// No description provided for @spoilerCopyQuilDelta.
-  ///
-  /// In en, this message translates to:
-  /// **'Copy quill delta'**
-  String get spoilerCopyQuilDelta;
-
-  /// No description provided for @spoilerDelete.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete'**
-  String get spoilerDelete;
-
   /// No description provided for @spoilerCollapse.
   ///
   /// In en, this message translates to:
@@ -321,6 +321,66 @@ abstract class BBCodeEditorLocalizations {
   /// In en, this message translates to:
   /// **'Save'**
   String get spoilerEditPageSave;
+
+  /// No description provided for @hide.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide area'**
+  String get hide;
+
+  /// No description provided for @hideWithReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide with reply'**
+  String get hideWithReply;
+
+  /// No description provided for @hideWithReplyDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'User needs to reply to see the content'**
+  String get hideWithReplyDetail;
+
+  /// No description provided for @hideWithReplyOuter.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply to see content'**
+  String get hideWithReplyOuter;
+
+  /// No description provided for @hideWithPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide with points'**
+  String get hideWithPoints;
+
+  /// No description provided for @hideWithPointsDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'User need to have more than these points to see the content'**
+  String get hideWithPointsDetail;
+
+  /// No description provided for @hideWithPointsOuterHead.
+  ///
+  /// In en, this message translates to:
+  /// **'Have more than '**
+  String get hideWithPointsOuterHead;
+
+  /// No description provided for @hideWithPointsOuterTail.
+  ///
+  /// In en, this message translates to:
+  /// **' points to see content'**
+  String get hideWithPointsOuterTail;
+
+  /// No description provided for @hidePoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Points'**
+  String get hidePoints;
+
+  /// No description provided for @hidePointsInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid points value'**
+  String get hidePointsInvalid;
 }
 
 class _BBCodeEditorLocalizationsDelegate

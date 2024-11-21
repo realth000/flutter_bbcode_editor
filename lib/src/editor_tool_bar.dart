@@ -97,6 +97,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
     this.showClipboardPasteButton = true,
     this.showUserMentionButton = true,
     this.showSpoilerButton = true,
+    this.showHideButton = true,
     this.afterButtonPressed,
     super.key,
   })  : _controller = controller,
@@ -230,6 +231,13 @@ class BBCodeEditorToolbar extends StatefulWidget {
   /// [spoiler=$TITLE]$DATA[/spoiler]
   /// ```
   final bool showSpoilerButton;
+
+  /// Show hide embed block button.
+  ///
+  /// ```console
+  /// [hide=$POINTS]$DATA[/hide]
+  /// ```
+  final bool showHideButton;
 
   /// Callback when button pressed.
   final VoidCallback? afterButtonPressed;
@@ -443,6 +451,11 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
               if (widget.showSpoilerButton)
                 (controller, toolbarIconSize, iconTheme, dialogTheme) =>
                     BBCodeEditorToolbarSpoilerButton(
+                      controller: widget._controller,
+                    ),
+              if (widget.showHideButton)
+                (controller, toolbarIconSize, iconTheme, dialogTheme) =>
+                    BBCodeEditorToolbarHideButton(
                       controller: widget._controller,
                     ),
             ],

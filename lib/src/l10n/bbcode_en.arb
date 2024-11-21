@@ -1,4 +1,8 @@
 {
+  "edit": "Edit",
+  "copyBBCode": "Copy bbcode",
+  "copyQuilDelta": "Copy quill delta",
+  "delete": "Delete",
   "imageDialogLink": "Link",
   "imageDialogWidth": "Width",
   "imageDialogHeight": "Height",
@@ -23,10 +27,6 @@
   "portationSelectDirectory": "Select an output file:",
   "spoiler": "Spoiler",
   "spoilerDefaultTitle": "Click to expand",
-  "spoilerEdit": "Edit",
-  "spoilerCopyBBCode": "Copy bbcode",
-  "spoilerCopyQuilDelta": "Copy quill delta",
-  "spoilerDelete": "Delete",
   "spoilerCollapse": "Collapse",
   "spoilerExpand": "Expand",
   "spoilerExpandOrCollapse": "Expand/Collapse",
@@ -35,5 +35,15 @@
   "spoilerEditPageOuterHelper": "Text show on outer button",
   "spoilerEditPageInner": "Inner content",
   "spoilerEditPageInnerHelper": "Content can be collapsed",
-  "spoilerEditPageSave": "Save"
+  "spoilerEditPageSave": "Save",
+  "hide": "Hide area",
+  "hideWithReply": "Hide with reply",
+  "hideWithReplyDetail": "User needs to reply to see the content",
+  "hideWithReplyOuter": "Reply to see content",
+  "hideWithPoints": "Hide with points",
+  "hideWithPointsDetail": "User need to have more than these points to see the content",
+  "hideWithPointsOuterHead": "Have more than ",
+  "hideWithPointsOuterTail": " points to see content",
+  "hidePoints": "Points",
+  "hidePointsInvalid": "Invalid points value"
 }

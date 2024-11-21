@@ -5,18 +5,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
 import 'package:flutter_bbcode_editor/src/extensions/context.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
-import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_embed.dart';
-import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_keys.dart';
+import 'package:flutter_bbcode_editor/src/tags/hide/hide_embed.dart';
+import 'package:flutter_bbcode_editor/src/tags/hide/hide_keys.dart';
 import 'package:flutter_bbcode_editor/src/types.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 
-/// Editor widget builder for embed spoiler types.
+/// Editor widget builder for embed hide types.
 ///
-/// Spoiler is an expandable area contains title on and body.
-final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
+/// Hide area is set to be invisible
+final class BBCodeHideEmbedBuilder extends EmbedBuilder {
   /// Constructor.
-  BBCodeSpoilerEmbedBuilder({
+  BBCodeHideEmbedBuilder({
     required BBCodeEmojiPicker emojiPicker,
     required BBCodeEmojiProvider emojiProvider,
     required BBCodeUrlLauncher urlLauncher,
@@ -51,7 +51,7 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
   final BBCodeUrlLauncher _urlLauncher;
 
   @override
-  String get key => BBCodeSpoilerKeys.type;
+  String get key => BBCodeHideKeys.type;
 
   @override
   bool get expanded => false;
@@ -75,9 +75,9 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
     bool inline,
     TextStyle textStyle,
   ) {
-    final info = BBCodeSpoilerInfo.fromJson(node.value.data as String);
+    final info = BBCodeHideInfo.fromJson(node.value.data as String);
 
-    return _SpoilerCard(
+    return _HideCard(
       onEdited: (info) {
         final offset = getEmbedNode(
           controller,
@@ -87,7 +87,7 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
           ..replaceText(
             offset,
             1,
-            BBCodeSpoilerEmbed(info),
+            BBCodeHideEmbed(info),
             TextSelection.collapsed(offset: offset),
           )
           ..editorFocusNode?.requestFocus()
@@ -108,8 +108,8 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
   }
 }
 
-class _SpoilerCard extends StatefulWidget {
-  const _SpoilerCard({
+class _HideCard extends StatefulWidget {
+  const _HideCard({
     required this.onEdited,
     required this.initialData,
     required this.emojiPicker,
@@ -124,8 +124,8 @@ class _SpoilerCard extends StatefulWidget {
     this.usernamePicker,
   });
 
-  /// Callback when spoiler content is edited.
-  final void Function(BBCodeSpoilerInfo) onEdited;
+  /// Callback when hide content is edited.
+  final void Function(BBCodeHideInfo) onEdited;
 
   final BBCodeEmojiPicker emojiPicker;
   final BBCodeColorPicker? colorPicker;
@@ -139,30 +139,27 @@ class _SpoilerCard extends StatefulWidget {
   final BBCodeUrlLauncher urlLauncher;
 
   /// For first screen rendering.
-  final BBCodeSpoilerInfo initialData;
+  final BBCodeHideInfo initialData;
 
   @override
-  State<_SpoilerCard> createState() => _SpoilerCardState();
+  State<_HideCard> createState() => _HideCardState();
 }
 
-class _SpoilerCardState extends State<_SpoilerCard> {
+class _HideCardState extends State<_HideCard> {
   late BBCodeEditorController bodyController;
 
   /// Current carrying body data.
   ///
   /// The data here is only to save content from edit page and load content for
   /// edit page.
-  late BBCodeSpoilerInfo data;
+  late BBCodeHideInfo data;
 
-  /// Flag indicating body is visible or not.
-  bool _visible = false;
-
-  Future<void> editSpoiler() async {
-    final data = await Navigator.push<BBCodeSpoilerInfo>(
+  Future<void> editHide() async {
+    final data = await Navigator.push<BBCodeHideInfo>(
       context,
       MaterialPageRoute(
         builder: (context) => BBCodeLocalizationsWidget(
-          child: _SpoilerEditPage(
+          child: _HideEditPage(
             initialData: this.data,
             colorPicker: widget.colorPicker,
             backgroundColorPicker: widget.backgroundColorPicker,
@@ -203,7 +200,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
   Widget buildDialog(BuildContext context) {
     final tr = context.bbcodeL10n;
     return AlertDialog(
-      title: Text(tr.spoiler),
+      title: Text(tr.hide),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -212,7 +209,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
             title: Text(tr.edit),
             onTap: () async {
               Navigator.pop(context);
-              await editSpoiler();
+              await editHide();
             },
           ),
           ListTile(
@@ -246,31 +243,14 @@ class _SpoilerCardState extends State<_SpoilerCard> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.expand_outlined, color: primaryColor),
+        Icon(Icons.lock_outline, color: primaryColor),
         const SizedBox(width: 8),
         Text(
-          tr.spoiler,
+          tr.hide,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: primaryColor,
               ),
         ),
-        // const SizedBox(width: 24),
-        // IconButton(
-        //   icon: const Icon(Icons.edit_outlined),
-        //   tooltip: tr.spoilerEdit,
-        //   onPressed: () async => editSpoiler(),
-        // ),
-        // const SizedBox(width: 4),
-        // IconButton(
-        //   icon: const Icon(Icons.copy_outlined),
-        //   tooltip: tr.spoilerCopyQuilDelta,
-        //   onPressed: () async => copyQuillDelta(),
-        // ),
-        // IconButton(
-        //   icon: const Icon(Icons.copy_all_outlined),
-        //   tooltip: tr.spoilerCopyBBCode,
-        //   onPressed: () async => copyBBCode(),
-        // ),
       ],
     );
   }
@@ -306,6 +286,8 @@ class _SpoilerCardState extends State<_SpoilerCard> {
 
   @override
   Widget build(BuildContext context) {
+    final tr = context.bbcodeL10n;
+
     return GestureDetector(
       onTap: () async => showDialog<void>(
         context: context,
@@ -321,34 +303,36 @@ class _SpoilerCardState extends State<_SpoilerCard> {
             children: [
               _buildToolbar(context),
               const SizedBox(height: 8),
-              OutlinedButton.icon(
-                icon: _visible
-                    ? const Icon(Icons.expand_less_outlined)
-                    : const Icon(Icons.expand_more_outlined),
-                label: Text(data.title),
-                onPressed: () {
-                  setState(() {
-                    _visible = !_visible;
-                  });
-                },
-              ),
-              if (_visible) ...[
-                const SizedBox(height: 8),
-                BBCodeEditor(
-                  controller: bodyController,
-                  // TODO: Implement it.
-                  emojiProvider: widget.emojiProvider,
-                  emojiPicker: widget.emojiPicker,
-                  colorPicker: widget.colorPicker,
-                  backgroundColorPicker: widget.backgroundColorPicker,
-                  urlPicker: widget.urlPicker,
-                  imageProvider: widget.imageProvider,
-                  imagePicker: widget.imagePicker,
-                  userMentionHandler: widget.userMentionHandler,
-                  urlLauncher: widget.urlLauncher,
-                  usernamePicker: widget.usernamePicker,
+              Text.rich(
+                TextSpan(
+                  children: [
+                    if (data.points > 0) ...[
+                      TextSpan(text: tr.hideWithPointsOuterHead),
+                      TextSpan(text: '${data.points}'),
+                      TextSpan(text: tr.hideWithPointsOuterTail),
+                    ] else
+                      TextSpan(text: tr.hideWithReplyOuter),
+                  ],
                 ),
-              ],
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+              ),
+              const SizedBox(height: 8),
+              BBCodeEditor(
+                controller: bodyController,
+                // TODO: Implement it.
+                emojiProvider: widget.emojiProvider,
+                emojiPicker: widget.emojiPicker,
+                colorPicker: widget.colorPicker,
+                backgroundColorPicker: widget.backgroundColorPicker,
+                urlPicker: widget.urlPicker,
+                imageProvider: widget.imageProvider,
+                imagePicker: widget.imagePicker,
+                userMentionHandler: widget.userMentionHandler,
+                urlLauncher: widget.urlLauncher,
+                usernamePicker: widget.usernamePicker,
+              ),
             ],
           ),
         ),
@@ -366,8 +350,8 @@ class _SpoilerCardState extends State<_SpoilerCard> {
 /// functionality, redirect back and update content if changed.
 ///
 /// This is the temporary page.
-class _SpoilerEditPage extends StatefulWidget {
-  const _SpoilerEditPage({
+class _HideEditPage extends StatefulWidget {
+  const _HideEditPage({
     required this.initialData,
     required this.emojiPicker,
     required this.emojiProvider,
@@ -391,20 +375,36 @@ class _SpoilerEditPage extends StatefulWidget {
   final BBCodeUserMentionHandler? userMentionHandler;
 
   /// Optional initial data to show.
-  final BBCodeSpoilerInfo? initialData;
+  final BBCodeHideInfo? initialData;
 
   @override
-  State<_SpoilerEditPage> createState() => _SpoilerEditPageState();
+  State<_HideEditPage> createState() => _HideEditPageState();
 }
 
-class _SpoilerEditPageState extends State<_SpoilerEditPage> {
-  late TextEditingController titleController;
+enum _HideWithType {
+  points,
+  reply,
+}
+
+class _HideEditPageState extends State<_HideEditPage> {
+  late TextEditingController pointsController;
   late BBCodeEditorController bodyController;
+
+  late _HideWithType withType;
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    titleController = TextEditingController(text: widget.initialData?.title);
+    final pv = widget.initialData?.points;
+    pointsController = TextEditingController(
+      text: pv == null || pv <= 0 ? '' : '${widget.initialData?.points}',
+    );
+    withType = switch (pv) {
+      null || <= 0 => _HideWithType.reply,
+      _ => _HideWithType.points,
+    };
     bodyController = BBCodeEditorController();
     if (widget.initialData != null && widget.initialData!.body.isNotEmpty) {
       bodyController.setDocumentFromDelta(
@@ -417,7 +417,7 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
 
   @override
   void dispose() {
-    titleController.dispose();
+    pointsController.dispose();
     bodyController.dispose();
     super.dispose();
   }
@@ -431,23 +431,89 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.save_outlined),
-            onPressed: () async => Navigator.pop(
-              context,
-              BBCodeSpoilerInfo(
-                title: titleController.text,
-                body: bodyController.toQuillDelta(),
-              ),
-            ),
+            onPressed: () async {
+              if (withType == _HideWithType.points &&
+                  !(formKey.currentState?.validate() ?? true)) {
+                return;
+              }
+
+              Navigator.pop(
+                context,
+                BBCodeHideInfo(
+                  points: switch (withType) {
+                    _HideWithType.points => int.parse(pointsController.text),
+                    _HideWithType.reply => -1,
+                  },
+                  body: bodyController.toQuillDelta(),
+                ),
+              );
+            },
           ),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(4),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(labelText: tr.spoilerEditPageOuter),
+            RadioListTile(
+              title: Text(tr.hideWithReply),
+              subtitle: Text(tr.hideWithReplyDetail),
+              value: _HideWithType.reply,
+              groupValue: withType,
+              onChanged: (v) {
+                if (v == null) {
+                  return;
+                }
+                setState(() {
+                  withType = v;
+                });
+              },
+            ),
+            RadioListTile(
+              title: Text(tr.hideWithPoints),
+              subtitle: Text(tr.hideWithPointsDetail),
+              value: _HideWithType.points,
+              groupValue: withType,
+              onChanged: (v) {
+                if (v == null) {
+                  return;
+                }
+                setState(() {
+                  withType = v;
+                });
+              },
+            ),
+            AnimatedSize(
+              duration: const Duration(milliseconds: 100),
+              child: withType == _HideWithType.points
+                  ? Row(
+                      children: [
+                        const SizedBox(width: 48),
+                        Expanded(
+                          child: Form(
+                            key: formKey,
+                            child: TextFormField(
+                              controller: pointsController,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                decimal: true,
+                              ),
+                              decoration: InputDecoration(
+                                labelText: tr.hidePoints,
+                              ),
+                              validator: (v) {
+                                final vv = int.tryParse(v ?? '');
+                                if (vv == null || vv <= 0) {
+                                  return tr.hidePointsInvalid;
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  : const SizedBox.shrink(),
             ),
             const SizedBox(height: 12),
             Expanded(
@@ -476,8 +542,8 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
               usernamePicker: widget.usernamePicker,
               // Disable font family
               showFontFamily: false,
-              // Disable nested spoiler
-              showSpoilerButton: false,
+              // Disable nested hide
+              showHideButton: false,
             ),
           ],
         ),

@@ -9,6 +9,8 @@ import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/portation_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_button.dart';
+import 'package:flutter_bbcode_editor/src/tags/hide/hide_builer.dart';
+import 'package:flutter_bbcode_editor/src/tags/hide/hide_buttton.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_builder.dart';
@@ -145,6 +147,18 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
                 usernamePicker: widget.usernamePicker,
               ),
               BBCodeSpoilerEmbedBuilder(
+                emojiPicker: widget.emojiPicker,
+                emojiProvider: widget.emojiProvider,
+                colorPicker: widget.colorPicker,
+                backgroundColorPicker: widget.backgroundColorPicker,
+                urlPicker: widget.urlPicker,
+                imagePicker: widget.imagePicker,
+                imageProvider: widget.imageProvider,
+                usernamePicker: widget.usernamePicker,
+                userMentionHandler: widget.userMentionHandler,
+                urlLauncher: widget.urlLauncher,
+              ),
+              BBCodeHideEmbedBuilder(
                 emojiPicker: widget.emojiPicker,
                 emojiProvider: widget.emojiProvider,
                 colorPicker: widget.colorPicker,

@@ -7,6 +7,18 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
   BBCodeEditorLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get edit => '编辑';
+
+  @override
+  String get copyBBCode => '复制BBCode';
+
+  @override
+  String get copyQuilDelta => '复制Quill delta';
+
+  @override
+  String get delete => '删除';
+
+  @override
   String get imageDialogLink => '链接';
 
   @override
@@ -79,18 +91,6 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
   String get spoilerDefaultTitle => '点此展开';
 
   @override
-  String get spoilerEdit => '编辑';
-
-  @override
-  String get spoilerCopyBBCode => '复制BBCode';
-
-  @override
-  String get spoilerCopyQuilDelta => '复制Quill delta';
-
-  @override
-  String get spoilerDelete => '删除';
-
-  @override
   String get spoilerCollapse => '收起';
 
   @override
@@ -116,11 +116,53 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
 
   @override
   String get spoilerEditPageSave => '保存';
+
+  @override
+  String get hide => '隐藏区域';
+
+  @override
+  String get hideWithReply => '隐藏以回复';
+
+  @override
+  String get hideWithReplyDetail => '用户需要回复才能看到内容';
+
+  @override
+  String get hideWithReplyOuter => '回复后可见';
+
+  @override
+  String get hideWithPoints => '隐藏以积分';
+
+  @override
+  String get hideWithPointsDetail => '用户需要至少持有这么多积分才能看到内容';
+
+  @override
+  String get hideWithPointsOuterHead => '持有 ';
+
+  @override
+  String get hideWithPointsOuterTail => ' 积分后可见';
+
+  @override
+  String get hidePoints => '积分';
+
+  @override
+  String get hidePointsInvalid => '无效的积分数值';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
 class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
   BBCodeEditorLocalizationsZhHant() : super('zh_Hant');
+
+  @override
+  String get edit => '編輯';
+
+  @override
+  String get copyBBCode => '複製BBCode';
+
+  @override
+  String get copyQuilDelta => '複製Quill delta';
+
+  @override
+  String get delete => '刪除';
 
   @override
   String get imageDialogLink => '連結';
@@ -195,18 +237,6 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
   String get spoilerDefaultTitle => '點此展開';
 
   @override
-  String get spoilerEdit => '編輯';
-
-  @override
-  String get spoilerCopyBBCode => '複製BBCode';
-
-  @override
-  String get spoilerCopyQuilDelta => '複製Quill delta';
-
-  @override
-  String get spoilerDelete => '刪除';
-
-  @override
   String get spoilerCollapse => '收起';
 
   @override
@@ -232,4 +262,34 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
 
   @override
   String get spoilerEditPageSave => '儲存';
+
+  @override
+  String get hide => '隱藏區域';
+
+  @override
+  String get hideWithReply => '隱藏以回覆';
+
+  @override
+  String get hideWithReplyDetail => '用戶需要回复才能看到內容';
+
+  @override
+  String get hideWithReplyOuter => '回覆後可見';
+
+  @override
+  String get hideWithPoints => '隱藏以積分';
+
+  @override
+  String get hideWithPointsDetail => '使用者需要至少持有這麼多積分才能看到內容';
+
+  @override
+  String get hideWithPointsOuterHead => '持有 ';
+
+  @override
+  String get hideWithPointsOuterTail => ' 積分後可見';
+
+  @override
+  String get hidePoints => '積分';
+
+  @override
+  String get hidePointsInvalid => '無效的積分數值';
 }

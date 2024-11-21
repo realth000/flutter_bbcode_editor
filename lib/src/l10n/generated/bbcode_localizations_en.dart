@@ -7,6 +7,18 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
   BBCodeEditorLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get edit => 'Edit';
+
+  @override
+  String get copyBBCode => 'Copy bbcode';
+
+  @override
+  String get copyQuilDelta => 'Copy quill delta';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
   String get imageDialogLink => 'Link';
 
   @override
@@ -79,18 +91,6 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
   String get spoilerDefaultTitle => 'Click to expand';
 
   @override
-  String get spoilerEdit => 'Edit';
-
-  @override
-  String get spoilerCopyBBCode => 'Copy bbcode';
-
-  @override
-  String get spoilerCopyQuilDelta => 'Copy quill delta';
-
-  @override
-  String get spoilerDelete => 'Delete';
-
-  @override
   String get spoilerCollapse => 'Collapse';
 
   @override
@@ -116,4 +116,35 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
 
   @override
   String get spoilerEditPageSave => 'Save';
+
+  @override
+  String get hide => 'Hide area';
+
+  @override
+  String get hideWithReply => 'Hide with reply';
+
+  @override
+  String get hideWithReplyDetail => 'User needs to reply to see the content';
+
+  @override
+  String get hideWithReplyOuter => 'Reply to see content';
+
+  @override
+  String get hideWithPoints => 'Hide with points';
+
+  @override
+  String get hideWithPointsDetail =>
+      'User need to have more than these points to see the content';
+
+  @override
+  String get hideWithPointsOuterHead => 'Have more than ';
+
+  @override
+  String get hideWithPointsOuterTail => ' points to see content';
+
+  @override
+  String get hidePoints => 'Points';
+
+  @override
+  String get hidePointsInvalid => 'Invalid points value';
 }

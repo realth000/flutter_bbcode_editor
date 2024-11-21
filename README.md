@@ -37,17 +37,17 @@ Based on [flutter_quill](https://pub.dev/packages/flutter_quill).
   * [x] Url `[url]`
   * [x] Image `[img]`
     * Specify size `[img=$width,$height]$image_url[/img]`
-  * [ ] Spoiler `[spoiler]`
-  * [ ] Locked area
-    * [ ] Locked with reply `[hide]` *Users need to reply to see this content.*
-    * [ ] Locked with points `[hide=$points]` *Only users have points more than $points are allowed to see this content.*
+  * [x] Spoiler `[spoiler]`
+  * [x] Locked area
+    * [x] Locked with reply `[hide]` *Users need to reply to see this content.*
+    * [x] Locked with points `[hide=$points]` *Only users have points more than $points are allowed to see this content.*
   * [x] Mention user with `[@]$user_name[/@]`
   * [x] Ordered list `[list=1]`
   * [x] Bullet list `[list=]`
   * [ ] Splitter `[hr]`
   * [ ] Table `[table]`
   * [x] Code block `[code]`
-  * [ ] Quote block `[quote]`
+  * [x] Quote block `[quote]`
 * [ ] Source code mode
 * [x] Export **Output format is not stable yet, changes in future may cause old data unparsable.**
   * [x] As bbcode
