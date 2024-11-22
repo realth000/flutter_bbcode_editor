@@ -45,5 +45,6 @@
   "hideWithPointsOuterHead": "Have more than ",
   "hideWithPointsOuterTail": " points to see content",
   "hidePoints": "Points",
-  "hidePointsInvalid": "Invalid points value"
+  "hidePointsInvalid": "Invalid points value",
+  "divider": "Divider"
 }

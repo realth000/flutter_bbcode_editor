@@ -45,5 +45,6 @@
   "hideWithPointsOuterHead": "持有 ",
   "hideWithPointsOuterTail": " 积分后可见",
   "hidePoints": "积分",
-  "hidePointsInvalid": "无效的积分数值"
+  "hidePointsInvalid": "无效的积分数值",
+  "divider": "分割线"
 }

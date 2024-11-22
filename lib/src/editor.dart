@@ -7,6 +7,8 @@ import 'package:flutter_bbcode_editor/src/editor_configuration.dart';
 import 'package:flutter_bbcode_editor/src/extensions/context.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/portation_button.dart';
+import 'package:flutter_bbcode_editor/src/tags/divider/divider_builder.dart';
+import 'package:flutter_bbcode_editor/src/tags/divider/divider_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/hide/hide_builer.dart';
@@ -170,6 +172,7 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
                 userMentionHandler: widget.userMentionHandler,
                 urlLauncher: widget.urlLauncher,
               ),
+              BBCodeDividerEmbedBuilder(),
             ],
             onLaunchUrl: widget.urlLauncher,
           ),

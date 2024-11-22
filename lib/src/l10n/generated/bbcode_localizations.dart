@@ -381,6 +381,12 @@ abstract class BBCodeEditorLocalizations {
   /// In en, this message translates to:
   /// **'Invalid points value'**
   String get hidePointsInvalid;
+
+  /// No description provided for @divider.
+  ///
+  /// In en, this message translates to:
+  /// **'Divider'**
+  String get divider;
 }
 
 class _BBCodeEditorLocalizationsDelegate

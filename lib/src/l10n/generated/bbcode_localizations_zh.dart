@@ -146,6 +146,9 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
 
   @override
   String get hidePointsInvalid => '无效的积分数值';
+
+  @override
+  String get divider => '分割线';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -292,4 +295,7 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
 
   @override
   String get hidePointsInvalid => '無效的積分數值';
+
+  @override
+  String get divider => '分割線';
 }

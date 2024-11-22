@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
+import 'package:flutter_bbcode_editor/src/tags/divider/divider_embed.dart';
+import 'package:flutter_bbcode_editor/src/tags/divider/divider_keys.dart';
 import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_keys.dart';
 import 'package:flutter_bbcode_editor/src/tags/hide/hide_embed.dart';
@@ -50,6 +52,7 @@ final Map<String, EmbedToBBCode> defaultEmbedHandlers = {
   BBCodeUserMentionKeys.type: BBCodeUserMentionInfo.toBBCode,
   BBCodeSpoilerKeys.type: BBCodeSpoilerInfo.toBBCode,
   BBCodeHideKeys.type: BBCodeHideInfo.toBBCode,
+  BBCodeDividerKeys.type: BBCodeDividerEmbed.toBBCode,
 };
 
 /// Default attribute handlers for line nodes.

@@ -98,6 +98,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
     this.showUserMentionButton = true,
     this.showSpoilerButton = true,
     this.showHideButton = true,
+    this.showDivider = true,
     this.afterButtonPressed,
     super.key,
   })  : _controller = controller,
@@ -238,6 +239,13 @@ class BBCodeEditorToolbar extends StatefulWidget {
   /// [hide=$POINTS]$DATA[/hide]
   /// ```
   final bool showHideButton;
+
+  /// Show or hide divider button.
+  ///
+  /// ```console
+  /// [hr]
+  /// ```
+  final bool showDivider;
 
   /// Callback when button pressed.
   final VoidCallback? afterButtonPressed;
@@ -456,6 +464,11 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
               if (widget.showHideButton)
                 (controller, toolbarIconSize, iconTheme, dialogTheme) =>
                     BBCodeEditorToolbarHideButton(
+                      controller: widget._controller,
+                    ),
+              if (widget.showDivider)
+                (controller, toolbarIconSize, iconTheme, dialogTheme) =>
+                    BBCodeEditorToolbarDividerButton(
                       controller: widget._controller,
                     ),
             ],

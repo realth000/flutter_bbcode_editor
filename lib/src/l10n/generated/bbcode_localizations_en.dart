@@ -147,4 +147,7 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
 
   @override
   String get hidePointsInvalid => 'Invalid points value';
+
+  @override
+  String get divider => 'Divider';
 }
