@@ -44,7 +44,7 @@ Based on [flutter_quill](https://pub.dev/packages/flutter_quill).
   * [x] Mention user with `[@]$user_name[/@]`
   * [x] Ordered list `[list=1]`
   * [x] Bullet list `[list=]`
-  * [ ] Splitter `[hr]`
+  * [x] Divider `[hr]`
   * [ ] Table `[table]`
   * [x] Code block `[code]`
   * [x] Quote block `[quote]`
