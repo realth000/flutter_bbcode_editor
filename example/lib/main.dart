@@ -151,7 +151,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final controller = BBCodeEditorController();
+  final controller = buildBBCodeEditorController();
   final _focusNode = FocusNode();
   late Future<String> _jsonString;
 
@@ -175,6 +175,9 @@ class _MyHomePageState extends State<MyHomePage> {
               border: OutlineInputBorder(),
             ),
             child: BBCodeEditor(
+              emojiPicker: (_) {
+                throw UnimplementedError();
+              },
               controller: controller,
               focusNode: _focusNode,
               autoFocus: true,

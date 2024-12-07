@@ -278,7 +278,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
   @override
   void initState() {
     super.initState();
-    bodyController = BBCodeEditorController(readOnly: true);
+    bodyController = buildBBCodeEditorController(readOnly: true);
     data = widget.initialData;
     // Because the card may be frequently built when user add content above the
     // current spoiler, each rebuild will construct a different card state,
@@ -405,7 +405,7 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
   void initState() {
     super.initState();
     titleController = TextEditingController(text: widget.initialData?.title);
-    bodyController = BBCodeEditorController();
+    bodyController = buildBBCodeEditorController();
     if (widget.initialData != null && widget.initialData!.body.isNotEmpty) {
       bodyController.setDocumentFromDelta(
         Delta.fromJson(

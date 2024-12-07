@@ -5,9 +5,11 @@ export 'src/editor.dart'
         BBCodeEditor,
         BBCodeEditorController,
         BBCodeEditorToolbar,
+        BBCodeExt,
         BBCodeUrlPicker,
         PickColorResult,
-        PickUrlResult;
+        PickUrlResult,
+        buildBBCodeEditorController;
 export 'src/editor_configuration.dart' show BBCodeEditorToolbarConfiguration;
 export 'src/tags/image/image_embed.dart' show BBCodeImageInfo;
 export 'src/tags/user_mention/user_mention_button.dart'

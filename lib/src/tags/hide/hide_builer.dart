@@ -258,7 +258,7 @@ class _HideCardState extends State<_HideCard> {
   @override
   void initState() {
     super.initState();
-    bodyController = BBCodeEditorController(readOnly: true);
+    bodyController = buildBBCodeEditorController(readOnly: true);
     data = widget.initialData;
     // Because the card may be frequently built when user add content above the
     // current spoiler, each rebuild will construct a different card state,
@@ -405,7 +405,7 @@ class _HideEditPageState extends State<_HideEditPage> {
       null || <= 0 => _HideWithType.reply,
       _ => _HideWithType.points,
     };
-    bodyController = BBCodeEditorController();
+    bodyController = buildBBCodeEditorController();
     if (widget.initialData != null && widget.initialData!.body.isNotEmpty) {
       bodyController.setDocumentFromDelta(
         Delta.fromJson(

@@ -125,6 +125,12 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
           _controllerV2.moveCursorToEnd();
         }
       });
+    } else {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (widget.moveCursorToEndOnInitState) {
+          _controllerV2.moveCursorToEnd();
+        }
+      });
     }
   }
 
@@ -133,7 +139,7 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
     return BBCodeLocalizationsWidget(
       child: FlutterQuillLocalizationsWidget(
         child: QuillEditor.basic(
-          controller: _controllerV2._quillController,
+          controller: _controllerV2,
           scrollController: widget.scrollController,
           focusNode: widget.focusNode,
           configurations: QuillEditorConfigurations(

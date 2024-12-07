@@ -360,7 +360,7 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
     return BBCodeLocalizationsWidget(
       child: Builder(
         builder: (context) => QuillToolbar.simple(
-          controller: controller._quillController,
+          controller: controller,
           configurations: QuillSimpleToolbarConfigurations(
             // TODO: Make dividers customizable.
             showDividers: false,
