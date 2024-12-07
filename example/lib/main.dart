@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
 
 // Dialog to pick a emoji.
@@ -151,9 +150,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final controller = buildBBCodeEditorController();
-  final _focusNode = FocusNode();
-  late Future<String> _jsonString;
+  late BBCodeEditorController controller;
+  late FocusNode focusNode;
 
   List<Widget> _buildEditor(BuildContext context) {
     return [
@@ -175,11 +173,11 @@ class _MyHomePageState extends State<MyHomePage> {
               border: OutlineInputBorder(),
             ),
             child: BBCodeEditor(
+              focusNode: focusNode,
               emojiPicker: (_) {
                 throw UnimplementedError();
               },
               controller: controller,
-              focusNode: _focusNode,
               autoFocus: true,
               emojiProvider: (context, code) {
                 // Assume emoji code format is [emoji=].
@@ -218,14 +216,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-
-    _jsonString = Platform.isAndroid || Platform.isIOS
-        ? rootBundle.loadString('assets/mobile_example.json')
-        : rootBundle.loadString('assets/example.json');
+    focusNode = FocusNode();
+    controller = buildBBCodeEditorController(
+      focusNode: focusNode,
+      initialText: 'some text to show\n',
+    );
   }
 
   @override
   void dispose() {
+    controller.dispose();
+    focusNode.dispose();
     super.dispose();
   }
 
