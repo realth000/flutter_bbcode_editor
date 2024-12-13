@@ -8,11 +8,51 @@
 
 **当前仍处于开发状态。将来功能特性和API可能发生变动。**
 
+## 截图
+
+![cover](./cover.jpg)
+
+```
+[quote][size=4]flutter_bbcode_editor is a WYSIWYG editor based on [/size][size=4][url=https://github.com/singerdmx/flutter-quill]flutter_quill[/url][/size]
+[/quote]
+[size=4]Made for [/size][@]flutter[/@]
+
+[size=6]Header size 6[/size]
+
+[b]bold[/b]
+[i]italic[/i]
+[u]underline[/u]
+[s]strikethrough[/s]
+[color=#087]color[/color]
+[backcolor=#5ae]backgroundcolor[/backcolor]
+
+[hr]
+
+[spoiler=Click to expand][size=4]All[/size] [b]formats[/b] can be used in [b][color=#a4b]spoiler[/color][/b]
+
+[list]
+[*][color=#e99]unordered[/color] list item 1
+[*][color=#e99]unordered[/color] list item 2
+[/list]
+
+[hide=1234]Hide area inside spoiler[/hide]
+[/spoiler]
+
+[hide]This area is locked until user reply
+
+[u]RIch[/u] text in [backcolor=#9c9]hide[/backcolor] area here
+
+[list=1]
+[*]ordered list [color=#4aa]item[/color] 1
+[*]ordered list item 2
+[/list][/hide]
+```
+
 ## 介绍
 
 用来编辑[bbcode](https://en.wikipedia.org/wiki/BBCode)的Flutter widget，支持[所见即所得](https://en.wikipedia.org/wiki/WYSIWYG)。
 
-基于[flutter_quill](https://pub.dev/packages/flutter_quill).
+基于[flutter_quill](https://pub.dev/packages/flutter_quill)。
 
 ## Feature
 
