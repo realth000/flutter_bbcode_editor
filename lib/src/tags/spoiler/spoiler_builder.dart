@@ -78,6 +78,8 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
     final info = BBCodeSpoilerInfo.fromJson(node.value.data as String);
 
     return _SpoilerCard(
+      onTap: () =>
+          controller.moveCursorToPosition(node.documentOffset + node.length),
       onEdited: (info) {
         final offset = getEmbedNode(
           controller,
@@ -111,6 +113,7 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
 class _SpoilerCard extends StatefulWidget {
   const _SpoilerCard({
     required this.onEdited,
+    required this.onTap,
     required this.initialData,
     required this.emojiPicker,
     required this.emojiProvider,
@@ -126,6 +129,22 @@ class _SpoilerCard extends StatefulWidget {
 
   /// Callback when spoiler content is edited.
   final void Function(BBCodeSpoilerInfo) onEdited;
+
+  /// Callback when spoiler card is tapped.
+  ///
+  /// This callback is for anything need update in the outer editor.
+  ///
+  /// Though the function body is defined by caller, things determined to be
+  /// done includes:
+  ///
+  /// * Update cursor position to the end side of spoiler card, when user
+  ///   finish edit, ensuring the content save process in [onEdited] do find
+  ///   the embed node using `getEmbedNode`.
+  ///   This may be an internal but upstream that an embed builder contains
+  ///   [GestureDetector] sometimes make the cursor not moved around embed
+  ///   widget causing `getEmbedNode` failed to find node: a failure on saving
+  ///   contents in document.
+  final VoidCallback onTap;
 
   final BBCodeEmojiPicker emojiPicker;
   final BBCodeColorPicker? colorPicker;
@@ -307,10 +326,14 @@ class _SpoilerCardState extends State<_SpoilerCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async => showDialog<void>(
-        context: context,
-        builder: (_) => buildDialog(context),
-      ),
+      behavior: HitTestBehavior.deferToChild,
+      onTap: () async {
+        widget.onTap.call();
+        await showDialog<void>(
+          context: context,
+          builder: (_) => buildDialog(context),
+        );
+      },
       child: Card(
         margin: EdgeInsets.zero,
         clipBehavior: Clip.hardEdge,

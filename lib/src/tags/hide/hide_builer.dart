@@ -93,6 +93,8 @@ final class BBCodeHideEmbedBuilder extends EmbedBuilder {
           ..editorFocusNode?.requestFocus()
           ..moveCursorToPosition(offset + 1);
       },
+      onTap: () =>
+          controller.moveCursorToPosition(node.documentOffset + node.length),
       initialData: info,
       emojiPicker: _emojiPicker,
       colorPicker: _colorPicker,
@@ -111,6 +113,7 @@ final class BBCodeHideEmbedBuilder extends EmbedBuilder {
 class _HideCard extends StatefulWidget {
   const _HideCard({
     required this.onEdited,
+    required this.onTap,
     required this.initialData,
     required this.emojiPicker,
     required this.emojiProvider,
@@ -126,6 +129,9 @@ class _HideCard extends StatefulWidget {
 
   /// Callback when hide content is edited.
   final void Function(BBCodeHideInfo) onEdited;
+
+  /// See comments on _SpoilerCard.onTap
+  final VoidCallback onTap;
 
   final BBCodeEmojiPicker emojiPicker;
   final BBCodeColorPicker? colorPicker;
@@ -289,10 +295,13 @@ class _HideCardState extends State<_HideCard> {
     final tr = context.bbcodeL10n;
 
     return GestureDetector(
-      onTap: () async => showDialog<void>(
-        context: context,
-        builder: (_) => buildDialog(context),
-      ),
+      onTap: () async {
+        widget.onTap.call();
+        await showDialog<void>(
+          context: context,
+          builder: (_) => buildDialog(context),
+        );
+      },
       child: Card(
         margin: EdgeInsets.zero,
         clipBehavior: Clip.hardEdge,
