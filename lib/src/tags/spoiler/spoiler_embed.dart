@@ -25,6 +25,7 @@ final class BBCodeSpoilerInfo {
   const BBCodeSpoilerInfo({
     required this.title,
     required this.body,
+    required this.collapsed,
   });
 
   /// Construct from [json] string.
@@ -38,10 +39,15 @@ final class BBCodeSpoilerInfo {
       {BBCodeSpoilerKeys.body: final String data} => data,
       _ => throw Exception('bbcode spoiler body not found'),
     };
+    final collapsed = switch (data) {
+      {BBCodeSpoilerKeys.collapsed: final bool data} => data,
+      _ => true,
+    };
 
     return BBCodeSpoilerInfo(
       title: title,
       body: body,
+      collapsed: collapsed,
     );
   }
 
@@ -52,7 +58,7 @@ final class BBCodeSpoilerInfo {
   /// The [title] should be constructed according to current locale and built to
   /// be a default value, usually injected with l10n on build context.
   factory BBCodeSpoilerInfo.buildEmpty(String title) =>
-      BBCodeSpoilerInfo(title: title, body: '');
+      BBCodeSpoilerInfo(title: title, body: '', collapsed: true);
 
   /// Parse a current type [embed] and add bbcode to [out].
   static void toBBCode(Embed embed, StringSink out) {
@@ -68,13 +74,39 @@ final class BBCodeSpoilerInfo {
   /// Raw bbcode body in the spoiler area
   final String body;
 
+  /// Spoiler is collapsed or not
+  ///
+  /// Only a flag indicating should expand the spoiler card or not when
+  /// rendering into an editor. Not be into the generated bbcode.
+  ///
+  /// This field is optional, meaning it's a field added later in release, make
+  /// it optional to keep compatible with old version documents.
+  ///
+  /// Default value is true.
+  final bool collapsed;
+
   /// Convert to json map string.
   String toJson() => jsonEncode(<String, dynamic>{
         BBCodeSpoilerKeys.title: title,
         BBCodeSpoilerKeys.body: body,
+        BBCodeSpoilerKeys.collapsed: collapsed,
       });
+
+  /// The copy with method.
+  BBCodeSpoilerInfo copyWith({
+    String? title,
+    String? body,
+    bool? collapsed,
+  }) {
+    return BBCodeSpoilerInfo(
+      title: title ?? this.title,
+      body: body ?? this.body,
+      collapsed: collapsed ?? this.collapsed,
+    );
+  }
 
   @override
   String toString() => '${BBCodeSpoilerKeys.title}=$title, '
-      '${BBCodeSpoilerKeys.body}=$body';
+      '${BBCodeSpoilerKeys.body}=$body, '
+      '${BBCodeSpoilerKeys.collapsed}=$collapsed';
 }

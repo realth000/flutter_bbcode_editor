@@ -174,7 +174,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
   late BBCodeSpoilerInfo data;
 
   /// Flag indicating body is visible or not.
-  bool _visible = false;
+  late bool _visible;
 
   Future<void> editSpoiler() async {
     final data = await Navigator.push<BBCodeSpoilerInfo>(
@@ -198,7 +198,8 @@ class _SpoilerCardState extends State<_SpoilerCard> {
     );
     if (data != null) {
       setState(() {
-        this.data = data;
+        // Keep collapsed state.
+        this.data = data.copyWith(collapsed: !_visible);
         bodyController.setDocumentFromJson(
           jsonDecode(data.body) as List<dynamic>,
         );
@@ -315,6 +316,8 @@ class _SpoilerCardState extends State<_SpoilerCard> {
         });
       });
     }
+    // Restore the spoiler body visibility.
+    _visible = !data.collapsed;
   }
 
   @override
@@ -350,9 +353,12 @@ class _SpoilerCardState extends State<_SpoilerCard> {
                     : const Icon(Icons.expand_more_outlined),
                 label: Text(data.title),
                 onPressed: () {
+                  widget.onTap.call();
                   setState(() {
                     _visible = !_visible;
                   });
+                  data = data.copyWith(collapsed: !_visible);
+                  widget.onEdited(data);
                 },
               ),
               if (_visible) ...[
@@ -459,6 +465,7 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
               BBCodeSpoilerInfo(
                 title: titleController.text,
                 body: bodyController.toQuillDelta(),
+                collapsed: widget.initialData?.collapsed ?? true,
               ),
             ),
           ),

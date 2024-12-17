@@ -10,4 +10,7 @@ final class BBCodeSpoilerKeys {
 
   /// Raw bbcode body inside the spoiler block.
   static const String body = 'data';
+
+  /// Spoiler should be rendered in collapsed state or not.
+  static const String collapsed = 'collapsed';
 }
