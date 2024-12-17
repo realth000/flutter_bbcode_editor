@@ -83,6 +83,15 @@ extension BBCodeExt on BBCodeEditorController {
       ..moveCursorToPosition(index + text.length);
   }
 
+  /// Insert raw bbcode that has a [head] and [tail] and move cursor to the
+  /// position between them after insertion.
+  void insertRawCode(String head, String tail) {
+    this
+      ..replaceText(index, length, head + tail, null)
+      ..editorFocusNode?.requestFocus()
+      ..moveCursorToPosition(index + head.length);
+  }
+
   /// Insert formatted embed block [embed] into editor.
   void insertEmbedBlock(CustomBlockEmbed embed) {
     this

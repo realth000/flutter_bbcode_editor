@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
 import 'package:flutter_bbcode_editor/src/editor.dart';
@@ -24,6 +26,10 @@ class BBCodeEditorToolbarHideButton extends StatelessWidget {
       iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
       isSelected: false,
       onPressed: () async {
+        if (Platform.isAndroid) {
+          controller.insertRawCode('[hide]', '[/hide]');
+          return;
+        }
         controller
             .insertEmbeddable(BBCodeHideEmbed(BBCodeHideInfo.buildEmpty()));
       },
