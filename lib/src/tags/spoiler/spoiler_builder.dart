@@ -338,6 +338,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
         );
       },
       child: Card(
+        color: Theme.of(context).colorScheme.surfaceContainerHigh,
         margin: EdgeInsets.zero,
         clipBehavior: Clip.hardEdge,
         child: Padding(
