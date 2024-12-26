@@ -2,3 +2,6 @@
 	path = packages/flutter-quill
 	url = https://github.com/realth000/flutter-quill.git
 	branch = build
+[submodule "packages/quill-native-bridge"]
+	path = packages/quill-native-bridge
+	url = https://github.com/realth000/quill-native-bridge.git
