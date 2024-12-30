@@ -263,7 +263,6 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
 
   /// Refer: flutter_quill/lib/src/widgets/toolbar/color/color_button.dart
   void _changeColor(
-    BuildContext context,
     QuillController controller,
     bool isBackground,
     Color? color,
@@ -291,14 +290,14 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
       colorButtonOptions = QuillToolbarColorButtonOptions(
         customOnPressedCallback: (controller, isBackground) async {
           final pickResult = await widget._colorPicker!(context);
-          if (pickResult == null || !mounted) {
+          if (pickResult == null) {
             return;
           }
 
           if (pickResult.clearColor) {
-            _changeColor(context, controller, false, null);
+            _changeColor(controller, false, null);
           } else {
-            _changeColor(context, controller, false, pickResult.color);
+            _changeColor(controller, false, pickResult.color);
           }
         },
       );
@@ -309,14 +308,14 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
       backgroundColorButtonOptions = QuillToolbarColorButtonOptions(
         customOnPressedCallback: (controller, isBackground) async {
           final pickResult = await widget._backgroundColorPicker!(context);
-          if (pickResult == null || !mounted) {
+          if (pickResult == null) {
             return;
           }
 
           if (pickResult.clearColor) {
-            _changeColor(context, controller, true, null);
+            _changeColor(controller, true, null);
           } else {
-            _changeColor(context, controller, true, pickResult.color);
+            _changeColor(controller, true, pickResult.color);
           }
         },
       );
