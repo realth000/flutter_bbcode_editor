@@ -5,12 +5,10 @@ typedef BBCodeEditorController = QuillController;
 
 /// Build a [BBCodeEditorController].
 BBCodeEditorController buildBBCodeEditorController({
-  FocusNode? focusNode,
   bool readOnly = false,
   String? initialText,
 }) {
   return QuillController(
-    editorFocusNode: focusNode,
     document: initialText != null && initialText.isNotEmpty
         ? Document.fromDelta(Delta()..insert(initialText))
         : Document(),
@@ -77,32 +75,33 @@ extension BBCodeExt on BBCodeEditorController {
 
   /// Insert [text] into current cursor position and format with [attr].
   void insertFormattedText(String text, Attribute<dynamic> attr) {
+    final position = selection.baseOffset;
     this
-      ..replaceText(index, length, text, null)
-      ..formatText(index, text.length, attr)
-      ..moveCursorToPosition(index + text.length);
+      ..replaceText(position, text.length, text, null)
+      ..formatText(position, text.length, attr)
+      ..moveCursorToPosition(position + text.length);
   }
 
   /// Insert raw bbcode that has a [head] and [tail] and move cursor to the
   /// position between them after insertion.
   void insertRawCode(String head, String tail) {
+    final position = selection.baseOffset;
     this
-      ..replaceText(index, length, head + tail, null)
-      ..editorFocusNode?.requestFocus()
-      ..moveCursorToPosition(index + head.length);
+      ..replaceText(position, head.length + tail.length, head + tail, null)
+      ..moveCursorToPosition(position + head.length);
   }
 
   /// Insert formatted embed block [embed] into editor.
   void insertEmbedBlock(CustomBlockEmbed embed) {
+    final position = selection.baseOffset;
     this
       ..replaceText(
-        index,
-        length,
+        position,
+        position,
         BlockEmbed.custom(embed),
         null,
       )
-      ..editorFocusNode?.requestFocus()
-      ..moveCursorToPosition(index + 1);
+      ..moveCursorToPosition(position + 1);
   }
 
   /// Insert formatted embed block [embed] into editor.
@@ -112,14 +111,14 @@ extension BBCodeExt on BBCodeEditorController {
   ///
   /// refer: https://github.com/singerdmx/flutter-quill/issues/2303
   void insertEmbeddable(Embeddable embed) {
+    final position = selection.baseOffset;
     this
       ..replaceText(
-        index,
-        length,
+        position,
+        position,
         embed,
         null,
       )
-      ..editorFocusNode?.requestFocus()
-      ..moveCursorToPosition(index + 1);
+      ..moveCursorToPosition(position + 1);
   }
 }

@@ -23,7 +23,7 @@ class BBCodeEditorToolbarSpoilerButton extends StatelessWidget {
     return QuillToolbarIconButton(
       icon: const Icon(Icons.expand_circle_down_outlined),
       tooltip: context.bbcodeL10n.spoiler,
-      iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
+      iconTheme: const QuillIconTheme(),
       isSelected: false,
       onPressed: () async {
         if (Platform.isAndroid) {

@@ -17,7 +17,7 @@ class BBCodeEditorToolbarDividerButton extends StatelessWidget {
     return QuillToolbarIconButton(
       icon: const Icon(Icons.horizontal_rule_outlined),
       tooltip: context.bbcodeL10n.divider,
-      iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
+      iconTheme: const QuillIconTheme(),
       isSelected: false,
       onPressed: () async => controller.insertEmbeddable(BBCodeDividerEmbed()),
     );

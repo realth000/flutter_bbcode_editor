@@ -69,30 +69,28 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(
     BuildContext context,
-    QuillController controller,
-    Embed node,
-    bool readOnly,
-    bool inline,
-    TextStyle textStyle,
+    EmbedContext embedContext,
   ) {
-    final info = BBCodeSpoilerInfo.fromJson(node.value.data as String);
+    final info = BBCodeSpoilerInfo.fromJson(
+      embedContext.node.value.data as String,
+    );
 
     return _SpoilerCard(
-      onTap: () =>
-          controller.moveCursorToPosition(node.documentOffset + node.length),
+      onTap: () => embedContext.controller.moveCursorToPosition(
+        embedContext.node.documentOffset + embedContext.node.length,
+      ),
       onEdited: (info) {
         final offset = getEmbedNode(
-          controller,
-          controller.selection.start,
+          embedContext.controller,
+          embedContext.controller.selection.start,
         ).offset;
-        controller
+        embedContext.controller
           ..replaceText(
             offset,
             1,
             BBCodeSpoilerEmbed(info),
             TextSelection.collapsed(offset: offset),
           )
-          ..editorFocusNode?.requestFocus()
           ..moveCursorToPosition(offset + 1);
       },
       initialData: info,

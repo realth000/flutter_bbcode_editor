@@ -22,7 +22,6 @@ import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_button.
 import 'package:flutter_bbcode_editor/src/types.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
-import 'package:flutter_quill/translations.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 
 part 'editor_controller.dart';
@@ -137,51 +136,50 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
   @override
   Widget build(BuildContext context) {
     return BBCodeLocalizationsWidget(
-      child: FlutterQuillLocalizationsWidget(
-        child: QuillEditor.basic(
-          controller: _controllerV2,
-          scrollController: widget.scrollController,
-          focusNode: widget.focusNode,
-          configurations: QuillEditorConfigurations(
-            autoFocus: widget.autoFocus,
-            embedBuilders: [
-              BBCodeImageEmbedBuilder(
-                widget.imageProvider,
-                widget.imagePicker,
-                constraints: widget.imageConstraints,
-              ),
-              BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
-              BBCodeUserMentionEmbedBuilder(
-                usernamePicker: widget.usernamePicker,
-              ),
-              BBCodeSpoilerEmbedBuilder(
-                emojiPicker: widget.emojiPicker,
-                emojiProvider: widget.emojiProvider,
-                colorPicker: widget.colorPicker,
-                backgroundColorPicker: widget.backgroundColorPicker,
-                urlPicker: widget.urlPicker,
-                imagePicker: widget.imagePicker,
-                imageProvider: widget.imageProvider,
-                usernamePicker: widget.usernamePicker,
-                userMentionHandler: widget.userMentionHandler,
-                urlLauncher: widget.urlLauncher,
-              ),
-              BBCodeHideEmbedBuilder(
-                emojiPicker: widget.emojiPicker,
-                emojiProvider: widget.emojiProvider,
-                colorPicker: widget.colorPicker,
-                backgroundColorPicker: widget.backgroundColorPicker,
-                urlPicker: widget.urlPicker,
-                imagePicker: widget.imagePicker,
-                imageProvider: widget.imageProvider,
-                usernamePicker: widget.usernamePicker,
-                userMentionHandler: widget.userMentionHandler,
-                urlLauncher: widget.urlLauncher,
-              ),
-              BBCodeDividerEmbedBuilder(),
-            ],
-            onLaunchUrl: widget.urlLauncher,
-          ),
+      // TODO: Removed FlutterQuillLocalizationsWidget here.
+      child: QuillEditor.basic(
+        controller: _controllerV2,
+        scrollController: widget.scrollController,
+        focusNode: widget.focusNode,
+        config: QuillEditorConfig(
+          autoFocus: widget.autoFocus,
+          embedBuilders: [
+            BBCodeImageEmbedBuilder(
+              widget.imageProvider,
+              widget.imagePicker,
+              constraints: widget.imageConstraints,
+            ),
+            BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
+            BBCodeUserMentionEmbedBuilder(
+              usernamePicker: widget.usernamePicker,
+            ),
+            BBCodeSpoilerEmbedBuilder(
+              emojiPicker: widget.emojiPicker,
+              emojiProvider: widget.emojiProvider,
+              colorPicker: widget.colorPicker,
+              backgroundColorPicker: widget.backgroundColorPicker,
+              urlPicker: widget.urlPicker,
+              imagePicker: widget.imagePicker,
+              imageProvider: widget.imageProvider,
+              usernamePicker: widget.usernamePicker,
+              userMentionHandler: widget.userMentionHandler,
+              urlLauncher: widget.urlLauncher,
+            ),
+            BBCodeHideEmbedBuilder(
+              emojiPicker: widget.emojiPicker,
+              emojiProvider: widget.emojiProvider,
+              colorPicker: widget.colorPicker,
+              backgroundColorPicker: widget.backgroundColorPicker,
+              urlPicker: widget.urlPicker,
+              imagePicker: widget.imagePicker,
+              imageProvider: widget.imageProvider,
+              usernamePicker: widget.usernamePicker,
+              userMentionHandler: widget.userMentionHandler,
+              urlLauncher: widget.urlLauncher,
+            ),
+            BBCodeDividerEmbedBuilder(),
+          ],
+          onLaunchUrl: widget.urlLauncher,
         ),
       ),
     );

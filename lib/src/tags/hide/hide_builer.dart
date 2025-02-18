@@ -69,32 +69,29 @@ final class BBCodeHideEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(
     BuildContext context,
-    QuillController controller,
-    Embed node,
-    bool readOnly,
-    bool inline,
-    TextStyle textStyle,
+    EmbedContext embedContext,
   ) {
-    final info = BBCodeHideInfo.fromJson(node.value.data as String);
+    final info =
+        BBCodeHideInfo.fromJson(embedContext.node.value.data as String);
 
     return _HideCard(
       onEdited: (info) {
         final offset = getEmbedNode(
-          controller,
-          controller.selection.start,
+          embedContext.controller,
+          embedContext.controller.selection.start,
         ).offset;
-        controller
+        embedContext.controller
           ..replaceText(
             offset,
             1,
             BBCodeHideEmbed(info),
             TextSelection.collapsed(offset: offset),
           )
-          ..editorFocusNode?.requestFocus()
           ..moveCursorToPosition(offset + 1);
       },
-      onTap: () =>
-          controller.moveCursorToPosition(node.documentOffset + node.length),
+      onTap: () => embedContext.controller.moveCursorToPosition(
+        embedContext.node.documentOffset + embedContext.node.length,
+      ),
       initialData: info,
       emojiPicker: _emojiPicker,
       colorPicker: _colorPicker,

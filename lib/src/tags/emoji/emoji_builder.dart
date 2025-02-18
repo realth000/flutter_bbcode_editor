@@ -24,13 +24,10 @@ final class BBCodeEmojiEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(
     BuildContext context,
-    QuillController controller,
-    Embed node,
-    bool readOnly,
-    bool inline,
-    TextStyle textStyle,
+    EmbedContext embedContext,
   ) {
-    final info = BBCodeEmojiInfo.fromJson(node.value.data as String);
+    final info =
+        BBCodeEmojiInfo.fromJson(embedContext.node.value.data as String);
     final code = info.code;
     if (!_emojiCacheMap.containsKey(code)) {
       _emojiCacheMap[code] = emojiProvider(context, code);

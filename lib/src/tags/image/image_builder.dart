@@ -128,14 +128,11 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(
     BuildContext context,
-    QuillController controller,
-    Embed node,
-    bool readOnly,
-    bool inline,
-    TextStyle textStyle,
+    EmbedContext embedContext,
   ) {
     final tr = context.bbcodeL10n;
-    final info = BBCodeImageInfo.fromJson(node.value.data as String);
+    final info =
+        BBCodeImageInfo.fromJson(embedContext.node.value.data as String);
     final link = info.link;
     final width = info.width;
     final height = info.height;
@@ -162,21 +159,33 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
                     ListTile(
                       leading: const Icon(Icons.edit),
                       title: Text(tr.imageBuilderDialogEdit),
-                      onTap: readOnly
+                      onTap: embedContext.readOnly
                           ? null
-                          : () async => _onEditImage(context, controller, node),
+                          : () async => _onEditImage(
+                                context,
+                                embedContext.controller,
+                                embedContext.node,
+                              ),
                     ),
                     ListTile(
                       leading: const Icon(Icons.delete),
                       title: Text(tr.imageBuilderDialogDelete),
-                      onTap: readOnly
+                      onTap: embedContext.readOnly
                           ? null
-                          : () async => _onDelete(context, controller, node),
+                          : () async => _onDelete(
+                                context,
+                                embedContext.controller,
+                                embedContext.node,
+                              ),
                     ),
                     ListTile(
                       leading: const Icon(Icons.copy),
                       title: Text(tr.imageBuilderDialogCopyLink),
-                      onTap: () async => _onCopy(context, controller, node),
+                      onTap: () async => _onCopy(
+                        context,
+                        embedContext.controller,
+                        embedContext.node,
+                      ),
                     ),
                   ],
                 ),

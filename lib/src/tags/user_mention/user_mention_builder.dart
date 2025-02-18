@@ -4,7 +4,6 @@ import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_button.
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:flutter_quill/translations.dart';
 
 /// Embed builder for user mention type.
 ///
@@ -32,7 +31,7 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
       username = await showDialog<String>(
         context: context,
         builder: (_) => BBCodeLocalizationsWidget(
-          child: FlutterQuillLocalizationsWidget(
+          child: BBCodeLocalizationsWidget(
             child: PickUserMentionDialog(username: initialUsername),
           ),
         ),
@@ -54,7 +53,6 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
         BBCodeUserMentionEmbed.raw(username: username),
         TextSelection.collapsed(offset: offset),
       )
-      ..editorFocusNode?.requestFocus()
       ..moveCursorToPosition(offset + 1);
   }
 
@@ -67,20 +65,16 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(
     BuildContext context,
-    QuillController controller,
-    Embed node,
-    bool readOnly,
-    bool inline,
-    TextStyle textStyle,
+    EmbedContext embedContext,
   ) {
     final initialUsername =
-        BBCodeUserMentionInfo.fromJson(node.value.data as String);
+        BBCodeUserMentionInfo.fromJson(embedContext.node.value.data as String);
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () async =>
-            _onTap(context, controller, initialUsername.username),
+            _onTap(context, embedContext.controller, initialUsername.username),
         child: Padding(
           padding: const EdgeInsets.only(left: 2, right: 2),
           child: Text(

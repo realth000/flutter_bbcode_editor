@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/l10n/generated/bbcode_localizations.dart';
-import 'package:flutter_quill/translations.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 
 /// Wrap localizations.
 class BBCodeLocalizationsWidget extends StatelessWidget {

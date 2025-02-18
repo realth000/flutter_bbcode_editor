@@ -4,7 +4,7 @@ import 'package:flutter_bbcode_editor/src/extensions/context.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_embed.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:flutter_quill/translations.dart';
+import 'package:flutter_quill/internal.dart';
 
 /// External function to get a username.
 ///
@@ -109,7 +109,7 @@ class BBCodeEditorToolbarUserMentionButton extends StatelessWidget {
       icon: const Icon(Icons.alternate_email),
       tooltip: context.bbcodeL10n.userMention,
       isSelected: false,
-      iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
+      iconTheme: const QuillIconTheme(),
       onPressed: () async {
         String? username;
         if (usernamePicker != null) {
@@ -118,7 +118,7 @@ class BBCodeEditorToolbarUserMentionButton extends StatelessWidget {
           username = await showDialog<String>(
             context: context,
             builder: (_) => const BBCodeLocalizationsWidget(
-              child: FlutterQuillLocalizationsWidget(
+              child: BBCodeLocalizationsWidget(
                 child: PickUserMentionDialog(),
               ),
             ),

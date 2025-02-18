@@ -23,7 +23,7 @@ class BBCodeEditorToolbarHideButton extends StatelessWidget {
     return QuillToolbarIconButton(
       icon: const Icon(Icons.visibility_off_outlined),
       tooltip: context.bbcodeL10n.hide,
-      iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
+      iconTheme: const QuillIconTheme(),
       isSelected: false,
       onPressed: () async {
         if (Platform.isAndroid) {

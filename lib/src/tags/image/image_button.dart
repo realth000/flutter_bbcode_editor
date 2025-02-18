@@ -6,7 +6,7 @@ import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_embed.dart';
 import 'package:flutter_bbcode_editor/src/types.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:flutter_quill/translations.dart';
+import 'package:flutter_quill/internal.dart';
 
 final _imageSizeFormatters = [
   FilteringTextInputFormatter.allow(
@@ -176,7 +176,7 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
       showDialog<BBCodeImageInfo>(
         context: context,
         builder: (_) => BBCodeLocalizationsWidget(
-          child: FlutterQuillLocalizationsWidget(
+          child: BBCodeLocalizationsWidget(
             child: PickImageDialog(dialogTheme: dialogTheme),
           ),
         ),
@@ -188,7 +188,7 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
       icon: const Icon(Icons.image),
       tooltip: context.loc.insertImage,
       isSelected: false,
-      iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
+      iconTheme: const QuillIconTheme(),
       onPressed: () async {
         BBCodeImageInfo? imageInfo;
         if (imagePicker != null) {

@@ -28,7 +28,7 @@ class BBCodeEditorToolbarEmojiButton extends StatelessWidget {
       icon: const Icon(Icons.emoji_emotions),
       tooltip: context.bbcodeL10n.emojiInsertEmoji,
       isSelected: false,
-      iconTheme: context.quillToolbarBaseButtonOptions?.iconTheme,
+      iconTheme: const QuillIconTheme(),
       onPressed: () async {
         final code = await emojiPicker(context);
         if (code != null) {
