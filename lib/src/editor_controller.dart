@@ -76,8 +76,9 @@ extension BBCodeExt on BBCodeEditorController {
   /// Insert [text] into current cursor position and format with [attr].
   void insertFormattedText(String text, Attribute<dynamic> attr) {
     final position = selection.baseOffset;
+    final length = selection.extentOffset - position;
     this
-      ..replaceText(position, text.length, text, null)
+      ..replaceText(position, length, text, null)
       ..formatText(position, text.length, attr)
       ..moveCursorToPosition(position + text.length);
   }
@@ -86,18 +87,20 @@ extension BBCodeExt on BBCodeEditorController {
   /// position between them after insertion.
   void insertRawCode(String head, String tail) {
     final position = selection.baseOffset;
+    final length = selection.extentOffset - position;
     this
-      ..replaceText(position, head.length + tail.length, head + tail, null)
+      ..replaceText(position, length, head + tail, null)
       ..moveCursorToPosition(position + head.length);
   }
 
   /// Insert formatted embed block [embed] into editor.
   void insertEmbedBlock(CustomBlockEmbed embed) {
     final position = selection.baseOffset;
+    final length = selection.extentOffset - position;
     this
       ..replaceText(
         position,
-        position,
+        length,
         BlockEmbed.custom(embed),
         null,
       )
@@ -112,10 +115,11 @@ extension BBCodeExt on BBCodeEditorController {
   /// refer: https://github.com/singerdmx/flutter-quill/issues/2303
   void insertEmbeddable(Embeddable embed) {
     final position = selection.baseOffset;
+    final length = selection.extentOffset - position;
     this
       ..replaceText(
         position,
-        position,
+        length,
         embed,
         null,
       )
