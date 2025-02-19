@@ -43,18 +43,18 @@ class ColorUtils {
 
     if (useHex) {
       // refer: https://stackoverflow.com/a/2049362
-      final sr = bbcodeColor.red / 255;
-      final sg = bbcodeColor.green / 255;
-      final sb = bbcodeColor.blue / 255;
-      final sa = bbcodeColor.alpha / 255;
+      final sr = bbcodeColor.r;
+      final sg = bbcodeColor.g;
+      final sb = bbcodeColor.b;
+      final sa = bbcodeColor.a;
       final r = ((sr * sa + 0 * (1 - sa)) * 255).toInt().toRadixString(16);
       final g = ((sg * sa + 0 * (1 - sa)) * 255).toInt().toRadixString(16);
       final b = ((sb * sa + 0 * (1 - sa)) * 255).toInt().toRadixString(16);
       return '#$r$g$b';
     } else {
-      return 'rgb(${bbcodeColor.red}, '
-          '${bbcodeColor.green}, '
-          '${bbcodeColor.blue})';
+      return 'rgb(${(bbcodeColor.r * 255).toInt()}, '
+          '${(bbcodeColor.g * 255).toInt()}, '
+          '${(bbcodeColor.b * 255).toInt()})';
     }
   }
 }
