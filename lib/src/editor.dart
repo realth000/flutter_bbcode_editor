@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
@@ -22,7 +23,6 @@ import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_button.
 import 'package:flutter_bbcode_editor/src/types.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
-import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 
 part 'editor_controller.dart';
 part 'editor_tool_bar.dart';
@@ -58,6 +58,8 @@ class BBCodeEditor extends StatefulWidget {
   final ScrollController? scrollController;
 
   /// Editor focus node.
+  ///
+  /// The toolbar also shared this node.
   final FocusNode? focusNode;
 
   // TODO: Make optional.

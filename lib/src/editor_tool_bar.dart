@@ -100,6 +100,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
     this.showHideButton = true,
     this.showDivider = true,
     this.afterButtonPressed,
+    this.focusNode,
     super.key,
   })  : _controller = controller,
         _config = config,
@@ -122,6 +123,9 @@ class BBCodeEditorToolbar extends StatefulWidget {
   final BBCodeUrlPicker? _urlPicker;
   final BBCodeImagePicker? _imagePicker;
   final BBCodeUsernamePicker? _usernamePicker;
+
+  /// The focus node shared with editor.
+  final FocusNode? focusNode;
 
   /// Host of site.
   ///
@@ -358,172 +362,132 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
   Widget build(BuildContext context) {
     return BBCodeLocalizationsWidget(
       child: Builder(
-        builder: (context) => SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Wrap(
-            children: [
-              if (widget.showUndo)
-                QuillToolbarHistoryButton(
-                  isUndo: true,
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                ),
-              if (widget.showRedo)
-                QuillToolbarHistoryButton(
-                  isUndo: false,
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                ),
-              if (widget.showBoldButton)
-                QuillToolbarToggleStyleButton(
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                  attribute: Attribute.bold,
-                ),
-              if (widget.showItalicButton)
-                QuillToolbarToggleStyleButton(
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                  attribute: Attribute.italic,
-                ),
-              if (widget.showUnderlineButton)
-                QuillToolbarToggleStyleButton(
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                  attribute: Attribute.underline,
-                ),
-              if (widget.showClearFormatButton)
-                QuillToolbarClearFormatButton(
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                ),
-              if (widget.showImageButton)
-                QuillToolbarImageButton(
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                ),
-              if (widget.showColorButton)
-                QuillToolbarColorButton(
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                  isBackground: false,
-                  options: colorButtonOptions,
-                ),
-              if (widget.showBackgroundColorButton)
-                QuillToolbarColorButton(
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                  isBackground: true,
-                  options: backgroundColorButtonOptions,
-                ),
-              if (widget.showOrderedListButton)
-                QuillToolbarToggleStyleButton(
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                  attribute: Attribute.ol,
-                ),
-              if (widget.showBulletListButton)
-                QuillToolbarToggleStyleButton(
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                  attribute: Attribute.ul,
-                ),
-              if (widget.showQuoteBlockButton)
-                QuillToolbarToggleStyleButton(
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                  attribute: Attribute.blockQuote,
-                ),
-              if (widget.showUrlButton)
-                QuillToolbarLinkStyleButton(
-                  controller: controller,
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  options: urlButtonOptions,
-                ),
-              if (widget.showFontFamily)
-                QuillToolbarFontFamilyButton(
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                  options: QuillToolbarFontFamilyButtonOptions(
-                    items: widget._config.fontFamilyValues,
-                  ),
-                ),
-              if (widget.showFontSize)
-                QuillToolbarFontSizeButton(
-                  baseOptions: QuillToolbarBaseButtonOptions(
-                    afterButtonPressed: widget.afterButtonPressed,
-                  ),
-                  controller: controller,
-                  options: const QuillToolbarFontSizeButtonOptions(
-                    items: defaultFontSizeMap,
-                  ),
-                ),
-              QuillToolbarSelectAlignmentButton(
-                controller: controller,
+        builder: (context) => QuillSimpleToolbar(
+          controller: controller,
+          config: QuillSimpleToolbarConfig(
+            // TODO: Make dividers customizable.
+            showDividers: false,
+            toolbarIconAlignment: WrapAlignment.start,
+            // multiRowsDisplay: false,
+            // color: Colors.transparent,
+            // Below are custom flags that can be applied from user side.
+            showUndo: widget.showUndo,
+            showRedo: widget.showRedo,
+            showFontFamily: widget.showFontFamily,
+            showFontSize: widget.showFontSize,
+            showBoldButton: widget.showBoldButton,
+            showItalicButton: widget.showItalicButton,
+            showUnderLineButton: widget.showUnderlineButton,
+            showStrikeThrough: widget.showStrikethroughButton,
+            showSuperscript: widget.showSuperscriptButton,
+            showColorButton: widget.showColorButton,
+            showBackgroundColorButton: widget.showBackgroundColorButton,
+            showClearFormat: widget.showClearFormatButton,
+            showLeftAlignment: widget.showLeftAlignButton,
+            showCenterAlignment: widget.showCenterAlignButton,
+            showRightAlignment: widget.showRightAlignButton,
+            showListNumbers: widget.showOrderedListButton,
+            showListBullets: widget.showBulletListButton,
+            showLink: widget.showUrlButton,
+            showCodeBlock: widget.showCodeBlockButton,
+            showQuote: widget.showQuoteBlockButton,
+            showClipboardCut: widget.showClipboardCutButton,
+            showClipboardCopy: widget.showClipboardCopyButton,
+            showClipboardPaste: widget.showClipboardPasteButton,
+
+            // Below are all formats implemented in quill but not supported in
+            // TSDM.
+            // These formats are disabled on default.
+            //
+            // Font family are not fixed to what quill supports.
+            // Should let developer support it.
+            // showFontFamily: false,
+            // Use font size instead.
+            showHeaderStyle: false,
+            showInlineCode: false,
+            showListCheck: false,
+            showIndent: false,
+            showSearchButton: false,
+            showSubscript: false,
+            showAlignmentButtons: true,
+            showJustifyAlignment: false,
+
+            //
+            buttonOptions: QuillSimpleToolbarButtonOptions(
+              color: colorButtonOptions,
+              backgroundColor: backgroundColorButtonOptions,
+              linkStyle: urlButtonOptions,
+              base: QuillToolbarBaseButtonOptions(
+                afterButtonPressed: () {
+                  widget.afterButtonPressed?.call();
+                  if (Platform.isWindows ||
+                      Platform.isLinux ||
+                      Platform.isMacOS) {
+                    // Try focus on editor again.
+                    widget.focusNode?.requestFocus();
+                  }
+                },
               ),
+              fontSize:
+                  // TODO: Override font size button callback.
+                  // Add this empty option will let font size menu able to
+                  // show after pressed on mobile platforms which may wrapped
+                  // in chat_bottom_container.
+                  //
+                  // This is tricky but works, may be available in future.
+                  const QuillToolbarFontSizeButtonOptions(
+                items: defaultFontSizeMap,
+              ),
+              fontFamily: QuillToolbarFontFamilyButtonOptions(
+                items: widget._config.fontFamilyValues,
+              ),
+            ),
+
+            // embedButtons: FlutterQuillEmbeds.toolbarButtons(),
+            embedButtons: [
               if (widget.showImageButton)
-                BBCodeEditorToolbarImageButton(
-                  controller: widget._controller,
-                  imagePicker: widget._imagePicker,
-                ),
+                (controller, embedContext) =>
+                    // FIXME: Do not add l10n here.
+                    BBCodeLocalizationsWidget(
+                      child: BBCodeEditorToolbarImageButton(
+                        controller: widget._controller,
+                        imagePicker: widget._imagePicker,
+                      ),
+                    ),
               if (widget.showEmojiButton)
-                BBCodeEditorToolbarEmojiButton(
-                  controller: widget._controller,
-                  emojiPicker: widget._emojiPicker,
-                ),
+                (controller, embedContext) => BBCodeLocalizationsWidget(
+                      child: BBCodeEditorToolbarEmojiButton(
+                        controller: widget._controller,
+                        emojiPicker: widget._emojiPicker,
+                      ),
+                    ),
+              // User mention
               if (widget.showUserMentionButton)
-                BBCodeEditorToolbarUserMentionButton(
-                  controller: widget._controller,
-                  usernamePicker: widget._usernamePicker,
-                ),
+                (controller, embedContext) =>
+                    BBCodeEditorToolbarUserMentionButton(
+                      controller: widget._controller,
+                      usernamePicker: widget._usernamePicker,
+                    ),
+              // Spoiler
               if (widget.showSpoilerButton)
-                BBCodeEditorToolbarSpoilerButton(
-                  controller: widget._controller,
-                ),
+                (controller, embedContext) => BBCodeEditorToolbarSpoilerButton(
+                      controller: widget._controller,
+                    ),
               if (widget.showHideButton)
-                BBCodeEditorToolbarHideButton(
-                  controller: widget._controller,
-                ),
+                (controller, embedContext) => BBCodeEditorToolbarHideButton(
+                      controller: widget._controller,
+                    ),
               if (widget.showDivider)
-                BBCodeEditorToolbarDividerButton(
-                  controller: widget._controller,
-                ),
-              QuillToolbarCustomButton(
-                controller: widget._controller,
-                options: BBCodePortationButtonOptions(
-                  tooltip: context.bbcodeL10n.portationTitle,
-                  onPressed: () async => openPortationModalBottomSheet(
-                    context,
-                    widget._controller,
-                  ),
+                (controller, embedContext) => BBCodeEditorToolbarDividerButton(
+                      controller: widget._controller,
+                    ),
+            ],
+            customButtons: [
+              BBCodePortationButtonOptions(
+                tooltip: context.bbcodeL10n.portationTitle,
+                onPressed: () async => openPortationModalBottomSheet(
+                  context,
+                  widget._controller,
                 ),
               ),
             ],
