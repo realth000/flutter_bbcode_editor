@@ -9,9 +9,9 @@ BBCodeEditorController buildBBCodeEditorController({
   String? initialText,
 }) {
   return QuillController(
-    document:
-    initialText != null && initialText.isNotEmpty ? Document.fromDelta(Delta()
-      ..insert(initialText)) : Document(),
+    document: initialText != null && initialText.isNotEmpty
+        ? Document.fromDelta(Delta()..insert(initialText))
+        : Document(),
     selection: const TextSelection.collapsed(offset: 0),
     readOnly: readOnly,
   );
@@ -36,10 +36,12 @@ extension BBCodeExt on BBCodeEditorController {
   String toJson() => jsonEncode(document.toDelta().toJson());
 
   /// Set the document from json data.
-  void setDocumentFromJson(List<dynamic> json) => document = Document.fromJson(json);
+  void setDocumentFromJson(List<dynamic> json) =>
+      document = Document.fromJson(json);
 
   /// Set the document from quill delta.
-  void setDocumentFromDelta(Delta delta) => document = Document.fromDelta(delta);
+  void setDocumentFromDelta(Delta delta) =>
+      document = Document.fromDelta(delta);
 
   /// Set the document from raw text without format.
   void setDocumentFromRawText(String text) {
@@ -49,7 +51,8 @@ extension BBCodeExt on BBCodeEditorController {
     } else {
       fixedText = '$text\n';
     }
-    document = Document.fromDelta(Delta.fromOperations([Operation.insert(fixedText)]));
+    document =
+        Document.fromDelta(Delta.fromOperations([Operation.insert(fixedText)]));
   }
 
   /// Check if editor has empty content.
