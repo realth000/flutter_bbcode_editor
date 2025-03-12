@@ -29,7 +29,8 @@ class ColorUtils {
     String color, {
     bool useHex = true,
   }) {
-    if (color.length < 2) {
+    // For some shorthand format, keep it's original style.
+    if (color.length < 2 || (color.length == 4 && color.startsWith('#'))) {
       return color;
     }
 
