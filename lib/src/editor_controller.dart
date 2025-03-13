@@ -10,7 +10,7 @@ BBCodeEditorController buildBBCodeEditorController({
 }) {
   return QuillController(
     document: initialText != null && initialText.isNotEmpty
-        ? Document.fromDelta(Delta()..insert(initialText))
+        ? Document.fromDelta(Delta()..insert(initialText.endsWith('\n') ? initialText : '${initialText}\n'))
         : Document(),
     selection: const TextSelection.collapsed(offset: 0),
     readOnly: readOnly,
@@ -80,6 +80,9 @@ extension BBCodeExt on BBCodeEditorController {
   String toBBCode() {
     final converter = DeltaToBBCode();
     final ret = converter.convert(document.toDelta());
+    if (ret.endsWith('\n')) {
+      return ret.substring(0, ret.length - 1);
+    }
     return ret;
   }
 
