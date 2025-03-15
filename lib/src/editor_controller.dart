@@ -40,8 +40,13 @@ extension BBCodeExt on BBCodeEditorController {
       document = Document.fromJson(json);
 
   /// Set the document from quill delta.
-  void setDocumentFromDelta(Delta delta) =>
-      document = Document.fromDelta(delta);
+  void setDocumentFromDelta(Delta delta) {
+    if (delta.isEmpty) {
+      delta.insert('\n');
+    }
+
+    document = Document.fromDelta(delta);
+  }
 
   /// Set the document from raw text without format.
   void setDocumentFromRawText(String text) {
