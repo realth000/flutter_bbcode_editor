@@ -181,6 +181,18 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
             ),
             BBCodeDividerEmbedBuilder(),
           ],
+          customStyles: DefaultStyles(
+            code: DefaultTextBlockStyle(
+              Theme.of(context).textTheme.bodyMedium!,
+              const HorizontalSpacing(0, 0),
+              const VerticalSpacing(6, 0),
+              VerticalSpacing.zero,
+              BoxDecoration(
+                color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
           onLaunchUrl: widget.urlLauncher,
         ),
       ),
