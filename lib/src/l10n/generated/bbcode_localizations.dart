@@ -216,6 +216,12 @@ abstract class BBCodeEditorLocalizations {
   /// **'Import BBCode'**
   String get portationImportBBCode;
 
+  /// No description provided for @portationImportBBCodeFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Import failed, maybe it\'s invalid bbcode'**
+  String get portationImportBBCodeFailed;
+
   /// No description provided for @portationExportQuillDelta.
   ///
   /// In en, this message translates to:
@@ -227,6 +233,12 @@ abstract class BBCodeEditorLocalizations {
   /// In en, this message translates to:
   /// **'Import Quill Delta'**
   String get portationImportQuillDelta;
+
+  /// No description provided for @portationImportQuillDeltaFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Import failed, maybe it\'s invalid Quill Delta'**
+  String get portationImportQuillDeltaFailed;
 
   /// No description provided for @portationCopyBBCode.
   ///

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dart_bbcode_parser/dart_bbcode_parser.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +20,7 @@ extension _DateTimeExt on DateTime {
 }
 
 Future<String?> _importFile(BuildContext context, List<String> exts) async {
-  final result = await FilePicker.platform.pickFiles(allowedExtensions: exts);
+  final result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: exts);
   if (result == null) {
     return null;
   }
@@ -30,6 +31,7 @@ Future<void> _exportFile(BuildContext context, String prefix, String ext, String
   final result = await FilePicker.platform.saveFile(
     dialogTitle: context.bbcodeL10n.portationSelectDirectory,
     fileName: '$prefix${DateTime.now().yyyyMMDDHHMMSS()}.$ext',
+    bytes: Uint8List.fromList(utf8.encode(data)),
   );
   if (result == null) {
     return;
@@ -39,6 +41,16 @@ Future<void> _exportFile(BuildContext context, String prefix, String ext, String
 
 void _showCopiedSnackBar(BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.bbcodeL10n.portationCopiedToClipboard)));
+}
+
+void _showInvalidQuillDeltaSnackBar(BuildContext context) {
+  ScaffoldMessenger.of(
+    context,
+  ).showSnackBar(SnackBar(content: Text(context.bbcodeL10n.portationImportQuillDeltaFailed)));
+}
+
+void _showInvalidBBCodeSnackBar(BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.bbcodeL10n.portationImportBBCodeFailed)));
 }
 
 /// Open a modal bottom sheet to export or import document.
@@ -88,7 +100,14 @@ Future<void> openPortationModalBottomSheet(BuildContext context, BBCodeEditorCon
                     if (!context.mounted) {
                       return;
                     }
-                    controller.setDocumentFromRawText(data);
+                    try {
+                      final delta = parseBBCodeTextToDelta(data);
+                      controller.setDocumentFromDelta(delta);
+                    } on Exception catch (e, _) {
+                      _showInvalidBBCodeSnackBar(context);
+                      // Here we can not log it, so rethrow.
+                      rethrow;
+                    }
                     Navigator.of(context).pop();
                   },
                 ),
@@ -123,7 +142,14 @@ Future<void> openPortationModalBottomSheet(BuildContext context, BBCodeEditorCon
                     if (!context.mounted) {
                       return;
                     }
-                    controller.setDocumentFromJson(jsonDecode(data) as List<dynamic>);
+
+                    try {
+                      controller.setDocumentFromJson(jsonDecode(data) as List<dynamic>);
+                    } on Exception catch (e, _) {
+                      _showInvalidQuillDeltaSnackBar(context);
+                      // Here we can not log it, so rethrow.
+                      rethrow;
+                    }
                     Navigator.of(context).pop();
                   },
                 ),

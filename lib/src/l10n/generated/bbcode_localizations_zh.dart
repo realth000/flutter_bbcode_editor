@@ -69,10 +69,16 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
   String get portationImportBBCode => '导入BBCode';
 
   @override
+  String get portationImportBBCodeFailed => '导入失败，可能是无效的BBCode';
+
+  @override
   String get portationExportQuillDelta => '导出为Quill Delta';
 
   @override
   String get portationImportQuillDelta => '导入Quill Delta';
+
+  @override
+  String get portationImportQuillDeltaFailed => '导入失败，可能是无效的Quill delta';
 
   @override
   String get portationCopyBBCode => '复制BBCode到剪切板';
@@ -218,10 +224,16 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
   String get portationImportBBCode => '導入BBCode';
 
   @override
+  String get portationImportBBCodeFailed => '導入失敗，可能是無效的BBCode';
+
+  @override
   String get portationExportQuillDelta => '導出為Quill Delta';
 
   @override
   String get portationImportQuillDelta => '導入Quill Delta';
+
+  @override
+  String get portationImportQuillDeltaFailed => '導入失敗，可能是無效的Quill delta';
 
   @override
   String get portationCopyBBCode => '複製 BBCode 到剪貼簿';

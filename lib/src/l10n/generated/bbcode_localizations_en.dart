@@ -69,10 +69,16 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
   String get portationImportBBCode => 'Import BBCode';
 
   @override
+  String get portationImportBBCodeFailed => 'Import failed, maybe it\'s invalid bbcode';
+
+  @override
   String get portationExportQuillDelta => 'Export Quill Delta';
 
   @override
   String get portationImportQuillDelta => 'Import Quill Delta';
+
+  @override
+  String get portationImportQuillDeltaFailed => 'Import failed, maybe it\'s invalid Quill Delta';
 
   @override
   String get portationCopyBBCode => 'Copy BBCode to clipboard';
