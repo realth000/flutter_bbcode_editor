@@ -73,6 +73,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  dart_bbcode_web_colors:
+    dependency: transitive
+    description:
+      path: "../dart_bbcode_web_colors"
+      relative: true
+    source: path
+    version: "1.0.0"
   dart_quill_delta:
     dependency: transitive
     description:
@@ -658,4 +665,4 @@ packages:
     version: "5.11.0"
 sdks:
   dart: ">=3.7.0 <4.0.0"
-  flutter: ">=3.27.0"
+  flutter: ">=3.29.0"

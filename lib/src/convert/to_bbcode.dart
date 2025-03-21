@@ -69,8 +69,7 @@ final AttrHandlerMap defaultLineAttrHandlers = {
   // * Align center
   // * Align right
   Attribute.align.key: BBCodeAttributeHandler(
-    beforeContent: (attribute, node, output) =>
-        output.write('[align=${attribute.value}]'),
+    beforeContent: (attribute, node, output) => output.write('[align=${attribute.value}]'),
     afterContent: (attribute, node, output) => output.write('[/align]'),
   ),
   // Ordered list and bullet list.
@@ -94,8 +93,7 @@ final AttrHandlerMap defaultLineAttrHandlers = {
   Attribute.list.key: BBCodeAttributeHandler(
     beforeContent: (attribute, node, output) {
       if (node.previous == null) {
-        final listType =
-            node.style.attributes[Attribute.list.key]!.value as String;
+        final listType = node.style.attributes[Attribute.list.key]!.value as String;
         final listHead = switch (listType) {
           'ordered' => '[list=1]',
           'bullet' => '[list]',
@@ -130,11 +128,8 @@ final AttrHandlerMap defaultLineAttrHandlers = {
 final AttrHandlerMap defaultTextAttrHandlers = {
   Attribute.size.key: BBCodeAttributeHandler(
     beforeContent: (attr, node, output) {
-      final size = defaultFontSizeMap.entries
-          .firstWhereOrNull(
-            (e) => e.value == (attr.value as double?).toString(),
-          )
-          ?.key;
+      final size =
+          defaultFontSizeMap.entries.firstWhereOrNull((e) => e.value == (attr.value as double?).toString())?.key;
       output.write('[size=${size ?? "0"}]');
     },
     afterContent: (attr, node, output) => output.write('[/size]'),
@@ -177,24 +172,23 @@ final AttrHandlerMap defaultTextAttrHandlers = {
   ),
   // Font color.
   Attribute.color.key: BBCodeAttributeHandler(
-    beforeContent: (attribute, node, output) => output.write(
-      '[color=${ColorUtils.toBBCodeColor(attribute.value as String? ?? "")}]',
-    ),
+    beforeContent:
+        (attribute, node, output) =>
+            output.write('[color=${ColorUtils.toBBCodeColor(attribute.value as String? ?? "")}]'),
     afterContent: (attribute, node, output) => output.write('[/color]'),
   ),
   // Background color.
   Attribute.background.key: BBCodeAttributeHandler(
-    beforeContent: (attribute, node, output) => output.write(
-      '[backcolor='
-      '${ColorUtils.toBBCodeColor(attribute.value as String? ?? "")}]',
-    ),
+    beforeContent:
+        (attribute, node, output) => output.write(
+          '[backcolor='
+          '${ColorUtils.toBBCodeColor(attribute.value as String? ?? "")}]',
+        ),
     afterContent: (attribute, node, output) => output.write('[/backcolor]'),
   ),
   // Url
   Attribute.link.key: BBCodeAttributeHandler(
-    beforeContent: (attribute, node, output) => output.write(
-      '[url=${attribute.value as String? ?? ""}]',
-    ),
+    beforeContent: (attribute, node, output) => output.write('[url=${attribute.value as String? ?? ""}]'),
     afterContent: (attribute, node, output) => output.write('[/url]'),
   ),
 };
@@ -213,25 +207,13 @@ final AttrHandlerMap defaultTextAttrHandlers = {
 /// * [afterContent] adds `[/b]` after `foo`.
 class BBCodeAttributeHandler {
   /// Constructor.
-  const BBCodeAttributeHandler({
-    this.beforeContent,
-    this.afterContent,
-    this.contentHandler,
-  });
+  const BBCodeAttributeHandler({this.beforeContent, this.afterContent, this.contentHandler});
 
   /// Prepend text before text content.
-  final void Function(
-    Attribute<Object?> attribute,
-    Node node,
-    StringSink output,
-  )? beforeContent;
+  final void Function(Attribute<Object?> attribute, Node node, StringSink output)? beforeContent;
 
   /// Append text after text content.
-  final void Function(
-    Attribute<Object?> attribute,
-    Node node,
-    StringSink output,
-  )? afterContent;
+  final void Function(Attribute<Object?> attribute, Node node, StringSink output)? afterContent;
 
   /// Optional function to transform content text.
   ///
@@ -287,17 +269,14 @@ extension _NodeX on Node {
       node = node.next!;
     }
 
-    final attrs = style.attributes.values.sorted(
-      (attr1, attr2) => attrCount[attr2]!.compareTo(attrCount[attr1]!),
-    );
+    final attrs = style.attributes.values.sorted((attr1, attr2) => attrCount[attr2]!.compareTo(attrCount[attr1]!));
 
     return attrs;
   }
 }
 
 /// Convert quilt delta into bbcode.
-class DeltaToBBCode extends Converter<Delta, String>
-    implements _NodeVisitor<StringSink> {
+class DeltaToBBCode extends Converter<Delta, String> implements _NodeVisitor<StringSink> {
   void _handleAttribute(
     Map<String, BBCodeAttributeHandler> handlers,
     Node node,
@@ -305,27 +284,18 @@ class DeltaToBBCode extends Converter<Delta, String>
     VoidCallback contentHandler, {
     bool sortedAttrsBySpan = false,
   }) {
-    final attrs = sortedAttrsBySpan
-        ? node.attrsSortedByLongestSpan()
-        : node.style.attributes.values.toList();
-    final handlersToUse = attrs
-        .where((attr) => handlers.containsKey(attr.key))
-        .map((attr) => MapEntry(attr.key, handlers[attr.key]!))
-        .toList();
+    final attrs = sortedAttrsBySpan ? node.attrsSortedByLongestSpan() : node.style.attributes.values.toList();
+    final handlersToUse =
+        attrs
+            .where((attr) => handlers.containsKey(attr.key))
+            .map((attr) => MapEntry(attr.key, handlers[attr.key]!))
+            .toList();
     for (final handlerEntry in handlersToUse) {
-      handlerEntry.value.beforeContent?.call(
-        node.style.attributes[handlerEntry.key]!,
-        node,
-        output,
-      );
+      handlerEntry.value.beforeContent?.call(node.style.attributes[handlerEntry.key]!, node, output);
     }
     contentHandler();
     for (final handlerEntry in handlersToUse.reversed) {
-      handlerEntry.value.afterContent?.call(
-        node.style.attributes[handlerEntry.key]!,
-        node,
-        output,
-      );
+      handlerEntry.value.afterContent?.call(node.style.attributes[handlerEntry.key]!, node, output);
     }
   }
 
@@ -336,31 +306,20 @@ class DeltaToBBCode extends Converter<Delta, String>
     void Function(String) contentHandler, {
     bool sortedAttrsBySpan = false,
   }) {
-    final attrs = sortedAttrsBySpan
-        ? text.attrsSortedByLongestSpan()
-        : text.style.attributes.values.toList();
-    final handlersToUse = attrs
-        .where((attr) => handlers.containsKey(attr.key))
-        .map((attr) => MapEntry(attr.key, handlers[attr.key]!))
-        .toList();
+    final attrs = sortedAttrsBySpan ? text.attrsSortedByLongestSpan() : text.style.attributes.values.toList();
+    final handlersToUse =
+        attrs
+            .where((attr) => handlers.containsKey(attr.key))
+            .map((attr) => MapEntry(attr.key, handlers[attr.key]!))
+            .toList();
     var transformedText = text.value;
     for (final handlerEntry in handlersToUse) {
-      handlerEntry.value.beforeContent?.call(
-        text.style.attributes[handlerEntry.key]!,
-        text,
-        output,
-      );
-      transformedText =
-          handlerEntry.value.contentHandler?.call(transformedText) ??
-              transformedText;
+      handlerEntry.value.beforeContent?.call(text.style.attributes[handlerEntry.key]!, text, output);
+      transformedText = handlerEntry.value.contentHandler?.call(transformedText) ?? transformedText;
     }
     contentHandler(transformedText);
     for (final handlerEntry in handlersToUse.reversed) {
-      handlerEntry.value.afterContent?.call(
-        text.style.attributes[handlerEntry.key]!,
-        text,
-        output,
-      );
+      handlerEntry.value.afterContent?.call(text.style.attributes[handlerEntry.key]!, text, output);
     }
   }
 

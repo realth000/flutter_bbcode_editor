@@ -11,9 +11,7 @@ class ColorUtils {
   ///
   /// Return true if is valid color.
   static bool isColor(String color) {
-    if (BBCodeEditorColor.values
-            .firstWhereOrNull((e) => e.namedColor == color) !=
-        null) {
+    if (BBCodeEditorColor.values.firstWhereOrNull((e) => e.namedColor == color) != null) {
       return true;
     }
 
@@ -25,10 +23,7 @@ class ColorUtils {
   }
 
   /// Convert into bbcode recognized color.
-  static String toBBCodeColor(
-    String color, {
-    bool useHex = true,
-  }) {
+  static String toBBCodeColor(String color, {bool useHex = true}) {
     // For some shorthand format, keep it's original style.
     if (color.length < 2 || (color.length == 4 && color.startsWith('#'))) {
       return color;

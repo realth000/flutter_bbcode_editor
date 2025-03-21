@@ -12,21 +12,13 @@ import 'package:flutter_quill/quill_delta.dart';
 /// button on it.
 final class BBCodeSpoilerEmbed extends BBCodeEmbeddable {
   /// Constructor.
-  BBCodeSpoilerEmbed(BBCodeSpoilerInfo data)
-      : super(
-          type: BBCodeSpoilerKeys.type,
-          data: data.toJson(),
-        );
+  BBCodeSpoilerEmbed(BBCodeSpoilerInfo data) : super(type: BBCodeSpoilerKeys.type, data: data.toJson());
 }
 
 /// Data class carrying spoiler info.
 final class BBCodeSpoilerInfo {
   /// Constructor.
-  const BBCodeSpoilerInfo({
-    required this.title,
-    required this.body,
-    required this.collapsed,
-  });
+  const BBCodeSpoilerInfo({required this.title, required this.body, required this.collapsed});
 
   /// Construct from [json] string.
   factory BBCodeSpoilerInfo.fromJson(String json) {
@@ -44,11 +36,7 @@ final class BBCodeSpoilerInfo {
       _ => true,
     };
 
-    return BBCodeSpoilerInfo(
-      title: title,
-      body: body,
-      collapsed: collapsed,
-    );
+    return BBCodeSpoilerInfo(title: title, body: body, collapsed: collapsed);
   }
 
   /// Create an empty spoiler info.
@@ -57,14 +45,12 @@ final class BBCodeSpoilerInfo {
   ///
   /// The [title] should be constructed according to current locale and built to
   /// be a default value, usually injected with l10n on build context.
-  factory BBCodeSpoilerInfo.buildEmpty(String title) =>
-      BBCodeSpoilerInfo(title: title, body: '', collapsed: true);
+  factory BBCodeSpoilerInfo.buildEmpty(String title) => BBCodeSpoilerInfo(title: title, body: '', collapsed: true);
 
   /// Parse a current type [embed] and add bbcode to [out].
   static void toBBCode(Embed embed, StringSink out) {
     final info = BBCodeSpoilerInfo.fromJson(embed.value.data as String);
-    final bbcode = DeltaToBBCode()
-        .convert(Delta.fromJson(jsonDecode(info.body) as List<dynamic>));
+    final bbcode = DeltaToBBCode().convert(Delta.fromJson(jsonDecode(info.body) as List<dynamic>));
     out.write('[spoiler=${info.title}]$bbcode[/spoiler]');
   }
 
@@ -87,17 +73,13 @@ final class BBCodeSpoilerInfo {
 
   /// Convert to json map string.
   String toJson() => jsonEncode(<String, dynamic>{
-        BBCodeSpoilerKeys.title: title,
-        BBCodeSpoilerKeys.body: body,
-        BBCodeSpoilerKeys.collapsed: collapsed,
-      });
+    BBCodeSpoilerKeys.title: title,
+    BBCodeSpoilerKeys.body: body,
+    BBCodeSpoilerKeys.collapsed: collapsed,
+  });
 
   /// The copy with method.
-  BBCodeSpoilerInfo copyWith({
-    String? title,
-    String? body,
-    bool? collapsed,
-  }) {
+  BBCodeSpoilerInfo copyWith({String? title, String? body, bool? collapsed}) {
     return BBCodeSpoilerInfo(
       title: title ?? this.title,
       body: body ?? this.body,
@@ -106,7 +88,8 @@ final class BBCodeSpoilerInfo {
   }
 
   @override
-  String toString() => '${BBCodeSpoilerKeys.title}=$title, '
+  String toString() =>
+      '${BBCodeSpoilerKeys.title}=$title, '
       '${BBCodeSpoilerKeys.body}=$body, '
       '${BBCodeSpoilerKeys.collapsed}=$collapsed';
 }

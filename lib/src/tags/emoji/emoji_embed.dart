@@ -8,12 +8,10 @@ import 'package:flutter_quill/flutter_quill.dart';
 /// Definition of emoji used in bbcode editor.
 final class BBCodeEmojiEmbed extends BBCodeEmbeddable {
   /// Constructor.
-  BBCodeEmojiEmbed(BBCodeEmojiInfo data)
-      : super(type: BBCodeEmojiKeys.type, data: data.toJson());
+  BBCodeEmojiEmbed(BBCodeEmojiInfo data) : super(type: BBCodeEmojiKeys.type, data: data.toJson());
 
   /// Construct from emoji info.
-  factory BBCodeEmojiEmbed.raw(String code) =>
-      BBCodeEmojiEmbed(BBCodeEmojiInfo(code: code));
+  factory BBCodeEmojiEmbed.raw(String code) => BBCodeEmojiEmbed(BBCodeEmojiInfo(code: code));
 }
 
 /// Emoji info saved in editor.
@@ -34,9 +32,7 @@ final class BBCodeEmojiInfo {
   }
 
   /// Convert to json string.
-  String toJson() => jsonEncode(<String, dynamic>{
-        BBCodeEmojiKeys.code: code,
-      });
+  String toJson() => jsonEncode(<String, dynamic>{BBCodeEmojiKeys.code: code});
 
   /// Emoji code.
   ///

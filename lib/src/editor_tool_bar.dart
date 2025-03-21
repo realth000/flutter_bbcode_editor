@@ -10,9 +10,7 @@ final class PickColorResult {
   PickColorResult.picked(Color this.color) : clearColor = false;
 
   /// User requested to clear color.
-  PickColorResult.clearColor()
-      : color = null,
-        clearColor = true;
+  PickColorResult.clearColor() : color = null, clearColor = true;
 
   /// Color to apply.
   Color? color;
@@ -27,9 +25,7 @@ final class PickColorResult {
 /// * [PickColorResult.picked] if any color picked.
 /// * [PickColorResult.clearColor] if user requested to clear color.
 /// * `null` if pick progress canceled.
-typedef BBCodeColorPicker = Future<PickColorResult?> Function(
-  BuildContext context,
-);
+typedef BBCodeColorPicker = Future<PickColorResult?> Function(BuildContext context);
 
 /// Result in picking url.
 ///
@@ -51,11 +47,7 @@ final class PickUrlResult {
 /// Function to pick an url.
 ///
 ///
-typedef BBCodeUrlPicker = Future<PickUrlResult?> Function(
-  BuildContext context,
-  String? url,
-  String? description,
-);
+typedef BBCodeUrlPicker = Future<PickUrlResult?> Function(BuildContext context, String? url, String? description);
 
 /// Toolbar of the editor.
 class BBCodeEditorToolbar extends StatefulWidget {
@@ -102,15 +94,15 @@ class BBCodeEditorToolbar extends StatefulWidget {
     this.afterButtonPressed,
     this.focusNode,
     super.key,
-  })  : _controller = controller,
-        _config = config,
-        _emojiPicker = emojiPicker,
-        _colorPicker = colorPicker,
-        _backgroundColorPicker = backgroundColorPicker,
-        _urlPicker = urlPicker,
-        _imagePicker = imagePicker,
-        _usernamePicker = usernamePicker,
-        _host = host;
+  }) : _controller = controller,
+       _config = config,
+       _emojiPicker = emojiPicker,
+       _colorPicker = colorPicker,
+       _backgroundColorPicker = backgroundColorPicker,
+       _urlPicker = urlPicker,
+       _imagePicker = imagePicker,
+       _usernamePicker = usernamePicker,
+       _host = host;
 
   final BBCodeEditorController _controller;
 
@@ -266,24 +258,14 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
   late final QuillToolbarLinkStyleButtonOptions urlButtonOptions;
 
   /// Refer: flutter_quill/lib/src/widgets/toolbar/color/color_button.dart
-  void _changeColor(
-    QuillController controller,
-    bool isBackground,
-    Color? color,
-  ) {
+  void _changeColor(QuillController controller, bool isBackground, Color? color) {
     if (color == null) {
-      controller.formatSelection(
-        isBackground
-            ? const BackgroundAttribute(null)
-            : const ColorAttribute(null),
-      );
+      controller.formatSelection(isBackground ? const BackgroundAttribute(null) : const ColorAttribute(null));
       return;
     }
     var hex = colorToHex(color);
     hex = '#$hex';
-    controller.formatSelection(
-      isBackground ? BackgroundAttribute(hex) : ColorAttribute(hex),
-    );
+    controller.formatSelection(isBackground ? BackgroundAttribute(hex) : ColorAttribute(hex));
   }
 
   @override
@@ -331,11 +313,7 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
       urlButtonOptions = QuillToolbarLinkStyleButtonOptions(
         customOnPressedCallback: (controller) async {
           final initialLink = QuillTextLink.prepare(controller);
-          final urlResult = await widget._urlPicker!(
-            context,
-            initialLink.link,
-            initialLink.text,
-          );
+          final urlResult = await widget._urlPicker!(context, initialLink.link, initialLink.text);
           if (urlResult == null) {
             return;
           }
@@ -344,11 +322,10 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
           //
           // * Host not null.
           // * Url does not have host.
-          final url = widget._host != null &&
-                  !urlResult.url.startsWith('http://') &&
-                  !urlResult.url.startsWith('https://')
-              ? '${widget._host}/${urlResult.url}'
-              : urlResult.url;
+          final url =
+              widget._host != null && !urlResult.url.startsWith('http://') && !urlResult.url.startsWith('https://')
+                  ? '${widget._host}/${urlResult.url}'
+                  : urlResult.url;
 
           QuillTextLink(description, url).submit(controller);
         },
@@ -362,91 +339,86 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
   Widget build(BuildContext context) {
     return BBCodeLocalizationsWidget(
       child: Builder(
-        builder: (context) => QuillSimpleToolbar(
-          controller: controller,
-          config: QuillSimpleToolbarConfig(
-            // TODO: Make dividers customizable.
-            showDividers: false,
-            toolbarIconAlignment: WrapAlignment.start,
-            // multiRowsDisplay: false,
-            // color: Colors.transparent,
-            // Below are custom flags that can be applied from user side.
-            showUndo: widget.showUndo,
-            showRedo: widget.showRedo,
-            showFontFamily: widget.showFontFamily,
-            showFontSize: widget.showFontSize,
-            showBoldButton: widget.showBoldButton,
-            showItalicButton: widget.showItalicButton,
-            showUnderLineButton: widget.showUnderlineButton,
-            showStrikeThrough: widget.showStrikethroughButton,
-            showSuperscript: widget.showSuperscriptButton,
-            showColorButton: widget.showColorButton,
-            showBackgroundColorButton: widget.showBackgroundColorButton,
-            showClearFormat: widget.showClearFormatButton,
-            showLeftAlignment: widget.showLeftAlignButton,
-            showCenterAlignment: widget.showCenterAlignButton,
-            showRightAlignment: widget.showRightAlignButton,
-            showListNumbers: widget.showOrderedListButton,
-            showListBullets: widget.showBulletListButton,
-            showLink: widget.showUrlButton,
-            showCodeBlock: widget.showCodeBlockButton,
-            showQuote: widget.showQuoteBlockButton,
-            showClipboardCut: widget.showClipboardCutButton,
-            showClipboardCopy: widget.showClipboardCopyButton,
-            showClipboardPaste: widget.showClipboardPasteButton,
+        builder:
+            (context) => QuillSimpleToolbar(
+              controller: controller,
+              config: QuillSimpleToolbarConfig(
+                // TODO: Make dividers customizable.
+                showDividers: false,
+                toolbarIconAlignment: WrapAlignment.start,
+                // multiRowsDisplay: false,
+                // color: Colors.transparent,
+                // Below are custom flags that can be applied from user side.
+                showUndo: widget.showUndo,
+                showRedo: widget.showRedo,
+                showFontFamily: widget.showFontFamily,
+                showFontSize: widget.showFontSize,
+                showBoldButton: widget.showBoldButton,
+                showItalicButton: widget.showItalicButton,
+                showUnderLineButton: widget.showUnderlineButton,
+                showStrikeThrough: widget.showStrikethroughButton,
+                showSuperscript: widget.showSuperscriptButton,
+                showColorButton: widget.showColorButton,
+                showBackgroundColorButton: widget.showBackgroundColorButton,
+                showClearFormat: widget.showClearFormatButton,
+                showLeftAlignment: widget.showLeftAlignButton,
+                showCenterAlignment: widget.showCenterAlignButton,
+                showRightAlignment: widget.showRightAlignButton,
+                showListNumbers: widget.showOrderedListButton,
+                showListBullets: widget.showBulletListButton,
+                showLink: widget.showUrlButton,
+                showCodeBlock: widget.showCodeBlockButton,
+                showQuote: widget.showQuoteBlockButton,
+                showClipboardCut: widget.showClipboardCutButton,
+                showClipboardCopy: widget.showClipboardCopyButton,
+                showClipboardPaste: widget.showClipboardPasteButton,
 
-            // Below are all formats implemented in quill but not supported in
-            // TSDM.
-            // These formats are disabled on default.
-            //
-            // Font family are not fixed to what quill supports.
-            // Should let developer support it.
-            // showFontFamily: false,
-            // Use font size instead.
-            showHeaderStyle: false,
-            showInlineCode: false,
-            showListCheck: false,
-            showIndent: false,
-            showSearchButton: false,
-            showSubscript: false,
-            showAlignmentButtons: true,
-            showJustifyAlignment: false,
+                // Below are all formats implemented in quill but not supported in
+                // TSDM.
+                // These formats are disabled on default.
+                //
+                // Font family are not fixed to what quill supports.
+                // Should let developer support it.
+                // showFontFamily: false,
+                // Use font size instead.
+                showHeaderStyle: false,
+                showInlineCode: false,
+                showListCheck: false,
+                showIndent: false,
+                showSearchButton: false,
+                showSubscript: false,
+                showAlignmentButtons: true,
+                showJustifyAlignment: false,
 
-            //
-            buttonOptions: QuillSimpleToolbarButtonOptions(
-              color: colorButtonOptions,
-              backgroundColor: backgroundColorButtonOptions,
-              linkStyle: urlButtonOptions,
-              base: QuillToolbarBaseButtonOptions(
-                afterButtonPressed: () {
-                  widget.afterButtonPressed?.call();
-                  if (Platform.isWindows ||
-                      Platform.isLinux ||
-                      Platform.isMacOS) {
-                    // Try focus on editor again.
-                    widget.focusNode?.requestFocus();
-                  }
-                },
-              ),
-              fontSize:
+                //
+                buttonOptions: QuillSimpleToolbarButtonOptions(
+                  color: colorButtonOptions,
+                  backgroundColor: backgroundColorButtonOptions,
+                  linkStyle: urlButtonOptions,
+                  base: QuillToolbarBaseButtonOptions(
+                    afterButtonPressed: () {
+                      widget.afterButtonPressed?.call();
+                      if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+                        // Try focus on editor again.
+                        widget.focusNode?.requestFocus();
+                      }
+                    },
+                  ),
+                  fontSize:
                   // TODO: Override font size button callback.
                   // Add this empty option will let font size menu able to
                   // show after pressed on mobile platforms which may wrapped
                   // in chat_bottom_container.
                   //
                   // This is tricky but works, may be available in future.
-                  const QuillToolbarFontSizeButtonOptions(
-                items: defaultFontSizeMap,
-              ),
-              fontFamily: QuillToolbarFontFamilyButtonOptions(
-                items: widget._config.fontFamilyValues,
-              ),
-            ),
+                  const QuillToolbarFontSizeButtonOptions(items: defaultFontSizeMap),
+                  fontFamily: QuillToolbarFontFamilyButtonOptions(items: widget._config.fontFamilyValues),
+                ),
 
-            // embedButtons: FlutterQuillEmbeds.toolbarButtons(),
-            embedButtons: [
-              if (widget.showImageButton)
-                (controller, embedContext) =>
+                // embedButtons: FlutterQuillEmbeds.toolbarButtons(),
+                embedButtons: [
+                  if (widget.showImageButton)
+                    (controller, embedContext) =>
                     // FIXME: Do not add l10n here.
                     BBCodeLocalizationsWidget(
                       child: BBCodeEditorToolbarImageButton(
@@ -454,45 +426,35 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                         imagePicker: widget._imagePicker,
                       ),
                     ),
-              if (widget.showEmojiButton)
-                (controller, embedContext) => BBCodeLocalizationsWidget(
+                  if (widget.showEmojiButton)
+                    (controller, embedContext) => BBCodeLocalizationsWidget(
                       child: BBCodeEditorToolbarEmojiButton(
                         controller: widget._controller,
                         emojiPicker: widget._emojiPicker,
                       ),
                     ),
-              // User mention
-              if (widget.showUserMentionButton)
-                (controller, embedContext) =>
-                    BBCodeEditorToolbarUserMentionButton(
+                  // User mention
+                  if (widget.showUserMentionButton)
+                    (controller, embedContext) => BBCodeEditorToolbarUserMentionButton(
                       controller: widget._controller,
                       usernamePicker: widget._usernamePicker,
                     ),
-              // Spoiler
-              if (widget.showSpoilerButton)
-                (controller, embedContext) => BBCodeEditorToolbarSpoilerButton(
-                      controller: widget._controller,
-                    ),
-              if (widget.showHideButton)
-                (controller, embedContext) => BBCodeEditorToolbarHideButton(
-                      controller: widget._controller,
-                    ),
-              if (widget.showDivider)
-                (controller, embedContext) => BBCodeEditorToolbarDividerButton(
-                      controller: widget._controller,
-                    ),
-            ],
-            customButtons: [
-              BBCodePortationButtonOptions(
-                tooltip: context.bbcodeL10n.portationTitle,
-                onPressed: () async => openPortationModalBottomSheet(
-                  context,
-                  widget._controller,
-                ),
+                  // Spoiler
+                  if (widget.showSpoilerButton)
+                    (controller, embedContext) => BBCodeEditorToolbarSpoilerButton(controller: widget._controller),
+                  if (widget.showHideButton)
+                    (controller, embedContext) => BBCodeEditorToolbarHideButton(controller: widget._controller),
+                  if (widget.showDivider)
+                    (controller, embedContext) => BBCodeEditorToolbarDividerButton(controller: widget._controller),
+                ],
+                customButtons: [
+                  BBCodePortationButtonOptions(
+                    tooltip: context.bbcodeL10n.portationTitle,
+                    onPressed: () async => openPortationModalBottomSheet(context, widget._controller),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
       ),
     );
   }

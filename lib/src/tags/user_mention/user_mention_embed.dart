@@ -7,8 +7,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 /// Definition of image used in bbcode editor.
 final class BBCodeUserMentionEmbed extends Embeddable {
   /// Constructor.
-  BBCodeUserMentionEmbed(BBCodeUserMentionInfo data)
-      : super(BBCodeUserMentionKeys.type, data.toJson());
+  BBCodeUserMentionEmbed(BBCodeUserMentionInfo data) : super(BBCodeUserMentionKeys.type, data.toJson());
 
   /// Construct from quill document.
   factory BBCodeUserMentionEmbed.raw({required String username}) =>
@@ -18,9 +17,7 @@ final class BBCodeUserMentionEmbed extends Embeddable {
 /// Data class carrying user mention data.
 class BBCodeUserMentionInfo {
   /// Constructor.
-  const BBCodeUserMentionInfo({
-    required this.username,
-  });
+  const BBCodeUserMentionInfo({required this.username});
 
   /// Build from json.
   ///
@@ -31,9 +28,7 @@ class BBCodeUserMentionInfo {
   /// ```
   factory BBCodeUserMentionInfo.fromJson(String json) {
     final data = jsonDecode(json) as Map<String, dynamic>;
-    return BBCodeUserMentionInfo(
-      username: data[BBCodeUserMentionKeys.username] as String,
-    );
+    return BBCodeUserMentionInfo(username: data[BBCodeUserMentionKeys.username] as String);
   }
 
   /// Parse en current type [embed] and add bbcode to [out].
@@ -46,9 +41,7 @@ class BBCodeUserMentionInfo {
   final String username;
 
   /// Convert info json.
-  String toJson() => jsonEncode(<String, dynamic>{
-        BBCodeUserMentionKeys.username: username,
-      });
+  String toJson() => jsonEncode(<String, dynamic>{BBCodeUserMentionKeys.username: username});
 
   @override
   String toString() => 'BBCodeUserMentionInfo{ username=$username }';

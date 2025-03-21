@@ -8,11 +8,7 @@ import 'package:flutter_bbcode_editor/src/types.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/internal.dart';
 
-final _imageSizeFormatters = [
-  FilteringTextInputFormatter.allow(
-    RegExp('[0-9]+'),
-  ),
-];
+final _imageSizeFormatters = [FilteringTextInputFormatter.allow(RegExp('[0-9]+'))];
 
 String? _validateImageSize(BuildContext context, String? v) {
   final tr = context.bbcodeL10n;
@@ -30,13 +26,7 @@ String? _validateImageSize(BuildContext context, String? v) {
 /// Default dialog to pick an image.
 final class PickImageDialog extends StatefulWidget {
   /// Constructor.
-  const PickImageDialog({
-    this.link,
-    this.width,
-    this.height,
-    this.dialogTheme,
-    super.key,
-  });
+  const PickImageDialog({this.link, this.width, this.height, this.dialogTheme, super.key});
 
   /// Injected quill theme.
   final QuillDialogTheme? dialogTheme;
@@ -100,10 +90,7 @@ class _PickImageDialogState extends State<PickImageDialog> {
             TextFormField(
               controller: linkController,
               autofocus: true,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.image),
-                labelText: tr.imageDialogLink,
-              ),
+              decoration: InputDecoration(prefixIcon: const Icon(Icons.image), labelText: tr.imageDialogLink),
             ),
             const SizedBox(width: 10, height: 10),
             TextFormField(
@@ -133,8 +120,7 @@ class _PickImageDialogState extends State<PickImageDialog> {
       actions: [
         TextButton(
           onPressed: () {
-            if (formKey.currentState == null ||
-                !(formKey.currentState!).validate()) {
+            if (formKey.currentState == null || !(formKey.currentState!).validate()) {
               return;
             }
 
@@ -156,12 +142,7 @@ class _PickImageDialogState extends State<PickImageDialog> {
 /// Image block button.
 class BBCodeEditorToolbarImageButton extends StatelessWidget {
   /// Constructor.
-  const BBCodeEditorToolbarImageButton({
-    required this.controller,
-    this.dialogTheme,
-    this.imagePicker,
-    super.key,
-  });
+  const BBCodeEditorToolbarImageButton({required this.controller, this.dialogTheme, this.imagePicker, super.key});
 
   /// Injected editor controller.
   final BBCodeEditorController controller;
@@ -172,15 +153,13 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
   /// Optional image picker.
   final BBCodeImagePicker? imagePicker;
 
-  Future<BBCodeImageInfo?> _waitInputUrlImage(BuildContext context) async =>
-      showDialog<BBCodeImageInfo>(
-        context: context,
-        builder: (_) => BBCodeLocalizationsWidget(
-          child: BBCodeLocalizationsWidget(
-            child: PickImageDialog(dialogTheme: dialogTheme),
-          ),
+  Future<BBCodeImageInfo?> _waitInputUrlImage(BuildContext context) async => showDialog<BBCodeImageInfo>(
+    context: context,
+    builder:
+        (_) => BBCodeLocalizationsWidget(
+          child: BBCodeLocalizationsWidget(child: PickImageDialog(dialogTheme: dialogTheme)),
         ),
-      );
+  );
 
   @override
   Widget build(BuildContext context) {

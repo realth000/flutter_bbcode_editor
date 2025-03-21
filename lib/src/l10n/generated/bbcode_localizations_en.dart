@@ -135,8 +135,7 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
   String get hideWithPoints => 'Hide with points';
 
   @override
-  String get hideWithPointsDetail =>
-      'User need to have more than these points to see the content';
+  String get hideWithPointsDetail => 'User need to have more than these points to see the content';
 
   @override
   String get hideWithPointsOuterHead => 'Have more than ';

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+// Colors does not need document.
 // ignore_for_file: public_member_api_docs
 
 // TODO: Dynamic font size.

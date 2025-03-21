@@ -62,18 +62,15 @@ import 'bbcode_localizations_zh.dart';
 /// be consistent with the languages listed in the BBCodeEditorLocalizations.supportedLocales
 /// property.
 abstract class BBCodeEditorLocalizations {
-  BBCodeEditorLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  BBCodeEditorLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
   static BBCodeEditorLocalizations? of(BuildContext context) {
-    return Localizations.of<BBCodeEditorLocalizations>(
-        context, BBCodeEditorLocalizations);
+    return Localizations.of<BBCodeEditorLocalizations>(context, BBCodeEditorLocalizations);
   }
 
-  static const LocalizationsDelegate<BBCodeEditorLocalizations> delegate =
-      _BBCodeEditorLocalizationsDelegate();
+  static const LocalizationsDelegate<BBCodeEditorLocalizations> delegate = _BBCodeEditorLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -85,8 +82,7 @@ abstract class BBCodeEditorLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -97,7 +93,7 @@ abstract class BBCodeEditorLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('zh'),
-    Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant')
+    Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
   ];
 
   /// No description provided for @edit.
@@ -389,19 +385,16 @@ abstract class BBCodeEditorLocalizations {
   String get divider;
 }
 
-class _BBCodeEditorLocalizationsDelegate
-    extends LocalizationsDelegate<BBCodeEditorLocalizations> {
+class _BBCodeEditorLocalizationsDelegate extends LocalizationsDelegate<BBCodeEditorLocalizations> {
   const _BBCodeEditorLocalizationsDelegate();
 
   @override
   Future<BBCodeEditorLocalizations> load(Locale locale) {
-    return SynchronousFuture<BBCodeEditorLocalizations>(
-        lookupBBCodeEditorLocalizations(locale));
+    return SynchronousFuture<BBCodeEditorLocalizations>(lookupBBCodeEditorLocalizations(locale));
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_BBCodeEditorLocalizationsDelegate old) => false;
@@ -429,8 +422,9 @@ BBCodeEditorLocalizations lookupBBCodeEditorLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'BBCodeEditorLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'BBCodeEditorLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

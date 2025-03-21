@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bbcode_editor/src/l10n/generated/bbcode_localizations.dart'
-    as generated;
+import 'package:flutter_bbcode_editor/src/l10n/generated/bbcode_localizations.dart' as generated;
 
 /// The global entry of l10n.
 typedef BBCodeL10n = generated.BBCodeEditorLocalizations;

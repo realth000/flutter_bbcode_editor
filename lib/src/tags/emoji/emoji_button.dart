@@ -8,11 +8,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 /// Emoji button in editor toolbar.
 class BBCodeEditorToolbarEmojiButton extends StatelessWidget {
   /// Constructor.
-  const BBCodeEditorToolbarEmojiButton({
-    required this.controller,
-    required this.emojiPicker,
-    super.key,
-  });
+  const BBCodeEditorToolbarEmojiButton({required this.controller, required this.emojiPicker, super.key});
 
   /// Injected emoji picker.
   ///

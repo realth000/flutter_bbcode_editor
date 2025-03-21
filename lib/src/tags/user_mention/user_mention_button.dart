@@ -15,10 +15,7 @@ import 'package:flutter_quill/internal.dart';
 ///
 /// [username] is an optional initial username if user is going to edit an
 /// existing username block in editor.
-typedef BBCodeUsernamePicker = Future<String?> Function(
-  BuildContext context, {
-  String? username,
-});
+typedef BBCodeUsernamePicker = Future<String?> Function(BuildContext context, {String? username});
 
 /// Default dialog to pick user name working for the user mention feature.
 class PickUserMentionDialog extends StatefulWidget {
@@ -62,20 +59,14 @@ class _PickUserMentionDialogState extends State<PickUserMentionDialog> {
         child: TextFormField(
           controller: usernameController,
           autofocus: true,
-          decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.person),
-            labelText: tr.userMentionDialogUsername,
-          ),
-          validator: (v) => v == null || v.trim().isEmpty
-              ? tr.userMentionDialogEmptyUsername
-              : null,
+          decoration: InputDecoration(prefixIcon: const Icon(Icons.person), labelText: tr.userMentionDialogUsername),
+          validator: (v) => v == null || v.trim().isEmpty ? tr.userMentionDialogEmptyUsername : null,
         ),
       ),
       actions: [
         TextButton(
           onPressed: () {
-            if (formKey.currentState == null ||
-                !(formKey.currentState!).validate()) {
+            if (formKey.currentState == null || !(formKey.currentState!).validate()) {
               return;
             }
             Navigator.of(context).pop(usernameController.text);
@@ -117,11 +108,9 @@ class BBCodeEditorToolbarUserMentionButton extends StatelessWidget {
         } else {
           username = await showDialog<String>(
             context: context,
-            builder: (_) => const BBCodeLocalizationsWidget(
-              child: BBCodeLocalizationsWidget(
-                child: PickUserMentionDialog(),
-              ),
-            ),
+            builder:
+                (_) =>
+                    const BBCodeLocalizationsWidget(child: BBCodeLocalizationsWidget(child: PickUserMentionDialog())),
           );
         }
 
@@ -130,8 +119,7 @@ class BBCodeEditorToolbarUserMentionButton extends StatelessWidget {
         }
 
         // FIXME: Waiting for upstream fix. check func definition for details.
-        controller
-            .insertEmbeddable(BBCodeUserMentionEmbed.raw(username: username));
+        controller.insertEmbeddable(BBCodeUserMentionEmbed.raw(username: username));
       },
     );
   }

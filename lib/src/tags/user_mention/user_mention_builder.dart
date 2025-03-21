@@ -16,25 +16,17 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
   /// Callback when want user to pick a username.
   final BBCodeUsernamePicker? usernamePicker;
 
-  Future<void> _onTap(
-    BuildContext context,
-    QuillController controller,
-    String initialUsername,
-  ) async {
+  Future<void> _onTap(BuildContext context, QuillController controller, String initialUsername) async {
     String? username;
     if (usernamePicker != null) {
-      username = await usernamePicker!.call(
-        context,
-        username: initialUsername,
-      );
+      username = await usernamePicker!.call(context, username: initialUsername);
     } else {
       username = await showDialog<String>(
         context: context,
-        builder: (_) => BBCodeLocalizationsWidget(
-          child: BBCodeLocalizationsWidget(
-            child: PickUserMentionDialog(username: initialUsername),
-          ),
-        ),
+        builder:
+            (_) => BBCodeLocalizationsWidget(
+              child: BBCodeLocalizationsWidget(child: PickUserMentionDialog(username: initialUsername)),
+            ),
       );
     }
 
@@ -42,17 +34,9 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
       return;
     }
 
-    final offset = getEmbedNode(
-      controller,
-      controller.selection.start,
-    ).offset;
+    final offset = getEmbedNode(controller, controller.selection.start).offset;
     controller
-      ..replaceText(
-        offset,
-        1,
-        BBCodeUserMentionEmbed.raw(username: username),
-        TextSelection.collapsed(offset: offset),
-      )
+      ..replaceText(offset, 1, BBCodeUserMentionEmbed.raw(username: username), TextSelection.collapsed(offset: offset))
       ..moveCursorToPosition(offset + 1);
   }
 
@@ -63,18 +47,13 @@ final class BBCodeUserMentionEmbedBuilder extends EmbedBuilder {
   bool get expanded => false;
 
   @override
-  Widget build(
-    BuildContext context,
-    EmbedContext embedContext,
-  ) {
-    final initialUsername =
-        BBCodeUserMentionInfo.fromJson(embedContext.node.value.data as String);
+  Widget build(BuildContext context, EmbedContext embedContext) {
+    final initialUsername = BBCodeUserMentionInfo.fromJson(embedContext.node.value.data as String);
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () async =>
-            _onTap(context, embedContext.controller, initialUsername.username),
+        onTap: () async => _onTap(context, embedContext.controller, initialUsername.username),
         child: Padding(
           padding: const EdgeInsets.only(left: 2, right: 2),
           child: Text(

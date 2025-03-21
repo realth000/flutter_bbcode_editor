@@ -14,11 +14,7 @@ final class BBCodeImageEmbed extends BBCodeEmbeddable {
 /// Data class carrying image embed info.
 final class BBCodeImageInfo {
   /// Constructor.
-  const BBCodeImageInfo(
-    this.link, {
-    this.width,
-    this.height,
-  });
+  const BBCodeImageInfo(this.link, {this.width, this.height});
 
   /// Construct from [json] string.
   factory BBCodeImageInfo.fromJson(String json) {
@@ -38,11 +34,7 @@ final class BBCodeImageInfo {
       _ => null,
     };
 
-    return BBCodeImageInfo(
-      link!,
-      width: width,
-      height: height,
-    );
+    return BBCodeImageInfo(link!, width: width, height: height);
   }
 
   /// Image url.
@@ -64,10 +56,10 @@ final class BBCodeImageInfo {
 
   /// Convert to json string.
   String toJson() => jsonEncode(<String, dynamic>{
-        BBCodeImageKeys.link: link,
-        BBCodeImageKeys.width: width,
-        BBCodeImageKeys.height: height,
-      });
+    BBCodeImageKeys.link: link,
+    BBCodeImageKeys.width: width,
+    BBCodeImageKeys.height: height,
+  });
 
   /// Parse en current type [embed] and add bbcode to [out].
   static void toBBCode(Embed embed, StringSink out) {
@@ -85,7 +77,8 @@ final class BBCodeImageInfo {
   }
 
   @override
-  String toString() => '${BBCodeImageKeys.link}=$link, '
+  String toString() =>
+      '${BBCodeImageKeys.link}=$link, '
       '${BBCodeImageKeys.width}=$width, '
       '${BBCodeImageKeys.height}=$height';
 }

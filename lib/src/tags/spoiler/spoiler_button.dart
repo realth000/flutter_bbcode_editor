@@ -10,10 +10,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 /// Spoiler button in toolbar.
 class BBCodeEditorToolbarSpoilerButton extends StatelessWidget {
   /// Constructor.
-  const BBCodeEditorToolbarSpoilerButton({
-    required this.controller,
-    super.key,
-  });
+  const BBCodeEditorToolbarSpoilerButton({required this.controller, super.key});
 
   /// Injected editor controller.
   final BBCodeEditorController controller;
@@ -27,18 +24,11 @@ class BBCodeEditorToolbarSpoilerButton extends StatelessWidget {
       isSelected: false,
       onPressed: () async {
         if (Platform.isAndroid) {
-          controller.insertRawCode(
-            '[spoiler=${context.bbcodeL10n.spoilerExpandOrCollapse}]',
-            '[/spoiler]',
-          );
+          controller.insertRawCode('[spoiler=${context.bbcodeL10n.spoilerExpandOrCollapse}]', '[/spoiler]');
           return;
         }
         controller.insertEmbeddable(
-          BBCodeSpoilerEmbed(
-            BBCodeSpoilerInfo.buildEmpty(
-              context.bbcodeL10n.spoilerExpandOrCollapse,
-            ),
-          ),
+          BBCodeSpoilerEmbed(BBCodeSpoilerInfo.buildEmpty(context.bbcodeL10n.spoilerExpandOrCollapse)),
         );
       },
     );

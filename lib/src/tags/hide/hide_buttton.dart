@@ -10,10 +10,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 /// Hide button in toolbar.
 class BBCodeEditorToolbarHideButton extends StatelessWidget {
   /// Constructor.
-  const BBCodeEditorToolbarHideButton({
-    required this.controller,
-    super.key,
-  });
+  const BBCodeEditorToolbarHideButton({required this.controller, super.key});
 
   /// Injected editor controller.
   final BBCodeEditorController controller;
@@ -30,8 +27,7 @@ class BBCodeEditorToolbarHideButton extends StatelessWidget {
           controller.insertRawCode('[hide]', '[/hide]');
           return;
         }
-        controller
-            .insertEmbeddable(BBCodeHideEmbed(BBCodeHideInfo.buildEmpty()));
+        controller.insertEmbeddable(BBCodeHideEmbed(BBCodeHideInfo.buildEmpty()));
       },
     );
   }

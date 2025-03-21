@@ -18,25 +18,15 @@ extension _DateTimeExt on DateTime {
   }
 }
 
-Future<String?> _importFile(
-  BuildContext context,
-  List<String> exts,
-) async {
-  final result = await FilePicker.platform.pickFiles(
-    allowedExtensions: exts,
-  );
+Future<String?> _importFile(BuildContext context, List<String> exts) async {
+  final result = await FilePicker.platform.pickFiles(allowedExtensions: exts);
   if (result == null) {
     return null;
   }
   return File(result.files.single.path!).readAsString();
 }
 
-Future<void> _exportFile(
-  BuildContext context,
-  String prefix,
-  String ext,
-  String data,
-) async {
+Future<void> _exportFile(BuildContext context, String prefix, String ext, String data) async {
   final result = await FilePicker.platform.saveFile(
     dialogTitle: context.bbcodeL10n.portationSelectDirectory,
     fileName: '$prefix${DateTime.now().yyyyMMDDHHMMSS()}.$ext',
@@ -48,18 +38,11 @@ Future<void> _exportFile(
 }
 
 void _showCopiedSnackBar(BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(context.bbcodeL10n.portationCopiedToClipboard),
-    ),
-  );
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.bbcodeL10n.portationCopiedToClipboard)));
 }
 
 /// Open a modal bottom sheet to export or import document.
-Future<void> openPortationModalBottomSheet(
-  BuildContext context,
-  BBCodeEditorController controller,
-) async =>
+Future<void> openPortationModalBottomSheet(BuildContext context, BBCodeEditorController controller) async =>
     showModalBottomSheet(
       context: context,
       builder: (_) {
@@ -77,11 +60,7 @@ Future<void> openPortationModalBottomSheet(
                 ListTile(
                   title: Text(context.bbcodeL10n.portationCopyBBCode),
                   onTap: () async {
-                    await Clipboard.setData(
-                      ClipboardData(
-                        text: controller.toBBCode(),
-                      ),
-                    );
+                    await Clipboard.setData(ClipboardData(text: controller.toBBCode()));
                     if (!context.mounted) {
                       return;
                     }
@@ -92,12 +71,7 @@ Future<void> openPortationModalBottomSheet(
                 ListTile(
                   title: Text(context.bbcodeL10n.portationExportBBCode),
                   onTap: () async {
-                    await _exportFile(
-                      context,
-                      'bbcode_',
-                      'txt',
-                      controller.toBBCode(),
-                    );
+                    await _exportFile(context, 'bbcode_', 'txt', controller.toBBCode());
                     if (!context.mounted) {
                       return;
                     }
@@ -121,11 +95,7 @@ Future<void> openPortationModalBottomSheet(
                 ListTile(
                   title: Text(context.bbcodeL10n.portationCopyQuillDelta),
                   onTap: () async {
-                    await Clipboard.setData(
-                      ClipboardData(
-                        text: controller.toQuillDelta(),
-                      ),
-                    );
+                    await Clipboard.setData(ClipboardData(text: controller.toQuillDelta()));
                     if (!context.mounted) {
                       return;
                     }
@@ -136,12 +106,7 @@ Future<void> openPortationModalBottomSheet(
                 ListTile(
                   title: Text(context.bbcodeL10n.portationExportQuillDelta),
                   onTap: () async {
-                    await _exportFile(
-                      context,
-                      'quilldata_',
-                      'txt',
-                      controller.toQuillDelta(),
-                    );
+                    await _exportFile(context, 'quilldata_', 'txt', controller.toQuillDelta());
                     if (!context.mounted) {
                       return;
                     }
@@ -158,9 +123,7 @@ Future<void> openPortationModalBottomSheet(
                     if (!context.mounted) {
                       return;
                     }
-                    controller.setDocumentFromJson(
-                      jsonDecode(data) as List<dynamic>,
-                    );
+                    controller.setDocumentFromJson(jsonDecode(data) as List<dynamic>);
                     Navigator.of(context).pop();
                   },
                 ),

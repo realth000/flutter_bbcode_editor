@@ -15,20 +15,13 @@ import 'package:flutter_quill/quill_delta.dart';
 /// * Have points more than the minimum value.
 final class BBCodeHideEmbed extends BBCodeEmbeddable {
   /// Constructor.
-  BBCodeHideEmbed(BBCodeHideInfo data)
-      : super(
-          type: BBCodeHideKeys.type,
-          data: data.toJson(),
-        );
+  BBCodeHideEmbed(BBCodeHideInfo data) : super(type: BBCodeHideKeys.type, data: data.toJson());
 }
 
 /// Data class carrying hide info.
 final class BBCodeHideInfo {
   /// Constructor.
-  const BBCodeHideInfo({
-    required this.points,
-    required this.body,
-  });
+  const BBCodeHideInfo({required this.points, required this.body});
 
   /// Construct from [json] string.
   factory BBCodeHideInfo.fromJson(String json) {
@@ -42,23 +35,18 @@ final class BBCodeHideInfo {
       _ => throw Exception('bbcode hide body not found'),
     };
 
-    return BBCodeHideInfo(
-      points: points,
-      body: body,
-    );
+    return BBCodeHideInfo(points: points, body: body);
   }
 
   /// Create an empty hide info.
   ///
   /// For initialization or placeholder.
-  factory BBCodeHideInfo.buildEmpty() =>
-      const BBCodeHideInfo(points: 0, body: '');
+  factory BBCodeHideInfo.buildEmpty() => const BBCodeHideInfo(points: 0, body: '');
 
   /// Parse a current type [embed] and add bbcode to [out].
   static void toBBCode(Embed embed, StringSink out) {
     final info = BBCodeHideInfo.fromJson(embed.value.data as String);
-    final bbcode = DeltaToBBCode()
-        .convert(Delta.fromJson(jsonDecode(info.body) as List<dynamic>));
+    final bbcode = DeltaToBBCode().convert(Delta.fromJson(jsonDecode(info.body) as List<dynamic>));
     final value = info.points > 0 ? '=${info.points}' : '';
     out.write('[hide$value]${bbcode.trimRight()}[/hide]');
   }
@@ -76,12 +64,10 @@ final class BBCodeHideInfo {
   final String body;
 
   /// Convert to json map string.
-  String toJson() => jsonEncode(<String, dynamic>{
-        BBCodeHideKeys.points: points,
-        BBCodeHideKeys.body: body,
-      });
+  String toJson() => jsonEncode(<String, dynamic>{BBCodeHideKeys.points: points, BBCodeHideKeys.body: body});
 
   @override
-  String toString() => '${BBCodeHideKeys.points}=$points, '
+  String toString() =>
+      '${BBCodeHideKeys.points}=$points, '
       '${BBCodeHideKeys.body}=$body';
 }

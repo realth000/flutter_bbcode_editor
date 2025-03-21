@@ -27,16 +27,16 @@ final class BBCodeHideEmbedBuilder extends EmbedBuilder {
     BBCodeImageProvider? imageProvider,
     BBCodeUsernamePicker? usernamePicker,
     BBCodeUserMentionHandler? userMentionHandler,
-  })  : _emojiPicker = emojiPicker,
-        _colorPicker = colorPicker,
-        _backgroundColorPicker = backgroundColorPicker,
-        _urlPicker = urlPicker,
-        _imagePicker = imagePicker,
-        _imageProvider = imageProvider,
-        _usernamePicker = usernamePicker,
-        _emojiProvider = emojiProvider,
-        _userMentionHandler = userMentionHandler,
-        _urlLauncher = urlLauncher;
+  }) : _emojiPicker = emojiPicker,
+       _colorPicker = colorPicker,
+       _backgroundColorPicker = backgroundColorPicker,
+       _urlPicker = urlPicker,
+       _imagePicker = imagePicker,
+       _imageProvider = imageProvider,
+       _usernamePicker = usernamePicker,
+       _emojiProvider = emojiProvider,
+       _userMentionHandler = userMentionHandler,
+       _urlLauncher = urlLauncher;
 
   final BBCodeEmojiPicker _emojiPicker;
 
@@ -58,40 +58,23 @@ final class BBCodeHideEmbedBuilder extends EmbedBuilder {
 
   @override
   WidgetSpan buildWidgetSpan(Widget widget) {
-    return WidgetSpan(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: widget,
-      ),
-    );
+    return WidgetSpan(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 4), child: widget));
   }
 
   @override
-  Widget build(
-    BuildContext context,
-    EmbedContext embedContext,
-  ) {
-    final info =
-        BBCodeHideInfo.fromJson(embedContext.node.value.data as String);
+  Widget build(BuildContext context, EmbedContext embedContext) {
+    final info = BBCodeHideInfo.fromJson(embedContext.node.value.data as String);
 
     return _HideCard(
       onEdited: (info) {
-        final offset = getEmbedNode(
-          embedContext.controller,
-          embedContext.controller.selection.start,
-        ).offset;
+        final offset = getEmbedNode(embedContext.controller, embedContext.controller.selection.start).offset;
         embedContext.controller
-          ..replaceText(
-            offset,
-            1,
-            BBCodeHideEmbed(info),
-            TextSelection.collapsed(offset: offset),
-          )
+          ..replaceText(offset, 1, BBCodeHideEmbed(info), TextSelection.collapsed(offset: offset))
           ..moveCursorToPosition(offset + 1);
       },
-      onTap: () => embedContext.controller.moveCursorToPosition(
-        embedContext.node.documentOffset + embedContext.node.length,
-      ),
+      onTap:
+          () =>
+              embedContext.controller.moveCursorToPosition(embedContext.node.documentOffset + embedContext.node.length),
       initialData: info,
       emojiPicker: _emojiPicker,
       colorPicker: _colorPicker,
@@ -161,28 +144,27 @@ class _HideCardState extends State<_HideCard> {
     final data = await Navigator.push<BBCodeHideInfo>(
       context,
       MaterialPageRoute(
-        builder: (context) => BBCodeLocalizationsWidget(
-          child: _HideEditPage(
-            initialData: this.data,
-            colorPicker: widget.colorPicker,
-            backgroundColorPicker: widget.backgroundColorPicker,
-            urlPicker: widget.urlPicker,
-            imagePicker: widget.imagePicker,
-            imageProvider: widget.imageProvider,
-            usernamePicker: widget.usernamePicker,
-            userMentionHandler: widget.userMentionHandler,
-            emojiPicker: widget.emojiPicker,
-            emojiProvider: widget.emojiProvider,
-          ),
-        ),
+        builder:
+            (context) => BBCodeLocalizationsWidget(
+              child: _HideEditPage(
+                initialData: this.data,
+                colorPicker: widget.colorPicker,
+                backgroundColorPicker: widget.backgroundColorPicker,
+                urlPicker: widget.urlPicker,
+                imagePicker: widget.imagePicker,
+                imageProvider: widget.imageProvider,
+                usernamePicker: widget.usernamePicker,
+                userMentionHandler: widget.userMentionHandler,
+                emojiPicker: widget.emojiPicker,
+                emojiProvider: widget.emojiProvider,
+              ),
+            ),
       ),
     );
     if (data != null) {
       setState(() {
         this.data = data;
-        bodyController.setDocumentFromJson(
-          jsonDecode(data.body) as List<dynamic>,
-        );
+        bodyController.setDocumentFromJson(jsonDecode(data.body) as List<dynamic>);
       });
       // Call the callback to save data in embed builder, otherwise when
       // the builder called next time, data will reset to default.
@@ -248,12 +230,7 @@ class _HideCardState extends State<_HideCard> {
       children: [
         Icon(Icons.lock_outline, color: primaryColor),
         const SizedBox(width: 8),
-        Text(
-          tr.hide,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: primaryColor,
-              ),
-        ),
+        Text(tr.hide, style: Theme.of(context).textTheme.titleMedium?.copyWith(color: primaryColor)),
       ],
     );
   }
@@ -271,11 +248,7 @@ class _HideCardState extends State<_HideCard> {
     if (data.body.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         setState(() {
-          bodyController.setDocumentFromDelta(
-            Delta.fromJson(
-              jsonDecode(data.body) as List<dynamic>,
-            ),
-          );
+          bodyController.setDocumentFromDelta(Delta.fromJson(jsonDecode(data.body) as List<dynamic>));
         });
       });
     }
@@ -294,10 +267,7 @@ class _HideCardState extends State<_HideCard> {
     return GestureDetector(
       onTap: () async {
         widget.onTap.call();
-        await showDialog<void>(
-          context: context,
-          builder: (_) => buildDialog(context),
-        );
+        await showDialog<void>(context: context, builder: (_) => buildDialog(context));
       },
       child: Card(
         color: Theme.of(context).colorScheme.surfaceContainerHigh,
@@ -321,9 +291,7 @@ class _HideCardState extends State<_HideCard> {
                       TextSpan(text: tr.hideWithReplyOuter),
                   ],
                 ),
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.primary),
               ),
               const SizedBox(height: 8),
               BBCodeEditor(
@@ -388,10 +356,7 @@ class _HideEditPage extends StatefulWidget {
   State<_HideEditPage> createState() => _HideEditPageState();
 }
 
-enum _HideWithType {
-  points,
-  reply,
-}
+enum _HideWithType { points, reply }
 
 class _HideEditPageState extends State<_HideEditPage> {
   late TextEditingController pointsController;
@@ -405,20 +370,14 @@ class _HideEditPageState extends State<_HideEditPage> {
   void initState() {
     super.initState();
     final pv = widget.initialData?.points;
-    pointsController = TextEditingController(
-      text: pv == null || pv <= 0 ? '' : '${widget.initialData?.points}',
-    );
+    pointsController = TextEditingController(text: pv == null || pv <= 0 ? '' : '${widget.initialData?.points}');
     withType = switch (pv) {
       null || <= 0 => _HideWithType.reply,
       _ => _HideWithType.points,
     };
     bodyController = buildBBCodeEditorController();
     if (widget.initialData != null && widget.initialData!.body.isNotEmpty) {
-      bodyController.setDocumentFromDelta(
-        Delta.fromJson(
-          jsonDecode(widget.initialData!.body) as List<dynamic>,
-        ),
-      );
+      bodyController.setDocumentFromDelta(Delta.fromJson(jsonDecode(widget.initialData!.body) as List<dynamic>));
     }
   }
 
@@ -439,8 +398,7 @@ class _HideEditPageState extends State<_HideEditPage> {
           IconButton(
             icon: const Icon(Icons.save_outlined),
             onPressed: () async {
-              if (withType == _HideWithType.points &&
-                  !(formKey.currentState?.validate() ?? true)) {
+              if (withType == _HideWithType.points && !(formKey.currentState?.validate() ?? true)) {
                 return;
               }
 
@@ -492,35 +450,31 @@ class _HideEditPageState extends State<_HideEditPage> {
             ),
             AnimatedSize(
               duration: const Duration(milliseconds: 100),
-              child: withType == _HideWithType.points
-                  ? Row(
-                      children: [
-                        const SizedBox(width: 48),
-                        Expanded(
-                          child: Form(
-                            key: formKey,
-                            child: TextFormField(
-                              controller: pointsController,
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                decimal: true,
+              child:
+                  withType == _HideWithType.points
+                      ? Row(
+                        children: [
+                          const SizedBox(width: 48),
+                          Expanded(
+                            child: Form(
+                              key: formKey,
+                              child: TextFormField(
+                                controller: pointsController,
+                                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                decoration: InputDecoration(labelText: tr.hidePoints),
+                                validator: (v) {
+                                  final vv = int.tryParse(v ?? '');
+                                  if (vv == null || vv <= 0) {
+                                    return tr.hidePointsInvalid;
+                                  }
+                                  return null;
+                                },
                               ),
-                              decoration: InputDecoration(
-                                labelText: tr.hidePoints,
-                              ),
-                              validator: (v) {
-                                final vv = int.tryParse(v ?? '');
-                                if (vv == null || vv <= 0) {
-                                  return tr.hidePointsInvalid;
-                                }
-                                return null;
-                              },
                             ),
                           ),
-                        ),
-                      ],
-                    )
-                  : const SizedBox.shrink(),
+                        ],
+                      )
+                      : const SizedBox.shrink(),
             ),
             const SizedBox(height: 12),
             Expanded(

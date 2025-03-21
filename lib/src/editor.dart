@@ -25,6 +25,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 
 part 'editor_controller.dart';
+
 part 'editor_tool_bar.dart';
 
 /// Quill based bbcode editor.
@@ -146,15 +147,9 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
         config: QuillEditorConfig(
           autoFocus: widget.autoFocus,
           embedBuilders: [
-            BBCodeImageEmbedBuilder(
-              widget.imageProvider,
-              widget.imagePicker,
-              constraints: widget.imageConstraints,
-            ),
+            BBCodeImageEmbedBuilder(widget.imageProvider, widget.imagePicker, constraints: widget.imageConstraints),
             BBCodeEmojiEmbedBuilder(emojiProvider: widget.emojiProvider),
-            BBCodeUserMentionEmbedBuilder(
-              usernamePicker: widget.usernamePicker,
-            ),
+            BBCodeUserMentionEmbedBuilder(usernamePicker: widget.usernamePicker),
             BBCodeSpoilerEmbedBuilder(
               emojiPicker: widget.emojiPicker,
               emojiProvider: widget.emojiProvider,
@@ -184,7 +179,7 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
           customStyles: DefaultStyles(
             code: DefaultTextBlockStyle(
               Theme.of(context).textTheme.bodyMedium!,
-              const HorizontalSpacing(0, 0),
+              HorizontalSpacing.zero,
               const VerticalSpacing(6, 0),
               VerticalSpacing.zero,
               BoxDecoration(

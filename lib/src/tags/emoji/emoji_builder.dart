@@ -22,19 +22,12 @@ final class BBCodeEmojiEmbedBuilder extends EmbedBuilder {
   String get key => BBCodeEmojiKeys.type;
 
   @override
-  Widget build(
-    BuildContext context,
-    EmbedContext embedContext,
-  ) {
-    final info =
-        BBCodeEmojiInfo.fromJson(embedContext.node.value.data as String);
+  Widget build(BuildContext context, EmbedContext embedContext) {
+    final info = BBCodeEmojiInfo.fromJson(embedContext.node.value.data as String);
     final code = info.code;
     if (!_emojiCacheMap.containsKey(code)) {
       _emojiCacheMap[code] = emojiProvider(context, code);
     }
-    return Padding(
-      padding: const EdgeInsets.only(left: 4, right: 2),
-      child: _emojiCacheMap[code],
-    );
+    return Padding(padding: const EdgeInsets.only(left: 4, right: 2), child: _emojiCacheMap[code]);
   }
 }

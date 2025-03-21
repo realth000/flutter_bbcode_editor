@@ -27,16 +27,16 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
     BBCodeImageProvider? imageProvider,
     BBCodeUsernamePicker? usernamePicker,
     BBCodeUserMentionHandler? userMentionHandler,
-  })  : _emojiPicker = emojiPicker,
-        _colorPicker = colorPicker,
-        _backgroundColorPicker = backgroundColorPicker,
-        _urlPicker = urlPicker,
-        _imagePicker = imagePicker,
-        _imageProvider = imageProvider,
-        _usernamePicker = usernamePicker,
-        _emojiProvider = emojiProvider,
-        _userMentionHandler = userMentionHandler,
-        _urlLauncher = urlLauncher;
+  }) : _emojiPicker = emojiPicker,
+       _colorPicker = colorPicker,
+       _backgroundColorPicker = backgroundColorPicker,
+       _urlPicker = urlPicker,
+       _imagePicker = imagePicker,
+       _imageProvider = imageProvider,
+       _usernamePicker = usernamePicker,
+       _emojiProvider = emojiProvider,
+       _userMentionHandler = userMentionHandler,
+       _urlLauncher = urlLauncher;
 
   final BBCodeEmojiPicker _emojiPicker;
 
@@ -58,39 +58,21 @@ final class BBCodeSpoilerEmbedBuilder extends EmbedBuilder {
 
   @override
   WidgetSpan buildWidgetSpan(Widget widget) {
-    return WidgetSpan(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: widget,
-      ),
-    );
+    return WidgetSpan(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 4), child: widget));
   }
 
   @override
-  Widget build(
-    BuildContext context,
-    EmbedContext embedContext,
-  ) {
-    final info = BBCodeSpoilerInfo.fromJson(
-      embedContext.node.value.data as String,
-    );
+  Widget build(BuildContext context, EmbedContext embedContext) {
+    final info = BBCodeSpoilerInfo.fromJson(embedContext.node.value.data as String);
 
     return _SpoilerCard(
-      onTap: () => embedContext.controller.moveCursorToPosition(
-        embedContext.node.documentOffset + embedContext.node.length,
-      ),
+      onTap:
+          () =>
+              embedContext.controller.moveCursorToPosition(embedContext.node.documentOffset + embedContext.node.length),
       onEdited: (info) {
-        final offset = getEmbedNode(
-          embedContext.controller,
-          embedContext.controller.selection.start,
-        ).offset;
+        final offset = getEmbedNode(embedContext.controller, embedContext.controller.selection.start).offset;
         embedContext.controller
-          ..replaceText(
-            offset,
-            1,
-            BBCodeSpoilerEmbed(info),
-            TextSelection.collapsed(offset: offset),
-          )
+          ..replaceText(offset, 1, BBCodeSpoilerEmbed(info), TextSelection.collapsed(offset: offset))
           ..moveCursorToPosition(offset + 1);
       },
       initialData: info,
@@ -178,29 +160,28 @@ class _SpoilerCardState extends State<_SpoilerCard> {
     final data = await Navigator.push<BBCodeSpoilerInfo>(
       context,
       MaterialPageRoute(
-        builder: (context) => BBCodeLocalizationsWidget(
-          child: _SpoilerEditPage(
-            initialData: this.data,
-            colorPicker: widget.colorPicker,
-            backgroundColorPicker: widget.backgroundColorPicker,
-            urlPicker: widget.urlPicker,
-            imagePicker: widget.imagePicker,
-            imageProvider: widget.imageProvider,
-            usernamePicker: widget.usernamePicker,
-            userMentionHandler: widget.userMentionHandler,
-            emojiPicker: widget.emojiPicker,
-            emojiProvider: widget.emojiProvider,
-          ),
-        ),
+        builder:
+            (context) => BBCodeLocalizationsWidget(
+              child: _SpoilerEditPage(
+                initialData: this.data,
+                colorPicker: widget.colorPicker,
+                backgroundColorPicker: widget.backgroundColorPicker,
+                urlPicker: widget.urlPicker,
+                imagePicker: widget.imagePicker,
+                imageProvider: widget.imageProvider,
+                usernamePicker: widget.usernamePicker,
+                userMentionHandler: widget.userMentionHandler,
+                emojiPicker: widget.emojiPicker,
+                emojiProvider: widget.emojiProvider,
+              ),
+            ),
       ),
     );
     if (data != null) {
       setState(() {
         // Keep collapsed state.
         this.data = data.copyWith(collapsed: !_visible);
-        bodyController.setDocumentFromJson(
-          jsonDecode(data.body) as List<dynamic>,
-        );
+        bodyController.setDocumentFromJson(jsonDecode(data.body) as List<dynamic>);
       });
       // Call the callback to save data in embed builder, otherwise when
       // the builder called next time, data will reset to default.
@@ -266,12 +247,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
       children: [
         Icon(Icons.expand_outlined, color: primaryColor),
         const SizedBox(width: 8),
-        Text(
-          tr.spoiler,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: primaryColor,
-              ),
-        ),
+        Text(tr.spoiler, style: Theme.of(context).textTheme.titleMedium?.copyWith(color: primaryColor)),
         // const SizedBox(width: 24),
         // IconButton(
         //   icon: const Icon(Icons.edit_outlined),
@@ -306,11 +282,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
     if (data.body.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         setState(() {
-          bodyController.setDocumentFromDelta(
-            Delta.fromJson(
-              jsonDecode(data.body) as List<dynamic>,
-            ),
-          );
+          bodyController.setDocumentFromDelta(Delta.fromJson(jsonDecode(data.body) as List<dynamic>));
         });
       });
     }
@@ -330,10 +302,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
       behavior: HitTestBehavior.deferToChild,
       onTap: () async {
         widget.onTap.call();
-        await showDialog<void>(
-          context: context,
-          builder: (_) => buildDialog(context),
-        );
+        await showDialog<void>(context: context, builder: (_) => buildDialog(context));
       },
       child: Card(
         color: Theme.of(context).colorScheme.surfaceContainerHigh,
@@ -347,9 +316,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
               _buildToolbar(context),
               const SizedBox(height: 8),
               OutlinedButton.icon(
-                icon: _visible
-                    ? const Icon(Icons.expand_less_outlined)
-                    : const Icon(Icons.expand_more_outlined),
+                icon: _visible ? const Icon(Icons.expand_less_outlined) : const Icon(Icons.expand_more_outlined),
                 label: Text(data.title),
                 onPressed: () {
                   widget.onTap.call();
@@ -435,11 +402,7 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
     titleController = TextEditingController(text: widget.initialData?.title);
     bodyController = buildBBCodeEditorController();
     if (widget.initialData != null && widget.initialData!.body.isNotEmpty) {
-      bodyController.setDocumentFromDelta(
-        Delta.fromJson(
-          jsonDecode(widget.initialData!.body) as List<dynamic>,
-        ),
-      );
+      bodyController.setDocumentFromDelta(Delta.fromJson(jsonDecode(widget.initialData!.body) as List<dynamic>));
     }
   }
 
@@ -459,14 +422,15 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.save_outlined),
-            onPressed: () async => Navigator.pop(
-              context,
-              BBCodeSpoilerInfo(
-                title: titleController.text,
-                body: bodyController.toQuillDelta(),
-                collapsed: widget.initialData?.collapsed ?? true,
-              ),
-            ),
+            onPressed:
+                () async => Navigator.pop(
+                  context,
+                  BBCodeSpoilerInfo(
+                    title: titleController.text,
+                    body: bodyController.toQuillDelta(),
+                    collapsed: widget.initialData?.collapsed ?? true,
+                  ),
+                ),
           ),
         ],
       ),
@@ -474,10 +438,7 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
         padding: const EdgeInsets.all(4),
         child: Column(
           children: [
-            TextField(
-              controller: titleController,
-              decoration: InputDecoration(labelText: tr.spoilerEditPageOuter),
-            ),
+            TextField(controller: titleController, decoration: InputDecoration(labelText: tr.spoilerEditPageOuter)),
             const SizedBox(height: 12),
             Expanded(
               child: BBCodeEditor(

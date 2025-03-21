@@ -4,14 +4,12 @@ part of 'editor.dart';
 typedef BBCodeEditorController = QuillController;
 
 /// Build a [BBCodeEditorController].
-BBCodeEditorController buildBBCodeEditorController({
-  bool readOnly = false,
-  String? initialText,
-}) {
+BBCodeEditorController buildBBCodeEditorController({bool readOnly = false, String? initialText}) {
   return QuillController(
-    document: initialText != null && initialText.isNotEmpty
-        ? Document.fromDelta(Delta()..insert(initialText.endsWith('\n') ? initialText : '${initialText}\n'))
-        : Document(),
+    document:
+        initialText != null && initialText.isNotEmpty
+            ? Document.fromDelta(Delta()..insert(initialText.endsWith('\n') ? initialText : '$initialText\n'))
+            : Document(),
     selection: const TextSelection.collapsed(offset: 0),
     readOnly: readOnly,
   );
@@ -36,8 +34,7 @@ extension BBCodeExt on BBCodeEditorController {
   String toJson() => jsonEncode(document.toDelta().toJson());
 
   /// Set the document from json data.
-  void setDocumentFromJson(List<dynamic> json) =>
-      document = Document.fromJson(json);
+  void setDocumentFromJson(List<dynamic> json) => document = Document.fromJson(json);
 
   /// Set the document from quill delta.
   void setDocumentFromDelta(Delta delta) {
@@ -56,8 +53,7 @@ extension BBCodeExt on BBCodeEditorController {
     } else {
       fixedText = '$text\n';
     }
-    document =
-        Document.fromDelta(Delta.fromOperations([Operation.insert(fixedText)]));
+    document = Document.fromDelta(Delta.fromOperations([Operation.insert(fixedText)]));
   }
 
   /// Check if editor has empty content.
@@ -119,12 +115,7 @@ extension BBCodeExt on BBCodeEditorController {
     final position = selection.baseOffset;
     final length = selection.extentOffset - position;
     this
-      ..replaceText(
-        position,
-        length,
-        BlockEmbed.custom(embed),
-        null,
-      )
+      ..replaceText(position, length, BlockEmbed.custom(embed), null)
       ..moveCursorToPosition(position + 1);
   }
 
@@ -138,12 +129,7 @@ extension BBCodeExt on BBCodeEditorController {
     final position = selection.baseOffset;
     final length = selection.extentOffset - position;
     this
-      ..replaceText(
-        position,
-        length,
-        embed,
-        null,
-      )
+      ..replaceText(position, length, embed, null)
       ..moveCursorToPosition(position + 1);
   }
 }

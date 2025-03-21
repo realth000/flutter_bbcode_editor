@@ -8,10 +8,7 @@ final class BBCodeDividerEmbedBuilder extends EmbedBuilder {
   String get key => BBCodeDividerKeys.type;
 
   @override
-  Widget build(
-    BuildContext context,
-    EmbedContext embedContext,
-  ) {
+  Widget build(BuildContext context, EmbedContext embedContext) {
     return const Divider();
   }
 }

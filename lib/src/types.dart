@@ -11,10 +11,7 @@ typedef EmbedToBBCode = void Function(Embed embed, StringSink out);
 
 // TODO: Async?
 /// External function, provide emoji image from bbcode [code].
-typedef BBCodeEmojiProvider = Widget Function(
-  BuildContext context,
-  String code,
-);
+typedef BBCodeEmojiProvider = Widget Function(BuildContext context, String code);
 
 /// External emoji picker function.
 ///
@@ -25,12 +22,7 @@ typedef BBCodeEmojiPicker = FutureOr<String?> Function(BuildContext context);
 typedef BBCodeUserMentionHandler = FutureOr<void> Function(String username);
 
 /// External function build a image widget from given image [url].
-typedef BBCodeImageProvider = Widget Function(
-  BuildContext context,
-  String url,
-  int? width,
-  int? height,
-);
+typedef BBCodeImageProvider = Widget Function(BuildContext context, String url, int? width, int? height);
 
 /// Function to pick an image.
 ///
@@ -41,12 +33,8 @@ typedef BBCodeImageProvider = Widget Function(
 /// * [link] image url.
 /// * [width] image width.
 /// * [height] image height.
-typedef BBCodeImagePicker = Future<BBCodeImageInfo?> Function(
-  BuildContext context,
-  String? link,
-  int? width,
-  int? height,
-);
+typedef BBCodeImagePicker =
+    Future<BBCodeImageInfo?> Function(BuildContext context, String? link, int? width, int? height);
 
 /// Function to launch an url.
 typedef BBCodeUrlLauncher = void Function(String)?;

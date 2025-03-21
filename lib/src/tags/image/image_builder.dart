@@ -13,11 +13,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 /// Only web images.
 final class BBCodeImageEmbedBuilder extends EmbedBuilder {
   /// Constructor.
-  BBCodeImageEmbedBuilder(
-    this._bbCodeImageProvider,
-    this._imagePicker, {
-    this.constraints,
-  });
+  BBCodeImageEmbedBuilder(this._bbCodeImageProvider, this._imagePicker, {this.constraints});
 
   final BBCodeImageProvider? _bbCodeImageProvider;
 
@@ -26,30 +22,18 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
   /// Optional size constraints on rendered image.
   BoxConstraints? constraints;
 
-  Future<void> _onEditImage(
-    BuildContext context,
-    QuillController controller,
-    Embed node,
-  ) async {
+  Future<void> _onEditImage(BuildContext context, QuillController controller, Embed node) async {
     final imageInfo = BBCodeImageInfo.fromJson(node.value.data as String);
     BBCodeImageInfo? info;
     if (_imagePicker != null) {
-      info = await _imagePicker(
-        context,
-        imageInfo.link,
-        imageInfo.width,
-        imageInfo.height,
-      );
+      info = await _imagePicker(context, imageInfo.link, imageInfo.width, imageInfo.height);
     } else {
       info = await showDialog<BBCodeImageInfo>(
         context: context,
-        builder: (_) => BBCodeLocalizationsWidget(
-          child: PickImageDialog(
-            link: imageInfo.link,
-            width: imageInfo.width,
-            height: imageInfo.height,
-          ),
-        ),
+        builder:
+            (_) => BBCodeLocalizationsWidget(
+              child: PickImageDialog(link: imageInfo.link, width: imageInfo.width, height: imageInfo.height),
+            ),
       );
     }
 
@@ -59,50 +43,24 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
       }
       return;
     }
-    final offset = getEmbedNode(
-      controller,
-      controller.selection.start,
-    ).offset;
-    controller.replaceText(
-      offset,
-      1,
-      BBCodeImageEmbed(info),
-      TextSelection.collapsed(offset: offset),
-    );
+    final offset = getEmbedNode(controller, controller.selection.start).offset;
+    controller.replaceText(offset, 1, BBCodeImageEmbed(info), TextSelection.collapsed(offset: offset));
 
     if (context.mounted) {
       Navigator.of(context).pop();
     }
   }
 
-  Future<void> _onDelete(
-    BuildContext context,
-    QuillController controller,
-    Embed node,
-  ) async {
-    final offset = getEmbedNode(
-      controller,
-      controller.selection.start,
-    ).offset;
-    controller.replaceText(
-      offset,
-      1,
-      '',
-      TextSelection.collapsed(offset: offset),
-    );
+  Future<void> _onDelete(BuildContext context, QuillController controller, Embed node) async {
+    final offset = getEmbedNode(controller, controller.selection.start).offset;
+    controller.replaceText(offset, 1, '', TextSelection.collapsed(offset: offset));
     // TODO: Handle on image remove callback.
     Navigator.of(context).pop();
   }
 
-  Future<void> _onCopy(
-    BuildContext context,
-    QuillController controller,
-    Embed node,
-  ) async {
+  Future<void> _onCopy(BuildContext context, QuillController controller, Embed node) async {
     final imageInfo = BBCodeImageInfo.fromJson(node.value.data as String);
-    await Clipboard.setData(
-      ClipboardData(text: imageInfo.link),
-    );
+    await Clipboard.setData(ClipboardData(text: imageInfo.link));
     if (context.mounted) {
       Navigator.pop(context);
     }
@@ -126,13 +84,9 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-    EmbedContext embedContext,
-  ) {
+  Widget build(BuildContext context, EmbedContext embedContext) {
     final tr = context.bbcodeL10n;
-    final info =
-        BBCodeImageInfo.fromJson(embedContext.node.value.data as String);
+    final info = BBCodeImageInfo.fromJson(embedContext.node.value.data as String);
     final link = info.link;
     final width = info.width;
     final height = info.height;
@@ -141,57 +95,48 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
       onTap: () async {
         await showModalBottomSheet<void>(
           context: context,
-          builder: (_) => Padding(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // TODO: Optional bottom sheet title.
-                // Center(
-                //   child: Text(
-                //     tr.imageBuilderDialogTitle,
-                //     style: Theme.of(context).textTheme.titleMedium,
-                //   ),
-                // ),
-                ListView(
-                  shrinkWrap: true,
+          builder:
+              (_) => Padding(
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    ListTile(
-                      leading: const Icon(Icons.edit),
-                      title: Text(tr.imageBuilderDialogEdit),
-                      onTap: embedContext.readOnly
-                          ? null
-                          : () async => _onEditImage(
-                                context,
-                                embedContext.controller,
-                                embedContext.node,
-                              ),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.delete),
-                      title: Text(tr.imageBuilderDialogDelete),
-                      onTap: embedContext.readOnly
-                          ? null
-                          : () async => _onDelete(
-                                context,
-                                embedContext.controller,
-                                embedContext.node,
-                              ),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.copy),
-                      title: Text(tr.imageBuilderDialogCopyLink),
-                      onTap: () async => _onCopy(
-                        context,
-                        embedContext.controller,
-                        embedContext.node,
-                      ),
+                    // TODO: Optional bottom sheet title.
+                    // Center(
+                    //   child: Text(
+                    //     tr.imageBuilderDialogTitle,
+                    //     style: Theme.of(context).textTheme.titleMedium,
+                    //   ),
+                    // ),
+                    ListView(
+                      shrinkWrap: true,
+                      children: [
+                        ListTile(
+                          leading: const Icon(Icons.edit),
+                          title: Text(tr.imageBuilderDialogEdit),
+                          onTap:
+                              embedContext.readOnly
+                                  ? null
+                                  : () async => _onEditImage(context, embedContext.controller, embedContext.node),
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.delete),
+                          title: Text(tr.imageBuilderDialogDelete),
+                          onTap:
+                              embedContext.readOnly
+                                  ? null
+                                  : () async => _onDelete(context, embedContext.controller, embedContext.node),
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.copy),
+                          title: Text(tr.imageBuilderDialogCopyLink),
+                          onTap: () async => _onCopy(context, embedContext.controller, embedContext.node),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
+              ),
         );
       },
       child: Material(
@@ -199,16 +144,9 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
           padding: const EdgeInsets.only(left: 2, top: 8, right: 2),
           child: Badge(
             label: Text('${width}x$height'),
-            isLabelVisible:
-                _bbCodeImageProvider != null && width != null && height != null,
+            isLabelVisible: _bbCodeImageProvider != null && width != null && height != null,
             alignment: Alignment.topLeft,
-            child: _bbCodeImageProvider?.call(
-                  context,
-                  link,
-                  width,
-                  height,
-                ) ??
-                Image.network(link),
+            child: _bbCodeImageProvider?.call(context, link, width, height) ?? Image.network(link),
           ),
         ),
       ),
