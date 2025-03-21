@@ -27,7 +27,9 @@ jobs:
         run: |
           git submodule update --init --recursive --force
           sed -i 's#    path: ../../../dart_bbcode_web_colors#    path: ../dart_bbcode_web_colors#g' packages/flutter-quill/pubspec.yaml
+          sed -i 's#    path: ../dart_bbcode_parser#    path: packages/dart_bbcode_parser#g' pubspec.yaml
           git clone https://github.com/realth000/dart_bbcode_web_colors.git packages/dart_bbcode_web_colors
+          git clone https://github.com/realth000/dart_bbcode_parser.git packages/dart_bbcode_parser
           flutter pub get
       - name: Run flutter analyze
         run: |
