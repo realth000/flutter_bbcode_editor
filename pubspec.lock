@@ -89,7 +89,7 @@ packages:
     source: path
     version: "0.1.0"
   dart_bbcode_web_colors:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "../dart_bbcode_web_colors"
       relative: true

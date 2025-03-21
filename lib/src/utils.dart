@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:collection/collection.dart';
+import 'package:dart_bbcode_web_colors/dart_bbcode_web_colors.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
 
 /// Color utility.
@@ -24,6 +25,11 @@ class ColorUtils {
 
   /// Convert into bbcode recognized color.
   static String toBBCodeColor(String color, {bool useHex = true}) {
+    final webColor = WebColors.fromString(color);
+    if (webColor.isValid) {
+      return '${webColor.name[0].toUpperCase()}${webColor.name.substring(1)}';
+    }
+
     // For some shorthand format, keep it's original style.
     if (color.length < 2 || (color.length == 4 && color.startsWith('#'))) {
       return color;
