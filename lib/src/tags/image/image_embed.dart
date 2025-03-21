@@ -8,8 +8,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 /// Definition of image used in bbcode editor.
 final class BBCodeImageEmbed extends BBCodeEmbeddable {
   /// Constructor.
-  BBCodeImageEmbed(BBCodeImageInfo data)
-      : super(type: BBCodeImageKeys.type, data: data.toJson());
+  BBCodeImageEmbed(BBCodeImageInfo data) : super(type: BBCodeImageKeys.type, data: data.toJson());
 }
 
 /// Data class carrying image embed info.
@@ -73,11 +72,16 @@ final class BBCodeImageInfo {
   /// Parse en current type [embed] and add bbcode to [out].
   static void toBBCode(Embed embed, StringSink out) {
     final imageInfo = BBCodeImageInfo.fromJson(embed.value.data as String);
-    final w = imageInfo.width ?? '';
-    final h = imageInfo.height ?? '';
-    final comma =
-        imageInfo.width != null && imageInfo.height != null ? ',' : '';
-    out.write('[img=$w$comma$h]${imageInfo.link}[/img]');
+    final w = imageInfo.width ?? 0;
+    final h = imageInfo.height ?? 0;
+    final comma = imageInfo.width != null && imageInfo.height != null ? ',' : '';
+    final String attr;
+    if (w > 0 && h > 0) {
+      attr = '=$w$comma$h';
+    } else {
+      attr = '';
+    }
+    out.write('[img$attr]${imageInfo.link}[/img]');
   }
 
   @override
