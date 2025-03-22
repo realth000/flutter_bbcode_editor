@@ -125,7 +125,7 @@ Future<void> openPortationModalBottomSheet(BuildContext context, BBCodeEditorCon
                 ListTile(
                   title: Text(context.bbcodeL10n.portationExportQuillDelta),
                   onTap: () async {
-                    await _exportFile(context, 'quilldata_', 'txt', controller.toQuillDelta());
+                    await _exportFile(context, 'quilldata_', 'json', controller.toQuillDelta());
                     if (!context.mounted) {
                       return;
                     }
@@ -135,7 +135,7 @@ Future<void> openPortationModalBottomSheet(BuildContext context, BBCodeEditorCon
                 ListTile(
                   title: Text(context.bbcodeL10n.portationImportQuillDelta),
                   onTap: () async {
-                    final data = await _importFile(context, ['txt']);
+                    final data = await _importFile(context, ['json']);
                     if (data == null) {
                       return;
                     }
