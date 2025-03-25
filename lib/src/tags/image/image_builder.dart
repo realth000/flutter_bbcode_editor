@@ -95,9 +95,10 @@ final class BBCodeImageEmbedBuilder extends EmbedBuilder {
       onTap: () async {
         await showModalBottomSheet<void>(
           context: context,
+          showDragHandle: true,
           builder:
               (_) => Padding(
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.only(left: 12, top: 4, right: 12, bottom: 12),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

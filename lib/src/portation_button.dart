@@ -57,104 +57,105 @@ void _showInvalidBBCodeSnackBar(BuildContext context) {
 Future<void> openPortationModalBottomSheet(BuildContext context, BBCodeEditorController controller) async =>
     showModalBottomSheet(
       context: context,
+      showDragHandle: true,
       builder: (_) {
-        return Scaffold(
-          appBar: AppBar(
-            forceMaterialTransparency: true,
-            title: Text(context.bbcodeL10n.portationTitle),
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: ListView(
-              children: [
-                ListTile(
-                  title: Text(context.bbcodeL10n.portationCopyBBCode),
-                  onTap: () async {
-                    await Clipboard.setData(ClipboardData(text: controller.toBBCode()));
-                    if (!context.mounted) {
-                      return;
-                    }
-                    _showCopiedSnackBar(context);
-                    Navigator.of(context).pop();
-                  },
-                ),
-                ListTile(
-                  title: Text(context.bbcodeL10n.portationExportBBCode),
-                  onTap: () async {
-                    await _exportFile(context, 'bbcode_', 'txt', controller.toBBCode());
-                    if (!context.mounted) {
-                      return;
-                    }
-                    Navigator.of(context).pop();
-                  },
-                ),
-                ListTile(
-                  title: Text(context.bbcodeL10n.portationImportBBCode),
-                  onTap: () async {
-                    final data = await _importFile(context, ['txt']);
-                    if (data == null) {
-                      return;
-                    }
-                    if (!context.mounted) {
-                      return;
-                    }
-                    try {
-                      final delta = parseBBCodeTextToDelta(data);
-                      controller.setDocumentFromDelta(delta);
-                    } on Exception catch (e, _) {
-                      _showInvalidBBCodeSnackBar(context);
-                      // Here we can not log it, so rethrow.
-                      rethrow;
-                    }
-                    Navigator.of(context).pop();
-                  },
-                ),
-                ListTile(
-                  title: Text(context.bbcodeL10n.portationCopyQuillDelta),
-                  onTap: () async {
-                    await Clipboard.setData(ClipboardData(text: controller.toQuillDelta()));
-                    if (!context.mounted) {
-                      return;
-                    }
-                    _showCopiedSnackBar(context);
-                    Navigator.of(context).pop();
-                  },
-                ),
-                ListTile(
-                  title: Text(context.bbcodeL10n.portationExportQuillDelta),
-                  onTap: () async {
-                    await _exportFile(context, 'quilldata_', 'json', controller.toQuillDelta());
-                    if (!context.mounted) {
-                      return;
-                    }
-                    Navigator.of(context).pop();
-                  },
-                ),
-                ListTile(
-                  title: Text(context.bbcodeL10n.portationImportQuillDelta),
-                  onTap: () async {
-                    final data = await _importFile(context, ['json']);
-                    if (data == null) {
-                      return;
-                    }
-                    if (!context.mounted) {
-                      return;
-                    }
+        return Padding(
+          padding: const EdgeInsets.only(left: 12, top: 4, right: 12, bottom: 12),
+          child: Column(
+            children: [
+              Text(context.bbcodeL10n.portationTitle, style: Theme.of(context).textTheme.titleLarge),
+              const SizedBox(width: 12, height: 12),
+              Expanded(
+                child: ListView(
+                  children: [
+                    ListTile(
+                      title: Text(context.bbcodeL10n.portationCopyBBCode),
+                      onTap: () async {
+                        await Clipboard.setData(ClipboardData(text: controller.toBBCode()));
+                        if (!context.mounted) {
+                          return;
+                        }
+                        _showCopiedSnackBar(context);
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      title: Text(context.bbcodeL10n.portationExportBBCode),
+                      onTap: () async {
+                        await _exportFile(context, 'bbcode_', 'txt', controller.toBBCode());
+                        if (!context.mounted) {
+                          return;
+                        }
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      title: Text(context.bbcodeL10n.portationImportBBCode),
+                      onTap: () async {
+                        final data = await _importFile(context, ['txt']);
+                        if (data == null) {
+                          return;
+                        }
+                        if (!context.mounted) {
+                          return;
+                        }
+                        try {
+                          final delta = parseBBCodeTextToDelta(data);
+                          controller.setDocumentFromDelta(delta);
+                        } on Exception catch (e, _) {
+                          _showInvalidBBCodeSnackBar(context);
+                          // Here we can not log it, so rethrow.
+                          rethrow;
+                        }
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      title: Text(context.bbcodeL10n.portationCopyQuillDelta),
+                      onTap: () async {
+                        await Clipboard.setData(ClipboardData(text: controller.toQuillDelta()));
+                        if (!context.mounted) {
+                          return;
+                        }
+                        _showCopiedSnackBar(context);
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      title: Text(context.bbcodeL10n.portationExportQuillDelta),
+                      onTap: () async {
+                        await _exportFile(context, 'quilldata_', 'json', controller.toQuillDelta());
+                        if (!context.mounted) {
+                          return;
+                        }
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ListTile(
+                      title: Text(context.bbcodeL10n.portationImportQuillDelta),
+                      onTap: () async {
+                        final data = await _importFile(context, ['json']);
+                        if (data == null) {
+                          return;
+                        }
+                        if (!context.mounted) {
+                          return;
+                        }
 
-                    try {
-                      controller.setDocumentFromJson(jsonDecode(data) as List<dynamic>);
-                    } on Exception catch (e, _) {
-                      _showInvalidQuillDeltaSnackBar(context);
-                      // Here we can not log it, so rethrow.
-                      rethrow;
-                    }
-                    Navigator.of(context).pop();
-                  },
+                        try {
+                          controller.setDocumentFromJson(jsonDecode(data) as List<dynamic>);
+                        } on Exception catch (e, _) {
+                          _showInvalidQuillDeltaSnackBar(context);
+                          // Here we can not log it, so rethrow.
+                          rethrow;
+                        }
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
