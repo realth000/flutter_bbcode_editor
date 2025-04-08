@@ -68,8 +68,13 @@ final class BBCodeImageInfo {
     final h = imageInfo.height ?? 0;
     final comma = imageInfo.width != null && imageInfo.height != null ? ',' : '';
     final String attr;
+    // Allows setting one border only.
     if (w > 0 && h > 0) {
       attr = '=$w$comma$h';
+    } else if (w > 0) {
+      attr = '=$w,0';
+    } else if (h > 0) {
+      attr = '0,$h';
     } else {
       attr = '';
     }
