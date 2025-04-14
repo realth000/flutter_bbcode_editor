@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dart_bbcode_web_colors/dart_bbcode_web_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/convert/to_bbcode.dart';
@@ -25,7 +26,6 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 
 part 'editor_controller.dart';
-
 part 'editor_tool_bar.dart';
 
 /// Quill based bbcode editor.

@@ -25,7 +25,7 @@ final class PickColorResult {
 /// * [PickColorResult.picked] if any color picked.
 /// * [PickColorResult.clearColor] if user requested to clear color.
 /// * `null` if pick progress canceled.
-typedef BBCodeColorPicker = Future<PickColorResult?> Function(BuildContext context);
+typedef BBCodeColorPicker = Future<PickColorResult?> Function(BuildContext context, Color? initialColor);
 
 /// Result in picking url.
 ///
@@ -272,10 +272,13 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
   void initState() {
     super.initState();
     controller = widget._controller;
+
     if (widget._colorPicker != null) {
       colorButtonOptions = QuillToolbarColorButtonOptions(
         customOnPressedCallback: (controller, isBackground) async {
-          final pickResult = await widget._colorPicker!(context);
+          final initialColor =
+              (controller.getSelectionStyle().attributes['color']?.value as String?)?.replaceFirst('#FF', '').toColor();
+          final pickResult = await widget._colorPicker!(context, initialColor == null ? null : Color(initialColor));
           if (pickResult == null) {
             return;
           }
@@ -293,7 +296,14 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
     if (widget._backgroundColorPicker != null) {
       backgroundColorButtonOptions = QuillToolbarColorButtonOptions(
         customOnPressedCallback: (controller, isBackground) async {
-          final pickResult = await widget._backgroundColorPicker!(context);
+          final initialColor =
+              (controller.getSelectionStyle().attributes['background']?.value as String?)
+                  ?.replaceFirst('#FF', '')
+                  .toColor();
+          final pickResult = await widget._backgroundColorPicker!(
+            context,
+            initialColor == null ? null : Color(initialColor),
+          );
           if (pickResult == null) {
             return;
           }
