@@ -182,8 +182,7 @@ class _HideCardState extends State<_HideCard> {
     await Clipboard.setData(ClipboardData(text: bbcode));
   }
 
-  Widget buildDialog(BuildContext context) {
-    final tr = context.bbcodeL10n;
+  Widget buildDialog(BuildContext context, BBCodeL10n tr) {
     return AlertDialog(
       title: Text(tr.hide),
       content: Column(
@@ -267,7 +266,10 @@ class _HideCardState extends State<_HideCard> {
     return GestureDetector(
       onTap: () async {
         widget.onTap.call();
-        await showDialog<void>(context: context, builder: (_) => buildDialog(context));
+        await showDialog<void>(
+          context: context,
+          builder: (dialogContext) => buildDialog(dialogContext, context.bbcodeL10n),
+        );
       },
       child: Card(
         color: Theme.of(context).colorScheme.surfaceContainerHigh,

@@ -157,6 +157,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
   late bool _visible;
 
   Future<void> editSpoiler() async {
+    print('>>> editSpoiler');
     final data = await Navigator.push<BBCodeSpoilerInfo>(
       context,
       MaterialPageRoute(
@@ -177,6 +178,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
             ),
       ),
     );
+    print('>>> editSpoiler 2');
     if (data != null) {
       setState(() {
         // Keep collapsed state.
@@ -199,8 +201,7 @@ class _SpoilerCardState extends State<_SpoilerCard> {
     await Clipboard.setData(ClipboardData(text: bbcode));
   }
 
-  Widget buildDialog(BuildContext context) {
-    final tr = context.bbcodeL10n;
+  Widget buildDialog(BuildContext context, BBCodeL10n tr) {
     return AlertDialog(
       title: Text(tr.spoiler),
       content: Column(
@@ -302,7 +303,10 @@ class _SpoilerCardState extends State<_SpoilerCard> {
       behavior: HitTestBehavior.deferToChild,
       onTap: () async {
         widget.onTap.call();
-        await showDialog<void>(context: context, builder: (_) => buildDialog(context));
+        await showDialog<void>(
+          context: context,
+          builder: (dialogContext) => buildDialog(dialogContext, context.bbcodeL10n),
+        );
       },
       child: Card(
         color: Theme.of(context).colorScheme.surfaceContainerHigh,
