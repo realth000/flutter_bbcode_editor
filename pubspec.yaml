@@ -16,7 +16,7 @@ dependencies:
     path: ../dart_bbcode_parser
   dart_bbcode_web_colors:
     path: ../dart_bbcode_web_colors
-  file_picker: '>=8.1.2 <10.0.0'
+  file_picker: '>=8.1.2 <11.0.0'
   flutter:
     sdk: flutter
   flutter_localizations:
