@@ -26,6 +26,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 
 part 'editor_controller.dart';
+
 part 'editor_tool_bar.dart';
 
 /// Quill based bbcode editor.
@@ -53,7 +54,28 @@ class BBCodeEditor extends StatefulWidget {
     super.key,
   }) : _controller = controller;
 
-  final BBCodeEditorController _controller;
+  const BBCodeEditor.readonly({
+    // TODO: Make optional.
+    required this.emojiProvider,
+    required this.emojiPicker,
+    this.colorPicker,
+    this.backgroundColorPicker,
+    this.urlPicker,
+    this.imageProvider,
+    this.imagePicker,
+    this.userMentionHandler,
+    this.scrollController,
+    this.usernamePicker,
+    this.focusNode,
+    this.urlLauncher,
+    this.autoFocus = false,
+    this.initialText,
+    this.imageConstraints,
+    this.moveCursorToEndOnInitState = true,
+    super.key,
+  }) : _controller = null;
+
+  final BBCodeEditorController? _controller;
 
   /// Optional scroll controller of editor.
   final ScrollController? scrollController;
@@ -119,7 +141,7 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
   @override
   void initState() {
     super.initState();
-    _controllerV2 = widget._controller;
+    _controllerV2 = widget._controller ?? buildBBCodeEditorController();
     if (widget.initialText != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _controllerV2.setDocumentFromRawText(widget.initialText!);

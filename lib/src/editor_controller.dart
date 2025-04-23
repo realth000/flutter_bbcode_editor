@@ -4,10 +4,12 @@ part of 'editor.dart';
 typedef BBCodeEditorController = QuillController;
 
 /// Build a [BBCodeEditorController].
-BBCodeEditorController buildBBCodeEditorController({bool readOnly = false, String? initialText}) {
+BBCodeEditorController buildBBCodeEditorController({bool readOnly = false, String? initialText, Delta? initialDelta}) {
   return QuillController(
     document:
-        initialText != null && initialText.isNotEmpty
+        initialDelta != null
+            ? Document.fromDelta(initialDelta)
+            : initialText != null && initialText.isNotEmpty
             ? Document.fromDelta(Delta()..insert(initialText.endsWith('\n') ? initialText : '$initialText\n'))
             : Document(),
     selection: const TextSelection.collapsed(offset: 0),
