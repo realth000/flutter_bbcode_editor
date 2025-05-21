@@ -157,7 +157,6 @@ class _SpoilerCardState extends State<_SpoilerCard> {
   late bool _visible;
 
   Future<void> editSpoiler() async {
-    print('>>> editSpoiler');
     final data = await Navigator.push<BBCodeSpoilerInfo>(
       context,
       MaterialPageRoute(
@@ -178,7 +177,6 @@ class _SpoilerCardState extends State<_SpoilerCard> {
             ),
       ),
     );
-    print('>>> editSpoiler 2');
     if (data != null) {
       setState(() {
         // Keep collapsed state.

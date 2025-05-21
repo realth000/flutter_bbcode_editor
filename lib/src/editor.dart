@@ -54,6 +54,7 @@ class BBCodeEditor extends StatefulWidget {
     super.key,
   }) : _controller = controller;
 
+  /// Build a readonly editor.
   const BBCodeEditor.readonly({
     // TODO: Make optional.
     required this.emojiProvider,
