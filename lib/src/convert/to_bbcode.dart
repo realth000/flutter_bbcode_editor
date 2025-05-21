@@ -273,6 +273,10 @@ extension _NodeX on Node {
 
     return attrs;
   }
+
+  List<Attribute<Object?>> attrs() {
+    return style.attributes.values.map((value) => value).toList();
+  }
 }
 
 /// Convert quilt delta into bbcode.
@@ -345,8 +349,15 @@ class DeltaToBBCode extends Converter<Delta, String> implements _NodeVisitor<Str
 
   @override
   StringSink visitEmbed(Embed embed, [StringSink? output]) {
+    final embedOut = StringBuffer();
+    defaultEmbedHandlers[embed.value.type]?.call(embed, embedOut);
     final out = output ??= StringBuffer();
-    defaultEmbedHandlers[embed.value.type]?.call(embed, out);
+    // Use the temporary text to hold text attributes on current embed node.
+    final tmpText = QuillText(embedOut.toString());
+    for (final attr in embed.attrs()) {
+      tmpText.applyAttribute(attr);
+    }
+    _handleTextAttribute(defaultTextAttrHandlers, tmpText, out, out.write);
     return out;
   }
 
