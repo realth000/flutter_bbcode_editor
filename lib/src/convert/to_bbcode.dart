@@ -353,11 +353,13 @@ class DeltaToBBCode extends Converter<Delta, String> implements _NodeVisitor<Str
     defaultEmbedHandlers[embed.value.type]?.call(embed, embedOut);
     final out = output ??= StringBuffer();
     // Use the temporary text to hold text attributes on current embed node.
-    final tmpText = QuillText(embedOut.toString());
-    for (final attr in embed.attrs()) {
-      tmpText.applyAttribute(attr);
-    }
-    _handleTextAttribute(defaultTextAttrHandlers, tmpText, out, out.write);
+    // Split embed text because `QuillText` does not allow line wraps.
+    embedOut.toString().split('\n').map(QuillText.new).forEach((e) {
+      for (final attr in embed.attrs()) {
+        e.applyAttribute(attr);
+      }
+      _handleTextAttribute(defaultTextAttrHandlers, e, out, out.write);
+    });
     return out;
   }
 
