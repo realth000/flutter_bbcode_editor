@@ -18,7 +18,7 @@ import 'package:flutter_bbcode_editor/src/tags/hide/hide_buttton.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_builder.dart';
-import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_button.dart';
+import 'package:flutter_bbcode_editor/src/tags/spoiler_v2/spoiler_v2_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_button.dart';
 import 'package:flutter_bbcode_editor/src/types.dart';
@@ -26,7 +26,6 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill/quill_delta.dart';
 
 part 'editor_controller.dart';
-
 part 'editor_tool_bar.dart';
 
 /// Quill based bbcode editor.
@@ -162,7 +161,6 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
   @override
   Widget build(BuildContext context) {
     return BBCodeLocalizationsWidget(
-      // TODO: Removed FlutterQuillLocalizationsWidget here.
       child: QuillEditor.basic(
         controller: _controllerV2,
         scrollController: widget.scrollController,
@@ -207,6 +205,17 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
               VerticalSpacing.zero,
               BoxDecoration(
                 color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            bbcodeSpoilerV2: DefaultTextBlockStyle(
+              Theme.of(context).textTheme.bodyMedium!,
+              HorizontalSpacing.zero,
+              const VerticalSpacing(6, 0),
+              VerticalSpacing.zero,
+              BoxDecoration(
+                color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                border: Border.all(color: Theme.of(context).colorScheme.primary),
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
