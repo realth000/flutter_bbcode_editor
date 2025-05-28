@@ -9,7 +9,7 @@ final class BBCodeSpoilerV2Keys {
   static const String headerType = 'bbcodeSpoilerV2Header';
 
   /// Tag type of tail type.
-  static const String tailType = 'bbcodeSpoilerV2Tail';
+  static const String bodyType = 'bbcodeSpoilerV2Body';
 
   /// Plain text display as title.
   static const String title = 'title';
