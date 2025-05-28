@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/flutter_bbcode_editor.dart';
 import 'package:flutter_bbcode_editor/src/editor.dart';
@@ -23,10 +21,10 @@ class BBCodeEditorToolbarSpoilerButton extends StatelessWidget {
       iconTheme: const QuillIconTheme(),
       isSelected: false,
       onPressed: () async {
-        if (Platform.isAndroid) {
-          controller.insertRawCode('[spoiler=${context.bbcodeL10n.spoilerExpandOrCollapse}]', '[/spoiler]');
-          return;
-        }
+        // if (Platform.isAndroid) {
+        //   controller.insertRawCode('[spoiler=${context.bbcodeL10n.spoilerExpandOrCollapse}]', '[/spoiler]');
+        //   return;
+        // }
         controller.insertEmbeddable(
           BBCodeSpoilerEmbed(BBCodeSpoilerInfo.buildEmpty(context.bbcodeL10n.spoilerExpandOrCollapse)),
         );

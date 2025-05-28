@@ -18,6 +18,7 @@ import 'package:flutter_bbcode_editor/src/tags/hide/hide_buttton.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_builder.dart';
+import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/spoiler_v2/spoiler_v2_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_button.dart';

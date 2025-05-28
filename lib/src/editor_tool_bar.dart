@@ -456,6 +456,9 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                   BBCodeEditorToolbarUserMentionButton(controller: controller, usernamePicker: widget._usernamePicker),
 
                 // Spoiler.
+                if (widget.showSpoilerButton) BBCodeEditorToolbarSpoilerButton(controller: controller),
+
+                // Spoiler v2.
                 if (widget.showSpoilerButton)
                   BBCodeEditorToolbarSpoilerV2Button(
                     controller: controller,
