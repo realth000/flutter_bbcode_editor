@@ -451,8 +451,9 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                 if (widget.showUserMentionButton)
                   BBCodeEditorToolbarUserMentionButton(controller: controller, usernamePicker: widget._usernamePicker),
 
-                // Spoiler.
-                if (widget.showSpoilerButton) BBCodeEditorToolbarSpoilerButton(controller: controller),
+                // Disable legacy v1 spoiler.
+                // // Spoiler.
+                // if (widget.showSpoilerButton) BBCodeEditorToolbarSpoilerButton(controller: controller),
 
                 // Spoiler v2.
                 if (widget.showSpoilerButton)
