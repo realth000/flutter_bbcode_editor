@@ -147,7 +147,12 @@ class _SpoilerV2HeaderState extends State<_SpoilerV2Header> {
               ],
             ),
             const SizedBox(height: 8),
-            Text(title, style: textTheme.bodyMedium?.copyWith(color: primaryColor)),
+            Row(
+              children: [
+                Text(tr.spoilerV2HeaderTitleTip, style: textTheme.labelSmall?.copyWith(color: outlineColor)),
+                Expanded(child: Text(title, style: textTheme.bodyMedium?.copyWith(color: primaryColor))),
+              ],
+            ),
           ],
         ),
       ),
