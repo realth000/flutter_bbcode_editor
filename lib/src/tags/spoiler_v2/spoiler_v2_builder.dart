@@ -100,7 +100,6 @@ class _SpoilerV2HeaderState extends State<_SpoilerV2Header> {
 
   @override
   Widget build(BuildContext context) {
-    final info = BBCodeSpoilerV2HeaderInfo.fromJson(embedContext.node.value.data as String);
     final tr = context.bbcodeL10n;
     final primaryColor = Theme.of(context).colorScheme.primary;
     final outlineColor = Theme.of(context).colorScheme.outline;
@@ -111,7 +110,7 @@ class _SpoilerV2HeaderState extends State<_SpoilerV2Header> {
         embedContext.controller.moveCursorToPosition(embedContext.node.documentOffset + embedContext.node.length);
         final title = await showDialog<String>(
           context: context,
-          builder: (dialogContext) => _SpoilerV2EditTitleDialog(info.title, tr),
+          builder: (dialogContext) => _SpoilerV2EditTitleDialog(this.title, tr),
         );
         if (title == null || !context.mounted) {
           return;
