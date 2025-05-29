@@ -15,6 +15,8 @@ import 'package:flutter_bbcode_editor/src/tags/image/image_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_keys.dart';
 import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_keys.dart';
+import 'package:flutter_bbcode_editor/src/tags/spoiler_v2/spoiler_v2_embed.dart';
+import 'package:flutter_bbcode_editor/src/tags/spoiler_v2/spoiler_v2_keys.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_keys.dart';
 import 'package:flutter_bbcode_editor/src/types.dart';
@@ -51,6 +53,8 @@ final Map<String, EmbedToBBCode> defaultEmbedHandlers = {
   BBCodeImageKeys.type: BBCodeImageInfo.toBBCode,
   BBCodeUserMentionKeys.type: BBCodeUserMentionInfo.toBBCode,
   BBCodeSpoilerKeys.type: BBCodeSpoilerInfo.toBBCode,
+  BBCodeSpoilerV2Keys.headerType: BBCodeSpoilerV2HeaderInfo.toBBCode,
+  BBCodeSpoilerV2Keys.tailType: BBCodeSpoilerV2TailInfo.toBBCode,
   BBCodeHideKeys.type: BBCodeHideInfo.toBBCode,
   BBCodeDividerKeys.type: BBCodeDividerEmbed.toBBCode,
 };

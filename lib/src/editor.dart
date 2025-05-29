@@ -5,7 +5,6 @@ import 'package:dart_bbcode_web_colors/dart_bbcode_web_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
 import 'package:flutter_bbcode_editor/src/convert/to_bbcode.dart';
-import 'package:flutter_bbcode_editor/src/editor_configuration.dart';
 import 'package:flutter_bbcode_editor/src/extensions/context.dart';
 import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/portation_button.dart';
@@ -19,6 +18,7 @@ import 'package:flutter_bbcode_editor/src/tags/image/image_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/spoiler/spoiler_button.dart';
+import 'package:flutter_bbcode_editor/src/tags/spoiler_v2/spoiler_v2_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/spoiler_v2/spoiler_v2_button.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_builder.dart';
 import 'package:flutter_bbcode_editor/src/tags/user_mention/user_mention_button.dart';
@@ -184,6 +184,8 @@ class _BBCodeEditorState extends State<BBCodeEditor> {
               userMentionHandler: widget.userMentionHandler,
               urlLauncher: widget.urlLauncher,
             ),
+            BBCodeSpoilerV2HeaderEmbedBuilder(),
+            BBCodeSpoilerV2TailEmbedBuilder(),
             BBCodeHideEmbedBuilder(
               emojiPicker: widget.emojiPicker,
               emojiProvider: widget.emojiProvider,

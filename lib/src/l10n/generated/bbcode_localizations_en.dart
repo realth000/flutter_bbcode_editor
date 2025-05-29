@@ -9,6 +9,12 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
   BBCodeEditorLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get ok => 'Ok';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
   String get edit => 'Edit';
 
   @override
@@ -124,6 +130,27 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
 
   @override
   String get spoilerEditPageSave => 'Save';
+
+  @override
+  String get spoilerV2 => 'Spoiler';
+
+  @override
+  String get spoilerV2HeaderTip => 'Spoiler starts here';
+
+  @override
+  String get spoilerV2HeaderTitleTip => 'Title:';
+
+  @override
+  String get spoilerV2TailTip => 'Spoiler ends here';
+
+  @override
+  String get spoilerV2EditTitle => 'Edit spoiler title';
+
+  @override
+  String get spoilerV2EditTitleInvalidTitle => 'Title can not contains \'[\' or \']\'';
+
+  @override
+  String get spoilerV2EditTitleNotEmpty => 'Title can not be empty';
 
   @override
   String get hide => 'Hide area';

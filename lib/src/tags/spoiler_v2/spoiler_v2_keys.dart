@@ -8,8 +8,11 @@ final class BBCodeSpoilerV2Keys {
   /// Tag type of header type.
   static const String headerType = 'bbcodeSpoilerV2Header';
 
-  /// Tag type of tail type.
+  /// Tag type of body attribute.
   static const String bodyType = 'bbcodeSpoilerV2Body';
+
+  /// Tag type of tail type.
+  static const String tailType = 'bbcodeSpoilerV2Tail';
 
   /// Plain text display as title.
   static const String title = 'title';

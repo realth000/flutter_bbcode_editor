@@ -96,6 +96,18 @@ abstract class BBCodeEditorLocalizations {
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
   ];
 
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'Ok'**
+  String get ok;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
   /// No description provided for @edit.
   ///
   /// In en, this message translates to:
@@ -329,6 +341,48 @@ abstract class BBCodeEditorLocalizations {
   /// In en, this message translates to:
   /// **'Save'**
   String get spoilerEditPageSave;
+
+  /// No description provided for @spoilerV2.
+  ///
+  /// In en, this message translates to:
+  /// **'Spoiler'**
+  String get spoilerV2;
+
+  /// No description provided for @spoilerV2HeaderTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Spoiler starts here'**
+  String get spoilerV2HeaderTip;
+
+  /// No description provided for @spoilerV2HeaderTitleTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Title:'**
+  String get spoilerV2HeaderTitleTip;
+
+  /// No description provided for @spoilerV2TailTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Spoiler ends here'**
+  String get spoilerV2TailTip;
+
+  /// No description provided for @spoilerV2EditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit spoiler title'**
+  String get spoilerV2EditTitle;
+
+  /// No description provided for @spoilerV2EditTitleInvalidTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title can not contains \'[\' or \']\''**
+  String get spoilerV2EditTitleInvalidTitle;
+
+  /// No description provided for @spoilerV2EditTitleNotEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Title can not be empty'**
+  String get spoilerV2EditTitleNotEmpty;
 
   /// No description provided for @hide.
   ///

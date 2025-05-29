@@ -459,7 +459,6 @@ class _SpoilerEditPageState extends State<_SpoilerEditPage> {
             ),
             BBCodeEditorToolbar(
               controller: bodyController,
-              config: const BBCodeEditorToolbarConfiguration(),
               emojiPicker: widget.emojiPicker,
               colorPicker: widget.colorPicker,
               backgroundColorPicker: widget.backgroundColorPicker,

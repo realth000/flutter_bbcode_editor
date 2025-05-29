@@ -9,6 +9,12 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
   BBCodeEditorLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get ok => '确定';
+
+  @override
+  String get cancel => '取消';
+
+  @override
   String get edit => '编辑';
 
   @override
@@ -126,6 +132,27 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
   String get spoilerEditPageSave => '保存';
 
   @override
+  String get spoilerV2 => '折叠区域';
+
+  @override
+  String get spoilerV2HeaderTip => '以下内容可被折叠';
+
+  @override
+  String get spoilerV2HeaderTitleTip => '标题：';
+
+  @override
+  String get spoilerV2TailTip => '以上内容可被折叠';
+
+  @override
+  String get spoilerV2EditTitle => '编辑折叠区域标题';
+
+  @override
+  String get spoilerV2EditTitleInvalidTitle => '标题不能包含 \'[\' 或者 \']\'';
+
+  @override
+  String get spoilerV2EditTitleNotEmpty => '标题不能为空';
+
+  @override
   String get hide => '隐藏区域';
 
   @override
@@ -162,6 +189,12 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
 /// The translations for Chinese, using the Han script (`zh_Hant`).
 class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
   BBCodeEditorLocalizationsZhHant() : super('zh_Hant');
+
+  @override
+  String get ok => '確定';
+
+  @override
+  String get cancel => '取消';
 
   @override
   String get edit => '編輯';
@@ -279,6 +312,27 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
 
   @override
   String get spoilerEditPageSave => '儲存';
+
+  @override
+  String get spoilerV2 => '折疊區域';
+
+  @override
+  String get spoilerV2HeaderTip => '以下內容可折疊';
+
+  @override
+  String get spoilerV2HeaderTitleTip => '標題：';
+
+  @override
+  String get spoilerV2TailTip => '以上內容可折疊';
+
+  @override
+  String get spoilerV2EditTitle => '編輯折疊區域標題';
+
+  @override
+  String get spoilerV2EditTitleInvalidTitle => '標題不能包含 \'[\' 或 \']\'';
+
+  @override
+  String get spoilerV2EditTitleNotEmpty => '標題不能為空';
 
   @override
   String get hide => '隱藏區域';

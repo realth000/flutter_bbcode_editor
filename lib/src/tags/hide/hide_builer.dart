@@ -496,7 +496,6 @@ class _HideEditPageState extends State<_HideEditPage> {
             ),
             BBCodeEditorToolbar(
               controller: bodyController,
-              config: const BBCodeEditorToolbarConfiguration(),
               emojiPicker: widget.emojiPicker,
               colorPicker: widget.colorPicker,
               backgroundColorPicker: widget.backgroundColorPicker,

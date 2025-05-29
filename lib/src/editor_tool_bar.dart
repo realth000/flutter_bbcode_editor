@@ -54,7 +54,6 @@ class BBCodeEditorToolbar extends StatefulWidget {
   /// Constructor.
   const BBCodeEditorToolbar({
     required BBCodeEditorController controller,
-    required BBCodeEditorToolbarConfiguration config,
     required BBCodeEmojiPicker emojiPicker,
     BBCodeColorPicker? colorPicker,
     BBCodeColorPicker? backgroundColorPicker,
@@ -95,7 +94,6 @@ class BBCodeEditorToolbar extends StatefulWidget {
     this.focusNode,
     super.key,
   }) : _controller = controller,
-       _config = config,
        _emojiPicker = emojiPicker,
        _colorPicker = colorPicker,
        _backgroundColorPicker = backgroundColorPicker,
@@ -105,8 +103,6 @@ class BBCodeEditorToolbar extends StatefulWidget {
        _host = host;
 
   final BBCodeEditorController _controller;
-
-  final BBCodeEditorToolbarConfiguration _config;
 
   final BBCodeEmojiPicker _emojiPicker;
 
@@ -462,8 +458,8 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                 if (widget.showSpoilerButton)
                   BBCodeEditorToolbarSpoilerV2Button(
                     controller: controller,
-                    baseOptions: baseOptions,
-                    options: BBCodeSpoilerV2ButtonOptions(tooltip: context.bbcodeL10n.spoiler),
+                    // baseOptions: baseOptions,
+                    // options: BBCodeSpoilerV2ButtonOptions(tooltip: context.bbcodeL10n.spoiler),
                   ),
 
                 // Hide.
