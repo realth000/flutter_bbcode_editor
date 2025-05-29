@@ -479,7 +479,7 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
 
                 // Hide.
                 if (widget.showHideButton)
-                  BBCodeEditorToolbarHideButton(controller: controller, afterPressed: afterButtonPressed),
+                  BBCodeEditorToolbarHideV2Button(controller: controller, afterPressed: afterButtonPressed),
 
                 // Divider.
                 if (widget.showDivider)

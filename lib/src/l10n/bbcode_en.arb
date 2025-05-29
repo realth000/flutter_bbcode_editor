@@ -57,5 +57,14 @@
   "hideWithPointsOuterTail": " points to see content",
   "hidePoints": "Points",
   "hidePointsInvalid": "Invalid points value",
+  "hideV2": "Hide area",
+  "hideV2HeaderTip": "Hide are starts here",
+  "hideV2HeaderPointsRequired": "Points required:",
+  "hideV2HeaderReplyRequired": "Reply is required to see the content",
+  "hideV2TailTip": "Hide area ends here",
+  "hideV2EditPoints": "Edit points requirements",
+  "hideV2EditPointsTip": "Points shall be more than 0, otherwise reply is required instead",
+  "hideV2EditPointsInvalid": "Invalid points",
+  "hideV2EditPointsNotEmpty": "Points can not be empty",
   "divider": "Divider"
 }

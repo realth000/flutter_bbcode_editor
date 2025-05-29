@@ -183,6 +183,33 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
   String get hidePointsInvalid => '无效的积分数值';
 
   @override
+  String get hideV2 => '隐藏区域';
+
+  @override
+  String get hideV2HeaderTip => '以下内容会被隐藏';
+
+  @override
+  String get hideV2HeaderPointsRequired => '需要积分：';
+
+  @override
+  String get hideV2HeaderReplyRequired => '回复后内容可见';
+
+  @override
+  String get hideV2TailTip => '以上内容会被隐藏';
+
+  @override
+  String get hideV2EditPoints => '编辑可见要求的积分';
+
+  @override
+  String get hideV2EditPointsTip => '积分应大于0，否则将为“回复后可见”';
+
+  @override
+  String get hideV2EditPointsInvalid => '无效的积分';
+
+  @override
+  String get hideV2EditPointsNotEmpty => '积分不能为空';
+
+  @override
   String get divider => '分割线';
 }
 
@@ -363,6 +390,33 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
 
   @override
   String get hidePointsInvalid => '無效的積分數值';
+
+  @override
+  String get hideV2 => '隱藏區域';
+
+  @override
+  String get hideV2HeaderTip => '以下內容會被隱藏';
+
+  @override
+  String get hideV2HeaderPointsRequired => '需要積分：';
+
+  @override
+  String get hideV2HeaderReplyRequired => '回復後內容可見';
+
+  @override
+  String get hideV2TailTip => '以上內容會被隱藏';
+
+  @override
+  String get hideV2EditPoints => '編輯可見要求的積分';
+
+  @override
+  String get hideV2EditPointsTip => '積分應大於0，否則將為「回復後可見」';
+
+  @override
+  String get hideV2EditPointsInvalid => '無效的積分';
+
+  @override
+  String get hideV2EditPointsNotEmpty => '積分不能為空';
 
   @override
   String get divider => '分割線';

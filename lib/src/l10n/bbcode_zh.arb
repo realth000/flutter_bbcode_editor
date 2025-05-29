@@ -57,5 +57,14 @@
   "hideWithPointsOuterTail": " 积分后可见",
   "hidePoints": "积分",
   "hidePointsInvalid": "无效的积分数值",
+  "hideV2": "隐藏区域",
+  "hideV2HeaderTip": "以下内容会被隐藏",
+  "hideV2HeaderPointsRequired": "需要积分：",
+  "hideV2HeaderReplyRequired": "回复后内容可见",
+  "hideV2TailTip": "以上内容会被隐藏",
+  "hideV2EditPoints": "编辑可见要求的积分",
+  "hideV2EditPointsTip": "积分应大于0，否则将为“回复后可见”",
+  "hideV2EditPointsInvalid": "无效的积分",
+  "hideV2EditPointsNotEmpty": "积分不能为空",
   "divider": "分割线"
 }

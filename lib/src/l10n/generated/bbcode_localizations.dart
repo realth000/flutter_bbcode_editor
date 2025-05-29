@@ -444,6 +444,60 @@ abstract class BBCodeEditorLocalizations {
   /// **'Invalid points value'**
   String get hidePointsInvalid;
 
+  /// No description provided for @hideV2.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide area'**
+  String get hideV2;
+
+  /// No description provided for @hideV2HeaderTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide are starts here'**
+  String get hideV2HeaderTip;
+
+  /// No description provided for @hideV2HeaderPointsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Points required:'**
+  String get hideV2HeaderPointsRequired;
+
+  /// No description provided for @hideV2HeaderReplyRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply is required to see the content'**
+  String get hideV2HeaderReplyRequired;
+
+  /// No description provided for @hideV2TailTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide area ends here'**
+  String get hideV2TailTip;
+
+  /// No description provided for @hideV2EditPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit points requirements'**
+  String get hideV2EditPoints;
+
+  /// No description provided for @hideV2EditPointsTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Points shall be more than 0, otherwise reply is required instead'**
+  String get hideV2EditPointsTip;
+
+  /// No description provided for @hideV2EditPointsInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid points'**
+  String get hideV2EditPointsInvalid;
+
+  /// No description provided for @hideV2EditPointsNotEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Points can not be empty'**
+  String get hideV2EditPointsNotEmpty;
+
   /// No description provided for @divider.
   ///
   /// In en, this message translates to:

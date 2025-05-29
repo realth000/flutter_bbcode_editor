@@ -57,5 +57,14 @@
   "hideWithPointsOuterTail": " 積分後可見",
   "hidePoints": "積分",
   "hidePointsInvalid": "無效的積分數值",
+  "hideV2": "隱藏區域",
+  "hideV2HeaderTip": "以下內容會被隱藏",
+  "hideV2HeaderPointsRequired": "需要積分：",
+  "hideV2HeaderReplyRequired": "回復後內容可見",
+  "hideV2TailTip": "以上內容會被隱藏",
+  "hideV2EditPoints": "編輯可見要求的積分",
+  "hideV2EditPointsTip": "積分應大於0，否則將為「回復後可見」",
+  "hideV2EditPointsInvalid": "無效的積分",
+  "hideV2EditPointsNotEmpty": "積分不能為空",
   "divider": "分割線"
 }

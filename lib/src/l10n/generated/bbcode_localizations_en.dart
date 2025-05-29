@@ -183,5 +183,32 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
   String get hidePointsInvalid => 'Invalid points value';
 
   @override
+  String get hideV2 => 'Hide area';
+
+  @override
+  String get hideV2HeaderTip => 'Hide are starts here';
+
+  @override
+  String get hideV2HeaderPointsRequired => 'Points required:';
+
+  @override
+  String get hideV2HeaderReplyRequired => 'Reply is required to see the content';
+
+  @override
+  String get hideV2TailTip => 'Hide area ends here';
+
+  @override
+  String get hideV2EditPoints => 'Edit points requirements';
+
+  @override
+  String get hideV2EditPointsTip => 'Points shall be more than 0, otherwise reply is required instead';
+
+  @override
+  String get hideV2EditPointsInvalid => 'Invalid points';
+
+  @override
+  String get hideV2EditPointsNotEmpty => 'Points can not be empty';
+
+  @override
   String get divider => 'Divider';
 }
