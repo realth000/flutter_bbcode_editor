@@ -142,10 +142,19 @@ class _PickImageDialogState extends State<PickImageDialog> {
 /// Image block button.
 class BBCodeEditorToolbarImageButton extends StatelessWidget {
   /// Constructor.
-  const BBCodeEditorToolbarImageButton({required this.controller, this.dialogTheme, this.imagePicker, super.key});
+  const BBCodeEditorToolbarImageButton({
+    required this.controller,
+    this.afterPressed,
+    this.dialogTheme,
+    this.imagePicker,
+    super.key,
+  });
 
   /// Injected editor controller.
   final BBCodeEditorController controller;
+
+  /// Callback after button pressed.
+  final void Function()? afterPressed;
 
   /// Injected theme.
   final QuillDialogTheme? dialogTheme;
@@ -185,6 +194,7 @@ class BBCodeEditorToolbarImageButton extends StatelessWidget {
 
         return;
       },
+      afterPressed: afterPressed,
     );
   }
 }

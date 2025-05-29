@@ -8,7 +8,12 @@ import 'package:flutter_quill/flutter_quill.dart';
 /// Emoji button in editor toolbar.
 class BBCodeEditorToolbarEmojiButton extends StatelessWidget {
   /// Constructor.
-  const BBCodeEditorToolbarEmojiButton({required this.controller, required this.emojiPicker, super.key});
+  const BBCodeEditorToolbarEmojiButton({
+    required this.controller,
+    required this.emojiPicker,
+    this.afterPressed,
+    super.key,
+  });
 
   /// Injected emoji picker.
   ///
@@ -17,6 +22,9 @@ class BBCodeEditorToolbarEmojiButton extends StatelessWidget {
 
   /// Injected editor controller.
   final BBCodeEditorController controller;
+
+  /// Callback after button pressed.
+  final void Function()? afterPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +40,7 @@ class BBCodeEditorToolbarEmojiButton extends StatelessWidget {
           controller.insertEmbeddable(BBCodeEmojiEmbed.raw(code));
         }
       },
+      afterPressed: afterPressed,
     );
   }
 }

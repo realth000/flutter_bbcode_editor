@@ -53,10 +53,13 @@ import 'package:flutter_quill/flutter_quill.dart';
 /// Spoiler v2 button in toolbar.
 class BBCodeEditorToolbarSpoilerV2Button extends StatelessWidget {
   /// Constructor.
-  const BBCodeEditorToolbarSpoilerV2Button({required this.controller, super.key});
+  const BBCodeEditorToolbarSpoilerV2Button({required this.controller, this.afterPressed, super.key});
 
   /// Injected editor controller.
   final BBCodeEditorController controller;
+
+  /// Callback after button pressed.
+  final void Function()? afterPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +70,14 @@ class BBCodeEditorToolbarSpoilerV2Button extends StatelessWidget {
       isSelected: false,
       onPressed: () async {
         controller
+          ..skipRequestKeyboard = false
           ..insertEmbeddable(
             BBCodeSpoilerV2HeaderEmbed(BBCodeSpoilerV2HeaderInfo(context.bbcodeL10n.spoilerExpandOrCollapse)),
           )
-          ..insertRawCode('\n\n', '')
           ..insertEmbeddable(BBCodeSpoilerV2TailEmbed())
-          ..moveCursorToPosition(controller.selection.baseOffset + 2);
+          ..moveCursorToPosition(controller.selection.baseOffset - 1);
       },
+      afterPressed: afterPressed,
     );
   }
 }

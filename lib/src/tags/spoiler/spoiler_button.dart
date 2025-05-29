@@ -10,10 +10,13 @@ import 'package:flutter_quill/flutter_quill.dart';
 /// Spoiler button in toolbar.
 class BBCodeEditorToolbarSpoilerButton extends StatelessWidget {
   /// Constructor.
-  const BBCodeEditorToolbarSpoilerButton({required this.controller, super.key});
+  const BBCodeEditorToolbarSpoilerButton({required this.controller, this.afterPressed, super.key});
 
   /// Injected editor controller.
   final BBCodeEditorController controller;
+
+  /// Callback after button pressed.
+  final void Function()? afterPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class BBCodeEditorToolbarSpoilerButton extends StatelessWidget {
           BBCodeSpoilerEmbed(BBCodeSpoilerInfo.buildEmpty(context.bbcodeL10n.spoilerExpandOrCollapse)),
         );
       },
+      afterPressed: afterPressed,
     );
   }
 }

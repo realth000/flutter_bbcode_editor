@@ -253,6 +253,7 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
   late final QuillToolbarColorButtonOptions backgroundColorButtonOptions;
   late final QuillToolbarLinkStyleButtonOptions urlButtonOptions;
   late final QuillToolbarBaseButtonOptions<dynamic, dynamic> baseOptions;
+  late final void Function()? afterButtonPressed;
 
   /// Refer: flutter_quill/lib/src/widgets/toolbar/color/color_button.dart
   void _changeColor(QuillController controller, bool isBackground, Color? color) {
@@ -341,16 +342,16 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
       urlButtonOptions = const QuillToolbarLinkStyleButtonOptions();
     }
 
+    afterButtonPressed = () {
+      widget.afterButtonPressed?.call();
+      if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+        // Try focus on editor again.
+        widget.focusNode?.requestFocus();
+      }
+    };
+
     // Initialize toolbar button base options.
-    baseOptions = QuillToolbarBaseButtonOptions(
-      afterButtonPressed: () {
-        widget.afterButtonPressed?.call();
-        if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-          // Try focus on editor again.
-          widget.focusNode?.requestFocus();
-        }
-      },
-    );
+    baseOptions = QuillToolbarBaseButtonOptions(afterButtonPressed: afterButtonPressed);
   }
 
   @override
@@ -441,15 +442,27 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                 // Image picker.
                 if (widget.showImageButton)
                   // FIXME: Do not add l10n here.
-                  BBCodeEditorToolbarImageButton(controller: controller, imagePicker: widget._imagePicker),
+                  BBCodeEditorToolbarImageButton(
+                    controller: controller,
+                    imagePicker: widget._imagePicker,
+                    afterPressed: afterButtonPressed,
+                  ),
 
                 // Emoji picker.
                 if (widget.showEmojiButton)
-                  BBCodeEditorToolbarEmojiButton(controller: controller, emojiPicker: widget._emojiPicker),
+                  BBCodeEditorToolbarEmojiButton(
+                    controller: controller,
+                    emojiPicker: widget._emojiPicker,
+                    afterPressed: afterButtonPressed,
+                  ),
 
                 // User mention.
                 if (widget.showUserMentionButton)
-                  BBCodeEditorToolbarUserMentionButton(controller: controller, usernamePicker: widget._usernamePicker),
+                  BBCodeEditorToolbarUserMentionButton(
+                    controller: controller,
+                    usernamePicker: widget._usernamePicker,
+                    afterPressed: afterButtonPressed,
+                  ),
 
                 // Disable legacy v1 spoiler.
                 // // Spoiler.
@@ -459,15 +472,18 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                 if (widget.showSpoilerButton)
                   BBCodeEditorToolbarSpoilerV2Button(
                     controller: controller,
+                    afterPressed: afterButtonPressed,
                     // baseOptions: baseOptions,
                     // options: BBCodeSpoilerV2ButtonOptions(tooltip: context.bbcodeL10n.spoiler),
                   ),
 
                 // Hide.
-                if (widget.showHideButton) BBCodeEditorToolbarHideButton(controller: controller),
+                if (widget.showHideButton)
+                  BBCodeEditorToolbarHideButton(controller: controller, afterPressed: afterButtonPressed),
 
                 // Divider.
-                if (widget.showDivider) BBCodeEditorToolbarDividerButton(controller: controller),
+                if (widget.showDivider)
+                  BBCodeEditorToolbarDividerButton(controller: controller, afterPressed: afterButtonPressed),
 
                 // Align left.
                 if (widget.showLeftAlignButton)

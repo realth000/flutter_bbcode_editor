@@ -84,6 +84,7 @@ class BBCodeEditorToolbarUserMentionButton extends StatelessWidget {
   const BBCodeEditorToolbarUserMentionButton({
     /// Callback when button pressed.
     required this.controller,
+    this.afterPressed,
     this.usernamePicker,
     super.key,
   });
@@ -93,6 +94,9 @@ class BBCodeEditorToolbarUserMentionButton extends StatelessWidget {
 
   /// Optional username picker that provide the username to mention.
   final BBCodeUsernamePicker? usernamePicker;
+
+  /// Callback after button pressed.
+  final void Function()? afterPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +125,7 @@ class BBCodeEditorToolbarUserMentionButton extends StatelessWidget {
         // FIXME: Waiting for upstream fix. check func definition for details.
         controller.insertEmbeddable(BBCodeUserMentionEmbed.raw(username: username));
       },
+      afterPressed: afterPressed,
     );
   }
 }

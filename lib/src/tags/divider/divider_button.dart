@@ -7,10 +7,13 @@ import 'package:flutter_quill/flutter_quill.dart';
 /// Divider button in toolbar.
 class BBCodeEditorToolbarDividerButton extends StatelessWidget {
   /// Constructor.
-  const BBCodeEditorToolbarDividerButton({required this.controller, super.key});
+  const BBCodeEditorToolbarDividerButton({required this.controller, this.afterPressed, super.key});
 
   /// Injected editor controller.
   final BBCodeEditorController controller;
+
+  /// Callback after button pressed.
+  final void Function()? afterPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +23,7 @@ class BBCodeEditorToolbarDividerButton extends StatelessWidget {
       iconTheme: const QuillIconTheme(),
       isSelected: false,
       onPressed: () async => controller.insertEmbeddable(BBCodeDividerEmbed()),
+      afterPressed: afterPressed,
     );
   }
 }
