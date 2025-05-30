@@ -12,7 +12,7 @@ final class BBCodeFreeHeaderEmbedBuilder extends EmbedBuilder {
   }
 
   @override
-  bool get expanded => false;
+  bool get expanded => true;
 
   @override
   String get key => BBCodeFreeKeys.headerType;
@@ -51,7 +51,7 @@ final class BBCodeFreeTailEmbedBuilder extends EmbedBuilder {
   }
 
   @override
-  bool get expanded => false;
+  bool get expanded => true;
 
   @override
   String get key => BBCodeFreeKeys.tailType;

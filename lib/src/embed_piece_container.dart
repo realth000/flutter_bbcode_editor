@@ -35,7 +35,7 @@ class EmbedPieceContainer extends StatelessWidget {
       constraints: const BoxConstraints(minHeight: 40),
       child: Card(
         margin: EdgeInsets.zero,
-        // color: Colors.transparent,
+        color: Theme.of(context).colorScheme.surfaceContainerHigh,
         shape: ContinuousRectangleBorder(
           borderRadius:
               pieceType == EmbedPieceType.header

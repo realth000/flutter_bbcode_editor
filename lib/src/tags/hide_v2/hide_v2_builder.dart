@@ -13,7 +13,7 @@ final class BBCodeHideV2HeaderEmbedBuilder extends EmbedBuilder {
   }
 
   @override
-  bool get expanded => false;
+  bool get expanded => true;
 
   @override
   String get key => BBCodeHideV2Keys.headerType;
@@ -33,7 +33,7 @@ final class BBCodeHideV2TailEmbedBuilder extends EmbedBuilder {
   }
 
   @override
-  bool get expanded => false;
+  bool get expanded => true;
 
   @override
   String get key => BBCodeHideV2Keys.tailType;
