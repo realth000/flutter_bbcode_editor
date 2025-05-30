@@ -23,7 +23,7 @@ class SpoilerV2TailAttribute extends Attribute<bool> {
 final class BBCodeSpoilerV2HeaderEmbedBuilder extends EmbedBuilder {
   @override
   WidgetSpan buildWidgetSpan(Widget widget) {
-    return WidgetSpan(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 4), child: widget));
+    return WidgetSpan(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4), child: widget));
   }
 
   @override
@@ -43,7 +43,7 @@ final class BBCodeSpoilerV2HeaderEmbedBuilder extends EmbedBuilder {
 final class BBCodeSpoilerV2TailEmbedBuilder extends EmbedBuilder {
   @override
   WidgetSpan buildWidgetSpan(Widget widget) {
-    return WidgetSpan(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 4), child: widget));
+    return WidgetSpan(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4), child: widget));
   }
 
   @override
@@ -60,6 +60,7 @@ final class BBCodeSpoilerV2TailEmbedBuilder extends EmbedBuilder {
     final textTheme = Theme.of(context).textTheme;
 
     return EmbedPieceContainer(
+      pieceType: EmbedPieceType.tail,
       child: Align(
         alignment: Alignment.topLeft,
         child: Row(
@@ -107,6 +108,7 @@ class _SpoilerV2HeaderState extends State<_SpoilerV2Header> {
     final textTheme = Theme.of(context).textTheme;
 
     return EmbedPieceContainer(
+      pieceType: EmbedPieceType.header,
       onTap: () async {
         embedContext.controller.moveCursorToPosition(embedContext.node.documentOffset + embedContext.node.length);
         final title = await showDialog<String>(

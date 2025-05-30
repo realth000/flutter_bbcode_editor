@@ -8,7 +8,7 @@ import 'package:flutter_quill/flutter_quill.dart';
 final class BBCodeFreeHeaderEmbedBuilder extends EmbedBuilder {
   @override
   WidgetSpan buildWidgetSpan(Widget widget) {
-    return WidgetSpan(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 4), child: widget));
+    return WidgetSpan(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4), child: widget));
   }
 
   @override
@@ -25,6 +25,7 @@ final class BBCodeFreeHeaderEmbedBuilder extends EmbedBuilder {
     final textTheme = Theme.of(context).textTheme;
 
     return EmbedPieceContainer(
+      pieceType: EmbedPieceType.header,
       child: Align(
         alignment: Alignment.topLeft,
         child: Row(
@@ -46,7 +47,7 @@ final class BBCodeFreeHeaderEmbedBuilder extends EmbedBuilder {
 final class BBCodeFreeTailEmbedBuilder extends EmbedBuilder {
   @override
   WidgetSpan buildWidgetSpan(Widget widget) {
-    return WidgetSpan(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 4), child: widget));
+    return WidgetSpan(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4), child: widget));
   }
 
   @override
@@ -63,6 +64,7 @@ final class BBCodeFreeTailEmbedBuilder extends EmbedBuilder {
     final textTheme = Theme.of(context).textTheme;
 
     return EmbedPieceContainer(
+      pieceType: EmbedPieceType.tail,
       child: Align(
         alignment: Alignment.topLeft,
         child: Row(
