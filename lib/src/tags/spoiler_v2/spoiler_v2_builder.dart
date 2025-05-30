@@ -27,7 +27,7 @@ final class BBCodeSpoilerV2HeaderEmbedBuilder extends EmbedBuilder {
   }
 
   @override
-  bool get expanded => true;
+  bool get expanded => false;
 
   @override
   String get key => BBCodeSpoilerV2Keys.headerType;
@@ -47,7 +47,7 @@ final class BBCodeSpoilerV2TailEmbedBuilder extends EmbedBuilder {
   }
 
   @override
-  bool get expanded => true;
+  bool get expanded => false;
 
   @override
   String get key => BBCodeSpoilerV2Keys.tailType;
