@@ -22,7 +22,6 @@ final class BBCodeFreeHeaderEmbedBuilder extends EmbedBuilder {
     final tr = context.bbcodeL10n;
     final primaryColor = Theme.of(context).colorScheme.primary;
     final outlineColor = Theme.of(context).colorScheme.outline;
-    final secondaryColor = Theme.of(context).colorScheme.secondary;
     final textTheme = Theme.of(context).textTheme;
 
     return EmbedPieceContainer(
@@ -30,13 +29,12 @@ final class BBCodeFreeHeaderEmbedBuilder extends EmbedBuilder {
         alignment: Alignment.topLeft,
         child: Row(
           children: [
-            Icon(Icons.arrow_drop_down_outlined, color: secondaryColor),
-            const SizedBox(width: 8),
             Icon(Icons.money_off_outlined, color: primaryColor),
             const SizedBox(width: 8),
             Text(tr.free, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
             const SizedBox(width: 8),
-            Expanded(child: Text(tr.freeHeaderTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+            Flexible(child: Text(tr.freeHeaderTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+            Icon(Icons.arrow_drop_down_outlined, color: outlineColor),
           ],
         ),
       ),
@@ -62,7 +60,6 @@ final class BBCodeFreeTailEmbedBuilder extends EmbedBuilder {
     final tr = context.bbcodeL10n;
     final primaryColor = Theme.of(context).colorScheme.primary;
     final outlineColor = Theme.of(context).colorScheme.outline;
-    final secondaryColor = Theme.of(context).colorScheme.secondary;
     final textTheme = Theme.of(context).textTheme;
 
     return EmbedPieceContainer(
@@ -70,13 +67,12 @@ final class BBCodeFreeTailEmbedBuilder extends EmbedBuilder {
         alignment: Alignment.topLeft,
         child: Row(
           children: [
-            Icon(Icons.arrow_drop_up_outlined, color: secondaryColor),
-            const SizedBox(width: 8),
             Icon(Icons.money_off_outlined, color: primaryColor),
             const SizedBox(width: 8),
             Text(tr.free, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
             const SizedBox(width: 8),
-            Expanded(child: Text(tr.freeTailTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+            Flexible(child: Text(tr.freeTailTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+            Icon(Icons.arrow_drop_up_outlined, color: outlineColor),
           ],
         ),
       ),

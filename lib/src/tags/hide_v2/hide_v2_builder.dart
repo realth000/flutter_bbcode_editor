@@ -50,11 +50,12 @@ final class BBCodeHideV2TailEmbedBuilder extends EmbedBuilder {
         alignment: Alignment.topLeft,
         child: Row(
           children: [
-            Icon(Icons.arrow_drop_up_outlined, color: primaryColor),
+            Icon(Icons.visibility_off_outlined, color: primaryColor),
             const SizedBox(width: 8),
             Text(tr.hideV2, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
             const SizedBox(width: 8),
-            Expanded(child: Text(tr.hideV2TailTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+            Flexible(child: Text(tr.hideV2TailTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+            Icon(Icons.arrow_drop_up_outlined, color: outlineColor),
           ],
         ),
       ),
@@ -123,11 +124,12 @@ class _HideV2HeaderState extends State<_HideV2Header> {
           children: [
             Row(
               children: [
-                Icon(Icons.arrow_drop_down_outlined, color: primaryColor),
+                Icon(Icons.visibility_off_outlined, color: primaryColor),
                 const SizedBox(width: 8),
                 Text(tr.hideV2, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
                 const SizedBox(width: 8),
-                Expanded(child: Text(tr.hideV2HeaderTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+                Flexible(child: Text(tr.hideV2HeaderTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+                Icon(Icons.arrow_drop_down_outlined, color: outlineColor),
               ],
             ),
             const SizedBox(height: 8),

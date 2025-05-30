@@ -64,11 +64,12 @@ final class BBCodeSpoilerV2TailEmbedBuilder extends EmbedBuilder {
         alignment: Alignment.topLeft,
         child: Row(
           children: [
-            Icon(Icons.arrow_drop_up_outlined, color: primaryColor),
+            Icon(Icons.expand_outlined, color: primaryColor),
             const SizedBox(width: 8),
             Text(tr.spoiler, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
             const SizedBox(width: 8),
-            Expanded(child: Text(tr.spoilerV2TailTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+            Flexible(child: Text(tr.spoilerV2TailTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+            Icon(Icons.arrow_drop_up_outlined, color: outlineColor),
           ],
         ),
       ),
@@ -136,13 +137,14 @@ class _SpoilerV2HeaderState extends State<_SpoilerV2Header> {
           children: [
             Row(
               children: [
-                Icon(Icons.arrow_drop_down_outlined, color: primaryColor),
+                Icon(Icons.expand_outlined, color: primaryColor),
                 const SizedBox(width: 8),
                 Text(tr.spoiler, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
                 const SizedBox(width: 8),
-                Expanded(
+                Flexible(
                   child: Text(tr.spoilerV2HeaderTip, style: textTheme.labelSmall?.copyWith(color: outlineColor)),
                 ),
+                Icon(Icons.arrow_drop_down_outlined, color: outlineColor),
               ],
             ),
             const SizedBox(height: 8),
