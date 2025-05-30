@@ -90,6 +90,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
     this.showSpoilerButton = true,
     this.showHideButton = true,
     this.showDivider = true,
+    this.showFree = true,
     this.afterButtonPressed,
     this.focusNode,
     super.key,
@@ -238,6 +239,13 @@ class BBCodeEditorToolbar extends StatefulWidget {
   /// [hr]
   /// ```
   final bool showDivider;
+
+  /// Show or hide free button.
+  ///
+  /// ```console
+  /// [free]$DATA[/free]
+  /// ```
+  final bool showFree;
 
   /// Callback when button pressed.
   final VoidCallback? afterButtonPressed;
@@ -480,6 +488,9 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                 // Hide.
                 if (widget.showHideButton)
                   BBCodeEditorToolbarHideV2Button(controller: controller, afterPressed: afterButtonPressed),
+
+                if (widget.showFree)
+                  BBCodeEditorToolbarFreeButton(controller: controller, afterPressed: afterButtonPressed),
 
                 // Divider.
                 if (widget.showDivider)

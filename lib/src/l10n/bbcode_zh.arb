@@ -66,5 +66,8 @@
   "hideV2EditPointsTip": "积分应大于0，否则将为“回复后可见”",
   "hideV2EditPointsInvalid": "无效的积分",
   "hideV2EditPointsNotEmpty": "积分不能为空",
-  "divider": "分割线"
+  "divider": "分割线",
+  "free": "免费区域",
+  "freeHeaderTip": "以下内容在购买前可见",
+  "freeTailTip": "以上内容在购买前可见"
 }

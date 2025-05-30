@@ -9,6 +9,8 @@ import 'package:flutter_bbcode_editor/src/tags/divider/divider_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/divider/divider_keys.dart';
 import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/emoji/emoji_keys.dart';
+import 'package:flutter_bbcode_editor/src/tags/free/free_embed.dart';
+import 'package:flutter_bbcode_editor/src/tags/free/free_keys.dart';
 import 'package:flutter_bbcode_editor/src/tags/hide/hide_embed.dart';
 import 'package:flutter_bbcode_editor/src/tags/hide/hide_keys.dart';
 import 'package:flutter_bbcode_editor/src/tags/hide_v2/hide_v2_embed.dart';
@@ -61,6 +63,8 @@ final Map<String, EmbedToBBCode> defaultEmbedHandlers = {
   BBCodeHideV2Keys.headerType: BBCodeHideV2HeaderInfo.toBBCode,
   BBCodeHideV2Keys.tailType: BBCodeHideV2TailInfo.toBBCode,
   BBCodeDividerKeys.type: BBCodeDividerEmbed.toBBCode,
+  BBCodeFreeKeys.headerType: BBCodeFreeHeaderInfo.toBBCode,
+  BBCodeFreeKeys.tailType: BBCodeFreeTailInfo.toBBCode,
 };
 
 /// Default attribute handlers for line nodes.

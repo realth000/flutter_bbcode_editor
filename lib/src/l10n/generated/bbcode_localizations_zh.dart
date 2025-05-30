@@ -211,6 +211,15 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
 
   @override
   String get divider => '分割线';
+
+  @override
+  String get free => '免费区域';
+
+  @override
+  String get freeHeaderTip => '以下内容在购买前可见';
+
+  @override
+  String get freeTailTip => '以上内容在购买前可见';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -420,4 +429,13 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
 
   @override
   String get divider => '分割線';
+
+  @override
+  String get free => '免費區域';
+
+  @override
+  String get freeHeaderTip => '以下內容在購買前可見';
+
+  @override
+  String get freeTailTip => '以上內容在購買前可見';
 }

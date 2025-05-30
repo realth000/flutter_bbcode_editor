@@ -503,6 +503,24 @@ abstract class BBCodeEditorLocalizations {
   /// In en, this message translates to:
   /// **'Divider'**
   String get divider;
+
+  /// No description provided for @free.
+  ///
+  /// In en, this message translates to:
+  /// **'Free area'**
+  String get free;
+
+  /// No description provided for @freeHeaderTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Contents below are visible without purchase'**
+  String get freeHeaderTip;
+
+  /// No description provided for @freeTailTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Contents above are visible without purchase'**
+  String get freeTailTip;
 }
 
 class _BBCodeEditorLocalizationsDelegate extends LocalizationsDelegate<BBCodeEditorLocalizations> {

@@ -66,5 +66,8 @@
   "hideV2EditPointsTip": "積分應大於0，否則將為「回復後可見」",
   "hideV2EditPointsInvalid": "無效的積分",
   "hideV2EditPointsNotEmpty": "積分不能為空",
-  "divider": "分割線"
+  "divider": "分割線",
+  "free": "免費區域",
+  "freeHeaderTip": "以下內容在購買前可見",
+  "freeTailTip": "以上內容在購買前可見"
 }

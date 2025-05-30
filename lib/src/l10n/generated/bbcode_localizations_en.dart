@@ -211,4 +211,13 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
 
   @override
   String get divider => 'Divider';
+
+  @override
+  String get free => 'Free area';
+
+  @override
+  String get freeHeaderTip => 'Contents below are visible without purchase';
+
+  @override
+  String get freeTailTip => 'Contents above are visible without purchase';
 }

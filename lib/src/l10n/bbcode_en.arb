@@ -66,5 +66,8 @@
   "hideV2EditPointsTip": "Points shall be more than 0, otherwise reply is required instead",
   "hideV2EditPointsInvalid": "Invalid points",
   "hideV2EditPointsNotEmpty": "Points can not be empty",
-  "divider": "Divider"
+  "divider": "Divider",
+  "free": "Free area",
+  "freeHeaderTip": "Contents below are visible without purchase",
+  "freeTailTip": "Contents above are visible without purchase"
 }
