@@ -57,12 +57,12 @@ void _showInvalidBBCodeSnackBar(BuildContext context) {
 Future<void> openPortationModalBottomSheet(BuildContext context, BBCodeEditorController controller) async =>
     showModalBottomSheet(
       context: context,
-      showDragHandle: true,
       builder: (_) {
         return Padding(
           padding: const EdgeInsets.only(left: 12, top: 4, right: 12, bottom: 12),
           child: Column(
             children: [
+              const SizedBox(width: 12, height: 12),
               Text(context.bbcodeL10n.portationTitle, style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(width: 12, height: 12),
               Expanded(
