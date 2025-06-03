@@ -25,7 +25,15 @@ class ColorUtils {
 
   /// Convert into bbcode recognized color.
   static String toBBCodeColor(String color, {bool useHex = true}) {
-    final webColor = WebColors.fromString(color);
+    // Try use named color first.
+    final colorValue = int.tryParse(color.substring(1), radix: 16);
+    final WebColors webColor;
+    if (colorValue != null) {
+      webColor = WebColors.values.firstWhereOrNull((e) => e.colorValue == colorValue) ?? WebColors.fromString(color);
+    } else {
+      webColor = WebColors.fromString(color);
+    }
+
     if (webColor.isValid) {
       return '${webColor.name[0].toUpperCase()}${webColor.name.substring(1)}';
     }
@@ -35,7 +43,6 @@ class ColorUtils {
       return color;
     }
 
-    final colorValue = int.tryParse(color.substring(2), radix: 16);
     if (colorValue == null) {
       return color;
     }
