@@ -80,9 +80,12 @@ extension BBCodeExt on BBCodeEditorController {
   bool get isNotEmpty => !isEmpty;
 
   /// Convert current document to bbcode.
-  String toBBCode() {
+  String toBBCode({bool trimCR = true}) {
     final converter = DeltaToBBCode();
-    final ret = converter.convert(document.toDelta());
+    var ret = converter.convert(document.toDelta());
+    if (trimCR) {
+      ret = ret.replaceAll('\r', '');
+    }
     if (ret.endsWith('\n')) {
       return ret.substring(0, ret.length - 1);
     }
@@ -90,16 +93,23 @@ extension BBCodeExt on BBCodeEditorController {
   }
 
   /// Convert current document to quill delta.
-  String toQuillDelta() => jsonEncode(document.toDelta().toJson());
+  String toQuillDelta({bool trimCR = true}) {
+    final data = jsonEncode(document.toDelta().toJson());
+    return trimCR ? data.replaceAll('\r', '') : data;
+  }
 
   /// Insert [text] into current cursor position and format with [attr].
-  void insertFormattedText(String text, Attribute<dynamic> attr) {
+  void insertFormattedText(String text, Attribute<dynamic> attr, {bool trimCR = true}) {
+    final data = switch (trimCR) {
+      true => text.replaceAll('\r', ''),
+      false => text,
+    };
     final position = selection.baseOffset;
     final length = selection.extentOffset - position;
     this
-      ..replaceText(position, length, text, null)
-      ..formatText(position, text.length, attr)
-      ..moveCursorToPosition(position + text.length);
+      ..replaceText(position, length, data, null)
+      ..formatText(position, data.length, attr)
+      ..moveCursorToPosition(position + data.length);
   }
 
   /// Insert raw bbcode that has a [head] and [tail] and move cursor to the
@@ -136,8 +146,11 @@ extension BBCodeExt on BBCodeEditorController {
   }
 
   /// Insert bbcode text in the cursor position.
-  void insertBBCode(String bbcode) {
-    final code = bbcode.replaceAll('\r', '');
+  void insertBBCode(String bbcode, {bool trimCR = true}) {
+    final code = switch (trimCR) {
+      true => bbcode.replaceAll('\r', ''),
+      false => bbcode,
+    };
     final position = selection.baseOffset;
     final length = selection.extentOffset - position;
     var delta = parseBBCodeTextToDelta(code);
