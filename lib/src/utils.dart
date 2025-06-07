@@ -56,9 +56,9 @@ class ColorUtils {
       final sg = bbcodeColor.g;
       final sb = bbcodeColor.b;
       final sa = bbcodeColor.a;
-      final r = ((sr * sa + 0 * (1 - sa)) * 255).toInt().toRadixString(16);
-      final g = ((sg * sa + 0 * (1 - sa)) * 255).toInt().toRadixString(16);
-      final b = ((sb * sa + 0 * (1 - sa)) * 255).toInt().toRadixString(16);
+      final r = ((sr * sa + 0 * (1 - sa)) * 255).toInt().toRadixString(16).padLeft(2, '0');
+      final g = ((sg * sa + 0 * (1 - sa)) * 255).toInt().toRadixString(16).padLeft(2, '0');
+      final b = ((sb * sa + 0 * (1 - sa)) * 255).toInt().toRadixString(16).padLeft(2, '0');
       return '#$r$g$b';
     } else {
       return 'rgb(${(bbcodeColor.r * 255).toInt()}, '
