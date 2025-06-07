@@ -134,4 +134,28 @@ extension BBCodeExt on BBCodeEditorController {
       ..replaceText(position, length, embed, null)
       ..moveCursorToPosition(position + 1);
   }
+
+  /// Insert bbcode text in the cursor position.
+  void insertBBCode(String bbcode) {
+    final position = selection.baseOffset;
+    final length = selection.extentOffset - position;
+    var delta = parseBBCodeTextToDelta(bbcode);
+    final lastOp = delta.operations.lastOrNull;
+    if (lastOp == null) {
+      // Do noting if operation is empty.
+      return;
+    }
+    // Remove the trailing space because the space may be added by editor not user.
+    // Note that if user manually ends the text with '\n', we can not tell if the trailing '\n' is inserted by editor
+    // or not, this issue occurs everywhere we process text content.
+    if (lastOp.data != null && lastOp.data is String) {
+      final lastOpStr = lastOp.data! as String;
+      if (lastOpStr.length == 1 && lastOpStr.endsWith('\n')) {
+        delta = Delta.fromOperations(List.from(delta.operations)..removeLast());
+      }
+    }
+
+    replaceText(position, length, delta, null);
+    moveCursorToPosition(position);
+  }
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dart_bbcode_parser/dart_bbcode_parser.dart';
 import 'package:dart_bbcode_web_colors/dart_bbcode_web_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bbcode_editor/src/constants.dart';
