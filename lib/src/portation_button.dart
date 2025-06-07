@@ -100,7 +100,7 @@ Future<void> openPortationModalBottomSheet(BuildContext context, BBCodeEditorCon
                           return;
                         }
                         try {
-                          final delta = parseBBCodeTextToDelta(data);
+                          final delta = parseBBCodeTextToDelta(data.replaceAll('\r', ''));
                           controller.setDocumentFromDelta(delta);
                         } on Exception catch (e, _) {
                           _showInvalidBBCodeSnackBar(context);
@@ -143,7 +143,7 @@ Future<void> openPortationModalBottomSheet(BuildContext context, BBCodeEditorCon
                         }
 
                         try {
-                          controller.setDocumentFromJson(jsonDecode(data) as List<dynamic>);
+                          controller.setDocumentFromJson(jsonDecode(data.replaceAll('\r', '')) as List<dynamic>);
                         } on Exception catch (e, _) {
                           _showInvalidQuillDeltaSnackBar(context);
                           // Here we can not log it, so rethrow.

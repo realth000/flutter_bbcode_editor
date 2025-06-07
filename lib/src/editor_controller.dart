@@ -137,9 +137,10 @@ extension BBCodeExt on BBCodeEditorController {
 
   /// Insert bbcode text in the cursor position.
   void insertBBCode(String bbcode) {
+    final code = bbcode.replaceAll('\r', '');
     final position = selection.baseOffset;
     final length = selection.extentOffset - position;
-    var delta = parseBBCodeTextToDelta(bbcode);
+    var delta = parseBBCodeTextToDelta(code);
     final lastOp = delta.operations.lastOrNull;
     if (lastOp == null) {
       // Do noting if operation is empty.
