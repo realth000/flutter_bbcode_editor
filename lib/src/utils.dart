@@ -26,13 +26,26 @@ class ColorUtils {
   /// Convert into bbcode recognized color.
   static String toBBCodeColor(String color, {bool useHex = true}) {
     // Try use named color first.
-    final colorValue = int.tryParse(color.substring(1), radix: 16);
+    int? colorValue;
+
+    if (color.startsWith('#')) {
+      colorValue = int.tryParse(color.substring(1), radix: 16);
+    } else {
+      colorValue = int.tryParse(color, radix: 16);
+    }
+
     final WebColors webColor;
     if (colorValue != null) {
+      // WebColors all have alpha value, append the same value if not have it.
+      if (colorValue < 0xFF000000) {
+        colorValue += 0xFF000000;
+      }
       webColor = WebColors.values.firstWhereOrNull((e) => e.colorValue == colorValue) ?? WebColors.fromString(color);
     } else {
       webColor = WebColors.fromString(color);
     }
+
+    print('>>> WEB COLOR: $color => $webColor');
 
     if (webColor.isValid) {
       return '${webColor.name[0].toUpperCase()}${webColor.name.substring(1)}';
