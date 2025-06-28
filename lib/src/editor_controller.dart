@@ -98,6 +98,19 @@ extension BBCodeExt on BBCodeEditorController {
     return trimCR ? data.replaceAll('\r', '') : data;
   }
 
+  /// Insert plain [text] into current cursor position, no formatting, no attributes.
+  void insertPlainText(String text, {bool trimCR = true}) {
+    final data = switch (trimCR) {
+      true => text.replaceAll('\r', ''),
+      false => text,
+    };
+    final position = selection.baseOffset;
+    final length = selection.extentOffset - position;
+    this
+      ..replaceText(position, length, data, null)
+      ..moveCursorToPosition(position + data.length);
+  }
+
   /// Insert [text] into current cursor position and format with [attr].
   void insertFormattedText(String text, Attribute<dynamic> attr, {bool trimCR = true}) {
     final data = switch (trimCR) {
