@@ -47,6 +47,9 @@ final AttrHandlerMap defaultBlockAttrHandlers = {
   ),
 };
 
+/// All embed types that can not have other attributes attached in the same operation.
+const embedExcludeStyleTypes = [BBCodeSpoilerV2Keys.headerType, BBCodeSpoilerV2Keys.tailType];
+
 /// Default attribute handlers for embed nodes.
 ///
 /// Embed is a kind of node that represent in another form (like image).
@@ -367,8 +370,10 @@ class DeltaToBBCode extends Converter<Delta, String> implements _NodeVisitor<Str
     // Use the temporary text to hold text attributes on current embed node.
     // Split embed text because `QuillText` does not allow line wraps.
     embedOut.toString().split('\n').map(QuillText.new).forEach((e) {
-      for (final attr in embed.attrs()) {
-        e.applyAttribute(attr);
+      if (!embedExcludeStyleTypes.contains(embed.value.type)) {
+        for (final attr in embed.attrs()) {
+          e.applyAttribute(attr);
+        }
       }
       _handleTextAttribute(defaultTextAttrHandlers, e, out, out.write);
     });
