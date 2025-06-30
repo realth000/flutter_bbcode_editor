@@ -47,18 +47,24 @@ final class BBCodeHideV2TailEmbedBuilder extends EmbedBuilder {
 
     return EmbedPieceContainer(
       pieceType: EmbedPieceType.tail,
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Row(
-          children: [
-            Icon(Icons.visibility_off_outlined, color: primaryColor),
-            const SizedBox(width: 8),
-            Text(tr.hideV2, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
-            const SizedBox(width: 8),
-            Flexible(child: Text(tr.hideV2TailTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
-            Icon(Icons.arrow_drop_up_outlined, color: outlineColor),
-          ],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.visibility_off_outlined, color: primaryColor),
+              const SizedBox(width: 8),
+              Text(tr.hideV2, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
+              const SizedBox(width: 8),
+              Flexible(child: Text(tr.hideV2TailTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+              Icon(Icons.keyboard_arrow_left_outlined, color: outlineColor),
+            ],
+          ),
+          const SizedBox(height: 8),
+          const Row(mainAxisSize: MainAxisSize.min, children: [Text('')]),
+        ],
       ),
     );
   }
@@ -118,34 +124,33 @@ class _HideV2HeaderState extends State<_HideV2Header> {
           )
           ..moveCursorToPosition(offset + 1);
       },
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.visibility_off_outlined, color: primaryColor),
-                const SizedBox(width: 8),
-                Text(tr.hideV2, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
-                const SizedBox(width: 8),
-                Flexible(child: Text(tr.hideV2HeaderTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
-                Icon(Icons.arrow_drop_down_outlined, color: outlineColor),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                if (points > 0) ...[
-                  Text(tr.hideV2HeaderPointsRequired, style: textTheme.labelSmall?.copyWith(color: outlineColor)),
-                  Expanded(child: Text('$points', style: textTheme.bodyMedium?.copyWith(color: primaryColor))),
-                ] else
-                  Text(tr.hideV2HeaderReplyRequired, style: textTheme.bodyMedium?.copyWith(color: primaryColor)),
-              ],
-            ),
-          ],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.visibility_off_outlined, color: primaryColor),
+              const SizedBox(width: 8),
+              Text(tr.hideV2, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
+              const SizedBox(width: 8),
+              Flexible(child: Text(tr.hideV2HeaderTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+              Icon(Icons.keyboard_arrow_right_outlined, color: outlineColor),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (points > 0) ...[
+                Text(tr.hideV2HeaderPointsRequired, style: textTheme.labelSmall?.copyWith(color: outlineColor)),
+                Flexible(child: Text('$points', style: textTheme.bodyMedium?.copyWith(color: primaryColor))),
+              ] else
+                Text(tr.hideV2HeaderReplyRequired, style: textTheme.bodyMedium?.copyWith(color: primaryColor)),
+            ],
+          ),
+        ],
       ),
     );
   }

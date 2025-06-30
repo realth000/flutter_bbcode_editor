@@ -68,6 +68,6 @@
   "hideV2EditPointsNotEmpty": "Points can not be empty",
   "divider": "Divider",
   "free": "Free area",
-  "freeHeaderTip": "Contents below are visible without purchase",
-  "freeTailTip": "Contents above are visible without purchase"
+  "freeHeaderTip": "Contents after are visible without purchase",
+  "freeTailTip": "Contents before are visible without purchase"
 }

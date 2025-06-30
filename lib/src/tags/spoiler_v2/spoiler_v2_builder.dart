@@ -61,18 +61,24 @@ final class BBCodeSpoilerV2TailEmbedBuilder extends EmbedBuilder {
 
     return EmbedPieceContainer(
       pieceType: EmbedPieceType.tail,
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Row(
-          children: [
-            Icon(Icons.expand_outlined, color: primaryColor),
-            const SizedBox(width: 8),
-            Text(tr.spoiler, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
-            const SizedBox(width: 8),
-            Flexible(child: Text(tr.spoilerV2TailTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
-            Icon(Icons.arrow_drop_up_outlined, color: outlineColor),
-          ],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.expand_outlined, color: primaryColor),
+              const SizedBox(width: 8),
+              Text(tr.spoiler, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
+              const SizedBox(width: 8),
+              Flexible(child: Text(tr.spoilerV2TailTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+              Icon(Icons.keyboard_arrow_left_outlined, color: outlineColor),
+            ],
+          ),
+          const SizedBox(height: 8),
+          const Row(mainAxisSize: MainAxisSize.min, children: [Text('')]),
+        ],
       ),
     );
   }
@@ -131,33 +137,30 @@ class _SpoilerV2HeaderState extends State<_SpoilerV2Header> {
           )
           ..moveCursorToPosition(offset + 1);
       },
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.expand_outlined, color: primaryColor),
-                const SizedBox(width: 8),
-                Text(tr.spoiler, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
-                const SizedBox(width: 8),
-                Flexible(
-                  child: Text(tr.spoilerV2HeaderTip, style: textTheme.labelSmall?.copyWith(color: outlineColor)),
-                ),
-                Icon(Icons.arrow_drop_down_outlined, color: outlineColor),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Text(tr.spoilerV2HeaderTitleTip, style: textTheme.labelSmall?.copyWith(color: outlineColor)),
-                Expanded(child: Text(title, style: textTheme.bodyMedium?.copyWith(color: primaryColor))),
-              ],
-            ),
-          ],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.expand_outlined, color: primaryColor),
+              const SizedBox(width: 8),
+              Text(tr.spoiler, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
+              const SizedBox(width: 8),
+              Flexible(child: Text(tr.spoilerV2HeaderTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+              Icon(Icons.keyboard_arrow_right_outlined, color: outlineColor),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(tr.spoilerV2HeaderTitleTip, style: textTheme.labelSmall?.copyWith(color: outlineColor)),
+              Flexible(child: Text(title, style: textTheme.bodyMedium?.copyWith(color: primaryColor))),
+            ],
+          ),
+        ],
       ),
     );
   }

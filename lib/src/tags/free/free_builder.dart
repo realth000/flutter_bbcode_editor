@@ -26,18 +26,16 @@ final class BBCodeFreeHeaderEmbedBuilder extends EmbedBuilder {
 
     return EmbedPieceContainer(
       pieceType: EmbedPieceType.header,
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Row(
-          children: [
-            Icon(Icons.money_off_outlined, color: primaryColor),
-            const SizedBox(width: 8),
-            Text(tr.free, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
-            const SizedBox(width: 8),
-            Flexible(child: Text(tr.freeHeaderTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
-            Icon(Icons.arrow_drop_down_outlined, color: outlineColor),
-          ],
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.money_off_outlined, color: primaryColor),
+          const SizedBox(width: 8),
+          Text(tr.free, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
+          const SizedBox(width: 8),
+          Flexible(child: Text(tr.freeHeaderTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+          Icon(Icons.keyboard_arrow_right_outlined, color: outlineColor),
+        ],
       ),
     );
   }
@@ -65,18 +63,16 @@ final class BBCodeFreeTailEmbedBuilder extends EmbedBuilder {
 
     return EmbedPieceContainer(
       pieceType: EmbedPieceType.tail,
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Row(
-          children: [
-            Icon(Icons.money_off_outlined, color: primaryColor),
-            const SizedBox(width: 8),
-            Text(tr.free, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
-            const SizedBox(width: 8),
-            Flexible(child: Text(tr.freeTailTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
-            Icon(Icons.arrow_drop_up_outlined, color: outlineColor),
-          ],
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.money_off_outlined, color: primaryColor),
+          const SizedBox(width: 8),
+          Text(tr.free, style: textTheme.titleMedium?.copyWith(color: primaryColor)),
+          const SizedBox(width: 8),
+          Flexible(child: Text(tr.freeTailTip, style: textTheme.labelSmall?.copyWith(color: outlineColor))),
+          Icon(Icons.keyboard_arrow_left_outlined, color: outlineColor),
+        ],
       ),
     );
   }

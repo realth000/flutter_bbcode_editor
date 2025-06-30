@@ -45,8 +45,6 @@ class ColorUtils {
       webColor = WebColors.fromString(color);
     }
 
-    print('>>> WEB COLOR: $color => $webColor');
-
     if (webColor.isValid) {
       return '${webColor.name[0].toUpperCase()}${webColor.name.substring(1)}';
     }

@@ -36,11 +36,11 @@ class EmbedPieceContainer extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.zero,
         color: Theme.of(context).colorScheme.surfaceContainerHigh,
-        shape: ContinuousRectangleBorder(
-          borderRadius:
-              pieceType == EmbedPieceType.header
-                  ? const BorderRadius.vertical(top: Radius.circular(24))
-                  : const BorderRadius.vertical(bottom: Radius.circular(24)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          // pieceType == EmbedPieceType.header
+          //     ? const BorderRadius.all(Radius.circular(8))
+          //     : const BorderRadius.all(Radius.circular(8)),
         ),
         // shape: const Border(),
         clipBehavior: Clip.hardEdge,

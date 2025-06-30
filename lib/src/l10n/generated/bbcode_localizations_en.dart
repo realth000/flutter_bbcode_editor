@@ -216,8 +216,8 @@ class BBCodeEditorLocalizationsEn extends BBCodeEditorLocalizations {
   String get free => 'Free area';
 
   @override
-  String get freeHeaderTip => 'Contents below are visible without purchase';
+  String get freeHeaderTip => 'Contents after are visible without purchase';
 
   @override
-  String get freeTailTip => 'Contents above are visible without purchase';
+  String get freeTailTip => 'Contents before are visible without purchase';
 }

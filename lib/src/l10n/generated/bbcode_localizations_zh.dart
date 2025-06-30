@@ -135,13 +135,13 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
   String get spoilerV2 => '折叠区域';
 
   @override
-  String get spoilerV2HeaderTip => '以下内容可被折叠';
+  String get spoilerV2HeaderTip => '后续内容可被折叠';
 
   @override
   String get spoilerV2HeaderTitleTip => '标题：';
 
   @override
-  String get spoilerV2TailTip => '以上内容可被折叠';
+  String get spoilerV2TailTip => '先前内容可被折叠';
 
   @override
   String get spoilerV2EditTitle => '编辑折叠区域标题';
@@ -186,7 +186,7 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
   String get hideV2 => '隐藏区域';
 
   @override
-  String get hideV2HeaderTip => '以下内容会被隐藏';
+  String get hideV2HeaderTip => '后续内容会被隐藏';
 
   @override
   String get hideV2HeaderPointsRequired => '需要积分：';
@@ -195,7 +195,7 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
   String get hideV2HeaderReplyRequired => '回复后内容可见';
 
   @override
-  String get hideV2TailTip => '以上内容会被隐藏';
+  String get hideV2TailTip => '先前内容会被隐藏';
 
   @override
   String get hideV2EditPoints => '编辑可见要求的积分';
@@ -216,10 +216,10 @@ class BBCodeEditorLocalizationsZh extends BBCodeEditorLocalizations {
   String get free => '免费区域';
 
   @override
-  String get freeHeaderTip => '以下内容在购买前可见';
+  String get freeHeaderTip => '后续内容在购买前可见';
 
   @override
-  String get freeTailTip => '以上内容在购买前可见';
+  String get freeTailTip => '先前内容在购买前可见';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -353,13 +353,13 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
   String get spoilerV2 => '折疊區域';
 
   @override
-  String get spoilerV2HeaderTip => '以下內容可折疊';
+  String get spoilerV2HeaderTip => '後續內容可被折疊';
 
   @override
   String get spoilerV2HeaderTitleTip => '標題：';
 
   @override
-  String get spoilerV2TailTip => '以上內容可折疊';
+  String get spoilerV2TailTip => '先前內容可折疊';
 
   @override
   String get spoilerV2EditTitle => '編輯折疊區域標題';
@@ -404,7 +404,7 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
   String get hideV2 => '隱藏區域';
 
   @override
-  String get hideV2HeaderTip => '以下內容會被隱藏';
+  String get hideV2HeaderTip => '後續內容會被隱藏';
 
   @override
   String get hideV2HeaderPointsRequired => '需要積分：';
@@ -413,7 +413,7 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
   String get hideV2HeaderReplyRequired => '回復後內容可見';
 
   @override
-  String get hideV2TailTip => '以上內容會被隱藏';
+  String get hideV2TailTip => '先前內容會被隱藏';
 
   @override
   String get hideV2EditPoints => '編輯可見要求的積分';
@@ -434,8 +434,8 @@ class BBCodeEditorLocalizationsZhHant extends BBCodeEditorLocalizationsZh {
   String get free => '免費區域';
 
   @override
-  String get freeHeaderTip => '以下內容在購買前可見';
+  String get freeHeaderTip => '後續內容購買前可見';
 
   @override
-  String get freeTailTip => '以上內容在購買前可見';
+  String get freeTailTip => '先前內容在購買前可見';
 }
