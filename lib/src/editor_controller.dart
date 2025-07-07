@@ -42,6 +42,13 @@ extension BBCodeExt on BBCodeEditorController {
   void setDocumentFromDelta(Delta delta) {
     if (delta.isEmpty) {
       delta.insert('\n');
+    } else {
+      // Make sure delta ended with new line.
+      final lastOp = delta.operations.lastOrNull;
+      final lastOpData = lastOp?.data;
+      if (lastOp == null || lastOp.data == null || lastOpData is! String || !lastOpData.endsWith('\n')) {
+        delta.operations.add(Operation.insert('\n'));
+      }
     }
 
     document = Document.fromDelta(delta);
