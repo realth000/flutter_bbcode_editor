@@ -182,7 +182,10 @@ extension BBCodeExt on BBCodeEditorController {
     // Remove the trailing space because the space may be added by editor not user.
     // Note that if user manually ends the text with '\n', we can not tell if the trailing '\n' is inserted by editor
     // or not, this issue occurs everywhere we process text content.
-    if (lastOp.data != null && lastOp.data is String) {
+    //
+    // Do not remove the trailing '\n' if the operation has attribute: where it's definitely not added by editor for
+    // format purpose.
+    if ((lastOp.attributes?.isEmpty ?? true) && lastOp.data != null && lastOp.data is String) {
       final lastOpStr = lastOp.data! as String;
       if (lastOpStr.length == 1 && lastOpStr.endsWith('\n')) {
         delta = Delta.fromOperations(List.from(delta.operations)..removeLast());
