@@ -7,6 +7,7 @@ export 'src/editor.dart'
         BBCodeEditorToolbar,
         BBCodeExt,
         BBCodeUrlPicker,
+        BBCodePortationButtonClickedCallback,
         PickColorResult,
         PickUrlResult,
         buildBBCodeEditorController;

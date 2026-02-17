@@ -1,5 +1,9 @@
 part of 'editor.dart';
 
+/// Function as portation button clicked callback.
+typedef BBCodePortationButtonClickedCallback =
+    FutureOr<void> Function(BuildContext context, BBCodeEditorController controller);
+
 /// Alias type.
 typedef BBCodeEditorController = QuillController;
 
@@ -97,6 +101,21 @@ extension BBCodeExt on BBCodeEditorController {
       return ret.substring(0, ret.length - 1);
     }
     return ret;
+  }
+
+  /// Convert current document to quill delta json object.
+  List<Map<String, dynamic>> toQuillDeltaJson({bool trimCR = true}) {
+    if (!trimCR) {
+      return document.toDelta().toJson();
+    }
+
+    return document
+        .toDelta()
+        .operations
+        .map(
+          (op) => jsonDecode(jsonEncode(op.toJson()).replaceAll('\r', '')) as Map<String, dynamic>,
+        )
+        .toList();
   }
 
   /// Convert current document to quill delta.

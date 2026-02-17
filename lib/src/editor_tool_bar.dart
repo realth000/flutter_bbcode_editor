@@ -60,6 +60,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
     BBCodeUrlPicker? urlPicker,
     BBCodeImagePicker? imagePicker,
     BBCodeUsernamePicker? usernamePicker,
+    BBCodePortationButtonClickedCallback? onPortationButtonClicked,
     String? host,
     this.showUndo = true,
     this.showRedo = true,
@@ -101,6 +102,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
        _urlPicker = urlPicker,
        _imagePicker = imagePicker,
        _usernamePicker = usernamePicker,
+       _onPortationButtonClicked = onPortationButtonClicked,
        _host = host;
 
   final BBCodeEditorController _controller;
@@ -112,6 +114,7 @@ class BBCodeEditorToolbar extends StatefulWidget {
   final BBCodeUrlPicker? _urlPicker;
   final BBCodeImagePicker? _imagePicker;
   final BBCodeUsernamePicker? _usernamePicker;
+  final BBCodePortationButtonClickedCallback? _onPortationButtonClicked;
 
   /// The focus node shared with editor.
   final FocusNode? focusNode;
@@ -565,7 +568,10 @@ class _BBCodeEditorToolbarState extends State<BBCodeEditorToolbar> {
                   controller: controller,
                   options: BBCodePortationButtonOptions(
                     tooltip: context.bbcodeL10n.portationTitle,
-                    onPressed: () async => openPortationModalBottomSheet(context, widget._controller),
+                    onPressed:
+                        widget._onPortationButtonClicked != null
+                            ? () async => widget._onPortationButtonClicked!(context, widget._controller)
+                            : () async => openPortationModalBottomSheet(context, widget._controller),
                   ),
                   baseOptions: baseOptions,
                 ),
