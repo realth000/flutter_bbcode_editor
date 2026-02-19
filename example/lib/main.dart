@@ -39,8 +39,7 @@ Future<String?> _emojiPicker(BuildContext context) {
                           // Here assumes format as [emoji=$code].
                           // Keep the same process when converting emoji code
                           // to emoji image then everything is ok.
-                          Navigator.of(context)
-                              .pop('[emoji=${Icons.add.codePoint}]');
+                          Navigator.of(context).pop('[emoji=${Icons.add.codePoint}]');
                         },
                         child: CircleAvatar(child: Icon(e))),
                   )
@@ -157,11 +156,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return [
       BBCodeEditorToolbar(
         controller: controller,
-        config: const BBCodeEditorToolbarConfiguration(
-          fontFamilyValues: {
-            'Arial': 'Arial',
-          },
-        ),
         emojiPicker: (context) async => _emojiPicker(context),
         urlPicker: (context, url, desc) async => _urlPicker(context, url, desc),
       ),
@@ -182,8 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
               emojiProvider: (context, code) {
                 // Assume emoji code format is [emoji=].
                 // Keep the same format with what we define in emojiPicker.
-                final codeValue = int.parse(
-                    code.replaceFirst('[emoji=', '').replaceFirst(']', ''));
+                final codeValue = int.parse(code.replaceFirst('[emoji=', '').replaceFirst(']', ''));
 
                 if (codeValue == Icons.add.codePoint) {
                   return const Icon(Icons.add);
@@ -217,10 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     focusNode = FocusNode();
-    controller = buildBBCodeEditorController(
-      focusNode: focusNode,
-      initialText: 'some text to show\n',
-    );
+    controller = buildBBCodeEditorController(initialText: 'some text to show\n');
   }
 
   @override
@@ -268,8 +258,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       return;
                     }
 
-                    final json =
-                        await File(result.files.single.path!).readAsString();
+                    final json = await File(result.files.single.path!).readAsString();
                     final code = jsonDecode(json);
                     if (code is! List<dynamic>) {
                       debugPrint('invalid json data type: ${code.runtimeType}');

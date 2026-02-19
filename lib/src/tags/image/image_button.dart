@@ -6,7 +6,9 @@ import 'package:flutter_bbcode_editor/src/l10n/l10n_widget.dart';
 import 'package:flutter_bbcode_editor/src/tags/image/image_embed.dart';
 import 'package:flutter_bbcode_editor/src/types.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:flutter_quill/internal.dart';
+// Use i18n strings.
+// ignore: experimental_member_use
+import 'package:flutter_quill/internal.dart' show LocalizationsExt;
 
 final _imageSizeFormatters = [FilteringTextInputFormatter.allow(RegExp('[0-9]+'))];
 
